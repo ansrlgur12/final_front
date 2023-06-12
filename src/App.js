@@ -10,10 +10,7 @@ function App() {
     <div className="App">
       <Header/>
       <MainPage />
-{/*       
-      <Navbar/>
-      <Map />
-       */}
+
 
     </div>
   );
