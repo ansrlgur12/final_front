@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logoImg from "../images/CAMO로고.png"
+import { useNavigate } from "react-router-dom";
 
 const HeaderStyle = styled.div`
     box-sizing: border-box;
@@ -46,10 +47,15 @@ const HeaderStyle = styled.div`
         width: 50px;
         height: 50px;
     }
+    .menu1:hover,.menu2:hover,.menu3:hover,.menu4:hover{
+        cursor: pointer;
+        opacity: 0.5;
+    }
     
 `;
 
 const Header = () =>{
+    const nav = useNavigate();
     
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,
@@ -70,7 +76,7 @@ const Header = () =>{
                                 <li className="menu1">오지・노지</li>
                                 <li className="menu2">캠핑장</li>
                                 <li className="menu3">캠핑정보</li>
-                                <li className="menu4">쇼핑</li>
+                                <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                             </ul>
                         </nav>
                     </div>
