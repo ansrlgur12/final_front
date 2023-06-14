@@ -73,7 +73,7 @@ const Header = () =>{
                     <div className="menu">
                         <nav className="navibar">
                             <ul className="navContainer">
-                                <li className="menu1">오지・노지</li>
+                                <li className="menu1" onClick={()=>nav("/mapMain")}>오지・노지</li>
                                 <li className="menu2">캠핑장</li>
                                 <li className="menu3">캠핑정보</li>
                                 <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
