@@ -95,7 +95,7 @@ const ShopCategory = ({ onCategoryChange }) => {
         {icon: faBed, name: '침낭'},
         {icon: faLightbulb, name: '라이트'},
         {icon: faKitchenSet, name: '키친'},
-        {icon: faChair, name: '의자'},
+        {icon: faChair, name: '캠핑가구'},
         {icon: faBox, name: '수납용품'},
         {icon: faScrewdriverWrench, name: '공구'},
         {icon: faFireBurner, name: 'BBQ'},
@@ -110,7 +110,7 @@ const ShopCategory = ({ onCategoryChange }) => {
        
         <div className="grid-item" key={index}>
           <button onClick={() => onCategoryChange(item.name.toLowerCase())}>
-            <FontAwesomeIcon icon={item.icon} />
+            <FontAwesomeIcon icon={item.icon} size='lg' />
             <div className='itemName'>{item.name}</div>
 
             

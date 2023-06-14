@@ -402,7 +402,7 @@ const SliderContainer = ({ selectedCategory }) => {
      </div>
      </div>
     }
-     {selectedCategory === '의자' && 
+     {selectedCategory === '캠핑가구' && 
    <div className="tentCategory">
     <div className="cardSlide">
     <h3>의자</h3>
