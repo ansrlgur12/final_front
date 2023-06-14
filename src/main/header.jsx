@@ -24,7 +24,9 @@ const HeaderStyle = styled.div`
     .logoImage {
         width: 280px;
         height: 120px;
+        cursor: pointer;
     }
+    
     .navContainer{
         display: flex;
     }
@@ -68,7 +70,7 @@ const Header = () =>{
             <HeaderStyle>
                 <div className="headerContainer">
                     <div className="logo">
-                        <div className="logoImage logo" style={logoImage}></div>
+                        <div className="logoImage logo" style={logoImage} onClick={()=>nav("/")}></div>
                     </div>
                     <div className="menu">
                         <nav className="navibar">
