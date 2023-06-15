@@ -36,7 +36,7 @@ export default function KakaoMap(props) {
         setKakaoMap(map);
       });
     };
-  }, [container]);
+  }, []);
 
   useEffect(() => { // 지도를 띄우는 역할
     if (kakaoMap === null) {
@@ -53,7 +53,6 @@ export default function KakaoMap(props) {
     if (kakaoMap === null) {
       return;
     }
-
     const positions = markerPositions.map(pos => new kakao.maps.LatLng(...pos));
 
     setMarkers(markers => {
@@ -111,9 +110,14 @@ export default function KakaoMap(props) {
         });
 
         kakao.maps.event.addListener(marker, 'click', () => {
+          kakaoMap.setLevel(2);
           console.log('Marker clicked');
           infowindow.setMap(null)
           overlay.setMap(kakaoMap);
+
+          const markerPosition = marker.getPosition();
+          kakaoMap.setCenter(markerPosition);
+          kakaoMap.relayout();
         });
 
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
@@ -135,5 +139,7 @@ export default function KakaoMap(props) {
     }
   }, [kakaoMap, markerPositions]);
 
-  return <div id="container" ref={container} />;
+  return(
+    <div id="container" ref={container} />
+  );
 }
