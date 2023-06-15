@@ -27,7 +27,8 @@ export default function KakaoMap(props) {
         const center = new kakao.maps.LatLng(37.50802, 127.062835);
         const options = {
           center,
-          level: 10
+          level: 10,
+          maxLevel: 13
         };
         const map = new kakao.maps.Map(container.current, options);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
