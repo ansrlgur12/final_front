@@ -5,10 +5,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
-
 import{Keyboard,  Navigation, Pagination } from "swiper";
-
+import { IconButton } from "@material-ui/core";
+import { Favorite, AddShoppingCart } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 const SwiperStyle = styled.div`
 
@@ -21,22 +21,55 @@ const SwiperStyle = styled.div`
 
   }
   .swiper-slide{
+    position: relative;
     background-position: center;
     background-size: cover;
     width: 200px;
     height: 200px;
- 
-   
+    border: none;
+  }
+  .swiper-slide:before{
+    content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  
+  background-color:rgba(0,0,0,0);
+  }
+  .swiper-slide:hover::before {
+  
+    border-radius: 8px;
+  background-color:#ede5e5;
+  opacity: 0.8;
+    
+    transition: all 0.4s ease-out;
+}
+  .swiper-slide:hover button{
+  display: block;
+}
+  
+  .swiper-slide button{
+    position:absolute;
+  transform: translate(-50%, -50%);
+  display: none;
+  }
+  .swiper-slide button.btn{
+    top:50%;
+    right:50%;
+  }
+  .swiper-slide button.btn2{
+    top:50%;
+    right:10%;
   }
   .swiper-slide img{
     display: block;
     width: 100%;
+    height: 100%;
     border-radius: 8px;
+    overflow: hidden;
+     
   }
-  .swiper-slide :hover{
-    cursor: pointer;
-    opacity: 0.5;
-  }
+  
   .swiper-scrollbar{
     display: none;
 
@@ -61,9 +94,9 @@ const SwiperStyle = styled.div`
   font-weight: 600 !important;
   margin-bottom: 10px;
 }
-  .cardSlide{
-    border:none;
-  }
+  
+  
+ 
  
   
   
@@ -77,15 +110,31 @@ const SwiperStyle = styled.div`
 
 
 const SliderContainer = ({ selectedCategory }) => {
-  
-  
+
+   const IconButtons = () =>{
+    return(
+      <>
+     <Tooltip title="찜 하기">
+    <IconButton className="btn" color="secondary" aria-label="favorite" >
+    <Favorite/>
+  </IconButton>
+  </Tooltip>
+  <Tooltip title="장바구니 담기">
+  <IconButton className="btn2" color="primary" aria-label="add to shopping cart" >
+  <AddShoppingCart fontSize="inherit"/>
+</IconButton>
+</Tooltip>
+</>
+  )
+
+  }
   return (
     
     <SwiperStyle>
       {selectedCategory === '텐트' && 
    <div className="tentCategory">
     <div className="cardSlide">
-    <h3>1~2인용 텐트</h3>
+    <h3>1~2인용 텐트 </h3>
     <Swiper
       loop ={true}
       
@@ -98,13 +147,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-    
+      
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       
  
     </Swiper>
     
@@ -123,12 +173,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -150,12 +200,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -177,13 +227,12 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-      
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -203,12 +252,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -230,12 +279,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -258,12 +307,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -283,12 +332,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -310,12 +359,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -337,13 +386,12 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-      
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -363,12 +411,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -390,12 +438,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -418,12 +466,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -443,13 +491,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-     
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
   
      </Swiper>
      
@@ -470,12 +517,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -498,12 +545,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -523,14 +570,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-     
-  
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      </Swiper>
      
      </div>
@@ -550,12 +595,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -578,12 +623,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -603,13 +648,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-     
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
   
      </Swiper>
      
@@ -630,12 +674,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -657,13 +701,12 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-      
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+     <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -683,12 +726,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -710,12 +753,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -738,12 +781,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -763,12 +806,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -790,13 +833,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-     
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
   
      </Swiper>
      </div>
@@ -818,12 +860,12 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-      <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+      <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
     
  
     </Swiper>
@@ -843,12 +885,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>
@@ -870,12 +912,12 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /></SwiperSlide>
+       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
      
   
      </Swiper>

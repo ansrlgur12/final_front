@@ -14,10 +14,12 @@ import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
 
+
 function App() {
   return (
     <div className="App">
       <Router>
+
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='/shopMain' element={<ShopMain />} />
@@ -31,6 +33,7 @@ function App() {
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
           </Routes>
+
       </Router>
     </div>
   );
