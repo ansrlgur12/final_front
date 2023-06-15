@@ -5,22 +5,60 @@ import backImg2 from "../images/backgroundimg2.jpg";
 import backImg3 from "../images/backgroundimg3.jpg";
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import{  Navigation, Pagination } from "swiper";
+import{ Autoplay, Navigation, Pagination } from "swiper";
 
 
 export const Section1 = styled.div`
     width: 100vw;
-    /* margin-top: 10px; */
-    padding-top: 10px;
-    .backImgs{
-        background-size: cover;
-        /* position: absolute; */
-    }
-    
+    padding-top: 10px;    
+`;
+export const BackImg = styled.img`
+    width: 100vw;
+    height: auto;
 `;
 
 const MainSection1 = () => {
-    const [ImgIndex, setImgIndex] = useState(0);
+
+    return (
+        <Section1>
+            <div className='backImg'>
+                <Swiper
+                loop = {true}
+
+                modules = {[Navigation, Pagination]}
+                spaceBetween={0}
+                slidesPerView={1}
+                navigation
+
+                scrollbar={{ draggable: true}}
+                >
+                    <SwiperSlide><img src={backImg1} alt="" style={BackImg}/></SwiperSlide>
+                    <SwiperSlide><img src={backImg2} alt="" style={BackImg}/></SwiperSlide>
+                    <SwiperSlide><img src={backImg3} alt="" style={BackImg}/></SwiperSlide>
+                {/* 
+                    <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
+                    <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>
+                    <SwiperSlide>{ImgIndex === 2 && <img src={backImgs3} alt="" className='backImgs'/>}</SwiperSlide>
+                 */}
+                </Swiper>
+            </div>
+            <section></section>
+        </Section1>
+    );
+};
+
+export default MainSection1;
+
+
+
+
+
+
+
+
+// 임시로 빼두었던 코드
+/*
+const [ImgIndex, setImgIndex] = useState(0);
     const [opacity, setOpacity] = useState(1);
 
     // 배경 화면 변경
@@ -80,33 +118,4 @@ const MainSection1 = () => {
         opacity: ImgIndex === 2 ? opacity : 0, // 현재 인덱스에 해당하는 이미지에만 투명도 적용
         transition: 'opacity 1s ease-in-out' // 페이드 인/아웃 애니메이션 효과 적용
     };
-
-    return (
-        <Section1>
-            <div className='backImg'>
-                <Swiper
-                loop = {true}
-
-                modules = {[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation
-
-                scrollbar={{ draggable: true}}
-                >
-                    <SwiperSlide><div className='backImgs'><img src={backImg1} alt=""/></div></SwiperSlide>
-                    <SwiperSlide><div className='backImgs'><img src={backImg2} alt=""/></div></SwiperSlide>
-                    <SwiperSlide><div className='backImgs'><img src={backImg3} alt=""/></div></SwiperSlide>
-                {/* 
-                    <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 2 && <img src={backImgs3} alt="" className='backImgs'/>}</SwiperSlide>
-                 */}
-                </Swiper>
-            </div>
-            <section></section>
-        </Section1>
-    );
-};
-
-export default MainSection1;
+    */
