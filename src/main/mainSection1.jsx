@@ -14,7 +14,7 @@ export const Section1 = styled.div`
 `;
 export const BackImg = styled.img`
     width: 100vw;
-    height: auto;
+    height: 1024px;
 `;
 
 const MainSection1 = () => {
@@ -29,12 +29,13 @@ const MainSection1 = () => {
                 spaceBetween={0}
                 slidesPerView={1}
                 navigation
+                autoplay
 
                 scrollbar={{ draggable: true}}
                 >
-                    <SwiperSlide><img src={backImg1} alt="" style={BackImg}/></SwiperSlide>
-                    <SwiperSlide><img src={backImg2} alt="" style={BackImg}/></SwiperSlide>
-                    <SwiperSlide><img src={backImg3} alt="" style={BackImg}/></SwiperSlide>
+                    <SwiperSlide><img src={backImg1} alt=""/></SwiperSlide>
+                    <SwiperSlide><img src={backImg2} alt=""/></SwiperSlide>
+                    <SwiperSlide><img src={backImg3} alt=""/></SwiperSlide>
                 {/* 
                     <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
                     <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>

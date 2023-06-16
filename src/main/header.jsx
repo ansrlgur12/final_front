@@ -26,6 +26,7 @@ const HeaderStyle = styled.div`
         height: 80px;
         cursor: pointer;
     }
+    
     .navContainer{
         display: flex;
     }
@@ -45,9 +46,12 @@ const HeaderStyle = styled.div`
     .myProfile {
         border: 1px solid black;
         border-radius: 50%;
-        width: 50px;
+        width: 70px;
         height: 50px;
-    }
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+      }
     .menu1:hover,.menu2:hover,.menu3:hover,.menu4:hover{
         cursor: pointer;
         opacity: 0.5;
@@ -85,7 +89,7 @@ const Header = () =>{
                         <div>
                             <input type="search" />
                         </div>
-                        <div className="myProfile"></div>
+                        <div className="myProfile" onClick={()=>nav("/myPage")}>mypage 임시</div>
                         <div>로그아웃</div>
                     </div>
                 </div>
