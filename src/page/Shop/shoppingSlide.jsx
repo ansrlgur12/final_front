@@ -6,9 +6,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import{Keyboard,  Navigation, Pagination } from "swiper";
-import { IconButton } from "@material-ui/core";
-import { Favorite, AddShoppingCart } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { Favorite, AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-material";
+import { IconButton, Tooltip } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 const SwiperStyle = styled.div`
 
@@ -61,6 +61,10 @@ const SwiperStyle = styled.div`
     top:50%;
     right:10%;
   }
+  .swiper-slide button.btn3{
+    top:88%;
+    right:-5%;
+  }  
   .swiper-slide img{
     display: block;
     width: 100%;
@@ -110,18 +114,23 @@ const SwiperStyle = styled.div`
 
 
 const SliderContainer = ({ selectedCategory }) => {
-
-   const IconButtons = () =>{
+  const nav = useNavigate();
+     const IconButtons = () =>{
     return(
       <>
      <Tooltip title="찜 하기">
     <IconButton className="btn" color="secondary" aria-label="favorite" >
-    <Favorite/>
+    <Favorite />
   </IconButton>
   </Tooltip>
   <Tooltip title="장바구니 담기">
   <IconButton className="btn2" color="primary" aria-label="add to shopping cart" >
-  <AddShoppingCart fontSize="inherit"/>
+  <AddShoppingCart />
+</IconButton>
+</Tooltip>
+<Tooltip title="구매 페이지 이동" placement="top">
+  <IconButton className="btn3"  aria-label="add to shopping cart" onClick={()=>nav("/ProductDetailForm")} >
+  <ArrowCircleRightOutlined />
 </IconButton>
 </Tooltip>
 </>
