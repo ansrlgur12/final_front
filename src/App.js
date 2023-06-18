@@ -13,6 +13,7 @@ import OrderedProduct from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
+import Intro from './main/intro';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
           <Routes>
             <Route path='/' element={<MainPage />} />
+            <Route path='/intro' element={<Intro/>} />
             <Route path='/shopMain' element={<ShopMain />} />
             <Route path='/mapMain' element={<MapMain />} />
             <Route path='/myPage' element={<MyPage />} />
