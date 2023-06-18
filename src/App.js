@@ -15,8 +15,10 @@ import Delete from './page/MyPage/section/delete';
 import OrderedProduct from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
-import UserEdit from './page/MyPage/section/userEdit';
+import UserEdit from './page/MyPage/section/userEdit';\
 import MyComments from './page/MyPage/section/myComments';
+import ProductDetailForm from './page/Shop/productDetail';
+import Intro from './main/intro';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
 
           <Routes>
             <Route path='/' element={<MainPage />} />
+            <Route path='/intro' element={<Intro/>} />
             <Route path='/shopMain' element={<ShopMain />} />
             <Route path='/mapMain' element={<MapMain />} />
             {/* <Route path='/post' element={<Post />} /> */}
@@ -38,6 +41,8 @@ function App() {
             <Route path="/Cart" element={<Cart />} />
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
+            <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
+
           </Routes>
 
       </Router>
