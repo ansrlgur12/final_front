@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import KakaoMap from "./Kakao";
 import { styled } from "styled-components";
 import Header from "../../main/header";
+import Sidebar from "./sideBar";
 
 const MainStyle = styled.div`
     .App {
@@ -14,7 +15,8 @@ const MainStyle = styled.div`
         width: 100%;
         height: 100%;
         display: flex;
-        align-items: center;
+        justify-content: center;
+        align-items: flex-end;
         flex-direction: column;
     }
     
@@ -57,6 +59,7 @@ const MapMain = () => {
       </section>
       <div id="wrap" style={{width:'100vw', height: '80vh'}}>
             <KakaoMap markerPositions={markerPositions} />
+            <Sidebar />
       </div>
     </div>
     </MainStyle>

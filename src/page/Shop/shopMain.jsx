@@ -17,10 +17,14 @@ const ShopMain = () => {
     return(
         <>
         <Header/>
+       
         <GridStlye>
+       
         <ShopCategory onCategoryChange={handleCategoryChange}/>
         <SliderContainer selectedCategory={selectedCategory}/>
+     
         </GridStlye>
+       
         </>
     );
  

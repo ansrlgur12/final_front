@@ -16,7 +16,7 @@ const IntroStyle = styled.div`
         align-items: center;
         width: 100vw;
         color: #f9f9f9;
-        border: 4px solid aqua;
+        /* border: 4px solid aqua; */
     }
     .introContainer {
         display: flex;
@@ -25,7 +25,7 @@ const IntroStyle = styled.div`
         flex-direction: column;
         width: 100vw;
         margin: 40px 4px 4px 4px;
-        border: 3px solid white;
+        /* border: 3px solid white; */
     }
     .line {
         height: 20px;
@@ -60,7 +60,7 @@ const Intro = () => {
                             <div className="emptyBox"> 1</div>
                         </div>
                         
-                        <div className="line"></div>
+                        {/* <div className="line"></div> */}
                         <div className="introBody">
                             <div className="camoBody">환영합니다!<br /> 캠핑의 모든 것입니다.</div>
                         </div>

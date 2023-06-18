@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logoImg from "../images/CAMO로고.png"
 import { useNavigate } from "react-router-dom";
 
+
 const HeaderStyle = styled.div`
     box-sizing: border-box;
     box-shadow: 1px 2px 5px gray;

@@ -3,6 +3,7 @@ import { faTent, faBed, faLightbulb, faKitchenSet, faChair, faBox, faScrewdriver
 import { styled } from 'styled-components';
 import {React } from 'react';
 
+
 export const GridStlye = styled.div`
   
     box-sizing: border-box;
@@ -37,7 +38,7 @@ export const GridStlye = styled.div`
     align-items: center;
   }
   .grid-item:hover{
-    box-shadow: 0px 1px 1px rgba(46, 229, 157, 0.4);
+    box-shadow: 0px 3px 1px rgba(46, 229, 157, 0.4);
   }
   .grid-item button {
     width: 150px;
@@ -50,6 +51,7 @@ export const GridStlye = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color:#2D6247;
    
   }
 
@@ -79,9 +81,7 @@ export const GridStlye = styled.div`
   color: #fff;
   box-shadow: none;
 }
-.grid-item button:active:after{
-  background: #2D6247;
-}
+
 
   .itemName{
     margin-top: 20px;
