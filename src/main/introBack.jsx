@@ -15,6 +15,7 @@ const VideoStyle = styled.div`
         width: 100vw;
         height: 100vh;
         object-fit: cover; /* 동영상 비율 유지 및 컨테이너에 꽉 차도록 설정 */
+        background-color: black;
     }
 `;
 
@@ -22,9 +23,9 @@ const VideoBackground = () => {
   return (
     <VideoStyle>
         <div className="video-container">
-        <video autoPlay loop muted>
-            <source src="/introMovie.mp4" type="video/mp4" />
-        </video>
+            <video autoPlay loop muted>
+                <source src="/introMovie.mp4" type="video/mp4" />
+            </video>
         </div>
     </VideoStyle>
   );
