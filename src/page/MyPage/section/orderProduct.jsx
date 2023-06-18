@@ -1,16 +1,26 @@
 import React from 'react';
 import { Table } from 'antd';
+import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
-import { Layout } from 'antd';
+
+const LayoutContainer = styled.div`
+  display: flex;
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  padding: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+`;
 
 const columns = [
   {
-    title: '번호', // 컬럼 제목
-    dataIndex: 'number', // 데이터 필드 이름
-    key: 'number', // 고유 키
-    render: (text) => <a>{text}</a>, // 렌더링 함수
-    width: 30, // 컬럼 너비
+    title: '번호', 
+    dataIndex: 'number', 
+    key: 'number', 
+    render: (text) => <a>{text}</a>, 
+    width: 30, 
   },
   {
     title: '주문일',
@@ -81,19 +91,20 @@ const data = [
 const OrderedProduct = () => {
   return (
     <>
-
       <Header />
-
-   
-      <Layout>
-
+      <LayoutContainer>
         <Sidebar />
-
-     
-        <Table columns={columns} dataSource={data} />
-      </Layout>
+        <ContentContainer>
+          <Table columns={columns} dataSource={data} />
+        </ContentContainer>
+      </LayoutContainer>
     </>
   );
 };
 
 export default OrderedProduct;
+
+
+
+
+
