@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Popconfirm } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
@@ -13,6 +13,10 @@ const ContentContainer = styled.div`
   padding: 50px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
+
+function handleDelete(key) {
+  console.log(`취소: ${key}`);
+}
 
 const columns = [
   {
@@ -55,6 +59,19 @@ const columns = [
     key: 'shippingStatus',
     width: 80,
     ellipsis: true,
+  },
+  {
+    title: '',
+    dataIndex: '',
+    key: 'x',
+    width: 80,
+    ellipsis: true,
+    render: (_, record) => 
+    data.length >= 1 ? (
+      <Popconfirm title="정말 취소하시겠습니까?" onConfirm={() => handleDelete(record.key)}>
+        <a>취소하기</a>
+      </Popconfirm>
+    ) : null,
   },
 ];
 
@@ -103,8 +120,3 @@ const OrderedProduct = () => {
 };
 
 export default OrderedProduct;
-
-
-
-
-
