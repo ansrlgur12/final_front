@@ -5,45 +5,126 @@ import backImg2 from "../images/backgroundimg2.jpg";
 import backImg3 from "../images/backgroundimg3.jpg";
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import{ Autoplay, Navigation, Pagination } from "swiper";
+import{ Navigation, Pagination } from "swiper";
 
 
 export const Section1 = styled.div`
-    width: 100vw;
-    padding-top: 10px;    
-`;
-export const BackImg = styled.img`
-    width: 100vw;
-    height: 1024px;
+    padding-top: 10px;
+
+    .backImg {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+    }
+    img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+    .mainText {
+        top: 50%;
+        left: 30vw;
+        z-index: 1;
+        font-size: 2rem;
+        color: #1111aa;
+        font-weight: bold;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        opacity: 0; /* 초기에 텍스트를 숨김 */
+        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+    }
+    .mainText.show {
+        opacity: 1; /* 텍스트를 나타냄 */
+        top: calc(50% - 10px); /* 위로 10px 이동 */
+    }
+    .mainBtn{
+        width: 5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+    .mainBtn:hover{
+        background-color: #2D6247;
+    }
+    .textLine{
+        border: 1px solid #afafaf;
+    }
 `;
 
 const MainSection1 = () => {
+    const [showText, setShowText] = useState(false);
+    const [slideIndex, setSlideIndex] = useState(0);
+
+    useEffect(()=> {
+        const timer = setTimeout(() => {
+            setShowText(true);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const slideChange = (Swiper) => {
+        setShowText(false);
+        setSlideIndex(Swiper.activeIndex);
+    };
+
+    const slideChangeEnd = () => {
+        setShowText(true);
+    }
 
     return (
         <Section1>
             <div className='backImg'>
                 <Swiper
                 loop = {true}
-
                 modules = {[Navigation, Pagination]}
                 spaceBetween={0}
                 slidesPerView={1}
                 navigation
-                autoplay
-
+                keyboard={{enable:true}}
                 scrollbar={{ draggable: true}}
+                onSlideChange={slideChange}
+                onSlideChangeTransitionEnd={slideChangeEnd}
                 >
-                    <SwiperSlide><img src={backImg1} alt=""/></SwiperSlide>
-                    <SwiperSlide><img src={backImg2} alt=""/></SwiperSlide>
-                    <SwiperSlide><img src={backImg3} alt=""/></SwiperSlide>
-                {/* 
-                    <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 2 && <img src={backImgs3} alt="" className='backImgs'/>}</SwiperSlide>
-                 */}
+                    <SwiperSlide>
+                        <img src={backImg1} alt=""/>
+                        <div className={`mainText ${showText && slideIndex === 0 ? 'show' : ''}`} >
+                            <p className="textTitle">
+                                자연과 하나가 되십시오
+                                <br/>
+                                완벽한 여행을 위해 필요한 것이 있습니다.
+                                <div className="textLine"></div>
+                            </p>
+                            <button className='mainBtn'>SHOP</button>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src={backImg2} alt=""/>
+                        <div className={`mainText ${showText && slideIndex === 1 ? 'show' : ''}`} >
+                            <p className="textTitle">
+                                자연과 하나가 되십시오
+                                <br/>
+                                완벽한 여행을 위해 필요한 것이 있습니다.
+                                <div className="textLine"></div>
+                            </p>
+                            <button className='mainBtn'>SHOP</button>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src={backImg3} alt=""/>
+                        <div className={`mainText ${showText && slideIndex === 2 ? 'show' : ''}`} >
+                            <p className="textTitle">
+                                자연과 하나가 되십시오
+                                <br/>
+                                완벽한 여행을 위해 필요한 것이 있습니다.
+                                <div className="textLine"></div>
+                            </p>
+                            <button className='mainBtn'>SHOP</button>
+                        </div>
+                    </SwiperSlide>
                 </Swiper>
             </div>
-            <section></section>
         </Section1>
     );
 };
@@ -119,4 +200,8 @@ const [ImgIndex, setImgIndex] = useState(0);
         opacity: ImgIndex === 2 ? opacity : 0, // 현재 인덱스에 해당하는 이미지에만 투명도 적용
         transition: 'opacity 1s ease-in-out' // 페이드 인/아웃 애니메이션 효과 적용
     };
+                    <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
+                    <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>
+                    <SwiperSlide>{ImgIndex === 2 && <img src={backImgs3} alt="" className='backImgs'/>}</SwiperSlide>
+
     */
