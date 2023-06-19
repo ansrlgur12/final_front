@@ -102,7 +102,7 @@ const KakaoMap = (props) => {
         });
 
         kakao.maps.event.addListener(marker, 'click', () => {
-          kakaoMap.setLevel(2);
+          kakaoMap.setLevel(1);
           console.log('Marker clicked');
           infowindow.setMap(null)
           overlay.setMap(kakaoMap);
