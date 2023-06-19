@@ -4,6 +4,8 @@ import logoImg from "../images/CAMO로고.png"
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { MarkerContext } from "../context/MarkerInfo";
+import { IconButton, Badge } from "@mui/material";
+import { ShoppingCartRounded } from "@mui/icons-material";
 
 
 const HeaderStyle = styled.div`
@@ -100,6 +102,11 @@ const Header = () =>{
                         </div>
                         <div className="myProfile" onClick={()=>nav("/myPage")}>mypage 임시</div>
                         <div>로그아웃</div>
+                        <IconButton aria-label="cart" >
+                        <Badge badgeContent={4} color="success">
+                        <ShoppingCartRounded />
+                        </Badge>
+                        </IconButton>
                     </div>
                 </div>
             </HeaderStyle>

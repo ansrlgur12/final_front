@@ -1,21 +1,17 @@
-/* eslint-disable react/prop-types */
+
 import React from "react";
 import styled from "styled-components";
-import QuantitySelector from "./quantitySelector";
-
-
+import { QuantityPicker } from "react-qty-picker";
 const OrderFormBody=()=> {
   return (
     <Container>
-      <SizeWrapper>
-        <span>개수</span>
-        <button>1</button>
-      </SizeWrapper>
+     
       <SubWrapper>
        
         <div>
-          <span>Quantity</span>
-          <QuantitySelector/>
+            개수
+        <QuantityPicker min={0} smooth  />
+
         </div>
       </SubWrapper>
     </Container>
@@ -32,6 +28,9 @@ const Container = styled.div`
     font-size: 1rem;
     color: #878787;
   }
+  
+
+
 `;
 
 const SubWrapper = styled.div`

@@ -26,7 +26,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 40px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #888;
 `;
 
 const TitleBox = styled.div`

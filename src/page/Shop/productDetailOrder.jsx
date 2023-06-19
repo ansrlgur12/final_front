@@ -5,6 +5,8 @@ import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
 import OrderInfo from "./orderInfo";
+import { Button } from "@mui/material-next";
+import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 
 
 
@@ -22,12 +24,14 @@ const ProductDetailOrder=()=> {
       <OrderFormFooter />
       <OrderInfo  />
       <ButtonWrapper>
-        <button>
+        <Button sx={{color:'green'}} size="large"
+          variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
           ADD TO CART
-        </button>
-        <button>
+        </Button>
+        <Button endIcon={<DoneOutline color="success"/>} sx={{color:'green'}}  size="large"
+          variant="elevated">
           BUY NOW
-        </button>
+        </Button>
       </ButtonWrapper>
     </Container>
    
@@ -45,6 +49,7 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
   button {
     border-radius: 10px;
+    
     flex: 1;
     padding: 20px;
     &:hover {
