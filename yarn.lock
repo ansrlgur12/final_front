@@ -2217,6 +2217,25 @@
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+"@mui/material-next@^6.0.0-alpha.89":
+  version "6.0.0-alpha.89"
+  resolved "https://registry.yarnpkg.com/@mui/material-next/-/material-next-6.0.0-alpha.89.tgz#8bf7901dee394bdffdba7302974e2197d371d5fb"
+  integrity sha512-2sFc3mlaeEv0K+RAJGrez8kLt7TswlRZTMiAA+f14amcHDTkSfcEFp2zVwLd1IaIVjjmU1mftQ2iDIYQC1sO5g==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+    "@mui/base" "5.0.0-beta.4"
+    "@mui/material" "^5.13.5"
+    "@mui/system" "^5.13.5"
+    "@mui/types" "^7.2.4"
+    "@mui/utils" "^5.13.1"
+    "@popperjs/core" "^2.11.8"
+    "@types/react-transition-group" "^4.4.6"
+    clsx "^1.2.1"
+    csstype "^3.1.2"
+    prop-types "^15.8.1"
+    react-is "^18.2.0"
+    react-transition-group "^4.4.5"
+
 "@mui/material@^5.13.5":
   version "5.13.5"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.13.5.tgz#c14f14824f3a37ae0c5ebddbc0034956bc6fec30"
@@ -12552,6 +12571,11 @@ react-map-gl@^7.0.25:
   integrity sha512-8aZfbDKxVcJnmTEC1eQ00VnTOu722i5wqnx+lV8VHN37ZvWEfMgb84EQ2kW6w/Q3zq6oZqP4helF7u4ydPFLtA==
   dependencies:
     "@types/mapbox-gl" "^2.6.0"
+
+react-qty-picker@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-qty-picker/-/react-qty-picker-1.0.6.tgz#b78d5093af863b1f48b199fb77d9c5147e97cdd3"
+  integrity sha512-I2wt8ud7Pzunk+K5bXb912clkIhvVbtsKYfQaaRH8gCCbYjKdDmU6spS9ZeQlUkfbDXG8TjUiibFYPeq7sfvVA==
 
 react-refresh@^0.11.0:
   version "0.11.0"

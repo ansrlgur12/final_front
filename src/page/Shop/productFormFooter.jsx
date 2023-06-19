@@ -1,28 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-import { VerifiedOutlined,GppGood } from "@mui/icons-material";
+
 
 const OrderFormFooter=()=> {
   return (
     <Container>
       <InfoWrapper>
-        <VerifiedOutlined/>
+        
         <div>
-          <p>100% 정품 보증</p>
-          <p>검수한 상품이 정품이 아닐 경우, 구매가의 3배를 보상합니다.</p>
+          <p>택배배송 | 무료배송</p>
+          <p>제주 추가 3,000원, 제주 외 도서지역 추가 6,000원</p>
         </div>
       </InfoWrapper>
-      <InfoWrapper>
-        <GppGood />
-        <div>
-          <p>엄격한 다중 검수</p>
-          <p>
-            모든 상품은 검수센터에 도착한 후, 상품별 전문가 그룹의 체계적인
-            시스템을 거쳐 검수를 진행합니다.
-          </p>
-        </div>
-      </InfoWrapper>
+     
     </Container>
   );
 }; export default OrderFormFooter;
