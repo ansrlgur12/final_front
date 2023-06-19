@@ -5,6 +5,9 @@ import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
 
+//게시판
+// import Post from './page/MyPage/section/post'; // 회의 후 진행
+
 //마이 페이지
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
@@ -14,6 +17,10 @@ import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
 import MarkerStore from './context/MarkerInfo';
+import UserEdit from './page/MyPage/section/userEdit';\
+import MyComments from './page/MyPage/section/myComments';
+import ProductDetailForm from './page/Shop/productDetail';
+import Intro from './main/intro';
 
 
 function App() {
@@ -24,8 +31,11 @@ function App() {
 
           <Routes>
             <Route path='/' element={<MainPage />} />
+            <Route path='/intro' element={<Intro/>} />
             <Route path='/shopMain' element={<ShopMain />} />
             <Route path='/mapMain' element={<MapMain />} />
+            {/* <Route path='/post' element={<Post />} /> */}
+            <Route path='/MyComments' element={<MyComments />} />
             <Route path='/myPage' element={<MyPage />} />
             <Route path='/userInfo' element={<UserInfo />} />
             <Route path="/UserInfo" element={<UserInfo />} />
@@ -34,6 +44,8 @@ function App() {
             <Route path="/Cart" element={<Cart />} />
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
+            <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
+
           </Routes>
 
       </Router>

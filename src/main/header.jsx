@@ -25,8 +25,8 @@ const HeaderStyle = styled.div`
         align-items: center;
     }
     .logoImage {
-        width: 280px;
-        height: 120px;
+        width: 240px;
+        height: 80px;
         cursor: pointer;
     }
     
@@ -82,14 +82,14 @@ const Header = () =>{
             <HeaderStyle>
                 <div className="headerContainer">
                     <div className="logo">
-                        <div className="logoImage logo" style={logoImage} onClick={()=>nav("/")}></div>
+                        <div className="logoImage logo" onClick={()=>nav("/")} style={logoImage}></div>
                     </div>
                     <div className="menu">
                         <nav className="navibar">
                             <ul className="navContainer">
-                                <li className="menu1" onClick={()=>nav("/mapMain")}>오지・노지</li>
+                                <li className="menu1" onClick={()=>nav("/mapMain")}>캠핑장</li>
                                 <li className="menu2">캠핑장</li>
-                                <li className="menu3">캠핑정보</li>
+                                <li className="menu3" onClick={()=>nav("/post")}>캠핑정보</li>
                                 <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                             </ul>
                         </nav>
