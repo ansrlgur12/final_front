@@ -58,14 +58,15 @@ const items = [
       {
         key: 'sub3-1',
         label: '내가 쓴 댓글',
+        to: '/MyComments'
       },
       {
         key: 'sub3-2',
-        label: '내가 쓴 게시글',
+        label: '내가 쓴 게시글(x)',
       },
       {
         key: 'sub3-3',
-        label: '찜한 상품',
+        label: '찜한 상품(x)',
       },
     ],
   },
@@ -76,15 +77,15 @@ const items = [
     children: [
       {
         key: 'sub4-1',
-        label: '내가 등록한 캠핑장',
+        label: '내가 등록한 캠핑장(x)',
       },
       {
         key: 'sub4-2',
-        label: '찜한 캠핑장',
+        label: '찜한 캠핑장(x)',
       },
       {
         key: 'sub4-3',
-        label: '정복한 캠핑장',
+        label: '정복한 캠핑장(x)',
       },
     ],
   },
@@ -93,18 +94,18 @@ const items = [
 const Sidebar = () => {
   const navigate = useNavigate();
 
+  const defaultOpenKeys = items.map((item) => item.key);
+
   return (
-    <Sider width={200}>
+    <Sider width={300}>
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultOpenKeys={[]}
         style={{ height: '100%' }}
       >
-        {/* 메뉴 아이템을 반복하여 렌더링 */}
         {items.map((item) => (
           <Menu.SubMenu key={item.key} icon={item.icon} title={item.label}>
-            {/* 서브메뉴 아이템을 반복하여 렌더링 */}
             {item.children.map((child) => (
               <Menu.Item
                 key={child.key}

@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
+import Login from './main/login/login';
+import KakaoLogin from './API/KaKaoLogin';
+
+//게시판
+// import Post from './page/MyPage/section/post'; // 회의 후 진행
 
 //마이 페이지
 import MyPage from './page/MyPage/myPage';
@@ -13,7 +18,12 @@ import OrderedProduct from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
+import MyComments from './page/MyPage/section/myComments';
+import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
+
+
+
 
 
 function App() {
@@ -26,6 +36,8 @@ function App() {
             <Route path='/intro' element={<Intro/>} />
             <Route path='/shopMain' element={<ShopMain />} />
             <Route path='/mapMain' element={<MapMain />} />
+            {/* <Route path='/post' element={<Post />} /> */}
+            <Route path='/MyComments' element={<MyComments />} />
             <Route path='/myPage' element={<MyPage />} />
             <Route path='/userInfo' element={<UserInfo />} />
             <Route path="/UserInfo" element={<UserInfo />} />
@@ -34,6 +46,10 @@ function App() {
             <Route path="/Cart" element={<Cart />} />
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
+            <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
+            <Route path='/login' element={<Login />} />
+            <Route path='/kakaologin' element={<KakaoLogin />} />
+
           </Routes>
 
       </Router>

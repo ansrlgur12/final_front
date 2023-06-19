@@ -1,8 +1,42 @@
-import React from 'react';
-import { Table } from 'antd';
-import { Layout } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Button } from 'antd';
+import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+
+const LayoutContainer = styled.div` 
+  display: flex;
+`;
+
+const SidebarContainer = styled.div`
+  flex: 0 0 200px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
+
+const TableContainer = styled.div`
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const TotalPayment = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TotalAmount = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
 
 const columns = [
   {
@@ -11,17 +45,12 @@ const columns = [
     key: 'number',
   },
   {
-    title: '주문일',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
-    title: '상품명',
+    title: '담은 상품',
     dataIndex: 'product',
     key: 'product',
   },
   {
-    title: '결재 금액',
+    title: '상품 금액',
     dataIndex: 'paymentAmount',
     key: 'paymentAmount',
   },
@@ -31,9 +60,9 @@ const columns = [
     key: 'orderDetails',
   },
   {
-    title: '배송 현황',
-    dataIndex: 'shippingStatus',
-    key: 'shippingStatus',
+    title: '수량',
+    dataIndex: 'quantity',
+    key: 'quantity',
   },
 ];
 
@@ -41,53 +70,83 @@ const data = [
   {
     key: '1',
     number: '1',
-    date: '2023-06-14',
     product: '상품 A',
     paymentAmount: '100,000원',
     orderDetails: '주문 상세 내용 A',
-    shippingStatus: '배송준비중',
+    quantity: 3,
   },
   {
     key: '2',
     number: '2',
-    date: '2023-06-13',
     product: '상품 B',
     paymentAmount: '50,000원',
     orderDetails: '주문 상세 내용 B',
-    shippingStatus: '배송중',
+    quantity: 1,
   },
   {
     key: '3',
     number: '3',
-    date: '2023-06-12',
     product: '상품 C',
     paymentAmount: '80,000원',
     orderDetails: '주문 상세 내용 C',
-    shippingStatus: '배송완료',
+    quantity: 2,
   },
 ];
 
-// 테이블에서 선택한 행에 대한 정보를 출력하는 함수
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  }
-};
+const Cart = () => { 
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
+  const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
 
-// 장바구니 함수
-const Cart = () => {
+  useEffect(() => { //선택된 항목들의 총금액을 다시 계산하고, 상태 업데이트
+    const totalAmount = calculateTotalPaymentAmount();
+    setTotalPaymentAmount(totalAmount);
+  }, [selectedRowKeys]);
+
+  const calculateTotalPaymentAmount = () => { //선택된 항목들의 총 금액을 계산하는 함수
+    let totalAmount = 0; //선택된 항목들의 총금액 저장 용도
+    selectedRowKeys.forEach((key) => { //각 항목 반복문 실행
+      const item = data.find((d) => d.key === key); 
+      const paymentAmount = parseFloat(
+        item.paymentAmount.replace(',', '').replace('원', '')
+      );
+      const quantity = item.quantity;
+      totalAmount += paymentAmount * quantity;
+    });
+    return totalAmount;
+  };
+
+  const rowSelection = { //선택항목 제어 및 상태관리
+    selectedRowKeys,
+    onChange: (selectedRowKeys) => {
+      setSelectedRowKeys(selectedRowKeys);
+    },
+  };
+
+  const handlePurchase = () => {//구매금액 출력 핸들러
+    alert(`구매하기: ${totalPaymentAmount.toLocaleString()}원`);
+  };
+
   return (
     <>
-     
       <Header />
-
-      <Layout>
-       
-        <Sidebar />
-
-    
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      </Layout>
+      <LayoutContainer>
+        <SidebarContainer>
+          <Sidebar />
+        </SidebarContainer>
+        <ContentContainer>
+          <TableContainer>
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <TotalPayment>
+              <TotalAmount>
+                총 합계 금액: {totalPaymentAmount.toLocaleString()}원
+              </TotalAmount>
+              <Button type="primary" onClick={handlePurchase}>
+                구매하기
+              </Button>
+            </TotalPayment>
+          </TableContainer>
+        </ContentContainer>
+      </LayoutContainer>
     </>
   );
 };

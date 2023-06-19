@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
+import Login from "./login/login";
 
 const IntroStyle = styled.div`
     box-sizing: border-box;
@@ -12,16 +13,20 @@ const IntroStyle = styled.div`
     }
     .introContainer {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         flex-direction: column;
+        padding-top: 10vh;
         width: 100vw;
         height: 100vh;
         background: linear-gradient(to right, black, transparent);
     }
     .introContainer2{
-        margin: 20px;
-        padding: 20px;
         padding-left: 10vw;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    .introContainer2.show{
+        opacity: 1;
     }
     .introBody{
 
@@ -34,7 +39,7 @@ const IntroStyle = styled.div`
     }
     .loginBtn{
         width: 80px;
-        height: 50px;
+        height: 40px;
         font-size: 1.2rem;
         border-radius: 8px;
         padding: 0;
@@ -47,26 +52,35 @@ const IntroStyle = styled.div`
     .p2 {
         font-size: 1.2rem;
     }
+    p{
+        margin: 8px;
+    }
 `;
 
 const Intro = () => {
+    const [showText, setShowText] = useState(false);
     const introLogoImg = {
         backgroundImage: `url(${introLogo})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
     };
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowText(true);
+        }, 600);
+        return () => clearTimeout(timer);
+    }, []);
+
     return(
         <>
             <IntroStyle>
                 <div className="introContainer video">
-                    <div className="introContainer2">
-                        <VideoBackground />
+                    <VideoBackground />
+                    <div className={`introContainer2 ${showText ? 'show' : ''}`}>
                         <div className="introHeader">
                             <div className="introLogoBox" style={introLogoImg}></div>
                         </div>
-                        
-                        {/* <div className="line"></div> */}
                         <div className="introBody">
                             <div className="camoBody">
                                     <p className="p1">
@@ -78,7 +92,7 @@ const Intro = () => {
                                 </div>
                         </div>
                         <div className="btnDiv">
-                            <button className="loginBtn">로그인</button>
+                            <button className="loginBtn" >로그인</button>
                         </div>
                     </div>
                 </div>
