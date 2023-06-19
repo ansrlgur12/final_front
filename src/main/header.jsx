@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import logoImg from "../images/CAMO로고.png"
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { MarkerContext } from "../context/MarkerInfo";
 
 
 const HeaderStyle = styled.div`
@@ -61,6 +63,10 @@ const HeaderStyle = styled.div`
 `;
 
 const Header = () =>{
+    const context = useContext(MarkerContext);
+    const {markerLat, markerLng} = context;
+    console.log(markerLat, markerLng);
+
     const nav = useNavigate();
     
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
@@ -68,6 +74,8 @@ const Header = () =>{
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
       };
+
+    
 
     return(
         <>

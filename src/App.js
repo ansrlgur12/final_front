@@ -13,11 +13,13 @@ import OrderedProduct from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
+import MarkerStore from './context/MarkerInfo';
 
 
 function App() {
   return (
     <div className="App">
+      <MarkerStore>
       <Router>
 
           <Routes>
@@ -35,6 +37,7 @@ function App() {
           </Routes>
 
       </Router>
+      </MarkerStore>
     </div>
   );
 }

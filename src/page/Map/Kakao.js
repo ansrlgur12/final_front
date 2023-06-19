@@ -1,11 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import markerImage from "../../images/캠핑마커.png";
 import { renderToString } from "react-dom/server";
 import Overlay from "./overlay";
 import InfoWindow from "./infoWindow";
+import { MarkerContext } from "../../context/MarkerInfo";
 const { kakao } = window;
 
-export default function KakaoMap(props) {
+const KakaoMap = (props) => {
+  const context = useContext(MarkerContext);
+  const {markerLat, markerLng, zoomLev, viewOverlay} = context;
+  
   const { markerPositions } = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
@@ -14,41 +18,28 @@ export default function KakaoMap(props) {
   const container = useRef();
   const imageSize = new kakao.maps.Size(35, 35);
   const image = new kakao.maps.MarkerImage(markerImage, imageSize);
-   
   const offsetY = 50;
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=53b64929e7fe329e9a7f25df6023e4c0&autoload=false";
-    document.head.appendChild(script);
-
-    script.onload = () => { // 지도 초기값 설정하는 역할
-      kakao.maps.load(() => {
-        const center = new kakao.maps.LatLng(37.50802, 127.062835);
+        const center = new kakao.maps.LatLng(markerLat, markerLng);
+        container.current.style.width = `100vw`;
+        container.current.style.height = `100vh`;
+        console.log(center + "center 값")
+        console.log(zoomLev + "zoom 값")
         const options = {
           center,
-          level: 10,
+          level: zoomLev,
           maxLevel: 13
         };
         const map = new kakao.maps.Map(container.current, options);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-
         setKakaoMap(map);
-      });
-    };
-  }, []);
+      },[markerLat]);
 
-  useEffect(() => { // 지도를 띄우는 역할
-    if (kakaoMap === null) {
-      return;
-    }
-    const center = kakaoMap.getCenter();
-    container.current.style.width = `100vw`;
-    container.current.style.height = `100vh`;
-    kakaoMap.relayout();
-    kakaoMap.setCenter(center);
-  }, [kakaoMap]);
+      
+
+ 
 
   useEffect(() => {
     if (kakaoMap === null) {
@@ -119,6 +110,7 @@ export default function KakaoMap(props) {
           const markerPosition = marker.getPosition();
           kakaoMap.setCenter(markerPosition);
           kakaoMap.relayout();
+        
         });
 
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
@@ -130,17 +122,24 @@ export default function KakaoMap(props) {
       });
     });
 
-    if (positions.length > 0) {
-      const bounds = positions.reduce(
-        (bounds, latlng) => bounds.extend(latlng),
-        new kakao.maps.LatLngBounds()
-      );
-
-      kakaoMap.setBounds(bounds);
-    }
+//    if (positions.length > 0) {
+//      const bounds = positions.reduce(
+//        (bounds, latlng) => bounds.extend(latlng),
+//        new kakao.maps.LatLngBounds()
+//      );
+//
+//      kakaoMap.setBounds(bounds);
+//    }
   }, [kakaoMap, markerPositions]);
+
+  useEffect(()=>{
+    
+  },[viewOverlay])
+
 
   return(
     <div id="container" ref={container} />
   );
 }
+
+export default KakaoMap;
