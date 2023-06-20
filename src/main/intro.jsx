@@ -1,27 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
+import Modal from "../util/modal";
+import { useNavigate } from "react-router-dom";
+import Login from "./login/login";
 
 const IntroStyle = styled.div`
     box-sizing: border-box;
+
     
+    .Login{
+        display: none;
+    }
+    /* .show{
+        display: static;
+    } */
     .introLogoBox {
         width: 140px;
         height: 140px;
     }
     .introContainer {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         flex-direction: column;
+        padding-top: 24vh; // height와 합쳐서 100vh이면 한 화면 모두 차지, 넘으면 스크롤 발생
+        height: 76vh;
         width: 100vw;
-        height: 100vh;
         background: linear-gradient(to right, black, transparent);
     }
     .introContainer2{
-        margin: 20px;
-        padding: 20px;
         padding-left: 10vw;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    .introContainer2.show{
+        opacity: 1;
     }
     .introBody{
 
@@ -34,7 +48,7 @@ const IntroStyle = styled.div`
     }
     .loginBtn{
         width: 80px;
-        height: 50px;
+        height: 40px;
         font-size: 1.2rem;
         border-radius: 8px;
         padding: 0;
@@ -47,26 +61,62 @@ const IntroStyle = styled.div`
     .p2 {
         font-size: 1.2rem;
     }
+    p{
+        margin: 8px;
+    }
+`;
+
+const LoginStyle = styled.div`
+    position: absolute;
+    top: 46%;
+    right: -100%;
+    transform: translateY(-50%);
+    transition: right 0.6s ease-in-out;
+
+    &.show {
+        right: 10%;
+    }
 `;
 
 const Intro = () => {
+    const nav = useNavigate();
+    const[modalOpen, setModalOpen] = useState(false);
+    const needLogin = () => {
+      setModalOpen(true);
+    }
+    const closeModal = () => {
+      setModalOpen(false);
+    }
+    
+    const [showText, setShowText] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+
     const introLogoImg = {
         backgroundImage: `url(${introLogo})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
     };
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowText(true);
+        }, 600);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const loginBtnClick = () => {
+        setShowLogin(true);
+      };
+
     return(
         <>
             <IntroStyle>
                 <div className="introContainer video">
-                    <div className="introContainer2">
-                        <VideoBackground />
+                    <VideoBackground />
+                    <div className={`introContainer2 ${showText ? 'show' : ''}`}>
                         <div className="introHeader">
                             <div className="introLogoBox" style={introLogoImg}></div>
                         </div>
-                        
-                        {/* <div className="line"></div> */}
                         <div className="introBody">
                             <div className="camoBody">
                                     <p className="p1">
@@ -78,10 +128,13 @@ const Intro = () => {
                                 </div>
                         </div>
                         <div className="btnDiv">
-                            <button className="loginBtn">로그인</button>
+                            <button className="loginBtn" onClick={loginBtnClick}>로그인</button>
                         </div>
                     </div>
                 </div>
+                <LoginStyle className={showLogin ? "show" : ""}>
+                    {showLogin && <Login />}
+                </LoginStyle>
             </IntroStyle>
         </>
     );

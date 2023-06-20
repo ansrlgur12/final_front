@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
+import Login from './main/login/login';
+import KakaoLogin from './API/KaKaoLogin';
 
 // 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
@@ -20,10 +22,10 @@ import MarkerStore from './context/MarkerInfo';
 import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
-import TestPage from './page/Map/testPage';
 import ChannelService from './util/ChannelService';
 
 function App() {
+/*
   ChannelService.boot({
     "pluginKey": "c9dca6c0-c10b-43ae-8b33-46985229621d",
     "memberId": "유저ID",
@@ -33,11 +35,12 @@ function App() {
       "id": "유저ID"
     }
   });
-  
+*/
   return (
     <div className="App">
       <MarkerStore>
       <Router>
+
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='/intro' element={<Intro/>} />
@@ -54,9 +57,11 @@ function App() {
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
             <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
-            <Route path='/testPage' element={<TestPage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/kakaologin' element={<KakaoLogin />} />
 
           </Routes>
+
       </Router>
       </MarkerStore>
     </div>
