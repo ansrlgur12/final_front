@@ -20,6 +20,7 @@ import MarkerStore from './context/MarkerInfo';
 import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
+import TestPage from './page/Map/testPage';
 import ChannelService from './util/ChannelService';
 
 function App() {
@@ -37,23 +38,25 @@ function App() {
     <div className="App">
       <MarkerStore>
       <Router>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/intro' element={<Intro />} />
-          <Route path='/shopMain' element={<ShopMain />} />
-          <Route path='/mapMain' element={<MapMain />} />
-          {/* <Route path='/post' element={<Post />} /> */}
-          <Route path='/MyComments' element={<MyComments />} />
-          <Route path='/myPage' element={<MyPage />} />
-          <Route path='/userInfo' element={<UserInfo />} />
-          <Route path="/UserInfo" element={<UserInfo />} />
-          <Route path="/Delete" element={<Delete />} />
-          <Route path="/OrderedProduct" element={<OrderedProduct />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/NewPassword" element={<NewPassword />} />
-          <Route path="/UserEdit" element={<UserEdit />} />
-          <Route path='/productDetailForm' element={<ProductDetailForm />} />
-        </Routes>
+          <Routes>
+            <Route path='/' element={<MainPage />} />
+            <Route path='/intro' element={<Intro/>} />
+            <Route path='/shopMain' element={<ShopMain />} />
+            <Route path='/mapMain' element={<MapMain />} />
+            {/* <Route path='/post' element={<Post />} /> */}
+            <Route path='/MyComments' element={<MyComments />} />
+            <Route path='/myPage' element={<MyPage />} />
+            <Route path='/userInfo' element={<UserInfo />} />
+            <Route path="/UserInfo" element={<UserInfo />} />
+            <Route path="/Delete" element={<Delete />} />
+            <Route path="/OrderedProduct" element={<OrderedProduct />} />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/NewPassword" element={<NewPassword />} />
+            <Route path="/UserEdit" element={<UserEdit />} />
+            <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
+            <Route path='/testPage' element={<TestPage />} />
+
+          </Routes>
       </Router>
       </MarkerStore>
     </div>
