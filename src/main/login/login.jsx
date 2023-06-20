@@ -1,15 +1,18 @@
 import React from "react";
 import { styled } from 'styled-components';
 import introLogo from "../../images/CAMO로고.png"
+import kakaologo from "../../images/kakaoLogo.png"
+import googlelogo from "../../images/googleLogo.png"
 import KakaoLogin from "../../API/KaKaoLogin";
+import { useNavigate } from "react-router-dom";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
 
     .loginLogo{
-        width: 100px;
-        height: 100px;
-        z-index: 1;
+        width: 100%;
+        height: 120px;
+        background-size: contain;
     }
     .container {
         max-width: 600px;
@@ -22,6 +25,7 @@ const LoginStyle = styled.div`
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+
     }
     h2 {
         color: #333;
@@ -53,31 +57,49 @@ const LoginStyle = styled.div`
     }
     .snsLogin{
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
     }
     .kakao {
-        width: 60px;
+        margin: 10px;
+        width: 100px;
         height: 60px;
-        border-radius: 50%;
-        background-color: yellow;
-        border: 0;
+        background-size: contain;
+        cursor: pointer;
+    }
+    .google {
+        margin: 10px;
+        width: 100px;
+        height: 60px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
     }
 
 `;
 
 const Login = () => {
+    const nav = useNavigate();
     const logo = {
         backgroundImage : `url(${introLogo})`,
         backgroundsize : 'contain',
+        backgroundRepeat: 'no-repeat',
+    };
+    const kakaoLogo = {
+        backgroundImage: `url(${kakaologo})`,
         backgroundRepeat: 'no-repeat'
     };
+    const googleLogo = {
+        backgroundImage: `url(${googlelogo})`,
+        backgroundRepeat: 'no-rereat'
+    }
+    
 
     return(
         <LoginStyle>
             <div class="container">
-                <div className="loginLogo" style={{logo}}></div>
-                <h2>로그인</h2>
+                <div className="loginLogo" style={logo}></div>
+
                 <form>
                     <input type="text" placeholder="사용자 이름 또는 이메일" required />
                     <input type="password" placeholder="비밀번호" required />
@@ -88,8 +110,8 @@ const Login = () => {
                     <div className="other2">회원가입</div>
                 </div>
                 <div className="snsLogin">
-                    <div className="kakao"><KakaoLogin /></div>
-                    <div className="google"></div>
+                    <div className="kakao" style={kakaoLogo} onClick={()=>nav(<KakaoLogin/>)}></div>
+                    <div className="google" style={googleLogo}></div>
                 </div>
             </div>
 

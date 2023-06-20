@@ -102,7 +102,7 @@ const Sidebar = () => {
         mode="inline"
         defaultSelectedKeys={['1']}
         defaultOpenKeys={[]}
-        style={{ height: '100%' }}
+        style={{ height: '120%' }}
       >
         {items.map((item) => (
           <Menu.SubMenu key={item.key} icon={item.icon} title={item.label}>

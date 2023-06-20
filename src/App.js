@@ -7,10 +7,10 @@ import MapMain from './page/Map/mapMain';
 import Login from './main/login/login';
 import KakaoLogin from './API/KaKaoLogin';
 
-//게시판
+// 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
 
-//마이 페이지
+// 마이 페이지
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
 import Delete from './page/MyPage/section/delete';
@@ -18,17 +18,27 @@ import OrderedProduct from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
+import MarkerStore from './context/MarkerInfo';
 import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 
 
-
-
-
 function App() {
+/*
+  ChannelService.boot({
+    "pluginKey": "c9dca6c0-c10b-43ae-8b33-46985229621d",
+    "memberId": "유저ID",
+    "profile": {
+      "name": "유저Name",
+      "email": "유저Email",
+      "id": "유저ID"
+    }
+  });
+*/
   return (
     <div className="App">
+      <MarkerStore>
       <Router>
 
           <Routes>
@@ -53,6 +63,7 @@ function App() {
           </Routes>
 
       </Router>
+      </MarkerStore>
     </div>
   );
 }

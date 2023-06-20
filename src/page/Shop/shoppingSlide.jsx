@@ -7,7 +7,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import{Keyboard,  Navigation, Pagination } from "swiper";
 import { Favorite, AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-material";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const SwiperStyle = styled.div`
@@ -119,12 +120,12 @@ const SliderContainer = ({ selectedCategory }) => {
     return(
       <>
      <Tooltip title="찜 하기">
-    <IconButton className="btn" color="secondary" aria-label="favorite" >
+    <IconButton className="btn" color="error" aria-label="favorite" >
     <Favorite />
   </IconButton>
   </Tooltip>
   <Tooltip title="장바구니 담기">
-  <IconButton className="btn2" color="primary" aria-label="add to shopping cart" >
+  <IconButton className="btn2" color="success" aria-label="add to shopping cart" >
   <AddShoppingCart />
 </IconButton>
 </Tooltip>
