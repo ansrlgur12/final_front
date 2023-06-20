@@ -20,6 +20,7 @@ import MarkerStore from './context/MarkerInfo';
 import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
+import TestPage from './page/Map/testPage';
 
 
 function App() {
@@ -27,7 +28,6 @@ function App() {
     <div className="App">
       <MarkerStore>
       <Router>
-
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='/intro' element={<Intro/>} />
@@ -44,9 +44,9 @@ function App() {
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
             <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
+            <Route path='/testPage' element={<TestPage />} />
 
           </Routes>
-
       </Router>
       </MarkerStore>
     </div>
