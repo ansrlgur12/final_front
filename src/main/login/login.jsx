@@ -4,11 +4,11 @@ import introLogo from "../../images/CAMO로고.png"
 import kakaologo from "../../images/kakaoLogo.png"
 import naverlogo from "../../images/naverLogo.png"
 import googlelogo from "../../images/googleLogo.png"
-import { useNavigate } from "react-router-dom";
 import KakaoLogin from "../../API/KaKaoLogin";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
+
 
     .loginLogo{
         width: 100%;
@@ -18,7 +18,6 @@ const LoginStyle = styled.div`
     .container {
         max-width: 400px;
         margin: 0 auto;
-        text-align: center;
         padding: 20px;
         background-color: #f2f2f2;
         border: 1px solid #ccc;
@@ -26,10 +25,6 @@ const LoginStyle = styled.div`
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-
-    }
-    h2 {
-        color: #333;
     }
     input[type="text"], input[type="password"] {
         width: 90%;
@@ -40,8 +35,8 @@ const LoginStyle = styled.div`
     }
     .loginBtn {
         width: 94%;
-        padding: 10px;
-        margin: 10px;
+        padding: 0px;
+        margin: 4px;
         background-color: #4CAF50;
         color: #fff;
         border: none;
@@ -55,6 +50,12 @@ const LoginStyle = styled.div`
         align-items: center;
         width: 100%;
         box-sizing: border-box;
+    }
+    .other1{
+        cursor: pointer;
+    }
+    .other2{
+        cursor: pointer;
     }
     .snsLogin{
         display: flex;
@@ -112,32 +113,27 @@ const Login = () => {
         backgroundRepeat: 'no-rereat'
     }
     
-
     return(
         <LoginStyle>
-            <div class="container">
-                <div className="loginLogo" style={logo}></div>
-                
-
-                <form>
-                    <input type="text" placeholder="사용자 이름 또는 이메일" required />
-                    <input type="password" placeholder="비밀번호" required />
-                    <button className="loginBtn" type="submit">로그인</button>
-                </form>
-                <div className="other">
-                    <div className="other1">비밀번호 재설정</div>
-                    <div className="other2">회원가입</div>
+                <div class="container">
+                    <div className="loginLogo" style={logo}></div>
+                    <form>
+                        <input type="text" placeholder="사용자 이름 또는 이메일" required />
+                        <input type="password" placeholder="비밀번호" required />
+                        <button className="loginBtn" type="submit">로그인</button>
+                    </form>
+                    <div className="other">
+                        <div className="other1">비밀번호 재설정</div>
+                        <div className="other2">회원가입</div>
+                    </div>
+                    <div className="snsLogin">
+                        <div className="kakao" style={kakaoLogo}><KakaoLogin/></div>
+                        <div className="naver" style={naverLogo}></div>
+                        <div className="google" style={googleLogo}></div>
+                    </div>
                 </div>
-                <div className="snsLogin">
-                    <div className="kakao" style={kakaoLogo}><KakaoLogin/></div>
-                    <div className="naver" style={naverLogo}></div>
-                    <div className="google" style={googleLogo}></div>
-                </div>
-            </div>
-
         </LoginStyle>
     );
-
 }
 
 export default Login;

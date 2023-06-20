@@ -22,7 +22,7 @@ import MarkerStore from './context/MarkerInfo';
 import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
-
+import ChannelService from './util/ChannelService';
 
 function App() {
 /*

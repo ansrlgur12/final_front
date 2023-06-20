@@ -4,10 +4,18 @@ import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
 import Modal from "../util/modal";
 import { useNavigate } from "react-router-dom";
+import Login from "./login/login";
 
 const IntroStyle = styled.div`
     box-sizing: border-box;
+
     
+    .Login{
+        display: none;
+    }
+    /* .show{
+        display: static;
+    } */
     .introLogoBox {
         width: 140px;
         height: 140px;
@@ -16,9 +24,9 @@ const IntroStyle = styled.div`
         display: flex;
         /* justify-content: center; */
         flex-direction: column;
-        padding-top: 10vh;
+        padding-top: 24vh; // height와 합쳐서 100vh이면 한 화면 모두 차지, 넘으면 스크롤 발생
+        height: 76vh;
         width: 100vw;
-        height: 100vh;
         background: linear-gradient(to right, black, transparent);
     }
     .introContainer2{
@@ -58,6 +66,18 @@ const IntroStyle = styled.div`
     }
 `;
 
+const LoginStyle = styled.div`
+    position: absolute;
+    top: 46%;
+    right: -100%;
+    transform: translateY(-50%);
+    transition: right 0.6s ease-in-out;
+
+    &.show {
+        right: 10%;
+    }
+`;
+
 const Intro = () => {
     const nav = useNavigate();
     const[modalOpen, setModalOpen] = useState(false);
@@ -69,6 +89,8 @@ const Intro = () => {
     }
     
     const [showText, setShowText] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+
     const introLogoImg = {
         backgroundImage: `url(${introLogo})`,
         backgroundSize: 'contain',
@@ -81,6 +103,10 @@ const Intro = () => {
         }, 600);
         return () => clearTimeout(timer);
     }, []);
+
+    const loginBtnClick = () => {
+        setShowLogin(true);
+      };
 
     return(
         <>
@@ -102,11 +128,13 @@ const Intro = () => {
                                 </div>
                         </div>
                         <div className="btnDiv">
-                            <button className="loginBtn" >로그인</button>
+                            <button className="loginBtn" onClick={loginBtnClick}>로그인</button>
                         </div>
-                        <Modal open={modalOpen} type={true} confirm={()=>nav("/Login")} close={closeModal} header={"확인"}>로그인이 필요합니다</Modal>
                     </div>
                 </div>
+                <LoginStyle className={showLogin ? "show" : ""}>
+                    {showLogin && <Login />}
+                </LoginStyle>
             </IntroStyle>
         </>
     );
