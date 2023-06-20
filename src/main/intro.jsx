@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
-import Login from "./login/login";
+import Modal from "../util/modal";
+import { useNavigate } from "react-router-dom";
 
 const IntroStyle = styled.div`
     box-sizing: border-box;
@@ -58,6 +59,15 @@ const IntroStyle = styled.div`
 `;
 
 const Intro = () => {
+    const nav = useNavigate();
+    const[modalOpen, setModalOpen] = useState(false);
+    const needLogin = () => {
+      setModalOpen(true);
+    }
+    const closeModal = () => {
+      setModalOpen(false);
+    }
+    
     const [showText, setShowText] = useState(false);
     const introLogoImg = {
         backgroundImage: `url(${introLogo})`,
@@ -94,6 +104,7 @@ const Intro = () => {
                         <div className="btnDiv">
                             <button className="loginBtn" >로그인</button>
                         </div>
+                        <Modal open={modalOpen} type={true} confirm={()=>nav("/Login")} close={closeModal} header={"확인"}>로그인이 필요합니다</Modal>
                     </div>
                 </div>
             </IntroStyle>

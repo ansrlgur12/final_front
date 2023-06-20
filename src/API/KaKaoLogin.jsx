@@ -7,7 +7,7 @@ const KakaoLogin = () =>{
     }
     return(
         <>
-        <button className="kakao" onClick={handleLogin}>카카오</button>
+        <div className="kakao" onClick={handleLogin}></div>
         </>
     )
 }

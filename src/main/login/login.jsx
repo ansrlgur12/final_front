@@ -2,9 +2,10 @@ import React from "react";
 import { styled } from 'styled-components';
 import introLogo from "../../images/CAMO로고.png"
 import kakaologo from "../../images/kakaoLogo.png"
+import naverlogo from "../../images/naverLogo.png"
 import googlelogo from "../../images/googleLogo.png"
-import KakaoLogin from "../../API/KaKaoLogin";
 import { useNavigate } from "react-router-dom";
+import KakaoLogin from "../../API/KaKaoLogin";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
@@ -15,7 +16,7 @@ const LoginStyle = styled.div`
         background-size: contain;
     }
     .container {
-        max-width: 600px;
+        max-width: 400px;
         margin: 0 auto;
         text-align: center;
         padding: 20px;
@@ -33,7 +34,7 @@ const LoginStyle = styled.div`
     input[type="text"], input[type="password"] {
         width: 90%;
         padding: 10px;
-        margin: 10px 0;
+        margin: 10px auto;
         border-radius: 5px;
         border: 1px solid #ccc;
     }
@@ -57,29 +58,42 @@ const LoginStyle = styled.div`
     }
     .snsLogin{
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
     }
     .kakao {
         margin: 10px;
         width: 100px;
-        height: 60px;
-        background-size: contain;
+        height: 46px;
+        background-size: cover;
+        background-position: center;
+        object-fit: contain;
+        border-radius: 8px;
         cursor: pointer;
     }
     .google {
         margin: 10px;
         width: 100px;
-        height: 60px;
-        background-size: contain;
-        background-repeat: no-repeat;
+        height: 46px;
+        border-radius: 8px;
+        background-size: cover;
+        background-position: center;
+        object-fit: contain;
         cursor: pointer;
     }
-
+    .naver {
+        margin: 10px;
+        width: 100px;
+        height: 46px;
+        border-radius: 8px;
+        background-size: cover;
+        background-position: center;
+        object-fit: contain;
+        cursor: pointer;
+    }
 `;
 
 const Login = () => {
-    const nav = useNavigate();
     const logo = {
         backgroundImage : `url(${introLogo})`,
         backgroundsize : 'contain',
@@ -93,12 +107,17 @@ const Login = () => {
         backgroundImage: `url(${googlelogo})`,
         backgroundRepeat: 'no-rereat'
     }
+    const naverLogo = {
+        backgroundImage: `url(${naverlogo})`,
+        backgroundRepeat: 'no-rereat'
+    }
     
 
     return(
         <LoginStyle>
             <div class="container">
                 <div className="loginLogo" style={logo}></div>
+                
 
                 <form>
                     <input type="text" placeholder="사용자 이름 또는 이메일" required />
@@ -110,7 +129,8 @@ const Login = () => {
                     <div className="other2">회원가입</div>
                 </div>
                 <div className="snsLogin">
-                    <div className="kakao" style={kakaoLogo} onClick={()=>nav(<KakaoLogin/>)}></div>
+                    <div className="kakao" style={kakaoLogo}><KakaoLogin/></div>
+                    <div className="naver" style={naverLogo}></div>
                     <div className="google" style={googleLogo}></div>
                 </div>
             </div>

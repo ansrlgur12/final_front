@@ -7,13 +7,14 @@ import styled from "styled-components";
 import OrderInfo from "./orderInfo";
 import { Button } from "@mui/material-next";
 import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 const ProductDetailOrder=()=> {
- 
+  const nav = useNavigate();
   return (
     <>
     
@@ -23,16 +24,22 @@ const ProductDetailOrder=()=> {
       <OrderFormBody/>
       <OrderFormFooter />
       <OrderInfo  />
-      <ButtonWrapper>
-        <Button sx={{color:'green'}} size="large"
+      
+     <ButtonWrapper>
+        
+        <Button sx={{color:'green'}} size="large" onClick={()=>nav("/")}
           variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
           ADD TO CART
         </Button>
-        <Button endIcon={<DoneOutline color="success"/>} sx={{color:'green'}}  size="large"
-          variant="elevated">
+     
+        <Button onClick={()=>nav("/")} endIcon={<DoneOutline color="success" onClick={()=>nav("/inicis")}/>} sx={{color:'green'}}  size="large"
+          variant="elevated" >
           BUY NOW
         </Button>
-      </ButtonWrapper>
+    
+        </ButtonWrapper>
+        
+      
     </Container>
    
     </>
@@ -42,6 +49,8 @@ const ProductDetailOrder=()=> {
 const Container = styled.div`
   padding: 32px 24px;
   width: 100%;
+
+ 
 `;
 
 const ButtonWrapper = styled.div`
