@@ -5,13 +5,16 @@ import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
 import OrderInfo from "./orderInfo";
+import { Button } from "@mui/material-next";
+import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 const ProductDetailOrder=()=> {
- 
+  const nav = useNavigate();
   return (
     <>
     
@@ -21,14 +24,22 @@ const ProductDetailOrder=()=> {
       <OrderFormBody/>
       <OrderFormFooter />
       <OrderInfo  />
-      <ButtonWrapper>
-        <button>
+      
+     <ButtonWrapper>
+        
+        <Button sx={{color:'green'}} size="large" onClick={()=>nav("/")}
+          variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
           ADD TO CART
-        </button>
-        <button>
+        </Button>
+     
+        <Button onClick={()=>nav("/")} endIcon={<DoneOutline color="success" onClick={()=>nav("/inicis")}/>} sx={{color:'green'}}  size="large"
+          variant="elevated" >
           BUY NOW
-        </button>
-      </ButtonWrapper>
+        </Button>
+    
+        </ButtonWrapper>
+        
+      
     </Container>
    
     </>
@@ -38,6 +49,8 @@ const ProductDetailOrder=()=> {
 const Container = styled.div`
   padding: 32px 24px;
   width: 100%;
+
+ 
 `;
 
 const ButtonWrapper = styled.div`
@@ -45,6 +58,7 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
   button {
     border-radius: 10px;
+    
     flex: 1;
     padding: 20px;
     &:hover {

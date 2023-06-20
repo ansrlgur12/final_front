@@ -5,10 +5,10 @@ import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
 
-//게시판
+// 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
 
-//마이 페이지
+// 마이 페이지
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
 import Delete from './page/MyPage/section/delete';
@@ -21,9 +21,19 @@ import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 import TestPage from './page/Map/testPage';
-
+import ChannelService from './util/ChannelService';
 
 function App() {
+  ChannelService.boot({
+    "pluginKey": "c9dca6c0-c10b-43ae-8b33-46985229621d",
+    "memberId": "유저ID",
+    "profile": {
+      "name": "유저Name",
+      "email": "유저Email",
+      "id": "유저ID"
+    }
+  });
+  
   return (
     <div className="App">
       <MarkerStore>

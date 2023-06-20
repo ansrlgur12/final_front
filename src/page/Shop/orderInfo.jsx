@@ -9,7 +9,7 @@ const OrderInfo =()=> {
     <Container>
       <div>
         <InfoTag>OPTIONS</InfoTag>
-        <span>사이즈</span>
+        <span>개수</span>
       </div>
       <div>
         <InfoTag>TOTAL PRICE</InfoTag>
@@ -25,8 +25,8 @@ const OrderInfo =()=> {
 const Container = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  /* align-items: center; */
+  justify-content: center;
+   align-items: center;
   padding: 1rem 0;
   border-bottom: 1px solid #d4d4d4;
   margin-bottom: 1rem;
