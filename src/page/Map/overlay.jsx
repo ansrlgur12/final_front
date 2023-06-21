@@ -76,7 +76,7 @@ const MapStyled = styled.div`
 
 const Overlay = (position, clickClose, clickDetail) => {
 
-  console.log(position)
+  // console.log(position)
 
     const stripHtmlTags = (html) => {
       const tmp = document.createElement("DIV");

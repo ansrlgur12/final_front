@@ -102,7 +102,6 @@ right: 1.5vw;
 const Sidebar = () => {
 
     const [closeMenu, setCloseMenu] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(true);
 
     const hideMenuBar = () => {
         setCloseMenu(!closeMenu);

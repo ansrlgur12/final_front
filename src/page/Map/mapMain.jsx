@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import KakaoMap from "./Kakao";
 import { styled } from "styled-components";
 import Header from "../../main/header";
 import Sidebar from "./sideBar";
 import { useNavigate } from "react-router-dom";
 import SideBarDetail from "./detailBtn";
+import AxiosApi from "../../API/TestAxios";
 
 const MainStyle = styled.div`
     .App {
@@ -31,6 +32,7 @@ const MapMain = () => {
 
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
+  const [mapLocations, setMapLocations] = useState([]);
   const markerPositions1 = [
     [33.452278, 126.567803],
     [33.452671, 126.574792],
@@ -45,7 +47,16 @@ const MapMain = () => {
     [37.49754540521486, 127.02546694890695],
     [37.49646391248451, 127.02675574250912]
   ];
+  useEffect(()=>{
+    const getCampingData = async() => {
+      const rsp = await AxiosApi.getCampData();
+      const positions = rsp.data.map(item => [item.mapY, item.mapX]);
 
+      setMapLocations(positions);
+
+    }
+    getCampingData();
+  },[])
 
   return (
     <>
@@ -53,7 +64,7 @@ const MapMain = () => {
     <MainStyle>
     <div className="App">
       <section>
-        <button onClick={() => setMarkerPositions(markerPositions1)}>
+        <button onClick={() => setMarkerPositions(mapLocations)}>
           오지/노지
         </button>
         <button onClick={() => setMarkerPositions(markerPositions2)}>

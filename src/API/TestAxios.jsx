@@ -8,7 +8,7 @@ const AxiosApi = {
         return await axios.get(domain + "/camping-data")
     },
 
-    getCampingData : async() => {
+    getCampData : async() => {
 
         return await axios.get(domain + "/campData")
     },

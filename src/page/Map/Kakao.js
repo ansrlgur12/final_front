@@ -4,21 +4,24 @@ import { renderToString } from "react-dom/server";
 import Overlay from "./overlay";
 import InfoWindow from "./infoWindow";
 import { MarkerContext } from "../../context/MarkerInfo";
+import {getDistance} from "geolib";
+
 const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
   const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen} = context;
-  
   const { markerPositions } = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
+  const [isCenter, setCenter] = useState(null);
   const mapTypeControl = new kakao.maps.MapTypeControl();
   const zoomControl = new kakao.maps.ZoomControl();
   const container = useRef();
   const imageSize = new kakao.maps.Size(35, 35);
   const image = new kakao.maps.MarkerImage(markerImage, imageSize);
   const offsetY = 50;
+  const MAX_MARKERS = 200;
 
   useEffect(() => {
         const center = new kakao.maps.LatLng(markerLat, markerLng);
@@ -26,16 +29,29 @@ const KakaoMap = (props) => {
         container.current.style.height = `100vh`;
         console.log(center + "center 값")
         console.log(zoomLev + "zoom 값")
+    
         const options = {
           center,
           level: zoomLev,
           maxLevel: 13
         };
         const map = new kakao.maps.Map(container.current, options);
+
+        kakao.maps.event.addListener(map, 'dragend', function() {        
+    
+          // 지도 중심좌표를 얻어옵니다 
+          var latlng = map.getCenter(); 
+          setCenter(latlng);
+      });
+        setCenter(center)
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
         setKakaoMap(map);
-      },[markerLat]);
+        
+
+
+
+      },[container, markerLat, markerLng, zoomLev]);
 
       
 
@@ -45,7 +61,21 @@ const KakaoMap = (props) => {
     if (kakaoMap === null) {
       return;
     }
-    const positions = markerPositions.map(pos => new kakao.maps.LatLng(...pos));
+    const sortedMarkers = markerPositions.sort((a, b) => {
+        const distanceA = getDistance(
+          { latitude: isCenter.getLat(), longitude: isCenter.getLng() },
+          { latitude: a[0], longitude: a[1] }
+        );
+        const distanceB = getDistance(
+          { latitude: isCenter.getLat(), longitude: isCenter.getLng() },
+          { latitude: b[0], longitude: b[1] }
+        );
+        return distanceA - distanceB;
+    });
+    const nearestMarkers = sortedMarkers.slice(0, MAX_MARKERS);
+    const positions = nearestMarkers.map(
+      (pos) => new kakao.maps.LatLng(pos[0], pos[1])
+    );
 
     setMarkers(markers => {
       markers.forEach(marker => marker.setMap(null));
@@ -138,8 +168,9 @@ const KakaoMap = (props) => {
 //
 //      kakaoMap.setBounds(bounds);
 //    }
-  }, [kakaoMap, markerPositions, overlayOpen]);
+  }, [kakaoMap, markerPositions, isCenter, overlayOpen, setOverlayOpen]);
 
+  
 
   return(
     <div id="container" ref={container} />
