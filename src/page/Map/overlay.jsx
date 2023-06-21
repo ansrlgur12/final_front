@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import SideBarDetail from "./detailBtn";
+import { useContext } from "react";
+import { MarkerContext } from "../../context/MarkerInfo";
 
 const MapStyled = styled.div`
     position: relative;
@@ -65,19 +69,19 @@ const MapStyled = styled.div`
       padding: 0 8px 8px 8px;
       margin-top: 5px;
     }
+    .detailPageBtn{
+      cursor: pointer;
+    }
  `;
 
-const Overlay = (position) => {
+const Overlay = (position, clickClose, clickDetail) => {
+
   console.log(position)
 
-  function stripHtmlTags(html) {
+    const stripHtmlTags = (html) => {
       const tmp = document.createElement("DIV");
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || "";
-    }
-
-    const openDetailPage = () => {
-
     }
 
     return (
@@ -96,13 +100,16 @@ const Overlay = (position) => {
               <div className="jibun ellipsis">전화번호 : 010-12</div>
             </div>
           </div>
-          <div className="bottomLine"><p>icon</p>
-                <p>icon</p>
-                <p>icon</p>
-                <p onClick={openDetailPage}>상세페이지</p></div>
+          <div className="bottomLine">
+                <p className="icon">icon</p>
+                <p className="icon">icon</p>
+                <p className="icon">icon</p>
+                <button>상세페이지</button>
           </div>
+        </div>
       </div>
       </MapStyled>
+      
     );
 };
 

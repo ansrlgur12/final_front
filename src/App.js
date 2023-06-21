@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
+import Login from './main/login/login';
+import KakaoLogin from './API/KaKaoLogin';
 
 // 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
@@ -26,6 +28,7 @@ import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
 
 function App() {
+/*
   ChannelService.boot({
     "pluginKey": "c9dca6c0-c10b-43ae-8b33-46985229621d",
     "memberId": "유저ID",
@@ -35,7 +38,7 @@ function App() {
       "id": "유저ID"
     }
   });
-  
+*/
   return (
     <div className="App">
       <MarkerStore>
@@ -58,7 +61,9 @@ function App() {
           <Route path="/NewPassword" element={<NewPassword />} />
           <Route path="/UserEdit" element={<UserEdit />} />
           <Route path='/productDetailForm' element={<ProductDetailForm />} />
-        </Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/kakaologin' element={<KakaoLogin />} />
+          </Routes>
       </Router>
       </MarkerStore>
     </div>

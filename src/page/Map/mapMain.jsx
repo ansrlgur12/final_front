@@ -3,6 +3,8 @@ import KakaoMap from "./Kakao";
 import { styled } from "styled-components";
 import Header from "../../main/header";
 import Sidebar from "./sideBar";
+import { useNavigate } from "react-router-dom";
+import SideBarDetail from "./detailBtn";
 
 const MainStyle = styled.div`
     .App {
@@ -27,6 +29,7 @@ const MainStyle = styled.div`
 
 const MapMain = () => {
 
+  const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const markerPositions1 = [
     [33.452278, 126.567803],
@@ -56,10 +59,12 @@ const MapMain = () => {
         <button onClick={() => setMarkerPositions(markerPositions2)}>
           유료 야영장
         </button>
+        <button onClick={()=> nav("/testPage")} >test</button>
       </section>
-      <div id="wrap" style={{width:'100vw', height: '80vh'}}>
+      <div id="wrap" style={{width:'100vw', height: '85vh'}}>
             <KakaoMap markerPositions={markerPositions} />
             <Sidebar />
+            <SideBarDetail />
       </div>
     </div>
     </MainStyle>
