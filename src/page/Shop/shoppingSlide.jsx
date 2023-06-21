@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "styled-components";
 import 'swiper/css';
@@ -10,6 +10,8 @@ import { Favorite, AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-
 import { Tooltip } from "@material-ui/core";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AxiosApi from "../../API/TestAxios";
+
 
 const SwiperStyle = styled.div`
 
@@ -100,7 +102,13 @@ const SwiperStyle = styled.div`
   margin-bottom: 10px;
 }
   
-  
+ .brand{
+  font-size: 0.5rem;
+ } 
+ .name{
+ 
+  font-size: 0.8rem;
+ }
  
  
   
@@ -115,10 +123,30 @@ const SwiperStyle = styled.div`
 
 
 const SliderContainer = ({ selectedCategory }) => {
+  
+    const [products, setProducts] = useState([]);
   const nav = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await AxiosApi.getItemList();
+        if (response.status === 200) {
+          setProducts(response.data);
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    fetchProducts();
+  }, []);
+
      const IconButtons = () =>{
     return(
       <>
+      
      <Tooltip title="찜 하기">
     <IconButton className="btn" color="error" aria-label="favorite" >
     <Favorite />
@@ -144,7 +172,7 @@ const SliderContainer = ({ selectedCategory }) => {
       {selectedCategory === '텐트' && 
    <div className="tentCategory">
     <div className="cardSlide">
-    <h3>1~2인용 텐트 </h3>
+    <h3>1-2인용 텐트 </h3>
     <Swiper
       loop ={true}
       
@@ -157,20 +185,17 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+      {products.filter(product => product.category4Name === '1-2인용').map(product => (
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons/><p className="brand">{product.brand}</p><p className="name">{product.productName}</p></SwiperSlide>
+       ))}
        
- 
+       
+     
     </Swiper>
     
     </div>
      <div className="cardSlide">
-     <h3>3~4인용 텐트</h3>
+     <h3>3-4인용 텐트</h3>
      <Swiper
        loop ={true}
        
@@ -183,19 +208,17 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       {products.filter(product => product.category4Name === '3-4인용').map(product => (
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons/></SwiperSlide>
+       ))}
+       
      
   
      </Swiper>
      
      </div>
      <div className="cardSlide">
-     <h3>5~6인용 텐트</h3>
+     <h3>5-6인용 텐트</h3>
      <Swiper
        loop ={true}
        
@@ -210,19 +233,17 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       <SwiperSlide> <img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
-       <SwiperSlide><img src="https://source.unsplash.com/1024x768/?nature" alt="" /><IconButtons/></SwiperSlide>
+       {products.filter(product => product.category4Name === '5-6인용').map(product => (
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons/></SwiperSlide>
+       ))}
+       
      
   
      </Swiper>
      </div>
      </div>
     }
-     {selectedCategory === '침낭' && 
+     {selectedCategory === '취침장비' && 
      <div className="bedCategory">
     <div className="cardSlide">
     <h3>침낭</h3>
@@ -274,7 +295,7 @@ const SliderContainer = ({ selectedCategory }) => {
      
      </div>
      <div className="cardSlide">
-     <h3>야전 침대</h3>
+     <h3>야전침대</h3>
      <Swiper
        loop ={true}
        
@@ -304,7 +325,7 @@ const SliderContainer = ({ selectedCategory }) => {
 {selectedCategory === '라이트' && 
    <div className="tentCategory">
     <div className="cardSlide">
-    <h3>가스 랜턴</h3>
+    <h3>가스랜턴</h3>
     <Swiper
       loop ={true}
       
@@ -329,7 +350,7 @@ const SliderContainer = ({ selectedCategory }) => {
     
     </div>
      <div className="cardSlide">
-     <h3>LED 랜턴</h3>
+     <h3>LED랜턴</h3>
      <Swiper
        loop ={true}
        
@@ -463,7 +484,7 @@ const SliderContainer = ({ selectedCategory }) => {
      {selectedCategory === '캠핑가구' && 
    <div className="tentCategory">
     <div className="cardSlide">
-    <h3>의자</h3>
+    <h3>캠핑 의자</h3>
     <Swiper
       loop ={true}
       
@@ -488,7 +509,7 @@ const SliderContainer = ({ selectedCategory }) => {
     
     </div>
      <div className="cardSlide">
-     <h3>테이블</h3>
+     <h3>캠핑 테이블</h3>
      <Swiper
        loop ={true}
        
@@ -645,7 +666,7 @@ const SliderContainer = ({ selectedCategory }) => {
     
     </div>
      <div className="cardSlide">
-     <h3>팩망치</h3>
+     <h3>팩 망치</h3>
      <Swiper
        loop ={true}
        
@@ -669,7 +690,7 @@ const SliderContainer = ({ selectedCategory }) => {
      
      </div>
      <div className="cardSlide">
-     <h3>나이프</h3>
+     <h3>다용도 칼</h3>
      <Swiper
        loop ={true}
        
@@ -907,7 +928,7 @@ const SliderContainer = ({ selectedCategory }) => {
      
      </div>
      <div className="cardSlide">
-     <h3>보온병</h3>
+     <h3>보온/보냉병</h3>
      <Swiper
        loop ={true}
        
