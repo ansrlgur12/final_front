@@ -65,9 +65,6 @@ const HeaderStyle = styled.div`
 `;
 
 const Header = () =>{
-    const context = useContext(MarkerContext);
-    const {markerLat, markerLng} = context;
-    console.log(markerLat, markerLng);
 
     const nav = useNavigate();
     

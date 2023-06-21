@@ -12,7 +12,7 @@ const InfoStyled = styled.div`
  `;
 
 const InfoWindow = (position) => {
-    console.log(position)
+    // console.log(position)
 
     function stripHtmlTags(html) {
         const tmp = document.createElement("DIV");
