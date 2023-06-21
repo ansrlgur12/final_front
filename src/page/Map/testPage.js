@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import AxiosApi from "../../API/TestAxios";
 
-const Axios = () => {
+const TestPage = () => {
     
     const onClick = async () => {
         try {
@@ -25,4 +25,4 @@ const Axios = () => {
         </div>
     )
 };
-export default Axios;
+export default TestPage;
