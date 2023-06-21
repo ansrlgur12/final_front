@@ -24,6 +24,9 @@ import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 import ChannelService from './util/ChannelService';
+import ReviewCards from './page/Community/section/reviewCards';
+import ReviewDetail from './page/Community/section/reviewDetail';
+import Community from './page/Community/community';
 
 
 function App() {
@@ -42,29 +45,28 @@ function App() {
     <div className="App">
       <MarkerStore>
       <Router>
-
-          <Routes>
-            <Route path='/' element={<MainPage />} />
-            <Route path='/intro' element={<Intro/>} />
-            <Route path='/shopMain' element={<ShopMain />} />
-            <Route path='/mapMain' element={<MapMain />} />
-            {/* <Route path='/post' element={<Post />} /> */}
-            <Route path='/MyComments' element={<MyComments />} />
-            <Route path='/myPage' element={<MyPage />} />
-            <Route path='/userInfo' element={<UserInfo />} />
-            <Route path="/UserInfo" element={<UserInfo />} />
-            <Route path="/Delete" element={<Delete />} />
-            <Route path="/OrderedProduct" element={<OrderedProduct />} />
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/NewPassword" element={<NewPassword />} />
-            <Route path="/UserEdit" element={<UserEdit />} />
-            <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
-            <Route path='/login' element={<Login />} />
-            <Route path='/kakaologin' element={<KakaoLogin />} />
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/intro' element={<Intro />} />
+          <Route path='/shopMain' element={<ShopMain />} />
+          <Route path='/mapMain' element={<MapMain />} />
+          <Route path='/community' element={<Community />} />
+          <Route path='/reviewCards' element={<ReviewCards />} />
+          <Route path='/reviewDetail' element={<ReviewDetail />} />
+          <Route path='/MyComments' element={<MyComments />} />
+          <Route path='/myPage' element={<MyPage />} />
+          <Route path='/userInfo' element={<UserInfo />} />
+          <Route path="/UserInfo" element={<UserInfo />} />
+          <Route path="/Delete" element={<Delete />} />
+          <Route path="/OrderedProduct" element={<OrderedProduct />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/NewPassword" element={<NewPassword />} />
+          <Route path="/UserEdit" element={<UserEdit />} />
+          <Route path='/productDetailForm' element={<ProductDetailForm />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/kakaologin' element={<KakaoLogin />} />
             <Route path='/testPage' element={<TestPage />} />
-
           </Routes>
-
       </Router>
       </MarkerStore>
     </div>
