@@ -26,6 +26,7 @@ import ChannelService from './util/ChannelService';
 import ReviewCards from './page/Community/section/reviewCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
+import MyReview from './page/MyPage/section/myReview';
 
 function App() {
 /*
@@ -51,6 +52,7 @@ function App() {
           <Route path='/community' element={<Community />} />
           <Route path='/reviewCards' element={<ReviewCards />} />
           <Route path='/reviewDetail' element={<ReviewDetail />} />
+          <Route path='/myReview' element={<MyReview />} />
           <Route path='/MyComments' element={<MyComments />} />
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/userInfo' element={<UserInfo />} />
