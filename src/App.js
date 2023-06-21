@@ -21,6 +21,9 @@ import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 import ChannelService from './util/ChannelService';
+import ReviewCards from './page/Community/section/reviewCards';
+import ReviewDetail from './page/Community/section/reviewDetail';
+import Community from './page/Community/community';
 
 function App() {
   ChannelService.boot({
@@ -42,7 +45,9 @@ function App() {
           <Route path='/intro' element={<Intro />} />
           <Route path='/shopMain' element={<ShopMain />} />
           <Route path='/mapMain' element={<MapMain />} />
-          {/* <Route path='/post' element={<Post />} /> */}
+          <Route path='/community' element={<Community />} />
+          <Route path='/reviewCards' element={<ReviewCards />} />
+          <Route path='/reviewDetail' element={<ReviewDetail />} />
           <Route path='/MyComments' element={<MyComments />} />
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/userInfo' element={<UserInfo />} />
