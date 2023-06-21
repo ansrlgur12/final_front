@@ -62,7 +62,8 @@ const items = [
       },
       {
         key: 'sub3-2',
-        label: '내가 쓴 게시글(x)',
+        label: '내가 쓴 게시글',
+        to: '/MyReview'
       },
       {
         key: 'sub3-3',
