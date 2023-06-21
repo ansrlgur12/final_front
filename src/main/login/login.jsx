@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from 'styled-components';
 import introLogo from "../../images/CAMO로고.png"
 import kakaologo from "../../images/kakaoLogo.png"
 import naverlogo from "../../images/naverLogo.png"
 import googlelogo from "../../images/googleLogo.png"
 import KakaoLogin from "../../API/KaKaoLogin";
+import SignUpPage from "./signUp";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
@@ -25,7 +26,7 @@ const LoginStyle = styled.div`
         flex-direction: column;
         flex-wrap: wrap;
     }
-    input[type="text"], input[type="password"] {
+    .loginInput {
         width: 90%;
         padding: 10px;
         margin: 10px auto;
@@ -97,7 +98,21 @@ const LoginStyle = styled.div`
     }
 `;
 
+const SignUpStyle = styled.div`
+    position: absolute;
+    top: 46%;
+    right: -100%;
+    transform: translateY(-50%);
+    /* transition: right 0.6s ease-in-out; */
+
+    &.showSign {
+        right: 0%;
+    }
+`;
+
 const Login = () => {
+    const [showSign, setShowSign] = useState(false);
+
     const logo = {
         backgroundImage : `url(${introLogo})`,
         backgroundsize : 'contain',
@@ -115,19 +130,24 @@ const Login = () => {
         backgroundImage: `url(${naverlogo})`,
         backgroundRepeat: 'no-rereat'
     }
+
+    const signBtnClick = () => {
+        setShowSign(true);
+    };
     
     return(
         <LoginStyle>
                 <div class="container">
                     <div className="loginLogo" style={logo}></div>
                     <form>
-                        <input type="text" placeholder="사용자 이름 또는 이메일" required />
-                        <input type="password" placeholder="비밀번호" required />
+                        <input type="text" placeholder="사용자 이름 또는 이메일" required className="loginInput"/>
+                        <input type="password" placeholder="비밀번호" required className="loginInput"/>
                         <button className="loginButton" type="submit" disabled>로그인</button>
                     </form>
                     <div className="other">
                         <div className="other1">비밀번호 재설정</div>
-                        <div className="other2">회원가입</div>
+                        <div className="other2" onClick={signBtnClick}>회원가입</div>
+                        
                     </div>
                     <div className="snsLogin">
                         <div className="kakao" style={kakaoLogo}><KakaoLogin/></div>
@@ -135,6 +155,9 @@ const Login = () => {
                         <div className="google" style={googleLogo}></div>
                     </div>
                 </div>
+                <SignUpStyle className={showSign ? "showSign" : ""}>
+                    {showSign && <SignUpPage />}
+                </SignUpStyle>
         </LoginStyle>
     );
 }

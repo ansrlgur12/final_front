@@ -64,6 +64,8 @@ function App() {
           <Route path='/productDetailForm' element={<ProductDetailForm />} />
           <Route path='/login' element={<Login />} />
           <Route path='/kakaologin' element={<KakaoLogin />} />
+          <Route path='/signup' element={<SignUpPage />} />
+
           </Routes>
       </Router>
       </MarkerStore>

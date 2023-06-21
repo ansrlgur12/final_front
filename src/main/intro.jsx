@@ -66,7 +66,7 @@ const IntroStyle = styled.div`
     }
 `;
 
-const LoginStyle = styled.div`
+export const LoginStyle = styled.div`
     position: absolute;
     top: 46%;
     right: -100%;

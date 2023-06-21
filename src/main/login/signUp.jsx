@@ -1,33 +1,48 @@
 import React, { useState } from 'react';
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
+import introLogo from "../../images/CAMO로고.png"
+import Login from './login';
+import { LoginStyle } from '../intro';
 
 const SignUpStyle = styled.div`
+    box-sizing: border-box;
 
+    .logo{
+        width: 100%;
+        height: 100px;
+        background-size: contain;
+    }
     .signup-page {
-        max-width: 500px;
+        width: 380px;
         margin: 0 auto;
         padding: 20px;
         background-color: #f2f2f2;
+        border: 1px solid #ccc;
         border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
     }
-    .signup-page h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
+    .signForm * {
+        box-sizing: border-box;
+        margin: 2px;
     }
     .signup-page .form-group {
-        margin-bottom: 15px;
+        display: flex;
+        box-sizing: border-box;
+        justify-content: space-between;
     }
     .signup-page label {
         display: block;
-        margin-bottom: 5px;
     }
-    .signup-page input {
+    .textInput {
         width: 100%;
-        padding: 8px;
+        height: 2rem;
         border: 1px solid #ccc;
         border-radius: 3px;
+        
     }
-    .signup-page button {
+    .chSign button {
         padding: 10px 15px;
         background-color: #4caf50;
         color: #fff;
@@ -35,7 +50,7 @@ const SignUpStyle = styled.div`
         border-radius: 3px;
         cursor: pointer;
     }
-    .signup-page button:hover {
+    .chSign button:hover {
         background-color: #45a049;
     }
     .agree label{
@@ -49,29 +64,65 @@ const SignUpStyle = styled.div`
         margin: 10px;
         width: 20px;
     }
-
+    .chSign{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    ${({ isActive }) =>
+        isActive &&
+        css`
+        display: none;
+    `};
 `;
+// const GoBackButton = styled.button`
+//     ${({ isActive }) =>
+//         isActive &&
+//         css`
+//         display: none;
+//     `};
+// `;
 
 const SignUpPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [checkEmail, setCheckEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [checkPassword, setCheckPassword] = useState('');
     const [agreed, setAgreed] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [goBackPage, setGoBackPage] = useState(false);
 
-    const handleNameChange = (e) => {
+    const logo = {
+        backgroundImage : `url(${introLogo})`,
+        backgroundsize : 'contain',
+        backgroundRepeat: 'no-repeat',
+    };
+
+    const nameChange = (e) => {
         setName(e.target.value);
+        console.log("name : " + e);
     };
 
-    const handleEmailChange = (e) => {
+    const emailChange = (e) => {
         setEmail(e.target.value);
+        console.log("email : " + e);
+    };
+    const checkEmailChange = (e) => {
+        setCheckEmail(e.target.value);
     };
 
-    const handlePasswordChange = (e) => {
+    const passwordChange = (e) => {
         setPassword(e.target.value);
+        console.log("Password : " + e);
+    };
+    const checkPasswordChange = (e) => {
+        setCheckPassword(e.target.value);
+        console.log("checkPwd : " + e);
     };
 
-    const handleAgreementChange = (e) => {
+    const agreementChange = (e) => {
         setAgreed(e.target.checked);
+        console.log("agree : " + e);
     };
 
     const handleSubmit = (e) => {
@@ -82,108 +133,95 @@ const SignUpPage = () => {
         }
         // 회원가입 로직
         console.log('회원가입 정보:', { name, email, password });
-      };
+    };
 
-    return (
+    const goBack = () => {
+        setShowLogin(true);
+        setGoBackPage(true);
+    };
+
+
+    return goBackPage ? null : (
         <SignUpStyle>
             <div className="signup-page">
-                <h2>회원가입</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">이름:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={handleNameChange}
-                            required
-                        />
-                    </div>
+                <div className="logo" style={logo}></div>
+                <form className="signForm" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">닉네임:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={handleNameChange}
-                            required
-                        />
+                        <button>중복확인</button>
                     </div>
+                    <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={nameChange}
+                        required
+                        className='textInput'
+                    />
                     <div className="form-group">
                         <label htmlFor="email">이메일:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            required
-                        />
+                        <button className='confirm'>이메일 인증</button>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="email">이메일 인증:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            required
-                        />
-                    </div>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={emailChange}
+                        required
+                        className='textInput email1'
+                    />
+                    <input
+                        type="email"
+                        id="checkEmail"
+                        value={checkEmail}
+                        onChange={checkEmailChange}
+                        required
+                        className='textInput email2'
+                    />
+
                     <div className="form-group">
                         <label htmlFor="password">비밀번호:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
                     </div>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={passwordChange}
+                        required
+                        className='textInput'
+                    />
+                    
                     <div className="form-group">
                         <label htmlFor="checkPassword">비밀번호 확인:</label>
-                        <input
-                            type="checkPassword"
-                            id="checkPassword"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="checkPassword">주소:</label>
-                        <input
-                            type="checkPassword"
-                            id="checkPassword"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="checkPassword">전화번호:</label>
-                        <input
-                            type="checkPassword"
-                            id="checkPassword"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group agree">
+                    <input
+                        type="Password"
+                        id="checkPassword"
+                        value={checkPassword}
+                        onChange={checkPasswordChange}
+                        required
+                        className='textInput'
+                    />
+                    <div className="agree">
                         <label>
                             <input
                             type="checkbox"
                             checked={agreed}
-                            onChange={handleAgreementChange}
+                            onChange={agreementChange}
                             required
                             />
                             <div>이용 약관에 동의합니다.</div>
                         </label>
                     </div>
-
-                    <button type="submit">가입하기</button>
+                    <div className="chSign">
+                        <button className="joinUs" type="submit">가입하기</button>
+                        <button className="backBtn" onClick={goBack}>돌아가기</button>
+                    </div>
                 </form>
             </div>
+            <LoginStyle className={showLogin ? "show" : ""}>
+                    {showLogin && <Login />}
+            </LoginStyle>
         </SignUpStyle>
     );
 };
