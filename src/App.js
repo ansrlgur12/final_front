@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
-import Login from './main/login/login';
 import KakaoLogin from './API/KaKaoLogin';
 
 // 게시판
@@ -23,6 +22,7 @@ import MyComments from './page/MyPage/section/myComments';
 import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 import ChannelService from './util/ChannelService';
+import SignUpPage from './main/login/signUp';
 
 function App() {
 /*
@@ -57,8 +57,8 @@ function App() {
             <Route path="/NewPassword" element={<NewPassword />} />
             <Route path="/UserEdit" element={<UserEdit />} />
             <Route path='/productDetailForm' element={<ProductDetailForm/>}/>
-            <Route path='/login' element={<Login />} />
             <Route path='/kakaologin' element={<KakaoLogin />} />
+            <Route path='/signup' element={<SignUpPage/>} />
 
           </Routes>
 

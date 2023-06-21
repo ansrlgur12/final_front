@@ -9,7 +9,6 @@ import KakaoLogin from "../../API/KaKaoLogin";
 const LoginStyle = styled.div`
     box-sizing: border-box;
 
-
     .loginLogo{
         width: 100%;
         height: 120px;
@@ -33,15 +32,19 @@ const LoginStyle = styled.div`
         border-radius: 5px;
         border: 1px solid #ccc;
     }
-    .loginBtn {
+    .loginButton {
         width: 94%;
+        height: 2.2rem;
         padding: 0px;
         margin: 4px;
-        background-color: #4CAF50;
-        color: #fff;
+        background-color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+    }
+    .loginButton:hover {
+        background-color: #2D6247;
+        color: #f2f2f2;
     }
     .other {
         margin: 10px;
@@ -120,7 +123,7 @@ const Login = () => {
                     <form>
                         <input type="text" placeholder="사용자 이름 또는 이메일" required />
                         <input type="password" placeholder="비밀번호" required />
-                        <button className="loginBtn" type="submit">로그인</button>
+                        <button className="loginButton" type="submit" disabled>로그인</button>
                     </form>
                     <div className="other">
                         <div className="other1">비밀번호 재설정</div>
