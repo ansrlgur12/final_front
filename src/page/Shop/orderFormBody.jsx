@@ -10,7 +10,7 @@ const OrderFormBody=()=> {
        
         <div>
             개수
-        <QuantityPicker min={0} smooth  />
+        <QuantityPicker min={1} smooth  />
 
         </div>
       </SubWrapper>

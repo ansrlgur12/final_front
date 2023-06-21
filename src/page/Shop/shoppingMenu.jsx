@@ -92,7 +92,7 @@ const ShopCategory = ({ onCategoryChange }) => {
  
     const items = [
         {icon: faTent, name: '텐트'},
-        {icon: faBed, name: '침낭'},
+        {icon: faBed, name: '취침장비'},
         {icon: faLightbulb, name: '라이트'},
         {icon: faKitchenSet, name: '키친'},
         {icon: faChair, name: '캠핑가구'},

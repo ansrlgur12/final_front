@@ -8,5 +8,9 @@ const AxiosApi = {
         return await axios.get(domain + "/camping-data")
     },
 
+    getItemList : async() => {
+        return await axios.get(domain+ "/product")
+   }
+
 };
 export default AxiosApi;

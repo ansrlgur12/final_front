@@ -33,7 +33,7 @@ const LoginStyle = styled.div`
         border-radius: 5px;
         border: 1px solid #ccc;
     }
-    .loginBtn {
+    .loginButton {
         width: 94%;
         padding: 0px;
         margin: 4px;
@@ -120,7 +120,7 @@ const Login = () => {
                     <form>
                         <input type="text" placeholder="사용자 이름 또는 이메일" required />
                         <input type="password" placeholder="비밀번호" required />
-                        <button className="loginBtn" type="submit">로그인</button>
+                        <button className="loginButton" type="submit">로그인</button>
                     </form>
                     <div className="other">
                         <div className="other1">비밀번호 재설정</div>
