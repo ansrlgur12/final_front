@@ -1,20 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import SideBarDetail from "./detailBtn";
+import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
+import AxiosApi from "../../API/TestAxios";
+import DetailPage from "./detailPage";
 
 const MapStyled = styled.div`
     position: relative;
     z-index: 1;
     .wrap {
+      display: none;
       border-radius: 15px;
       position: absolute;
-      left: 0;
-      bottom: 40px;
+      right: 41vw;
+      bottom: 49vh;
       margin-left: -144px;
     }
+    .openOverlay {
+      display: flex;
+    }
+
     .wrap * {padding: 0;margin: 0;}
 
     .wrap .info {
@@ -51,6 +57,9 @@ const MapStyled = styled.div`
       height: 75px;
     }
     .desc .ellipsis {
+      padding: .3em;
+      font-size: .8em;
+      font-weight: bold;
     }
     .desc .jibun {
       font-size: 11px;
@@ -74,39 +83,53 @@ const MapStyled = styled.div`
     }
  `;
 
-const Overlay = (position, clickClose, clickDetail) => {
-
-  // console.log(position)
-
-    const stripHtmlTags = (html) => {
-      const tmp = document.createElement("DIV");
-      tmp.innerHTML = html;
-      return tmp.textContent || tmp.innerText || "";
+const Overlay = (props) => {
+  const context = useContext(MarkerContext);
+  const {location, setDetailOpen} = context;
+  const {open, close} = props
+  const [campInfo, setCampInfo] = useState("");
+  
+  useEffect(()=>{
+    const loading = async() => {
+      console.log(location)
+      const getOverlay = async() => {
+        const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
+        setCampInfo(rsp.data);
+        console.log(campInfo);
+    };
+    getOverlay();
     }
+    loading();
+  },[location])
+
+  const detailPageOpen = () => {
+    setDetailOpen(true);
+  }
 
     return (
       <MapStyled>
-      <div className="wrap">
+      <div className={open ? "openOverlay wrap" : "wrap" }>
+        {open && campInfo.map((campInfo) => (
         <div className="info">
           <div className="title">
-            <p>{stripHtmlTags(position.position.La)}</p>
-            <div className="close" title="닫기"></div>
+            <p>{campInfo.facltNm}</p>
+            <div onClick={close} className="close" title="닫기"></div>
           </div>
           <div className="body">
-            <div className="img"></div>
+            <div className="img" style={{backgroundImage: `url(${campInfo.firstImageUrl})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', }}></div>
             <div className="desc">
-              <div className="ellipsis">캠핑장이름</div>
-              <div className="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>
-              <div className="jibun ellipsis">전화번호 : 010-12</div>
+              <div className="ellipsis">{campInfo.addr1}</div>
+              <div className="ellipsis jibun">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
             </div>
           </div>
           <div className="bottomLine">
                 <p className="icon">icon</p>
                 <p className="icon">icon</p>
                 <p className="icon">icon</p>
-                <button>상세페이지</button>
+                <button onClick={detailPageOpen}>상세페이지</button>
           </div>
-        </div>
+        </div> 
+        ))}
       </div>
       </MapStyled>
       
