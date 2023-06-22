@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import markerImage from "../../images/캠핑마커.png";
 import { renderToString } from "react-dom/server";
 import Overlay from "./overlay";
 import InfoWindow from "./infoWindow";
@@ -11,8 +10,8 @@ const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, location, setLocation} = context;
-  const { markerPositions} = props;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation} = context;
+  const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
   const [isCenter, setCenter] = useState(null);
@@ -20,7 +19,7 @@ const KakaoMap = (props) => {
   const zoomControl = new kakao.maps.ZoomControl();
   const container = useRef();
   const imageSize = new kakao.maps.Size(35, 35);
-  const image = new kakao.maps.MarkerImage(markerImage, imageSize);
+  const image = new kakao.maps.MarkerImage(campLocMarkerImg, imageSize);
   const offsetY = 50;
   const MAX_MARKERS = 200;
 
@@ -154,7 +153,7 @@ const KakaoMap = (props) => {
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
           console.log('Map Unclicked');
           // overlay.setMap(null);
-          // setOverlayOpen(false);
+          setOverlayOpen(false);
           console.log(overlayOpen);
         });
 
