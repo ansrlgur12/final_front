@@ -9,6 +9,8 @@ import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 import Overlay from "./overlay";
 import DetailPage from "./detailPage";
+import animalCamp from "../../images/강아지발바닥.png";
+import markerImage from "../../images/캠핑마커.png";
 
 const MainStyle = styled.div`
     .App {
@@ -33,10 +35,12 @@ const MainStyle = styled.div`
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, detailOpen, setDetailOpen} = context;
+  const {overlayOpen, setOverlayOpen} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
+  const [animalLocations, setAnimalLocations] = useState([]);
+  const [marker, setMarker] = useState();
   
   const markerPositions2 = [
     [37.499590490909185, 127.0263723554437],
@@ -54,15 +58,29 @@ const MapMain = () => {
       setMapLocations(positions);
     }
     getCampingData();
+
+    const getAnimalCampingData = async() => {
+      const rsp = await AxiosApi.getAnimalCampData();
+      const positions = rsp.data.map(item => [item.mapY, item.mapX]);
+      setAnimalLocations(positions);
+    }
+    getAnimalCampingData();
   },[])
 
   const closeOverlay = () => {
     setOverlayOpen(false)
   }
 
-  const closeDetail = () => {
-    setDetailOpen(false)
+  const setNormalMapInfo = () => {
+    setMarkerPositions(mapLocations)
+    setMarker(markerImage);
   }
+
+  const setAnimalMapInfo = () => {
+    setMarkerPositions(animalLocations);
+    setMarker(animalCamp);
+  }
+
 
   return (
     <>
@@ -70,19 +88,21 @@ const MapMain = () => {
     <MainStyle>
     <div className="App">
       <section>
-        <button onClick={() => setMarkerPositions(mapLocations)}>
+        <button onClick={setNormalMapInfo}>
           오지/노지
         </button>
         <button onClick={() => setMarkerPositions(markerPositions2)}>
           유료 야영장
         </button>
+        <button onClick={setAnimalMapInfo}>
+          애완동물 동반가능
+        </button>
         <button onClick={()=> nav("/testPage")} >test</button>
       </section>
       <div id="wrap" style={{width:'100vw', height: '85vh'}}>
-            <KakaoMap markerPositions={markerPositions}/>
+            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>
-            <DetailPage open={detailOpen} close = {closeDetail}/>
       </div>
     </div>
     </MainStyle>

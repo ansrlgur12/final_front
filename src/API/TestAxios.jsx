@@ -25,5 +25,10 @@ const AxiosApi = {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
    },
 
+   getAnimalCampData : async() => {
+
+    return await axios.get(domain + "/camp/animalData")
+},
+
 };
 export default AxiosApi;

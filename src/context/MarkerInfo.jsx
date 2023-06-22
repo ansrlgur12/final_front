@@ -14,7 +14,7 @@ const MarkerStore = (props) => {
 
     return(
         <MarkerContext.Provider value={{markerLat, setMarkerLat, markerLng, setMarkerLng, zoomLev, setZoomLev, viewOverlay, setViewOverlay, overlayOpen, setOverlayOpen,
-            closeMenu, setCloseMenu, location, setLocation, detailOpen, setDetailOpen }}>
+            closeMenu, setCloseMenu, location, setLocation }}>
             {props.children}
         </MarkerContext.Provider>
     );
