@@ -5,13 +5,14 @@ import Overlay from "./overlay";
 import InfoWindow from "./infoWindow";
 import { MarkerContext } from "../../context/MarkerInfo";
 import {getDistance} from "geolib";
+import AxiosApi from "../../API/TestAxios";
 
 const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen} = context;
-  const { markerPositions } = props;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, location, setLocation} = context;
+  const { markerPositions} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
   const [isCenter, setCenter] = useState(null);
@@ -38,10 +39,10 @@ const KakaoMap = (props) => {
         const map = new kakao.maps.Map(container.current, options);
 
         kakao.maps.event.addListener(map, 'dragend', function() {        
-    
           // 지도 중심좌표를 얻어옵니다 
           var latlng = map.getCenter(); 
           setCenter(latlng);
+          setOverlayOpen(false);
       });
         setCenter(center)
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
@@ -88,7 +89,7 @@ const KakaoMap = (props) => {
           image,
           clickable: true,
         });
-  
+        
         const infowindow = new kakao.maps.CustomOverlay({
           content:  renderToString(<InfoWindow position={position}/>),
           map: null,
@@ -112,17 +113,8 @@ const KakaoMap = (props) => {
 
         kakao.maps.event.addListener(kakaoMap, 'zoom_changed', () => {
           adjustInfowindowPosition();
+          setOverlayOpen(false);
         });
-
-        
-        
-        const overlay = new kakao.maps.CustomOverlay({
-          content: renderToString(<Overlay position={position}/>),
-          map: null,
-          position: marker.getPosition(),
-          removable: true,
-        });
-
 
         kakao.maps.event.addListener(marker, 'mouseover', () => {
           adjustInfowindowPosition();
@@ -140,19 +132,29 @@ const KakaoMap = (props) => {
           kakaoMap.setLevel(1);
           console.log('Marker clicked');
           infowindow.setMap(null)
-          overlay.setMap(kakaoMap);
+          const xValue = position.La;
+          const yValue = position.Ma;  
+          setLocation([xValue, yValue]);
 
           setOverlayOpen(true);
-          console.log(overlayOpen);
+          console.log("오버레이 오픈" + overlayOpen);
+          
           const markerPosition = marker.getPosition();
           kakaoMap.setCenter(markerPosition);
           kakaoMap.relayout();
         });
 
+        // const overlay = new kakao.maps.CustomOverlay({
+        //   content: renderToString(<Overlay position={position}/>),
+        //   map: null,
+        //   position: marker.getPosition(),
+        //   removable: true,
+        // });
+
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
           console.log('Map Unclicked');
-          overlay.setMap(null);
-          setOverlayOpen(false);
+          // overlay.setMap(null);
+          // setOverlayOpen(false);
           console.log(overlayOpen);
         });
 

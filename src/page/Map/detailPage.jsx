@@ -5,17 +5,18 @@ import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 
 const DetailContainer = styled.div`
+    z-index: 2;
     position: fixed;
-    z-index: 3;
     right: 1.5vw;
     bottom: 6vh;
-.container{
+    .container {
     width: 30vw;
     height: 76vh;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
-}
+    transform: translateX(${props => (props.open ? "0%" : "110%")});
+  }
 .closeBtn{
     border-radius: 50px;
     width: 60px;
@@ -32,7 +33,15 @@ const DetailContainer = styled.div`
     font-size: 1em;
     font-weight: bold;
 }
-
+// .slideOut {
+//     transform: translateX(110%); /* 오른쪽으로 이동하여 숨김 */
+//     display: none;
+//   }
+// 
+// .slideIn {
+//     transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
+// }
+    
     
     
 `;
@@ -47,22 +56,26 @@ const TitleBar = styled.div`
     border-top-right-radius: 15px;
 `;
 
-const DetailPage = () => {
-
+const DetailPage = (props) => {
+    const {open, close} = props;
     const context = useContext(MarkerContext);
-    const {closeMenu, setCloseMenu} = context;
 
+    useEffect(() => {
+        if (!open) {
+          const timer = setTimeout(() => {
+            close();
+          }, 1500);
+          return () => clearTimeout(timer);
+        }
+      }, [open, close]);
+    
 
-    const hideMenuBar = () => {
-        setCloseMenu(!closeMenu);
-        console.log(closeMenu + "현재상태")
-    }
 
     return(
-        <DetailContainer>
-            <div className={`container ${closeMenu ? "slideIn" : "slideOut"}`}>
+        <DetailContainer open={open}>
+            <div className="container">
                 <TitleBar></TitleBar>
-                <button className={closeMenu ? "closeBtn" : ""}onClick={hideMenuBar}>숨기기</button>
+                <button className="closeBtn" onClick={close}>숨기기</button>
             </div>
         </DetailContainer>
     )

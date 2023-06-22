@@ -4,8 +4,11 @@ import { styled } from "styled-components";
 import Header from "../../main/header";
 import Sidebar from "./sideBar";
 import { useNavigate } from "react-router-dom";
-import SideBarDetail from "./detailBtn";
 import AxiosApi from "../../API/TestAxios";
+import { useContext } from "react";
+import { MarkerContext } from "../../context/MarkerInfo";
+import Overlay from "./overlay";
+import DetailPage from "./detailPage";
 
 const MainStyle = styled.div`
     .App {
@@ -29,15 +32,12 @@ const MainStyle = styled.div`
   `;
 
 const MapMain = () => {
-
+  const context = useContext(MarkerContext);
+  const {overlayOpen, setOverlayOpen, detailOpen, setDetailOpen} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
-  const markerPositions1 = [
-    [33.452278, 126.567803],
-    [33.452671, 126.574792],
-    [33.451744, 126.572441]
-  ];
+  
   const markerPositions2 = [
     [37.499590490909185, 127.0263723554437],
     [37.499427948430814, 127.02794423197847],
@@ -51,12 +51,18 @@ const MapMain = () => {
     const getCampingData = async() => {
       const rsp = await AxiosApi.getCampData();
       const positions = rsp.data.map(item => [item.mapY, item.mapX]);
-
       setMapLocations(positions);
-
     }
     getCampingData();
   },[])
+
+  const closeOverlay = () => {
+    setOverlayOpen(false)
+  }
+
+  const closeDetail = () => {
+    setDetailOpen(false)
+  }
 
   return (
     <>
@@ -73,9 +79,10 @@ const MapMain = () => {
         <button onClick={()=> nav("/testPage")} >test</button>
       </section>
       <div id="wrap" style={{width:'100vw', height: '85vh'}}>
-            <KakaoMap markerPositions={markerPositions} />
+            <KakaoMap markerPositions={markerPositions}/>
             <Sidebar />
-            <SideBarDetail />
+            <Overlay open={overlayOpen} close={closeOverlay}/>
+            <DetailPage open={detailOpen} close = {closeDetail}/>
       </div>
     </div>
     </MainStyle>
