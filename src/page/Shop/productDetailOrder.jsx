@@ -1,6 +1,5 @@
 
-import React from "react";
-import OrderFormBody from "./orderFormBody";
+import React, {useState} from "react";
 import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
@@ -8,26 +7,28 @@ import OrderInfo from "./orderInfo";
 import { Button } from "@mui/material-next";
 import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import QuantityInput from "./quantityInput";
 
 
 
 
 
-const ProductDetailOrder=()=> {
+const ProductDetailOrder=({product})=> {
+    const [quantity, setQuantity] = useState(0);
   const nav = useNavigate();
   return (
     <>
     
    
     <Container>
-      <OrderFormHeader/>
-      <OrderFormBody/>
+      <OrderFormHeader product={product}/>
+      <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
       <OrderFormFooter />
-      <OrderInfo  />
+      <OrderInfo  quantity={quantity} price={product.price}/>
       
      <ButtonWrapper>
         
-        <Button sx={{color:'green'}} size="large" onClick={()=>nav("/")}
+        <Button sx={{color:'green'}} size="large" onClick={()=>nav("/shopCart")}
           variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
           ADD TO CART
         </Button>

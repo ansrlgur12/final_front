@@ -28,6 +28,7 @@ import ReviewCards from './page/Community/section/reviewCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
 import MyReview from './page/MyPage/section/myReview';
+import CartForm from './page/Shop/CartPage';
 
 
 function App() {
@@ -64,10 +65,12 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="/NewPassword" element={<NewPassword />} />
           <Route path="/UserEdit" element={<UserEdit />} />
-          <Route path='/productDetailForm' element={<ProductDetailForm />} />
+          <Route path='/productDetailForm/:id' element={<ProductDetailForm />} />
           <Route path='/login' element={<Login />} />
           <Route path='/kakaologin' element={<KakaoLogin />} />
             <Route path='/testPage' element={<TestPage />} />
+            <Route path='/shopCart' element={<CartForm />} />
+           
           </Routes>
       </Router>
       </MarkerStore>

@@ -15,6 +15,9 @@ const AxiosApi = {
     
     getItemList : async() => {
         return await axios.get(domain+ "/product")
+   },
+   productDetail : async(id) =>{
+    return await axios.get(domain+ `/productDetail/${id}`)
    }
 
 };

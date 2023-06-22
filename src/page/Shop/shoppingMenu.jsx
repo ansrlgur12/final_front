@@ -1,9 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTent, faBed, faLightbulb, faKitchenSet, faChair, faBox, faScrewdriverWrench,faFireBurner, faFan, faCaravan } from '@fortawesome/free-solid-svg-icons';
-import { styled } from 'styled-components';
-import {React } from 'react';
+import  styled, {keyframes,css} from 'styled-components';
+import React, {useState} from 'react';
 
-
+const gradient = keyframes`
+  0% {
+    background: radial-gradient(circle at center, #58c38c 0%, #fff 0%, #fff 100%);
+  }
+  25% {
+    background: radial-gradient(circle at center, #58c38c 24%, #fff 25%, #fff 100%);
+  }
+  50% {
+    background: radial-gradient(circle at center, #58c38c 49%, #fff 50%, #fff 100%);
+  }
+  75% {
+    background: radial-gradient(circle at center, #58c38c 74%, #fff 75%, #fff 100%);
+  }
+  100% {
+    color: #fff;
+    background: radial-gradient(circle at center, #2D6247 99%, #fff 100%, #fff 100%);
+  }
+`;
 export const GridStlye = styled.div`
   
     box-sizing: border-box;
@@ -40,8 +57,18 @@ export const GridStlye = styled.div`
   .grid-item:hover{
     box-shadow: 0px 3px 1px rgba(46, 229, 157, 0.4);
   }
-  .grid-item button {
-    width: 150px;
+ 
+
+ 
+
+
+  .itemName{
+    margin-top: 20px;
+
+  }
+`
+const Button = styled.button`
+     width: 150px;
     height: 100%;
     background: none;
     border: none;
@@ -52,43 +79,17 @@ export const GridStlye = styled.div`
     align-items: center;
     justify-content: center;
     color:#2D6247;
-   
-  }
 
-  .grid-item button:active {
-    @keyframes gradient {
-  0% {
-    background: radial-gradient(circle at center, #58c38c 0%, #fff 0%, #fff 100%);
-  }
-  25% {
-    background: radial-gradient(circle at center, #58c38c 24%, #fff 25%, #fff 100%);
-  }
-  50% {
-    background: radial-gradient(circle at center, #58c38c 49%, #fff 50%, #fff 100%);
-  }
-  75% {
-    background: radial-gradient(circle at center, #58c38c 74%, #fff 75%, #fff 100%);
-  }
-  100% {
+  ${({ isSelected }) => isSelected && css`
+    opacity: 1;
+    animation: ${gradient} 50ms;
+    background: #2D6247;
     color: #fff;
-    background: radial-gradient(circle at center, #2D6247 99%, #fff 100%, #fff 100%);
-  }
-}
-  opacity: 1;
-
-  animation: gradient 50ms;
-  background: #2D6247;
-  color: #fff;
-  box-shadow: none;
-}
-
-
-  .itemName{
-    margin-top: 20px;
-
-  }
-`
+    box-shadow: none;
+  `}
+`;
 const ShopCategory = ({ onCategoryChange }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
  
     const items = [
         {icon: faTent, name: '텐트'},
@@ -102,24 +103,24 @@ const ShopCategory = ({ onCategoryChange }) => {
         {icon: faFan, name: '계절용품'},
         {icon: faCaravan, name: 'RV용품'}
       ];
-
+      const handleClick = (name) => {
+        onCategoryChange(name.toLowerCase());
+        setSelectedItem(name);
+      }
   return (
     
     <div className="grid-container">
-      {items.map((item, index) => (
-       
-        <div className="grid-item" key={index}>
-          <button onClick={() => onCategoryChange(item.name.toLowerCase())}>
-            <FontAwesomeIcon icon={item.icon} size='lg' />
-            <div className='itemName'>{item.name}</div>
-
-            
-          </button>
-        </div>
-    
-      ))}
-      
+  {items.map((item, index) => {
+        
+        return (
+          <div className="grid-item" key={index}>
+            <Button isSelected={item.name === selectedItem}  onClick={() => handleClick(item.name)}>
+              <FontAwesomeIcon icon={item.icon} size='lg' />
+              <div className='itemName'>{item.name}</div>
+            </Button>
+          </div>
+        );
+      })}
     </div>
-   
   );
 }; export default ShopCategory;
