@@ -1,9 +1,11 @@
 
-import React from "react";
+import React, {useState,useEffect} from "react";
 import styled from "styled-components";
 import ProductDetailOrder from "./productDetailOrder";
 import Header from "../../main/header";
 import { GridStlye } from "./shoppingMenu";
+import {useParams} from "react-router-dom";
+import AxiosApi from "../../API/TestAxios";
 
 
 const Container = styled.section`
@@ -27,6 +29,7 @@ const ImageWrapper = styled.div`
     max-width: 620px;
     object-fit: cover;
     border-radius: 8px;
+    border: 2px solid #ccc;
   }
 `;
 
@@ -42,6 +45,23 @@ const OrderWrapper = styled.div`
 
 
 const ProductDetailForm =() => {
+    const {id} = useParams();
+    const [product,setProduct] = useState(null);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+          try {
+            const response = await AxiosApi.productDetail(id); // productId를 이용해 상품 정보를 가져옵니다.
+            if (response.status === 200) {
+              setProduct(response.data); // 가져온 상품 정보를 product 상태에 저장합니다.
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+    
+        fetchProduct();
+      }, [id]);
   return (
     <>
     <Header/>
@@ -49,9 +69,9 @@ const ProductDetailForm =() => {
     <Container>
       <OrderWrapper>
         <ImageWrapper>
-          <img src="https://source.unsplash.com/1024x768/?nature" alt="img" />
+        {product &&  <img src={product.imageUrl} alt="img" />}
         </ImageWrapper>
-        <ProductDetailOrder />
+        {product && <ProductDetailOrder product={product} />}
       </OrderWrapper>
      
     </Container>

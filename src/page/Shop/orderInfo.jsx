@@ -4,18 +4,19 @@ import styled from "styled-components";
 import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const OrderInfo =()=> {
+const OrderInfo =({ quantity, price })=> {
+    const totalPrice = quantity * price;
   return (
     <Container>
       <div>
         <InfoTag>OPTIONS</InfoTag>
-        <span>개수</span>
+        <span>{quantity}</span>
       </div>
       <div>
         <InfoTag>TOTAL PRICE</InfoTag>
         <TotalPriceWrapper>
           <FontAwesomeIcon icon={faWonSign}/>
-          <span>가격</span>
+          <span>{totalPrice}</span>
         </TotalPriceWrapper>
       </div>
     </Container>

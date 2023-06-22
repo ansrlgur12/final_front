@@ -1,6 +1,5 @@
 
-import React from "react";
-import OrderFormBody from "./orderFormBody";
+import React, {useState,useContext} from "react";
 import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
@@ -8,29 +7,34 @@ import OrderInfo from "./orderInfo";
 import { Button } from "@mui/material-next";
 import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import QuantityInput from "./quantityInput";
+import { CartContext } from "../../context/CartContext";
 
 
 
 
 
-const ProductDetailOrder=()=> {
+const ProductDetailOrder=({product})=> {
+    const [quantity, setQuantity] = useState(1);
   const nav = useNavigate();
+  const {addToCart} = useContext(CartContext);
   return (
     <>
     
    
     <Container>
-      <OrderFormHeader/>
-      <OrderFormBody/>
+      <OrderFormHeader product={product}/>
+      <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
       <OrderFormFooter />
-      <OrderInfo  />
+      <OrderInfo  quantity={quantity} price={product.price}/>
       
      <ButtonWrapper>
         
-        <Button sx={{color:'green'}} size="large" onClick={()=>nav("/")}
+        <button onClick={()=> { addToCart(product, quantity);nav("/cart");}}>ADD TO CART</button>
+        {/* <Button sx={{color:'green'}} size="large" onClick={()=> { addToCart(product, quantity);nav("/cart");}}
           variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
           ADD TO CART
-        </Button>
+        </Button> */}
      
         <Button onClick={()=>nav("/")} endIcon={<DoneOutline color="success" onClick={()=>nav("/inicis")}/>} sx={{color:'green'}}  size="large"
           variant="elevated" >
