@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
-import Login from './main/login/login';
 import KakaoLogin from './API/KaKaoLogin';
 import TestPage from './page/Map/testPage';
 import CartProvider from './context/CartContext';
@@ -30,6 +29,8 @@ import Community from './page/Community/community';
 import MyReview from './page/MyPage/section/myReview';
 import CartForm from './page/Shop/CartPage';
 
+import SignUpPage from './main/login/signUp';
+import Login from './main/login/login';
 
 function App() {
 /*
@@ -72,6 +73,8 @@ function App() {
             <Route path='/testPage' element={<TestPage />} />
             <Route path='/shopCart' element={<CartForm />} />
            
+          <Route path='/signup' element={<SignUpPage />} />
+
           </Routes>
       </Router>
       </CartProvider>

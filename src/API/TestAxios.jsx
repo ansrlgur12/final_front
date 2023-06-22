@@ -5,12 +5,12 @@ const AxiosApi = {
 
     campingTest : async() => {
 
-        return await axios.get(domain + "/camping-data")
+        return await axios.get(domain + "/camp/camping-data")
     },
 
     getCampData : async() => {
 
-        return await axios.get(domain + "/campData")
+        return await axios.get(domain + "/camp/campData")
     },
     
     getItemList : async() => {
@@ -18,7 +18,12 @@ const AxiosApi = {
    },
    productDetail : async(id) =>{
     return await axios.get(domain+ `/productDetail/${id}`)
-   }
+ 
+   },
+
+   getOverlayInfo : async(xValue, yValue) => {
+        return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
+   },
 
 };
 export default AxiosApi;

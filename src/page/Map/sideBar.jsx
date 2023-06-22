@@ -24,11 +24,8 @@ right: 1.5vw;
     transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
 }
     
-.hide{
-    display: none;
-}
-
 .hideBtn{
+    z-index: 3;
     border-radius: 50px;
     width: 60px;
     height: 60px;
@@ -133,11 +130,10 @@ const Sidebar = () => {
                     <p className="sortBy">댓글순</p>
                 </div>
                 <div className="locationList">
-                    <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
                     <SideBarList />
                 </div>
+                <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
             </div>
-            
         </SidebarStyle>
     )
 }
