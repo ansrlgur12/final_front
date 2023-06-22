@@ -5,6 +5,7 @@ import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
 import KakaoLogin from './API/KaKaoLogin';
+import TestPage from './page/Map/testPage';
 
 // 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
@@ -25,6 +26,8 @@ import ChannelService from './util/ChannelService';
 import ReviewCards from './page/Community/section/reviewCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
+import MyReview from './page/MyPage/section/myReview';
+
 import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
 
@@ -52,6 +55,7 @@ function App() {
           <Route path='/community' element={<Community />} />
           <Route path='/reviewCards' element={<ReviewCards />} />
           <Route path='/reviewDetail' element={<ReviewDetail />} />
+          <Route path='/myReview' element={<MyReview />} />
           <Route path='/MyComments' element={<MyComments />} />
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/userInfo' element={<UserInfo />} />
@@ -64,6 +68,7 @@ function App() {
           <Route path='/productDetailForm' element={<ProductDetailForm />} />
           <Route path='/login' element={<Login />} />
           <Route path='/kakaologin' element={<KakaoLogin />} />
+            <Route path='/testPage' element={<TestPage />} />
           <Route path='/signup' element={<SignUpPage />} />
 
           </Routes>

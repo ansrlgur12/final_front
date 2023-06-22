@@ -134,14 +134,14 @@ const Login = () => {
     const signBtnClick = () => {
         setShowSign(true);
     };
-    
+        
     return(
         <LoginStyle>
                 <div class="container">
                     <div className="loginLogo" style={logo}></div>
                     <form>
-                        <input type="text" placeholder="사용자 이름 또는 이메일" required className="loginInput"/>
-                        <input type="password" placeholder="비밀번호" required className="loginInput"/>
+                        <input type="text" name="id" placeholder="사용자 이름 또는 이메일" required className="loginInput"/>
+                        <input type="password" name="pwd" placeholder="비밀번호" required className="loginInput"/>
                         <button className="loginButton" type="submit" disabled>로그인</button>
                     </form>
                     <div className="other">

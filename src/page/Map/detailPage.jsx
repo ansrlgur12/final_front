@@ -32,13 +32,8 @@ const DetailContainer = styled.div`
     font-size: 1em;
     font-weight: bold;
 }
-.slideOut {
-    transform: translateX(110%); /* 오른쪽으로 이동하여 숨김 */
-  }
 
-.slideIn {
-    transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
-}
+    
     
 `;
 const TitleBar = styled.div`
@@ -68,9 +63,8 @@ const DetailPage = () => {
             <div className={`container ${closeMenu ? "slideIn" : "slideOut"}`}>
                 <TitleBar></TitleBar>
                 <button className={closeMenu ? "closeBtn" : ""}onClick={hideMenuBar}>숨기기</button>
-                </div>
-                
-            </DetailContainer>
+            </div>
+        </DetailContainer>
     )
 }
 export default DetailPage;

@@ -2,27 +2,20 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
-import Modal from "../util/modal";
-import { useNavigate } from "react-router-dom";
 import Login from "./login/login";
 
 const IntroStyle = styled.div`
     box-sizing: border-box;
-
     
     .Login{
         display: none;
     }
-    /* .show{
-        display: static;
-    } */
     .introLogoBox {
         width: 140px;
         height: 140px;
     }
     .introContainer {
         display: flex;
-        /* justify-content: center; */
         flex-direction: column;
         padding-top: 24vh; // height와 합쳐서 100vh이면 한 화면 모두 차지, 넘으면 스크롤 발생
         height: 76vh;
@@ -57,6 +50,7 @@ const IntroStyle = styled.div`
     .loginBtn:hover{
         background-color: #2D6247;
         padding: 0;
+        color: #ccc
     }
     .p2 {
         font-size: 1.2rem;
@@ -79,15 +73,6 @@ export const LoginStyle = styled.div`
 `;
 
 const Intro = () => {
-    const nav = useNavigate();
-    const[modalOpen, setModalOpen] = useState(false);
-    const needLogin = () => {
-      setModalOpen(true);
-    }
-    const closeModal = () => {
-      setModalOpen(false);
-    }
-    
     const [showText, setShowText] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
 
@@ -109,7 +94,6 @@ const Intro = () => {
       };
 
     return(
-        <>
             <IntroStyle>
                 <div className="introContainer video">
                     <VideoBackground />
@@ -136,7 +120,6 @@ const Intro = () => {
                     {showLogin && <Login />}
                 </LoginStyle>
             </IntroStyle>
-        </>
     );
 }
 

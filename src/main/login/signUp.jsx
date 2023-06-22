@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { styled, css } from 'styled-components';
+import { styled } from 'styled-components';
 import introLogo from "../../images/CAMO로고.png"
-import Login from './login';
-import { LoginStyle } from '../intro';
+
 
 const SignUpStyle = styled.div`
     box-sizing: border-box;
@@ -68,19 +67,8 @@ const SignUpStyle = styled.div`
         display: flex;
         justify-content: space-evenly;
     }
-    ${({ isActive }) =>
-        isActive &&
-        css`
-        display: none;
-    `};
 `;
-// const GoBackButton = styled.button`
-//     ${({ isActive }) =>
-//         isActive &&
-//         css`
-//         display: none;
-//     `};
-// `;
+
 
 const SignUpPage = () => {
     const [name, setName] = useState('');
@@ -89,7 +77,6 @@ const SignUpPage = () => {
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
     const [agreed, setAgreed] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
     const [goBackPage, setGoBackPage] = useState(false);
 
     const logo = {
@@ -136,7 +123,7 @@ const SignUpPage = () => {
     };
 
     const goBack = () => {
-        setShowLogin(true);
+        // setShowLogin(true);
         setGoBackPage(true);
     };
 
@@ -171,7 +158,7 @@ const SignUpPage = () => {
                         className='textInput email1'
                     />
                     <input
-                        type="email"
+                        type="text"
                         id="checkEmail"
                         value={checkEmail}
                         onChange={checkEmailChange}
@@ -219,9 +206,6 @@ const SignUpPage = () => {
                     </div>
                 </form>
             </div>
-            <LoginStyle className={showLogin ? "show" : ""}>
-                    {showLogin && <Login />}
-            </LoginStyle>
         </SignUpStyle>
     );
 };
