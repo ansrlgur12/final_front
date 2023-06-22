@@ -7,7 +7,7 @@ import MapMain from './page/Map/mapMain';
 import Login from './main/login/login';
 import KakaoLogin from './API/KaKaoLogin';
 import TestPage from './page/Map/testPage';
-
+import CartProvider from './context/CartContext';
 // 게시판
 // import Post from './page/MyPage/section/post'; // 회의 후 진행
 
@@ -46,6 +46,7 @@ function App() {
   return (
     <div className="App">
       <MarkerStore>
+      <CartProvider>
       <Router>
         <Routes>
           <Route path='/' element={<MainPage />} />
@@ -73,6 +74,7 @@ function App() {
            
           </Routes>
       </Router>
+      </CartProvider>
       </MarkerStore>
     </div>
   );

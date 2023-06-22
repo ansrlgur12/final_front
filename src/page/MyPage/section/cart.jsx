@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import { CartContext } from '../../../context/CartContext';
 
 const LayoutContainer = styled.div` 
   display: flex;
@@ -46,8 +47,9 @@ const columns = [
   },
   {
     title: '담은 상품',
-    dataIndex: 'product',
-    key: 'product',
+    dataIndex: 'imageUrl',
+    key: 'imageUrl',
+    render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '50px', height: '50px' }} />
   },
   {
     title: '상품 금액',
@@ -66,36 +68,25 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    number: '1',
-    product: '상품 A',
-    paymentAmount: '100,000원',
-    orderDetails: '주문 상세 내용 A',
-    quantity: 3,
-  },
-  {
-    key: '2',
-    number: '2',
-    product: '상품 B',
-    paymentAmount: '50,000원',
-    orderDetails: '주문 상세 내용 B',
-    quantity: 1,
-  },
-  {
-    key: '3',
-    number: '3',
-    product: '상품 C',
-    paymentAmount: '80,000원',
-    orderDetails: '주문 상세 내용 C',
-    quantity: 2,
-  },
-];
+
 
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
+  const { cart } = useContext(CartContext); // cartContext사용
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const newData = cart.map((item, index) => ({
+      key: item.product.id, 
+      number: (index + 1).toString(),
+      imageUrl: item.product.imageUrl ,
+      paymentAmount: item.product.price + "원",
+      orderDetails: item.product.productName, 
+      quantity: item.quantity,
+    }));
+
+    setData(newData);
+  }, [cart]);
 
   useEffect(() => { //선택된 항목들의 총금액을 다시 계산하고, 상태 업데이트
     const totalAmount = calculateTotalPaymentAmount();
