@@ -9,7 +9,7 @@ const OrderInfo =({ quantity, price })=> {
   return (
     <Container>
       <div>
-        <InfoTag>OPTIONS</InfoTag>
+        <InfoTag>QUANTITY</InfoTag>
         <span>{quantity}</span>
       </div>
       <div>

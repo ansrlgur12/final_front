@@ -27,7 +27,7 @@ import ReviewCards from './page/Community/section/reviewCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
 import MyReview from './page/MyPage/section/myReview';
-import CartForm from './page/Shop/CartPage';
+
 
 import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
@@ -71,7 +71,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/kakaologin' element={<KakaoLogin />} />
             <Route path='/testPage' element={<TestPage />} />
-            <Route path='/shopCart' element={<CartForm />} />
+           
            
           <Route path='/signup' element={<SignUpPage />} />
 
