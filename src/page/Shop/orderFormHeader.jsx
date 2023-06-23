@@ -6,16 +6,16 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const  OrderFormHeader =()=> {
+const  OrderFormHeader =(props)=> {
   return (
     <Container>
       <TitleBox>
-        <h2>타이틀</h2>
-        <span>내용</span>
+        <span>{props.product.brand|| 'brand'}</span>
+        <h2>{props.product.productName}</h2>
       </TitleBox>
       <PriceBox>
         <FontAwesomeIcon icon={faWonSign}/>
-        <span>가격</span>
+        <span>{props.product.price}</span>
       </PriceBox>
     </Container>
   );

@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import markerImage from "../../images/캠핑마커.png";
 import { renderToString } from "react-dom/server";
 import Overlay from "./overlay";
 import InfoWindow from "./infoWindow";
 import { MarkerContext } from "../../context/MarkerInfo";
 import {getDistance} from "geolib";
+import AxiosApi from "../../API/TestAxios";
 
 const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen} = context;
-  const { markerPositions } = props;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation} = context;
+  const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
   const [isCenter, setCenter] = useState(null);
@@ -19,7 +19,7 @@ const KakaoMap = (props) => {
   const zoomControl = new kakao.maps.ZoomControl();
   const container = useRef();
   const imageSize = new kakao.maps.Size(35, 35);
-  const image = new kakao.maps.MarkerImage(markerImage, imageSize);
+  const image = new kakao.maps.MarkerImage(campLocMarkerImg, imageSize);
   const offsetY = 50;
   const MAX_MARKERS = 200;
 
@@ -38,19 +38,14 @@ const KakaoMap = (props) => {
         const map = new kakao.maps.Map(container.current, options);
 
         kakao.maps.event.addListener(map, 'dragend', function() {        
-    
-          // 지도 중심좌표를 얻어옵니다 
           var latlng = map.getCenter(); 
           setCenter(latlng);
+          setOverlayOpen(false);
       });
-        setCenter(center)
+        setCenter(center);
+        setKakaoMap(map);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-        setKakaoMap(map);
-        
-
-
-
       },[container, markerLat, markerLng, zoomLev]);
 
       
@@ -88,7 +83,7 @@ const KakaoMap = (props) => {
           image,
           clickable: true,
         });
-  
+        
         const infowindow = new kakao.maps.CustomOverlay({
           content:  renderToString(<InfoWindow position={position}/>),
           map: null,
@@ -112,46 +107,45 @@ const KakaoMap = (props) => {
 
         kakao.maps.event.addListener(kakaoMap, 'zoom_changed', () => {
           adjustInfowindowPosition();
+          setOverlayOpen(false);
         });
-
-        
-        
-        const overlay = new kakao.maps.CustomOverlay({
-          content: renderToString(<Overlay position={position}/>),
-          map: null,
-          position: marker.getPosition(),
-          removable: true,
-        });
-
 
         kakao.maps.event.addListener(marker, 'mouseover', () => {
           adjustInfowindowPosition();
           infowindow.setMap(kakaoMap);
-          console.log("mouseover!!")
           
         });
 
         kakao.maps.event.addListener(marker, 'mouseout', () => {
           infowindow.setMap(null)
-          console.log("mouse out!!")
         });
 
         kakao.maps.event.addListener(marker, 'click', () => {
           kakaoMap.setLevel(1);
           console.log('Marker clicked');
           infowindow.setMap(null)
-          overlay.setMap(kakaoMap);
+          const xValue = position.La;
+          const yValue = position.Ma;  
+          setLocation([xValue, yValue]);
 
           setOverlayOpen(true);
-          console.log(overlayOpen);
+          console.log("오버레이 오픈" + overlayOpen);
+          
           const markerPosition = marker.getPosition();
           kakaoMap.setCenter(markerPosition);
           kakaoMap.relayout();
         });
 
+        // const overlay = new kakao.maps.CustomOverlay({
+        //   content: renderToString(<Overlay position={position}/>),
+        //   map: null,
+        //   position: marker.getPosition(),
+        //   removable: true,
+        // });
+
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
           console.log('Map Unclicked');
-          overlay.setMap(null);
+          // overlay.setMap(null);
           setOverlayOpen(false);
           console.log(overlayOpen);
         });

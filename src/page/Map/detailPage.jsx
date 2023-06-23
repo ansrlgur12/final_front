@@ -5,9 +5,9 @@ import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 
 const DetailContainer = styled.div`
+    z-index: 2;
     position: fixed;
-    z-index: 3;
-    right: 1.5vw;
+    right: -30rem;
     bottom: 6vh;
 .container{
     width: 30vw;
@@ -32,7 +32,18 @@ const DetailContainer = styled.div`
     font-size: 1em;
     font-weight: bold;
 }
+.slideOut {
+    
+    transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
+   
+  }
 
+.slideIn {
+    transform: translateX(-110%); /* 오른쪽으로 이동하여 숨김 */
+}
+.hide {
+    display: none;
+}   
     
     
 `;
@@ -47,22 +58,24 @@ const TitleBar = styled.div`
     border-top-right-radius: 15px;
 `;
 
-const DetailPage = () => {
-
+const DetailPage = (props) => {
+    const {open, close, campInfo} = props;
     const context = useContext(MarkerContext);
-    const {closeMenu, setCloseMenu} = context;
+    console.log(campInfo)
 
-
-    const hideMenuBar = () => {
-        setCloseMenu(!closeMenu);
-        console.log(closeMenu + "현재상태")
-    }
-
+const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.507812284,%EC%9D%BC%EC%82%B0%ED%9C%B4%EB%A8%BC%EB%B9%8C2%EC%B0%A8%EC%95%84%ED%8C%8C%ED%8A%B8,19055891,PLACE_POI/14205872.331903983,4501898.402669169,%EC%96%91%ED%8F%89%EC%88%98%EB%AA%A9%EC%9B%90%20%EC%BA%A0%ED%95%91%EC%9E%A5,32862772,PLACE_POI/-/transit?c=9,0,0,0,dh"
     return(
         <DetailContainer>
-            <div className={`container ${closeMenu ? "slideIn" : "slideOut"}`}>
+            <div className={`container ${open ? "slideIn" : "slideOut"}`}>
                 <TitleBar></TitleBar>
-                <button className={closeMenu ? "closeBtn" : ""}onClick={hideMenuBar}>숨기기</button>
+                <button className={open ? "closeBtn" : "hide"} onClick={close}>숨기기</button>
+                {campInfo && campInfo.map((campInfo) => (
+                    <>
+                    <div>{campInfo.facltNm}</div>
+                    <a href={url}>길찾기</a>
+                    <div>{campInfo.tooltip}</div>
+                    </>
+                ))}
             </div>
         </DetailContainer>
     )

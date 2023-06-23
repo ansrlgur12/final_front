@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import { CartContext } from '../../../context/CartContext';
+import QuantityInput from '../../Shop/quantityInput';
+import { IconButton } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 
 const LayoutContainer = styled.div` 
   display: flex;
+  
 `;
 
 const SidebarContainer = styled.div`
@@ -18,6 +23,7 @@ const SidebarContainer = styled.div`
 const ContentContainer = styled.div`
   flex: 1;
   padding: 20px;
+
 `;
 
 const TableContainer = styled.div`
@@ -25,6 +31,20 @@ const TableContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  .ant-checkbox-checked .ant-checkbox-inner {
+  background-color:#2D6247;
+  border-color: #2D6247; 
+}
+button.ant-btn{
+  background-color: #2D6247; 
+   &:hover {
+    background-color: #2D6247; 
+      opacity: 0.7;
+    }
+}
+
+
+
 `;
 
 const TotalPayment = styled.div`
@@ -38,64 +58,63 @@ const TotalAmount = styled.div`
   font-weight: bold;
 `;
 
-const columns = [
-  {
-    title: '번호',
-    dataIndex: 'number',
-    key: 'number',
-  },
-  {
-    title: '담은 상품',
-    dataIndex: 'product',
-    key: 'product',
-  },
-  {
-    title: '상품 금액',
-    dataIndex: 'paymentAmount',
-    key: 'paymentAmount',
-  },
-  {
-    title: '주문 상세',
-    dataIndex: 'orderDetails',
-    key: 'orderDetails',
-  },
-  {
-    title: '수량',
-    dataIndex: 'quantity',
-    key: 'quantity',
-  },
-];
 
-const data = [
-  {
-    key: '1',
-    number: '1',
-    product: '상품 A',
-    paymentAmount: '100,000원',
-    orderDetails: '주문 상세 내용 A',
-    quantity: 3,
-  },
-  {
-    key: '2',
-    number: '2',
-    product: '상품 B',
-    paymentAmount: '50,000원',
-    orderDetails: '주문 상세 내용 B',
-    quantity: 1,
-  },
-  {
-    key: '3',
-    number: '3',
-    product: '상품 C',
-    paymentAmount: '80,000원',
-    orderDetails: '주문 상세 내용 C',
-    quantity: 2,
-  },
-];
+
+
 
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
+  const { cart,removeFromCart } = useContext(CartContext); // cartContext사용
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    const newData = cart.map((item, index) => ({
+      
+      key: item.product.id, 
+      
+      productName: item.product.productName,
+      imageUrl: item.product.imageUrl ,
+      paymentAmount: item.product.price + "원",
+      quantity: item.quantity, 
+      
+    }));
+
+    setData(newData);
+  }, [cart]);
+  const columns = [
+    {
+      title: '상품명',
+      dataIndex: 'productName',
+      key: 'productName',
+    },
+    {
+      title: '담은 상품',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
+    },
+    {
+      title: '상품 금액',
+      dataIndex: 'paymentAmount',
+      key: 'paymentAmount',
+    },
+    {
+      title: '수량',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: '삭제',
+      dataIndex: 'delete',
+      key: 'delete',
+      render: (text, record) => ( // 이 함수가 IconButton을 반환
+      <IconButton aria-label="delete" onClick={() => removeFromCart(record.key)}>
+        <Delete/>
+      </IconButton>
+    )
+    },
+  ];
 
   useEffect(() => { //선택된 항목들의 총금액을 다시 계산하고, 상태 업데이트
     const totalAmount = calculateTotalPaymentAmount();
@@ -118,10 +137,12 @@ const Cart = () => {
   const rowSelection = { //선택항목 제어 및 상태관리
     selectedRowKeys,
     onChange: (selectedRowKeys) => {
-      setSelectedRowKeys(selectedRowKeys);
+      setSelectedRowKeys(selectedRowKeys)
+     
     },
+    
   };
-
+ 
   const handlePurchase = () => {//구매금액 출력 핸들러
     alert(`구매하기: ${totalPaymentAmount.toLocaleString()}원`);
   };
@@ -135,7 +156,9 @@ const Cart = () => {
         </SidebarContainer>
         <ContentContainer>
           <TableContainer>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Table  rowSelection={rowSelection}
+  columns={columns}
+  dataSource={data} />
             <TotalPayment>
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원

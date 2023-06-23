@@ -4,8 +4,13 @@ import { styled } from "styled-components";
 import Header from "../../main/header";
 import Sidebar from "./sideBar";
 import { useNavigate } from "react-router-dom";
-import SideBarDetail from "./detailBtn";
 import AxiosApi from "../../API/TestAxios";
+import { useContext } from "react";
+import { MarkerContext } from "../../context/MarkerInfo";
+import Overlay from "./overlay";
+import DetailPage from "./detailPage";
+import animalCamp from "../../images/강아지발바닥.png";
+import markerImage from "../../images/캠핑마커.png";
 
 const MainStyle = styled.div`
     .App {
@@ -29,15 +34,16 @@ const MainStyle = styled.div`
   `;
 
 const MapMain = () => {
-
+  const context = useContext(MarkerContext);
+  const {overlayOpen, setOverlayOpen, setCampListData, campListData} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
-  const markerPositions1 = [
-    [33.452278, 126.567803],
-    [33.452671, 126.574792],
-    [33.451744, 126.572441]
-  ];
+  const [animalLocations, setAnimalLocations] = useState([]);
+  const [marker, setMarker] = useState();
+  const [normalData, setNormalData] = useState("");
+  const [animalData, setAnimalData] = useState("");
+  
   const markerPositions2 = [
     [37.499590490909185, 127.0263723554437],
     [37.499427948430814, 127.02794423197847],
@@ -51,12 +57,39 @@ const MapMain = () => {
     const getCampingData = async() => {
       const rsp = await AxiosApi.getCampData();
       const positions = rsp.data.map(item => [item.mapY, item.mapX]);
-
       setMapLocations(positions);
-
+      setNormalData(rsp.data);
     }
     getCampingData();
+
+    const getAnimalCampingData = async() => {
+      const rsp = await AxiosApi.getAnimalCampData();
+      const positions = rsp.data.map(item => [item.mapY, item.mapX]);
+      setAnimalLocations(positions);
+      setAnimalData(rsp.data);
+    }
+    getAnimalCampingData();
   },[])
+
+  const closeOverlay = () => {
+    setOverlayOpen(false)
+  }
+
+  const setNormalMapInfo = () => {
+    setMarkerPositions(mapLocations)
+    setMarker(markerImage);
+    setCampListData(normalData);
+    
+  }
+
+  const setAnimalMapInfo = () => {
+    setMarkerPositions(animalLocations);
+    setMarker(animalCamp);
+    setCampListData(animalData);
+    console.log(animalData);
+    console.log(campListData);
+  }
+
 
   return (
     <>
@@ -64,18 +97,21 @@ const MapMain = () => {
     <MainStyle>
     <div className="App">
       <section>
-        <button onClick={() => setMarkerPositions(mapLocations)}>
+        <button onClick={setNormalMapInfo}>
           오지/노지
         </button>
         <button onClick={() => setMarkerPositions(markerPositions2)}>
           유료 야영장
         </button>
+        <button onClick={setAnimalMapInfo}>
+          애완동물 동반가능
+        </button>
         <button onClick={()=> nav("/testPage")} >test</button>
       </section>
       <div id="wrap" style={{width:'100vw', height: '85vh'}}>
-            <KakaoMap markerPositions={markerPositions} />
+            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
-            <SideBarDetail />
+            <Overlay open={overlayOpen} close={closeOverlay}/>
       </div>
     </div>
     </MainStyle>
