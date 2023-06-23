@@ -35,12 +35,14 @@ const MainStyle = styled.div`
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen} = context;
+  const {overlayOpen, setOverlayOpen, setCampListData, campListData} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
   const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
+  const [normalData, setNormalData] = useState("");
+  const [animalData, setAnimalData] = useState("");
   
   const markerPositions2 = [
     [37.499590490909185, 127.0263723554437],
@@ -56,6 +58,7 @@ const MapMain = () => {
       const rsp = await AxiosApi.getCampData();
       const positions = rsp.data.map(item => [item.mapY, item.mapX]);
       setMapLocations(positions);
+      setNormalData(rsp.data);
     }
     getCampingData();
 
@@ -63,6 +66,7 @@ const MapMain = () => {
       const rsp = await AxiosApi.getAnimalCampData();
       const positions = rsp.data.map(item => [item.mapY, item.mapX]);
       setAnimalLocations(positions);
+      setAnimalData(rsp.data);
     }
     getAnimalCampingData();
   },[])
@@ -74,11 +78,16 @@ const MapMain = () => {
   const setNormalMapInfo = () => {
     setMarkerPositions(mapLocations)
     setMarker(markerImage);
+    setCampListData(normalData);
+    
   }
 
   const setAnimalMapInfo = () => {
     setMarkerPositions(animalLocations);
     setMarker(animalCamp);
+    setCampListData(animalData);
+    console.log(animalData);
+    console.log(campListData);
   }
 
 
