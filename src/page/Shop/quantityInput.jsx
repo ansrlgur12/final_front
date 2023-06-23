@@ -34,7 +34,7 @@ const QuantityInput = ({ quantity, setQuantity }) => {
   };
 
   const handleDecrease = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
