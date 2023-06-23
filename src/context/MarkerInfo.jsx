@@ -9,12 +9,13 @@ const MarkerStore = (props) => {
     const[overlayOpen, setOverlayOpen] = useState(false);
     const[closeMenu, setCloseMenu] = useState(false);
     const[location, setLocation] = useState([]);
-    const[campListData, setCampListData] = useState("");
+    const[currentData, setCurrentData] = useState("");
+    
 
 
     return(
         <MarkerContext.Provider value={{markerLat, setMarkerLat, markerLng, setMarkerLng, zoomLev, setZoomLev, viewOverlay, setViewOverlay, overlayOpen, setOverlayOpen,
-            closeMenu, setCloseMenu, location, setLocation, campListData, setCampListData }}>
+            closeMenu, setCloseMenu, location, setLocation, currentData, setCurrentData }}>
             {props.children}
         </MarkerContext.Provider>
     );

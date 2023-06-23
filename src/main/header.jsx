@@ -69,6 +69,8 @@ const Header = () =>{
 
     const nav = useNavigate();
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
+    const context = useContext(MarkerContext);
+    const {setCurrentData} = context;
     
     const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
 
@@ -78,7 +80,11 @@ const Header = () =>{
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
       };
-
+    
+    const onClickNormalCamping = () => {
+        setCurrentData("normal");
+        nav("/mapMain");
+    }
     
 
     return(
@@ -91,8 +97,8 @@ const Header = () =>{
                     <div className="menu">
                         <nav className="navibar">
                             <ul className="navContainer">
-                                <li className="menu1" onClick={()=>nav("/mapMain")}>캠핑장</li>
-                                <li className="menu2">캠핑장</li>
+                                <li className="menu1" onClick={onClickNormalCamping}>유료캠핑장</li>
+                                <li className="menu2">오지·노지</li>
                                 <li className="menu3" onClick={()=>nav("/community")}>캠핑정보</li>
                                 <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                             </ul>

@@ -108,6 +108,7 @@ const KakaoMap = (props) => {
         kakao.maps.event.addListener(kakaoMap, 'zoom_changed', () => {
           adjustInfowindowPosition();
           setOverlayOpen(false);
+          infowindow.setMap(null)
         });
 
         kakao.maps.event.addListener(marker, 'mouseover', () => {
@@ -127,7 +128,6 @@ const KakaoMap = (props) => {
           const xValue = position.La;
           const yValue = position.Ma;  
           setLocation([xValue, yValue]);
-
           setOverlayOpen(true);
           console.log("오버레이 오픈" + overlayOpen);
           
