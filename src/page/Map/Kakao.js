@@ -38,19 +38,14 @@ const KakaoMap = (props) => {
         const map = new kakao.maps.Map(container.current, options);
 
         kakao.maps.event.addListener(map, 'dragend', function() {        
-          // 지도 중심좌표를 얻어옵니다 
           var latlng = map.getCenter(); 
           setCenter(latlng);
           setOverlayOpen(false);
       });
-        setCenter(center)
+        setCenter(center);
+        setKakaoMap(map);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-        setKakaoMap(map);
-        
-
-
-
       },[container, markerLat, markerLng, zoomLev]);
 
       
@@ -118,13 +113,11 @@ const KakaoMap = (props) => {
         kakao.maps.event.addListener(marker, 'mouseover', () => {
           adjustInfowindowPosition();
           infowindow.setMap(kakaoMap);
-          console.log("mouseover!!")
           
         });
 
         kakao.maps.event.addListener(marker, 'mouseout', () => {
           infowindow.setMap(null)
-          console.log("mouse out!!")
         });
 
         kakao.maps.event.addListener(marker, 'click', () => {
