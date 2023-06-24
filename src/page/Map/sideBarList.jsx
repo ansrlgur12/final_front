@@ -50,11 +50,47 @@ const ListStyle = styled.div`
     color: royalblue;
     font-weight: bold;
 }
+.btnBox{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.numBtn{
+    width: 30px;
+    height: 30px;
+    border: .5px solid #ccc;
+    background-color: white;
+    font-size: large;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.numBtn + .numBtn{
+    margin-left: 10px;
+}
+.active{
+    background-color: rgb(45, 98, 71);
+    color: white;
+}
+
+.arrowBtn{
+    margin: 0 10px;
+    border: .5px solid #ccc;
+    background-color: white;
+}
+
+.arrowBtn:active{
+    background-color: rgb(45, 98, 71);
+    color: white;
+}
 `;
 
-const SideBarList = () => {
+const SideBarList = (props) => {
     const context = useContext(MarkerContext);
-    const {setMarkerLat, setMarkerLng, setZoomLev, setViewOverlay, viewOverlay, currentData, setOverlayOpen, setLocation} = context;
+    const {searchValue, change} = props;
+    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation} = context;
     const [currentPage, setCurrentPage] = useState(1);
     const [campListData, setCampListData] = useState([]);
     const pageSize = 4;
@@ -76,8 +112,21 @@ const SideBarList = () => {
             }
             getCampList();
         }
+        
     },[currentData])
-    
+
+    useEffect(()=>{
+        if(change === 1) {
+            console.log(searchValue)
+            const searchCamp = async() => {
+                const rsp = await AxiosApi.searchCampData(searchValue, currentData);
+                setCampListData(rsp.data);
+                setCurrentPage(1);
+                setChange(0)
+            }
+            searchCamp();
+        }
+    },[change, searchValue, currentData])
 
 
     const onClickData = (x, y) => {
@@ -150,14 +199,14 @@ const SideBarList = () => {
             );
             })}
             <div className="btnBox">
-                {startPage > 1 && (<button onClick={() => handlePageChange(startPage - 1)}>{"<"}</button>)}
+                {startPage > 1 && (<button className="arrowBtn" onClick={() => handlePageChange(startPage - 1)}>{"<"}</button>)}
                 {[...Array(endPage - startPage + 1)].map((_, index) => {
                     const pageNumber = startPage + index;
                     return (
                         <button className={pageNumber === currentPage ? "numBtn active" : "numBtn"} key={pageNumber} onClick={() => handlePageChange(pageNumber)}>{pageNumber}</button>
                     );
                 })}
-                {endPage < totalPages && (<button onClick={() => handlePageChange(endPage + 1)}>{">"}</button>)}
+                {endPage < totalPages && (<button className="arrowBtn" onClick={() => handlePageChange(endPage + 1)}>{">"}</button>)}
             </div>
         </ListStyle>
     )
