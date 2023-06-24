@@ -10,7 +10,7 @@ const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation} = context;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, mapReset} = context;
   const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
@@ -21,7 +21,7 @@ const KakaoMap = (props) => {
   const imageSize = new kakao.maps.Size(35, 35);
   const image = new kakao.maps.MarkerImage(campLocMarkerImg, imageSize);
   const offsetY = 50;
-  const MAX_MARKERS = 200;
+  const MAX_MARKERS = 150;
 
   useEffect(() => {
         const center = new kakao.maps.LatLng(markerLat, markerLng);
@@ -46,7 +46,7 @@ const KakaoMap = (props) => {
         setKakaoMap(map);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-      },[container, markerLat, markerLng, zoomLev]);
+      },[container, markerLat, markerLng, zoomLev, mapReset]);
 
       
 
@@ -76,7 +76,9 @@ const KakaoMap = (props) => {
       markers.forEach(marker => marker.setMap(null));
 
       
-      return positions.map(position => {
+      return positions.map((position, index) => {
+        const name = nearestMarkers[index][2]
+
         const marker = new kakao.maps.Marker({
           map: kakaoMap,
           position,
@@ -85,7 +87,7 @@ const KakaoMap = (props) => {
         });
         
         const infowindow = new kakao.maps.CustomOverlay({
-          content:  renderToString(<InfoWindow position={position}/>),
+          content:  renderToString(<InfoWindow name={name}/>),
           map: null,
           position: marker.getPosition(),
           removable: true,
@@ -136,16 +138,8 @@ const KakaoMap = (props) => {
           kakaoMap.relayout();
         });
 
-        // const overlay = new kakao.maps.CustomOverlay({
-        //   content: renderToString(<Overlay position={position}/>),
-        //   map: null,
-        //   position: marker.getPosition(),
-        //   removable: true,
-        // });
-
         kakao.maps.event.addListener(kakaoMap, 'click', () => {
           console.log('Map Unclicked');
-          // overlay.setMap(null);
           setOverlayOpen(false);
           console.log(overlayOpen);
         });
@@ -154,14 +148,6 @@ const KakaoMap = (props) => {
       });
     });
 
-//    if (positions.length > 0) {
-//      const bounds = positions.reduce(
-//        (bounds, latlng) => bounds.extend(latlng),
-//        new kakao.maps.LatLngBounds()
-//      );
-//
-//      kakaoMap.setBounds(bounds);
-//    }
   }, [kakaoMap, markerPositions, isCenter, overlayOpen, setOverlayOpen]);
 
   

@@ -58,21 +58,12 @@ const MapMain = () => {
   const [normalData, setNormalData] = useState("");
   const [animalData, setAnimalData] = useState("");
   
-  
-  const markerPositions2 = [
-    [37.499590490909185, 127.0263723554437],
-    [37.499427948430814, 127.02794423197847],
-    [37.498553760499505, 127.02882598822454],
-    [37.497625593121384, 127.02935713582038],
-    [37.49629291770947, 127.02587362608637],
-    [37.49754540521486, 127.02546694890695],
-    [37.49646391248451, 127.02675574250912]
-  ];
+
   useEffect(()=>{
       const loading = async() => {
         const getCampingData = async() => {
           const rsp = await AxiosApi.getCampData();
-          const positions = rsp.data.map(item => [item.mapY, item.mapX]);
+          const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
           setMarkerPositions(positions);
           setMarker(markerImage);
         }
@@ -84,14 +75,14 @@ const MapMain = () => {
   useEffect(()=>{
     const getCampingData = async() => {
       const rsp = await AxiosApi.getCampData();
-      const positions = rsp.data.map(item => [item.mapY, item.mapX]);
+      const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setMapLocations(positions);
     }
     getCampingData();
 
     const getAnimalCampingData = async() => {
       const rsp = await AxiosApi.getAnimalCampData();
-      const positions = rsp.data.map(item => [item.mapY, item.mapX]);
+      const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setAnimalLocations(positions);
       }
       getAnimalCampingData();

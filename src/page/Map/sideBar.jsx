@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components"
 import SideBarList from "./sideBarList";
+import { MarkerContext } from "../../context/MarkerInfo";
 
 const SidebarStyle = styled.div`
 
@@ -98,18 +99,32 @@ right: 1.5vw;
 
 const Sidebar = () => {
 
+
+    const context = useContext(MarkerContext);
+    const {change, setChange} = context;
+
     const [closeMenu, setCloseMenu] = useState(false);
+    const [searchValue, setSearchValue] = useState(""); 
+
 
     const hideMenuBar = () => {
         setCloseMenu(!closeMenu);
+    }
+
+    const searchCamp = (e) => {
+        setSearchValue(e.target.value)
+    }
+
+    const clickSearchCamp = () => {
+        setChange(1)
     }
 
     return(
         <SidebarStyle>
              <div className={`container ${closeMenu ? "slideOut" : "slideIn"}`}>
                 <div className="titleBar">
-                    <input className="searchBar" type="text" placeholder="캠핑장 이름을 검색하세요"/>
-                    <button className="searchBtn">검색</button>
+                    <input className="searchBar" type="text" placeholder="캠핑장 이름을 검색하세요" onChange={searchCamp}/>
+                    <button className="searchBtn" onClick={clickSearchCamp}>검색</button>
                 </div>
                 <div className="locationSelect">
                     <select className="selectBar" name="" id="">
@@ -130,7 +145,7 @@ const Sidebar = () => {
                     <p className="sortBy">댓글순</p>
                 </div>
                 <div className="locationList">
-                    <SideBarList />
+                    <SideBarList searchValue={searchValue} change={change} />
                 </div>
                 <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
             </div>
