@@ -55,7 +55,6 @@ const SignUpStyle = styled.div`
     .agree label{
         display: flex;
         box-sizing: border-box;
-        /* justify-content: space-around; */
         align-items: center;
     }
     .agree input{
@@ -67,11 +66,15 @@ const SignUpStyle = styled.div`
         display: flex;
         justify-content: space-evenly;
     }
+    &.goBackStyle {
+        display: none;
+    }
 `;
 
 
+
 const SignUpPage = () => {
-    const [name, setName] = useState('');
+    const [nickName, setNickName] = useState('');
     const [email, setEmail] = useState('');
     const [checkEmail, setCheckEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -81,12 +84,12 @@ const SignUpPage = () => {
 
     const logo = {
         backgroundImage : `url(${introLogo})`,
-        backgroundsize : 'contain',
+        backgroundSize : 'contain',
         backgroundRepeat: 'no-repeat',
     };
 
     const nameChange = (e) => {
-        setName(e.target.value);
+        setNickName(e.target.value);
         console.log("name : " + e);
     };
 
@@ -119,93 +122,92 @@ const SignUpPage = () => {
           return;
         }
         // 회원가입 로직
-        console.log('회원가입 정보:', { name, email, password });
+        console.log('회원가입 정보:', { nickName, email, password });
     };
 
     const goBack = () => {
-        // setShowLogin(true);
         setGoBackPage(true);
     };
 
 
-    return goBackPage ? null : (
-        <SignUpStyle>
-            <div className="signup-page">
-                <div className="logo" style={logo}></div>
-                <form className="signForm" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">닉네임:</label>
-                        <button>중복확인</button>
-                    </div>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={nameChange}
-                        required
-                        className='textInput'
-                    />
-                    <div className="form-group">
-                        <label htmlFor="email">이메일:</label>
-                        <button className='confirm'>이메일 인증</button>
-                    </div>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={emailChange}
-                        required
-                        className='textInput email1'
-                    />
-                    <input
-                        type="text"
-                        id="checkEmail"
-                        value={checkEmail}
-                        onChange={checkEmailChange}
-                        required
-                        className='textInput email2'
-                    />
-
-                    <div className="form-group">
-                        <label htmlFor="password">비밀번호:</label>
-                    </div>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={passwordChange}
-                        required
-                        className='textInput'
-                    />
-                    
-                    <div className="form-group">
-                        <label htmlFor="checkPassword">비밀번호 확인:</label>
-                    </div>
-                    <input
-                        type="Password"
-                        id="checkPassword"
-                        value={checkPassword}
-                        onChange={checkPasswordChange}
-                        required
-                        className='textInput'
-                    />
-                    <div className="agree">
-                        <label>
+    return (
+                <SignUpStyle className={goBackPage ? 'goBackStyle' : ''}>
+                    <div className="signup-page">
+                        <div className="logo" style={logo}></div>
+                        <form className="signForm" onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="name">닉네임:</label>
+                                <button>중복확인</button>
+                            </div>
                             <input
-                            type="checkbox"
-                            checked={agreed}
-                            onChange={agreementChange}
-                            required
+                                type="text"
+                                id="name"
+                                value={nickName}
+                                onChange={nameChange}
+                                required
+                                className='textInput'
                             />
-                            <div>이용 약관에 동의합니다.</div>
-                        </label>
+                            <div className="form-group">
+                                <label htmlFor="email">이메일:</label>
+                                <button className='confirm'>이메일 인증</button>
+                            </div>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={emailChange}
+                                required
+                                className='textInput email1'
+                            />
+                            <input
+                                type="text"
+                                id="checkEmail"
+                                value={checkEmail}
+                                onChange={checkEmailChange}
+                                required
+                                className='textInput email2'
+                            />
+
+                            <div className="form-group">
+                                <label htmlFor="password">비밀번호:</label>
+                            </div>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={passwordChange}
+                                required
+                                className='textInput'
+                            />
+                            
+                            <div className="form-group">
+                                <label htmlFor="checkPassword">비밀번호 확인:</label>
+                            </div>
+                            <input
+                                type="Password"
+                                id="checkPassword"
+                                value={checkPassword}
+                                onChange={checkPasswordChange}
+                                required
+                                className='textInput'
+                            />
+                            <div className="agree">
+                                <label>
+                                    <input
+                                    type="checkbox"
+                                    checked={agreed}
+                                    onChange={agreementChange}
+                                    required
+                                    />
+                                    <div>이용 약관에 동의합니다.</div>
+                                </label>
+                            </div>
+                            <div className="chSign">
+                                <button className="joinUs" type="submit">가입하기</button>
+                                <button className="backBtn" onClick={goBack}>돌아가기</button>
+                            </div>
+                        </form>
                     </div>
-                    <div className="chSign">
-                        <button className="joinUs" type="submit">가입하기</button>
-                        <button className="backBtn" onClick={goBack}>돌아가기</button>
-                    </div>
-                </form>
-            </div>
         </SignUpStyle>
     );
 };

@@ -31,6 +31,7 @@ import MyReview from './page/MyPage/section/myReview';
 
 import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
+import UserStore from './API/UserInfo';
 
 function App() {
 /*
@@ -46,39 +47,38 @@ function App() {
 */
   return (
     <div className="App">
-      <MarkerStore>
-      <CartProvider>
-      <Router>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/intro' element={<Intro />} />
-          <Route path='/shopMain' element={<ShopMain />} />
-          <Route path='/mapMain' element={<MapMain />} />
-          <Route path='/community' element={<Community />} />
-          <Route path='/reviewCards' element={<ReviewCards />} />
-          <Route path='/reviewDetail' element={<ReviewDetail />} />
-          <Route path='/myReview' element={<MyReview />} />
-          <Route path='/MyComments' element={<MyComments />} />
-          <Route path='/myPage' element={<MyPage />} />
-          <Route path='/userInfo' element={<UserInfo />} />
-          <Route path="/UserInfo" element={<UserInfo />} />
-          <Route path="/Delete" element={<Delete />} />
-          <Route path="/OrderedProduct" element={<OrderedProduct />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/NewPassword" element={<NewPassword />} />
-          <Route path="/UserEdit" element={<UserEdit />} />
-          <Route path='/productDetailForm/:id' element={<ProductDetailForm />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/kakaologin' element={<KakaoLogin />} />
-            <Route path='/testPage' element={<TestPage />} />
-           
-           
-          <Route path='/signup' element={<SignUpPage />} />
-
-          </Routes>
-      </Router>
-      </CartProvider>
-      </MarkerStore>
+      <UserStore>
+        <MarkerStore>
+          <CartProvider>
+            <Router>
+              <Routes>
+                <Route path='/' element={<MainPage />} />
+                <Route path='/intro' element={<Intro />} />
+                <Route path='/shopMain' element={<ShopMain />} />
+                <Route path='/mapMain' element={<MapMain />} />
+                <Route path='/community' element={<Community />} />
+                <Route path='/reviewCards' element={<ReviewCards />} />
+                <Route path='/reviewDetail' element={<ReviewDetail />} />
+                <Route path='/myReview' element={<MyReview />} />
+                <Route path='/MyComments' element={<MyComments />} />
+                <Route path='/myPage' element={<MyPage />} />
+                <Route path='/userInfo' element={<UserInfo />} />
+                <Route path="/UserInfo" element={<UserInfo />} />
+                <Route path="/Delete" element={<Delete />} />
+                <Route path="/OrderedProduct" element={<OrderedProduct />} />
+                <Route path="/Cart" element={<Cart />} />
+                <Route path="/NewPassword" element={<NewPassword />} />
+                <Route path="/UserEdit" element={<UserEdit />} />
+                <Route path='/productDetailForm' element={<ProductDetailForm />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/kakaologin' element={<KakaoLogin />} />
+                <Route path='/testPage' element={<TestPage />} />
+                <Route path='/signup' element={<SignUpPage />} />
+              </Routes>
+            </Router>
+          </CartProvider>
+        </MarkerStore>
+      </UserStore>
     </div>
   );
 }

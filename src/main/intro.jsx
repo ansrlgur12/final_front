@@ -4,6 +4,7 @@ import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
 import Login from "./login/login";
 
+
 const IntroStyle = styled.div`
     box-sizing: border-box;
     
