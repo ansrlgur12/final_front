@@ -27,11 +27,13 @@ import ReviewCards from './page/Community/section/reviewCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
 import MyReview from './page/MyPage/section/myReview';
+import MyFavorite from './page/MyPage/section/myFavorite';
 
 
 import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
 import UserStore from './API/UserInfo';
+import FavoriteProvider from './context/FavoriteContext';
 
 function App() {
 /*
@@ -49,6 +51,7 @@ function App() {
     <div className="App">
       <UserStore>
         <MarkerStore>
+          <FavoriteProvider>
           <CartProvider>
             <Router>
               <Routes>
@@ -69,14 +72,16 @@ function App() {
                 <Route path="/Cart" element={<Cart />} />
                 <Route path="/NewPassword" element={<NewPassword />} />
                 <Route path="/UserEdit" element={<UserEdit />} />
-                <Route path='/productDetailForm' element={<ProductDetailForm />} />
+                <Route path='/productDetailForm/:id' element={<ProductDetailForm />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/kakaologin' element={<KakaoLogin />} />
                 <Route path='/testPage' element={<TestPage />} />
                 <Route path='/signup' element={<SignUpPage />} />
+                <Route path='/myFavorite' element={<MyFavorite />} />
               </Routes>
             </Router>
           </CartProvider>
+          </FavoriteProvider>
         </MarkerStore>
       </UserStore>
     </div>

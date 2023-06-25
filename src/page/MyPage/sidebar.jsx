@@ -68,6 +68,7 @@ const items = [
       {
         key: 'sub3-3',
         label: '찜한 상품(x)',
+        to: '/MyFavorite'
       },
     ],
   },

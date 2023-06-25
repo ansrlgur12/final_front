@@ -12,7 +12,7 @@ import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AxiosApi from "../../API/TestAxios";
 import { useCart } from "../../context/CartContext";
-import Modal from "./cartModal";
+import { useFavorite } from "../../context/FavoriteContext";
 
 const SwiperStyle = styled.div`
 
@@ -197,26 +197,33 @@ const SliderContainer = ({ selectedCategory }) => {
 
      const IconButtons = ({productId,product}) =>{
       const { addToCart } = useCart(); // CartContext를 사용해서 addToCart 함수를 가져옴
-      const [tooltipTitle, setTooltipTitle] = useState('장바구니 담기');
-
+      const { addToFavorite } = useFavorite(); // FavoriteContext를 사용해서 addToFavorite 함수를 가져옴
+      const [tooltipCart, setTooltipCart] = useState('장바구니 담기');
+      const [tooltipFavorite, setTooltipFavorite] = useState('찜하기')
       const handleAddToCart = () => {
         addToCart(product, 1);
-        setTooltipTitle('장바구니에 담겼어요!');
+        setTooltipCart('장바구니에 담겼어요!');
         setTimeout(() => {
-            setTooltipTitle('장바구니 담기');
+            setTooltipCart('장바구니 담기');
         }, 2000);  // 2초 후에 다시 '장바구니 담기'로 바뀜
     };
-    
+    const handleAddToFavorite = () =>{
+      addToFavorite(product);
+      setTooltipFavorite('찜 완료!')
+      setTimeout(() => {
+        setTooltipFavorite('찜하기');
+    }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
+    }
   
     return(
       <>
       
-     <Tooltip title="찜 하기">
-    <IconButton className="btn" color="error" aria-label="favorite" >
+     <Tooltip title={tooltipFavorite}>
+    <IconButton className="btn" color="error" aria-label="favorite" onClick={handleAddToFavorite}>
     <Favorite />
   </IconButton>
   </Tooltip>
-  <Tooltip title={tooltipTitle}>
+  <Tooltip title={tooltipCart}>
   <IconButton className="btn2" color="success" aria-label="add to shopping cart" onClick={handleAddToCart}>
   <AddShoppingCart />
 </IconButton>
