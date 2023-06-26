@@ -7,10 +7,10 @@ import { CartContext } from '../../../context/CartContext';
 import QuantityInput from '../../Shop/quantityInput';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import MyFavorite from './myFavorite';
 
 const LayoutContainer = styled.div` 
   display: flex;
-  
 `;
 
 const SidebarContainer = styled.div`
@@ -24,6 +24,8 @@ const ContentContainer = styled.div`
   flex: 1;
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 
 `;
 
@@ -158,9 +160,10 @@ const Cart = () => {
         </SidebarContainer>
         <ContentContainer>
           <TableContainer>
+          <h2> 장바구니</h2>
             <Table  rowSelection={rowSelection}
-  columns={columns}
-  dataSource={data} />
+                    columns={columns}
+                    dataSource={data} />
             <TotalPayment>
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
@@ -170,7 +173,10 @@ const Cart = () => {
               </Button>
             </TotalPayment>
           </TableContainer>
+          <MyFavorite/>
         </ContentContainer>
+        
+        
       </LayoutContainer>
     </>
   );

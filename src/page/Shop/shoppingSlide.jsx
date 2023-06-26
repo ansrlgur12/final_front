@@ -6,13 +6,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import{Keyboard,  Navigation, Pagination } from "swiper";
-import { Favorite, AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-material";
+import {  AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-material";
 import { Tooltip } from "@material-ui/core";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AxiosApi from "../../API/TestAxios";
 import { useCart } from "../../context/CartContext";
 import { useFavorite } from "../../context/FavoriteContext";
+import FavoriteButton from "../../Commons/favoriteButton";
 
 const SwiperStyle = styled.div`
 
@@ -219,9 +220,7 @@ const SliderContainer = ({ selectedCategory }) => {
       <>
       
      <Tooltip title={tooltipFavorite}>
-    <IconButton className="btn" color="error" aria-label="favorite" onClick={handleAddToFavorite}>
-    <Favorite />
-  </IconButton>
+  <FavoriteButton className="btn" onClick={handleAddToFavorite}/>
   </Tooltip>
   <Tooltip title={tooltipCart}>
   <IconButton className="btn2" color="success" aria-label="add to shopping cart" onClick={handleAddToCart}>
