@@ -9,7 +9,7 @@ import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import QuantityInput from "./quantityInput";
 import { CartContext } from "../../context/CartContext";
-import Modal from "./cartModal";
+import Modal from "../../Commons/Modal";
 
 
 
