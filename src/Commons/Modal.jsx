@@ -27,11 +27,13 @@ const Modal = ({ isOpen, children }) => {
     if (!isOpen) return null;
     
     return (
+      <ModalStyle>
       <div className="modalBackground">
              <div className="modalBox">
           {children}
         </div>
       </div>
+      </ModalStyle>
     );
   };
 

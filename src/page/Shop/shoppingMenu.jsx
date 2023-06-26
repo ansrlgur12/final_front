@@ -1,26 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTent, faBed, faLightbulb, faKitchenSet, faChair, faBox, faScrewdriverWrench,faFireBurner, faFan, faCaravan} from '@fortawesome/free-solid-svg-icons';
-import  styled, {keyframes,css} from 'styled-components';
+import  styled from 'styled-components';
 import React, {useState} from 'react';
 
-const gradient = keyframes`
-  0% {
-    background: radial-gradient(circle at center, #58c38c 0%, #fff 0%, #fff 100%);
-  }
-  25% {
-    background: radial-gradient(circle at center, #58c38c 24%, #fff 25%, #fff 100%);
-  }
-  50% {
-    background: radial-gradient(circle at center, #58c38c 49%, #fff 50%, #fff 100%);
-  }
-  75% {
-    background: radial-gradient(circle at center, #58c38c 74%, #fff 75%, #fff 100%);
-  }
-  100% {
-    color: #fff;
-    background: radial-gradient(circle at center, #2D6247 99%, #fff 100%, #fff 100%);
-  }
-`;
+
 export const GridStlye = styled.div`
   
     box-sizing: border-box;
@@ -67,7 +50,7 @@ export const GridStlye = styled.div`
 
   }
 `
-const Button = styled.button`
+const Button = styled.div`
      width: 150px;
     height: 100%;
     background: none;
@@ -80,13 +63,6 @@ const Button = styled.button`
     justify-content: center;
     color:#2D6247;
 
-  ${({ isSelected }) => isSelected && css`
-    opacity: 1;
-    animation: ${gradient} 50ms;
-    background: #2D6247;
-    color: #fff;
-    box-shadow: none;
-  `}
 `;
 const ShopCategory = ({ onCategoryChange,setLoading}) => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -105,17 +81,24 @@ const ShopCategory = ({ onCategoryChange,setLoading}) => {
       ];
       const handleClick = (name) => { 
         setLoading(true);
-  onCategoryChange(name.toLowerCase());
-  setSelectedItem(name)
+        setSelectedItem(name);
+        
+        setTimeout(() => { 
+         
+         
+          onCategoryChange(name.toLowerCase());
+        }, 0); 
+        
       }
   return (
     
     <div className="grid-container">
   {items.map((item, index) => {
-        
+          const isSelected = item.name === selectedItem;
+          const style = isSelected ? { background: "#2D6247", color: "#fff" } : {};
         return (
           <div className="grid-item" key={index}>
-            <Button isSelected={item.name === selectedItem}  onClick={() => handleClick(item.name)}>
+            <Button style={style}  onClick={() => handleClick(item.name)}>
               <FontAwesomeIcon icon={item.icon} size='lg' />
               <div className='itemName'>{item.name}</div>
             </Button>
