@@ -191,7 +191,9 @@ const SideBarList = (props) => {
                   </div>
                   <div className="campAddr">
                     <p className="addr">{province}</p>
+                    <p className="addr">＞</p>
                     <p className="addr">{city}</p>
+                    <p className="addr">＞</p>
                     <p className="addr">{town}</p>
                   </div>
                 </div>
