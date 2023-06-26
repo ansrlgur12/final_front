@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTent, faBed, faLightbulb, faKitchenSet, faChair, faBox, faScrewdriverWrench,faFireBurner, faFan, faCaravan } from '@fortawesome/free-solid-svg-icons';
+import { faTent, faBed, faLightbulb, faKitchenSet, faChair, faBox, faScrewdriverWrench,faFireBurner, faFan, faCaravan} from '@fortawesome/free-solid-svg-icons';
 import  styled, {keyframes,css} from 'styled-components';
 import React, {useState} from 'react';
 
@@ -88,7 +88,7 @@ const Button = styled.button`
     box-shadow: none;
   `}
 `;
-const ShopCategory = ({ onCategoryChange }) => {
+const ShopCategory = ({ onCategoryChange,setLoading}) => {
   const [selectedItem, setSelectedItem] = useState(null);
  
     const items = [
@@ -103,9 +103,10 @@ const ShopCategory = ({ onCategoryChange }) => {
         {icon: faFan, name: '계절용품'},
         {icon: faCaravan, name: 'RV용품'}
       ];
-      const handleClick = (name) => {
-        onCategoryChange(name.toLowerCase());
-        setSelectedItem(name);
+      const handleClick = (name) => { 
+        setLoading(true);
+  onCategoryChange(name.toLowerCase());
+  setSelectedItem(name)
       }
   return (
     

@@ -8,6 +8,7 @@ import QuantityInput from '../../Shop/quantityInput';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import MyFavorite from './myFavorite';
+import DeleteButton from '../../../Commons/Buttons/deleteButton';
 
 const LayoutContainer = styled.div` 
   display: flex;
@@ -55,6 +56,7 @@ const TotalPayment = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 `;
 
 const TotalAmount = styled.div`
@@ -113,9 +115,7 @@ const Cart = () => {
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
-      <IconButton aria-label="delete" onClick={() => removeFromCart(record.key)}>
-        <Delete/>
-      </IconButton>
+       <DeleteButton onClick={() => removeFromCart(record.key)}/>
     )
     },
   ];
