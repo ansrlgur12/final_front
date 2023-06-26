@@ -7,11 +7,11 @@ import { MarkerContext } from "../../context/MarkerInfo";
 const DetailContainer = styled.div`
     z-index: 2;
     position: fixed;
-    right: -30rem;
+    right: -50rem;
     bottom: 6vh;
 .container{
     width: 30vw;
-    height: 76vh;
+    height: 78vh;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
@@ -39,7 +39,7 @@ const DetailContainer = styled.div`
   }
 
 .slideIn {
-    transform: translateX(-110%); /* 오른쪽으로 이동하여 숨김 */
+    transform: translateX(-180%); /* 오른쪽으로 이동하여 숨김 */
 }
 .hide {
     display: none;

@@ -6,6 +6,9 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import AxiosApi from "../../API/TestAxios";
 import DetailPage from "./detailPage";
 import noImage from "../../images/CAMOLOGO.png"
+import { IconButton } from "@mui/material";
+import { Favorite, FavoriteBorder, Visibility} from "@mui/icons-material";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 const MapStyled = styled.div`
     position: relative;
@@ -60,6 +63,7 @@ const MapStyled = styled.div`
     .info .close:hover {cursor: pointer;}
 
     .info .body {
+      position: relative;
       margin-top: 1em;
       display: flex;
       padding-right: .2em;
@@ -90,10 +94,12 @@ const MapStyled = styled.div`
     .info .link {color: #5085BB;}
     .bottomLine{
       display: flex;
-      justify-content: space-around;
       margin-top: .8em;
+      margin-left: .5em;
     }
     .detailBtn{
+      position: absolute;
+      right: .2em;
       margin-right: .5em;
       border: none;
       background-color: #fff;
@@ -102,7 +108,8 @@ const MapStyled = styled.div`
       color: #5085BB;
     }
     .icon{
-      margin-left: .5em;
+      margin-left: .2em;
+      margin-right: .5em;
     }
     
  `;
@@ -113,6 +120,9 @@ const Overlay = (props) => {
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
+
+  // 좋아요 서버구현 전까지 쓸 useState
+  const [likeClicked, setLickClicked]= useState(false);
   
   useEffect(()=>{
     const loading = async() => {
@@ -134,6 +144,10 @@ const Overlay = (props) => {
     setDetailOpen(false)
   }
 
+  const handleAddToFavorite = () => {
+    setLickClicked(!likeClicked)
+  }
+
     return (
       <MapStyled>
       <div className={open ? "openOverlay wrap" : "wrap" }>
@@ -152,8 +166,14 @@ const Overlay = (props) => {
             </div>
           </div>
           <div className="bottomLine">
-                <p className="icon">icon</p>
-                <p className="icon">icon</p>
+                <IconButton className="btn" color="error" aria-label="favorite" onClick={handleAddToFavorite}>
+                  {likeClicked ?  <Favorite /> : <FavoriteBorder />}
+                </IconButton>
+                <div className="icon">2</div>
+                <IconButton className="btn" aria-label="favorite">
+                  <Visibility />
+                </IconButton>
+                <div className="icon">3</div>
                 <p className="icon">icon</p>
                 <button className='detailBtn' onClick={detailPageOpen}>상세페이지</button>
           </div>
