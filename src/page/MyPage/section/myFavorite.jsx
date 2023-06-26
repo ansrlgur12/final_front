@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { FavoriteContext } from '../../../context/FavoriteContext';
-
+import { CartContext } from '../../../context/CartContext';
 
 
 
@@ -22,12 +22,21 @@ const TableContainer = styled.div`
   
 }
 button.ant-btn{
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
   background-color: #2D6247; 
    &:hover {
     background-color: #2D6247; 
       opacity: 0.7;
     }
 }
+.btnContainer{
+    display: flex;
+    justify-content: right;
+}
+
+
 
 
 
@@ -41,10 +50,18 @@ button.ant-btn{
 
 const MyFavorite = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
- 
+  const { cart,removeFromCart,addToCart } = useContext(CartContext);
   const { favorite,removeFromFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
   
+  const handleAddToCart = () => {
+    // 선택된 상품을 장바구니에 추가
+    selectedRowKeys.forEach(key => {
+      const selectedProduct = favorite.find(item => item.product.id === key);
+      addToCart(selectedProduct.product, 1);
+      removeFromFavorite(key)
+    });
+  };
   useEffect(() => {
     const newData = favorite.map((item, index) => ({
       
@@ -112,9 +129,11 @@ const MyFavorite = () => {
             <Table  rowSelection={rowSelection}
                     columns={columns}
                     dataSource={data} />
-           <Button type="primary">
+                    <div className="btnContainer">
+           <Button type="primary" className='btn' onClick={handleAddToCart}>
                 장바구니 추가
               </Button>
+              </div>
           </TableContainer>
         
       

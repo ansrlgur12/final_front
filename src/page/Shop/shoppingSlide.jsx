@@ -6,14 +6,16 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import{Keyboard,  Navigation, Pagination } from "swiper";
-import {  AddShoppingCart, ArrowCircleRightOutlined } from "@mui/icons-material";
 import { Tooltip } from "@material-ui/core";
-import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AxiosApi from "../../API/TestAxios";
 import { useCart } from "../../context/CartContext";
 import { useFavorite } from "../../context/FavoriteContext";
-import FavoriteButton from "../../Commons/favoriteButton";
+import FavoriteButton from "../../Commons/Buttons/favoriteButton";
+import CartButton from "../../Commons/Buttons/cartButton";
+import ArrowButton from "../../Commons/Buttons/arrowButton";
+import Skeleton from "@mui/material/Skeleton";
+
 
 const SwiperStyle = styled.div`
 
@@ -174,27 +176,42 @@ const SwiperStyle = styled.div`
 
 
 
-const SliderContainer = ({ selectedCategory }) => {
-  
+const SliderContainer = ({ selectedCategory}) => {
+   // 컴포넌트의 상단에 useState를 추가하여 로딩 상태를 관리합니다.
     const [products, setProducts] = useState([]);
-  const nav = useNavigate();
+    const nav = useNavigate();
+    const [loading, setLoading] = useState(false);
   
 
-  useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await AxiosApi.getItemList();
-        if (response.status === 200) {
-          setProducts(response.data);
-          console.log(response.data)
-        }
+          setLoading(true);
+          const response = await AxiosApi.getItemList();
+          if (response.status === 200) {
+              setProducts(response.data);
+              console.log(response.data);
+          }
       } catch (error) {
-        console.error(error);
+          console.error(error);
       }
-    }
-  
-    fetchProducts();
-  }, []);
+  }
+
+  // selectedCategory가 변경될 때마다 아이템 데이터를 가져옵니다.
+  useEffect(() => {
+      fetchProducts().then(() => {
+          // 아이템 데이터를 성공적으로 가져온 후, 스켈레톤을 제거합니다.
+          setLoading(false);
+      });
+  }, [selectedCategory]);
+
+
+
+
+
+
+
+
+
 
      const IconButtons = ({productId,product}) =>{
       const { addToCart } = useCart(); // CartContext를 사용해서 addToCart 함수를 가져옴
@@ -223,15 +240,11 @@ const SliderContainer = ({ selectedCategory }) => {
   <FavoriteButton className="btn" onClick={handleAddToFavorite}/>
   </Tooltip>
   <Tooltip title={tooltipCart}>
-  <IconButton className="btn2" color="success" aria-label="add to shopping cart" onClick={handleAddToCart}>
-  <AddShoppingCart />
-</IconButton>
+    <CartButton  className="btn2" onClick={handleAddToCart}/>
 </Tooltip>
 
 <Tooltip title="구매 페이지 이동" placement="top">
-  <IconButton className="btn3"  aria-label="add to shopping cart" onClick={()=>nav(`/ProductDetailForm/${productId}`)} >
-  <ArrowCircleRightOutlined />
-</IconButton>
+  <ArrowButton className="btn3" onClick={()=>nav(`/ProductDetailForm/${productId}`)}/>
 </Tooltip>
 </>
   )
@@ -255,14 +268,27 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-      
-      {products.filter(product => product.category4Name === '1-2인용').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
-       )) }
-       
-       
-     
-    </Swiper>
+      {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : 
+      products.filter(product => product.category4Name === '1-2인용').map(product => (
+        <SwiperSlide key={product.id}>
+          <img src={product.imageUrl} alt="" />
+          <IconButtons product={product} productId={product.id}/>
+          <div className="title">
+            <div className="brand">{product.brand || 'brand'}</div>
+            <div className="name">{product.productName}</div>
+            <span className="price">{product.price}원</span>
+          </div>
+        </SwiperSlide>
+      ))
+  }
+</Swiper>
     
     </div>
      <div className="cardSlide">
@@ -279,7 +305,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '3-4인용').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '3-4인용').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
        
@@ -304,7 +337,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '5-6인용').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '5-6인용').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
        
@@ -329,7 +369,14 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-       {products.filter(product => product.category4Name === '침낭').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '침낭').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -351,7 +398,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '매트').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '매트').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -375,7 +429,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '야전침대').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '야전침대').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -400,7 +461,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      {products.filter(product => product.category4Name === '가스랜턴').map(product => (
+        {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '가스랜턴').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -422,7 +490,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === 'led랜턴').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === 'led랜턴').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -446,7 +521,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '손전등').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '손전등').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -470,7 +552,14 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-       {products.filter(product => product.category4Name === '후라이팬').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '후라이팬').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -492,7 +581,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '조리도구').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '조리도구').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -516,7 +612,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '주전자').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '주전자').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -541,7 +644,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      {products.filter(product => product.category4Name === '캠핑의자').map(product => (
+        {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '캠핑의자').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -563,7 +673,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '캠핑테이블').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '캠핑테이블').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
   
@@ -586,7 +703,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '캠핑박스').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '캠핑박스').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -611,7 +735,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      {products.filter(product => product.category4Name === '웨건').map(product => (
+        {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '웨건').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -633,7 +764,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '루프백').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '루프백').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      </Swiper>
@@ -653,7 +791,14 @@ const SliderContainer = ({ selectedCategory }) => {
       }}
        
        scrollbar={{ draggable: true }}
-     > {products.filter(product => product.category4Name === '토일레트리').map(product => (
+     >   {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '토일레트리').map(product => (
       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
       ))}
      
@@ -677,7 +822,14 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
-       {products.filter(product => product.category4Name === '멀티백').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '멀티백').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -698,7 +850,14 @@ const SliderContainer = ({ selectedCategory }) => {
        
        scrollbar={{ draggable: true }}
      >
-    {products.filter(product => product.category4Name === '팩망치').map(product => (
+      {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '팩망치').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
   
@@ -721,7 +880,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '다용도칼').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '다용도칼').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -745,7 +911,14 @@ const SliderContainer = ({ selectedCategory }) => {
       
       scrollbar={{ draggable: true }}
     >
- {products.filter(product => product.category4Name === '화로').map(product => (
+   {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '화로').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -767,7 +940,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '스토브').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '스토브').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -791,7 +971,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '연료').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '연료').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -816,7 +1003,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      {products.filter(product => product.category4Name === '전기요').map(product => (
+        {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '전기요').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -838,7 +1032,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '선풍기').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '선풍기').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
   
@@ -861,7 +1062,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '팬히터').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '팬히터').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
   
@@ -885,7 +1093,14 @@ const SliderContainer = ({ selectedCategory }) => {
       scrollbar={{ draggable: true }}
     >
       
-      {products.filter(product => product.category4Name === '차박텐트').map(product => (
+        {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '차박텐트').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
     
@@ -907,7 +1122,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '루프백').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '루프백').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
      
@@ -931,7 +1153,14 @@ const SliderContainer = ({ selectedCategory }) => {
        scrollbar={{ draggable: true }}
      >
        
-       {products.filter(product => product.category4Name === '보온/보냉병').map(product => (
+         {
+    loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
+      Array.from(new Array(3)).map((_, index) => (
+        <SwiperSlide key={index}>
+          <Skeleton variant="rectangular" width={260} height={200} />
+        </SwiperSlide>
+      ))
+    : products.filter(product => product.category4Name === '보온/보냉병').map(product => (
        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
        ))}
   

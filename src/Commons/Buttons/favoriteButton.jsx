@@ -4,12 +4,11 @@ import React, { forwardRef } from 'react';
 
 
 const FavoriteButton = forwardRef((props, ref) => {
-    const { onClick } = props;
+    
 return(
 <>
 <IconButton  ref={ref}
-      color="error" 
-      aria-label="favorite" 
+      color="error"
       {...props}>
     <Favorite />
   </IconButton>
