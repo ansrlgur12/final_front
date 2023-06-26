@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, {useState,useEffect, useCallback} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "styled-components";
 import 'swiper/css';
@@ -181,28 +181,37 @@ const SliderContainer = ({ selectedCategory}) => {
     const [products, setProducts] = useState([]);
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [productCache, setProductCache] = useState({});
   
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
       try {
-          setLoading(true);
+        setLoading(true);
+        if (productCache[selectedCategory]) {
+          // 캐시에 데이터가 있으면 캐시의 데이터를 사용
+          setProducts(productCache[selectedCategory]);
+        } else {
+          // 캐시에 데이터가 없으면 새로 요청
           const response = await AxiosApi.getItemList();
           if (response.status === 200) {
-              setProducts(response.data);
-              console.log(response.data);
+            setProducts(response.data);
+            setProductCache({
+              ...productCache,
+              [selectedCategory]: response.data
+            });
           }
+        }
       } catch (error) {
-          console.error(error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-  }
-
-  // selectedCategory가 변경될 때마다 아이템 데이터를 가져옵니다.
-  useEffect(() => {
-      fetchProducts().then(() => {
-          // 아이템 데이터를 성공적으로 가져온 후, 스켈레톤을 제거합니다.
-          setLoading(false);
-      });
-  }, [selectedCategory]);
+    }, [selectedCategory, productCache]);
+    
+    // selectedCategory가 변경될 때마다 아이템 데이터를 가져옵니다.
+    useEffect(() => {
+      fetchProducts();
+    }, [fetchProducts]);
 
 
 
