@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 import VisibilityButton from "../../Commons/visibility";
-import FavoriteButton from "../../Commons/favoriteButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
