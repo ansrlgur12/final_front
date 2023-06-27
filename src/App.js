@@ -34,6 +34,7 @@ import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
 import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
+import WriteReviewPage from './page/Community/section/writeReviewPage';
 
 function App() {
 /*
@@ -62,6 +63,7 @@ function App() {
                 <Route path='/community' element={<Community />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
                 <Route path='/reviewDetail' element={<ReviewDetail />} />
+                <Route path='/writeReviewPage' element={<WriteReviewPage />} />
                 <Route path='/myReview' element={<MyReview />} />
                 <Route path='/MyComments' element={<MyComments />} />
                 <Route path='/myPage' element={<MyPage />} />
