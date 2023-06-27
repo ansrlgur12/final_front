@@ -11,21 +11,12 @@ const InfoStyled = styled.div`
     line-height: 1;
  `;
 
-const InfoWindow = (position) => {
-    // console.log(position)
+const InfoWindow = (props) => {
 
-    function stripHtmlTags(html) {
-        const tmp = document.createElement("DIV");
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || "";
-    }
+    const {name} = props;
 
     return (
-        <InfoStyled>
-            <div className="label">
-                {stripHtmlTags(position.position.Ma)}
-            </div>
-        </InfoStyled>
+        <InfoStyled>{name}</InfoStyled>
     );
 };
 

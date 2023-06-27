@@ -3,10 +3,9 @@ import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
-import { CartContext } from '../../../context/CartContext';
-import QuantityInput from '../../Shop/quantityInput';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { FavoriteContext } from '../../../context/FavoriteContext';
 
 const LayoutContainer = styled.div` 
   display: flex;
@@ -64,26 +63,26 @@ const TotalAmount = styled.div`
 
 
 
-const Cart = () => { 
+const MyFavorite = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { cart,removeFromCart } = useContext(CartContext); // cartContext사용
+  const { favorite,removeFromFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
   
   useEffect(() => {
-    const newData = cart.map((item, index) => ({
+    const newData = favorite.map((item, index) => ({
       
       key: item.product.id, 
       
       productName: item.product.productName,
       imageUrl: item.product.imageUrl ,
       paymentAmount: item.product.price + "원",
-      quantity: item.quantity, 
+  
       
     }));
 
     setData(newData);
-  }, [cart]);
+  }, [favorite]);
   const columns = [
     {
       title: '',
@@ -102,16 +101,11 @@ const Cart = () => {
       key: 'paymentAmount',
     },
     {
-      title: '수량',
-      dataIndex: 'quantity',
-      key: 'quantity',
-    },
-    {
       title: '삭제하기',
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
-      <IconButton aria-label="delete" onClick={() => removeFromCart(record.key)}>
+      <IconButton aria-label="delete" onClick={() => removeFromFavorite(record.key)}>
         <Delete/>
       </IconButton>
     )
@@ -161,14 +155,14 @@ const Cart = () => {
             <Table  rowSelection={rowSelection}
   columns={columns}
   dataSource={data} />
-            <TotalPayment>
+            {/* <TotalPayment>
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
               </TotalAmount>
               <Button type="primary" onClick={handlePurchase}>
-                구매하기
+                
               </Button>
-            </TotalPayment>
+            </TotalPayment> */}
           </TableContainer>
         </ContentContainer>
       </LayoutContainer>
@@ -176,4 +170,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default MyFavorite;

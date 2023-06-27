@@ -70,7 +70,7 @@ const Header = () =>{
     const nav = useNavigate();
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
     const context = useContext(MarkerContext);
-    const {setCurrentData} = context;
+    const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
     
     const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
 
@@ -83,6 +83,9 @@ const Header = () =>{
     
     const onClickNormalCamping = () => {
         setCurrentData("normal");
+        setMarkerLat(37.50802)
+        setMarkerLng(127.062835)
+        setZoomLev(10)
         nav("/mapMain");
     }
     
