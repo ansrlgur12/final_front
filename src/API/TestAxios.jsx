@@ -1,5 +1,6 @@
 import axios from "axios";
 export const domain = "http://localhost:8111";
+export const weatherApiKey = "12779614ba1e41d795943be1a07331ac";
 
 const AxiosApi = {
 
@@ -70,7 +71,11 @@ const AxiosApi = {
 
     searchCampData : async(searchValue, currentData) => {
         return await axios.get(domain + `/camp/searchData/${searchValue}/${currentData}`)
-    }
+    },
+
+    getWeather : async(mapY, mapX) => {
+        return await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${mapY}&lon=${mapX}&key=${weatherApiKey}`)  
+    },
 };
 
 export default AxiosApi;
