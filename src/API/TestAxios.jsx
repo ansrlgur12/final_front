@@ -18,13 +18,25 @@ const AxiosApi = {
     },
     
     // 로그인
-    memberLogin : async(id, pwd) => {
+    /*
+    memberLogin : async(inputEmail, inputPwd) => {
         const login = {
-            id : id,
-            pwd : pwd
+            email : inputEmail,
+            pwd : inputPwd
         };
-        return await axios.post(domain + "/login", login);
+        return await axios.get(domain + "/intro", login);
     },
+    */
+
+    memberLogin: async (inputEmail, inputPwd) => {
+        const loginData = {
+          params: {
+            email: inputEmail,
+            pwd: inputPwd,
+          },
+        };
+        return await axios.get(domain + "/intro", loginData);
+      },
 
    productDetail : async(id) =>{
     return await axios.get(domain+ `/productDetail/${id}`)
@@ -33,9 +45,9 @@ const AxiosApi = {
 
    getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
-   },
+    },
 
-   getAnimalCampData : async() => {
+    getAnimalCampData : async() => {
 
     return await axios.get(domain + "/camp/animalData")
 },
@@ -46,14 +58,14 @@ const AxiosApi = {
     },
 
     // 회원 가입
-    memberReg : async(nickName, email, pwd, agreed) => {
+    memberReg : async(nickName, email, password, agreed) => {
         const member = {
             nickName : nickName,
             email : email,
-            pwd : pwd,
+            pwd : password,
             agreed : agreed
         };
-        return await axios.post(domain + "/signUp", member);
+        return await axios.post(domain + "/intro", member);
     },
 
     searchCampData : async(searchValue, currentData) => {

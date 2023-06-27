@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const ModalStyled = styled.div`
-
     .modal {
         display: none;
         position: fixed;
@@ -36,7 +35,7 @@ const ModalStyled = styled.div`
     .modal section > header {
         position: relative;
         padding: 16px 64px 16px 16px;
-        background-color: #594545;
+        background-color: #2D6247;
         color: whitesmoke;
         font-weight: 700;
     }
@@ -53,8 +52,8 @@ const ModalStyled = styled.div`
         background-color: transparent;
     }
     .modal > section > main {
-    padding: 16px;
-    border-top: 1px solid #dee2e6;
+        padding: 16px;
+        border-top: 1px solid #dee2e6;
     }
     .modal > section > footer {
         padding: 12px 16px;
@@ -63,11 +62,12 @@ const ModalStyled = styled.div`
     .modal > section > footer button {
         padding: 6px 12px;
         color: whitesmoke;
-        background-color: #815B5B;
+        background-color: #2D6247;
         border: none;
         border-radius: 5px;
         font-size: 13px;
         margin: 5px;
+        cursor: pointer;
     }
     @keyframes modal-show {
         from {

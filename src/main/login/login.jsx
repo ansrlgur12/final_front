@@ -42,16 +42,21 @@ const LoginStyle = styled.div`
         height: 2.2rem;
         padding: 0px;
         margin: 4px;
-        background-color: white;
+        background-color: #4caf50;
+        color: #f2f2f2;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
     .loginButton:hover {
-        background-color: #2D6247;
+        background-color: #45a049;
         color: #f2f2f2;
     }
     .notLoginButton{
+        cursor: pointer;
         width: 94%;
         height: 2.2rem;
         padding: 0px;
@@ -59,7 +64,10 @@ const LoginStyle = styled.div`
         background-color: white;
         border: none;
         border-radius: 5px;
-        cursor: pointer;
+        color: red;
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
     .other {
         margin: 10px;
@@ -131,41 +139,9 @@ const SignUpStyle = styled.div`
 const Login = () => {
     const [showSign, setShowSign] = useState(false);
     const nav = useNavigate();
-
-    const onKeyPress = (e) => {
-      if (e.key === 'Enter') {
-        onClickLogin();
-      }
-    };
-
-    // Context API에 값을 저장
-    const context = useContext(UserContext);
-    const {setUserId, setPassword, setIsLogin, setUserImage} = context;
-
-    // 아이디, 패스워드 입력
-    const[inputId, setInputId] = useState("");
-    const[inputPw, setInputPw] = useState("");
-
-    // 오류메세지
-    const[idMessage, setIdMessage] = useState("");
-    const[pwMessage, setPwMessage] = useState("");
-
-    // 유효성검사
-    const[isId, setIsId] = useState(false);
-    const[isPw, setIsPw] = useState(false);
-
-    // 팝업처리(모달)
-    const[modalOpen, setModalOpen] = useState(false);
-    const[loginFinishOpen, setLoginFinishOpen] = useState(false);
-
-  
-    const closeModal = () => {
-        setModalOpen(false);
-    }
-
     const logo = {
         backgroundImage : `url(${introLogo})`,
-        backgroundsize : 'contain',
+        backgroundSize : 'contain',
         backgroundRepeat: 'no-repeat',
     };
     const kakaoLogo = {
@@ -181,70 +157,101 @@ const Login = () => {
         backgroundRepeat: 'no-rereat'
     };
 
+    const onKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        onClickLogin();
+      }
+    };
+
+    // Context API에 값을 저장
+    const context = useContext(UserContext);
+    const {setUserEmail, setPassword, setIsLogin} = context;
+
+    // 아이디, 패스워드 입력
+    const[inputEmail, setInputEmail] = useState("");
+    const[inputPwd, setInputPwd] = useState("");
+
+    // 오류메세지
+    const[idMessage, setIdMessage] = useState("");
+    const[pwMessage, setPwMessage] = useState("");
+
+    // 유효성검사
+    const[isEmail, setIsEmail] = useState(false);
+    const[isPw, setIsPw] = useState(false);
+
+    // 팝업처리(모달)
+    const[modalOpen, setModalOpen] = useState(false);
+    const[loginFinishOpen, setLoginFinishOpen] = useState(false);
+
+  
+    const closeModal = () => {
+        setModalOpen(false);
+    }
+
     const signBtnClick = () => {
         setShowSign(true);
     };
 
-    const onChangeId = (e) => {
+    const onClickLogin = async() => {
+        // 로그인을 위해 Axios 호출
+        const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
+        console.log(response.data);
+        if(response.data.success === true) {
+            console.log("로그인");
+            setLoginFinishOpen(true);
+            setUserEmail(inputEmail);
+            setPassword(inputPwd);
+            setIsLogin(true);
+        } else {
+            console.log("로그인 에러");
+            setModalOpen(true);
+        }
+    };
+
+    const onChangeEmail = (e) => {
         // 5 ~ 20자리의 영문자, 숫자, 언더스코어로 이루어진 문자열 체크
-        const regexId = /^\w{5,20}$/;
-        setInputId(e.target.value);
-        if(!regexId.test(e.target.value)){
+        const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        const emailCurrent = e.target.value;
+        setInputEmail(emailCurrent);
+        if(!regexEmail.test(emailCurrent)){
             setIdMessage("5자리 이상 20자리 미만으로 입력해주세요");
-            setIsId(false);
+            setIsEmail(false);
         } else {
             setIdMessage("올바른 형식 입니다.");
-            setIsId(true);
+            setIsEmail(true);
         }
     };
     
     const onChangePw = (e) => {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/
         const passwordCurrent = e.target.value;
-        setInputPw(passwordCurrent)
+        setInputPwd(passwordCurrent);
         if (!passwordRegex.test(passwordCurrent)) {
-            setPwMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
             setIsPw(false)
         } else {
-            setPwMessage('안전한 비밀번호에요 : )');
             setIsPw(true);
         }
     };
 
-    const onClickLogin = async() => {
-        // 로그인을 위해 Axios 호출
-        const response = await AxiosApi.memberLogin(inputId, inputPw);
-        console.log(response.data);
-        if(response.data.success === true) {
-            console.log("로그인");
-            setLoginFinishOpen(true);
-            setUserId(inputId);
-            setPassword(inputPw);
-            setIsLogin(true);
-            setUserImage(response.data.userImage);   
-        } else {
-            console.log("로그인 에러");
-            setModalOpen(true);
-        }
-    };
+    
         
     return(
         <LoginStyle>
                 <div class="container">
                     <div className="loginLogo" style={logo}></div>
                     <div>
-                        <input value={inputId} onChange={onChangeId} placeholder="사용자 이름 또는 이메일" className="loginInput"/>
+                        <input value={inputEmail} onChange={onChangeEmail} placeholder="이메일 로그인" className="loginInput"/>
                     </div>
                     <div>
-                        <input type="password" value={inputPw} onChange={onChangePw} placeholder="비밀번호" className="loginInput" onKeyPress={onKeyPress}/>
+                        <input type="password" value={inputPwd} onChange={onChangePw} placeholder="비밀번호" className="loginInput" onKeyPress={onKeyPress}/>
                     </div>
                     <div>
-                        {(isId && isPw) ? 
-                        <button className="loginButton" onClick={onClickLogin}>로그인</button> :
-                        <button className="notLoginButton" onClick={onClickLogin}>로그인</button> }
+                        {(isEmail && isPw) ? 
+                        <div className="loginButton" onClick={onClickLogin}>로그인</div> :
+                        <div className="notLoginButton">로그인</div> }
                     </div>
                     <Modal open={modalOpen} confirm={closeModal} justConfirm = {true} header = {"오류"}>계정을 다시 확인해 주세요.</Modal>
-                    <Modal open={loginFinishOpen} confirm={()=>nav("/main")} justConfirm = {true} header={"환영합니다."}>로그인에 성공했습니다.</Modal>
+                    <Modal open={loginFinishOpen} confirm={()=>nav("/")} justConfirm = {true} header={"환영합니다."}>로그인에 성공했습니다.</Modal>
                     <div className="other">
                         <div className="other1">계정찾기</div>
                         <div className="other2" onClick={signBtnClick}>회원가입</div>
