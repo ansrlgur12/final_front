@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import profile from "../../../images/profile.png";
 import camping from "../../../images/camping.png";
-import ReviewApi from "../../../API/Review";
+import ReviewApi from "../../../API/ReviewAPI";
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -96,7 +96,7 @@ const ReviewCards = () => {
         
         {/* 리뷰 카드 목록 */}
         <Row gutter={[10, 15]}>
-          {reviews.length > 0 ? renderReviewCards(postType) : <p>No reviews found.</p>}
+          {reviews.length > 0 ? renderReviewCards(postType) : <p>리뷰가 없습니다.</p>}
         </Row>
         
         {/* 페이지네이션 */}

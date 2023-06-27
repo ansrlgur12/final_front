@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Button, Modal, Layout } from 'antd';
-import ReviewApi from '../../../API/Review';
+import ReviewApi from '../../../API/ReviewAPI';
 import Header from '../../../main/header';
 
 const {Content} = Layout;
