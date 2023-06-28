@@ -62,8 +62,9 @@ function App() {
                 <Route path='/mapMain' element={<MapMain />} />
                 <Route path='/community' element={<Community />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
-                <Route path='/reviewDetail' element={<ReviewDetail />} />
+                
                 <Route path='/writeReviewPage' element={<WriteReviewPage />} />
+                <Route path="/reviewDetail/:id" component={ReviewDetail} />
                 <Route path='/myReview' element={<MyReview />} />
                 <Route path='/MyComments' element={<MyComments />} />
                 <Route path='/myPage' element={<MyPage />} />

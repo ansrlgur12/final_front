@@ -40,7 +40,7 @@ const ReviewApi = {
   },
 
   getReviewById: async (id) => {
-    return await axios.get(`${CAMO_DOMAIN}/review/reviewById/${id}`);
+    return await axios.get(`${CAMO_DOMAIN}/review/${id}`);
   },
 };
 

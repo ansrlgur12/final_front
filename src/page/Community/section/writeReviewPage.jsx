@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Button, Modal, Layout } from 'antd';
+import { Button, Modal, Layout, Input, Select } from 'antd';
+import styled, { createGlobalStyle } from 'styled-components';
 import ReviewApi from '../../../API/ReviewAPI';
 import Header from '../../../main/header';
 
-const {Content} = Layout;
+const { Content } = Layout;
+const { Option } = Select;
+
+const GlobalStyle = createGlobalStyle`
+  .ck-editor__editable {
+    height: 600px;
+  }
+`;
+
+const ReviewContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
 
 const WriteReviewPage = () => {
   const [data, setData] = useState('');
+  const [title, setTitle] = useState('');
+  const [postType, setPostType] = useState(null);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -16,10 +31,8 @@ const WriteReviewPage = () => {
     try {
       const id = 1;
       const memberId = 1;
-      const title = 'Review Title';
       const content = data;
       const date = new Date().toISOString(); 
-      const postType = '1';
       await ReviewApi.createReview(id, memberId, title, content, date, postType);
       setModalVisible(true);
     } catch (error) {
@@ -34,11 +47,26 @@ const WriteReviewPage = () => {
 
   return (
     <Layout>
-        <Header />
+      <GlobalStyle />
+      <Header />
       <Content style={{ padding: '50px' }}>
-        <div className="App">
+        <ReviewContainer>
           <h2>Using CKEditor 5 with React</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter title here"
+          />
+          <Select
+            style={{ width: '50%' }} 
+            value={postType}
+            onChange={(value) => setPostType(value)}
+            placeholder="카테고리를 선택해주세요."
+          >
+            <Option value="1">유료캠핑장</Option>
+            <Option value="2">오지캠핑장</Option>
+          </Select>
           <CKEditor
             editor={ClassicEditor}
             data="<p>Hello from CKEditor 5!</p>"
@@ -63,9 +91,8 @@ const WriteReviewPage = () => {
             <h3>작성 완료</h3>
             <p>글이 성공적으로 작성되었습니다.</p>
           </Modal>
-        </div>
+        </ReviewContainer>
       </Content>
-
     </Layout>
   );
 };
