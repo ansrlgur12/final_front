@@ -4,17 +4,22 @@ export const FavoriteContext = createContext();
   const [favorite,setFavorite] = useState([]);
 
   const addToFavorite = (product) => {
+
+ // favorite에 상품을 추가
+ setFavorite([...favorite, { product }]);  };
+
+
+  const isProductInFavorite = (product) => {
     // 이미 favorite에 해당 상품이 있는지 확인
-  const existingProduct = favorite.find(item => item.product.id === product.id);
-
-  // 이미 favorite에 해당 상품이 있다면 아무 작업도 하지 않음
-  if (existingProduct) {
-    return true;
-  }
-
-  // favorite에 해당 상품이 없다면 추가
-  setFavorite([...favorite, { product }]);
-  return false;
+    const existingProduct = favorite.find(item => item.product.id === product.id);
+  
+    // 이미 favorite에 해당 상품이 있다면 true를 반환
+    if (existingProduct) {
+      return true;
+    }
+  
+    // favorite에 해당 상품이 없다면 false를 반환
+    return false;
   };
   
  
@@ -24,7 +29,7 @@ export const FavoriteContext = createContext();
     );
   };
   return (
-    <FavoriteContext.Provider value={{ favorite, addToFavorite,removeFromFavorite }}>
+    <FavoriteContext.Provider value={{ favorite, addToFavorite,removeFromFavorite,isProductInFavorite }}>
       {children}
     </FavoriteContext.Provider>
   );  

@@ -15,6 +15,7 @@ import FavoriteButton from "../../Commons/Buttons/favoriteButton";
 import CartButton from "../../Commons/Buttons/cartButton";
 import ArrowButton from "../../Commons/Buttons/arrowButton";
 import Skeleton from "@mui/material/Skeleton";
+import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
 
 
 const SwiperStyle = styled.div`
@@ -224,9 +225,11 @@ const SliderContainer = ({ selectedCategory}) => {
 
      const IconButtons = ({productId,product}) =>{
       const { addToCart } = useCart(); // CartContext를 사용해서 addToCart 함수를 가져옴
-      const { addToFavorite } = useFavorite(); // FavoriteContext를 사용해서 addToFavorite 함수를 가져옴
+      const { addToFavorite,isProductInFavorite} = useFavorite(); // FavoriteContext를 사용해서 addToFavorite 함수를 가져옴
       const [tooltipCart, setTooltipCart] = useState('장바구니 담기');
       const [tooltipFavorite, setTooltipFavorite] = useState('찜하기')
+      // 좋아요 서버구현 전까지 쓸 useState
+  const [likeClicked, setLikeClicked]= useState(false);
       const handleAddToCart = () => {
         addToCart(product, 1);
         setTooltipCart('장바구니에 담겼어요!');
@@ -234,14 +237,22 @@ const SliderContainer = ({ selectedCategory}) => {
             setTooltipCart('장바구니 담기');
         }, 2000);  // 2초 후에 다시 '장바구니 담기'로 바뀜
     };
+  
+    
+useEffect(() => {
+  // 페이지 로딩시에 해당 상품이 찜 목록에 있는지 확인
+  setLikeClicked(isProductInFavorite(product));
+}, []);
     const handleAddToFavorite = () => {
-      // addToFavorite가 true를 반환하면 이미 찜 목록에 상품이 있음
-      if (addToFavorite(product)) {
-        setTooltipFavorite('이미 찜하셨어요!');
-      } else {
+      // isProductInFavorite가 true를 반환하면 이미 찜 목록에 상품이 있음
+      if (!likeClicked) {
+        addToFavorite(product);
+        setLikeClicked(true);
         setTooltipFavorite('찜 완료!');
+      } else {
+        setTooltipFavorite('이미 찜하셨어요!');
       }
-      
+    
       setTimeout(() => {
         setTooltipFavorite('찜하기');
       }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
@@ -251,7 +262,8 @@ const SliderContainer = ({ selectedCategory}) => {
       <>
       
      <Tooltip title={tooltipFavorite}>
-  <FavoriteButton className="btn" onClick={handleAddToFavorite}/>
+     {likeClicked ?  <FavoriteButton className="btn" onClick={handleAddToFavorite}/> : <FavoriteButtonBorder className="btn" onClick={handleAddToFavorite} />}
+  
   </Tooltip>
   <Tooltip title={tooltipCart}>
     <CartButton  className="btn2" onClick={handleAddToCart}/>
