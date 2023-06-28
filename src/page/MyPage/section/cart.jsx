@@ -7,10 +7,11 @@ import { CartContext } from '../../../context/CartContext';
 import QuantityInput from '../../Shop/quantityInput';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import MyFavorite from './myFavorite';
+import DeleteButton from '../../../Commons/Buttons/deleteButton';
 
 const LayoutContainer = styled.div` 
   display: flex;
-  
 `;
 
 const SidebarContainer = styled.div`
@@ -24,6 +25,8 @@ const ContentContainer = styled.div`
   flex: 1;
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 
 `;
 
@@ -53,6 +56,7 @@ const TotalPayment = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 `;
 
 const TotalAmount = styled.div`
@@ -111,9 +115,7 @@ const Cart = () => {
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
-      <IconButton aria-label="delete" onClick={() => removeFromCart(record.key)}>
-        <Delete/>
-      </IconButton>
+       <DeleteButton onClick={() => removeFromCart(record.key)}/>
     )
     },
   ];
@@ -158,9 +160,10 @@ const Cart = () => {
         </SidebarContainer>
         <ContentContainer>
           <TableContainer>
+          <h2> 장바구니</h2>
             <Table  rowSelection={rowSelection}
-  columns={columns}
-  dataSource={data} />
+                    columns={columns}
+                    dataSource={data} />
             <TotalPayment>
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
@@ -170,7 +173,10 @@ const Cart = () => {
               </Button>
             </TotalPayment>
           </TableContainer>
+          <MyFavorite/>
         </ContentContainer>
+        
+        
       </LayoutContainer>
     </>
   );

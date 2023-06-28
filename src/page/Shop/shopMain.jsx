@@ -8,8 +8,11 @@ import { useState } from "react";
 
 const ShopMain = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
+    
+    const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
     const handleCategoryChange = (category) => {
+      setLoading(true); // 카테고리 변경 시 로딩 시작
       setSelectedCategory(category);
     };
   
@@ -20,8 +23,8 @@ const ShopMain = () => {
        
         <GridStlye>
        
-        <ShopCategory onCategoryChange={handleCategoryChange}/>
-        <SliderContainer selectedCategory={selectedCategory}/>
+        <ShopCategory onCategoryChange={handleCategoryChange} setLoading={setLoading} />
+        <SliderContainer selectedCategory={selectedCategory}  setLoading={setLoading} loading={loading}/>
      
         </GridStlye>
        

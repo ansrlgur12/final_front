@@ -196,6 +196,8 @@ const Login = () => {
         // 로그인을 위해 Axios 호출
         const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
         console.log(response.data);
+        console.log("이메일 : " + inputEmail);
+        console.log("비밀번호 : " + inputPwd);
         if(response.data.success === true) {
             console.log("로그인");
             setLoginFinishOpen(true);
@@ -240,10 +242,10 @@ const Login = () => {
                 <div class="container">
                     <div className="loginLogo" style={logo}></div>
                     <div>
-                        <input value={inputEmail} onChange={onChangeEmail} placeholder="이메일 로그인" className="loginInput"/>
+                        <input onChange={onChangeEmail} placeholder="이메일 로그인" className="loginInput"/>
                     </div>
                     <div>
-                        <input type="password" value={inputPwd} onChange={onChangePw} placeholder="비밀번호" className="loginInput" onKeyPress={onKeyPress}/>
+                        <input type="password" onChange={onChangePw} placeholder="비밀번호" className="loginInput" onKeyPress={onKeyPress}/>
                     </div>
                     <div>
                         {(isEmail && isPw) ? 

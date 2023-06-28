@@ -6,6 +6,13 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import AxiosApi from "../../API/TestAxios";
 import DetailPage from "./detailPage";
 import noImage from "../../images/CAMOLOGO.png"
+import FavoriteButton from "../../Commons/Buttons/favoriteButton";
+import FavoriteButtonBorder from "../../Commons/favoriteButtonBorder";
+import VisibilityButton from "../../Commons/visibility";  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+
 
 const MapStyled = styled.div`
     position: relative;
@@ -14,7 +21,7 @@ const MapStyled = styled.div`
       display: none;
       border-radius: 15px;
       position: absolute;
-      right: 41vw;
+      right: 45vw;
       bottom: 49vh;
       margin-left: -144px;
     }
@@ -26,7 +33,7 @@ const MapStyled = styled.div`
 
     .wrap .info {
       width: 300px;
-      height: 200px;
+      height: 195px;
       border-radius: 15px;
       border-bottom: 2px solid #ccc;
       border-right: 1px solid #ccc;
@@ -60,6 +67,7 @@ const MapStyled = styled.div`
     .info .close:hover {cursor: pointer;}
 
     .info .body {
+      position: relative;
       margin-top: 1em;
       display: flex;
       padding-right: .2em;
@@ -73,6 +81,8 @@ const MapStyled = styled.div`
       padding: .3em;
       font-size: .9em;
       font-weight: bold;
+      display: flex;
+      align-items: center;
     }
     .desc .jibun {
       font-size: .8em;
@@ -90,10 +100,13 @@ const MapStyled = styled.div`
     .info .link {color: #5085BB;}
     .bottomLine{
       display: flex;
-      justify-content: space-around;
       margin-top: .8em;
+      margin-left: .5em;
+      align-items: center;
     }
     .detailBtn{
+      position: absolute;
+      right: .2em;
       margin-right: .5em;
       border: none;
       background-color: #fff;
@@ -102,9 +115,18 @@ const MapStyled = styled.div`
       color: #5085BB;
     }
     .icon{
+      margin-left: .2em;
+      margin-right: .5em;
+      font-weight: bold;
+    }
+    .bi-flag{
+      font-weight: bolder;
+      color: orange;
+      font-size: 1.2em;
+    }
+    .num{
       margin-left: .5em;
     }
-    
  `;
 
 const Overlay = (props) => {
@@ -113,6 +135,9 @@ const Overlay = (props) => {
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
+
+  // 좋아요 서버구현 전까지 쓸 useState
+  const [likeClicked, setLickClicked]= useState(false);
   
   useEffect(()=>{
     const loading = async() => {
@@ -134,10 +159,15 @@ const Overlay = (props) => {
     setDetailOpen(false)
   }
 
+  const handleAddToFavorite = () => {
+    setLickClicked(!likeClicked)
+  }
+
     return (
       <MapStyled>
       <div className={open ? "openOverlay wrap" : "wrap" }>
         {open && campInfo.map((campInfo) => (
+        <div className="campInfo" key={campInfo.facltNm}>
         <div className="info">
           <div className="title">
             <p className="titleDesc">유료 캠핑장</p>
@@ -148,16 +178,25 @@ const Overlay = (props) => {
             <div className="img" style={{backgroundImage: `url(${campInfo.firstImageUrl ? campInfo.firstImageUrl : noImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}></div>
             <div className="desc">
               <div className="ellipsis">{campInfo.addr1}</div>
-              <div className="ellipsis jibun">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
+              <div className="ellipsis jibun">
+                <FontAwesomeIcon icon={faPhone} />
+                  <div className="num">
+                    {campInfo.tel ? campInfo.tel : " 전화번호 없음"}
+                  </div>
+                </div>
             </div>
           </div>
           <div className="bottomLine">
-                <p className="icon">icon</p>
-                <p className="icon">icon</p>
-                <p className="icon">icon</p>
+                {likeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
+                <div className="icon">2</div>
+                <VisibilityButton />
+                <div className="icon">3</div> 
+                <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
+                <div className="icon">3</div> 
                 <button className='detailBtn' onClick={detailPageOpen}>상세페이지</button>
           </div>
         </div> 
+        </div>
         ))}
       </div>
       <DetailPage open={detailOpen} close = {closeDetail} campInfo = {campInfo} />

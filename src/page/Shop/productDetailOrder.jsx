@@ -9,7 +9,7 @@ import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import QuantityInput from "./quantityInput";
 import { CartContext } from "../../context/CartContext";
-import Modal from "./cartModal";
+import Modal from "../../Commons/Modal";
 
 
 
@@ -44,27 +44,15 @@ const ProductDetailOrder=({product})=> {
         <button onClick={openModal}>ADD TO CART</button>
        
         <Modal isOpen={isOpen} onClose={closeModal}>
-            <div className="modalBackground">
-             <div className="modalBox">
+       
         <p>상품을 카트에 추가하시겠습니까?</p>
          <div className="btnWrapper">
         <button className="modalBtn" onClick={() => {  addToCart(product, quantity); closeModal(); }}>예</button>
-        <button className="modalBtn" onClick={() => {  closeModal(); }}>아니오</button> 
-        </div>
-        </div>
+        <button className="modalBtn" onClick={() => {  closeModal(); }}>아니오</button>  
+         
         </div>
       </Modal>
-      
-        {/* <Button sx={{color:'green'}} size="large" onClick={()=> { addToCart(product, quantity);nav("/cart");}}
-          variant="elevated" startIcon={<AddShoppingCart color="success"/>}>
-          ADD TO CART
-        </Button> */}
-        <button>BUY NOW</button>
-        {/* <Button onClick={()=>nav("/")} endIcon={<DoneOutline color="success" onClick={()=>nav("/inicis")}/>} sx={{color:'green'}}  size="large"
-          variant="elevated" >
-          BUY NOW
-        </Button> */}
-    
+        <button>BUY NOW</button>    
         </ButtonWrapper>
         
       
