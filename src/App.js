@@ -64,7 +64,7 @@ function App() {
                 <Route path='/reviewCards' element={<ReviewCards />} />
                 
                 <Route path='/writeReviewPage' element={<WriteReviewPage />} />
-                <Route path="/reviewDetail/:id" component={ReviewDetail} />
+                <Route path="/reviewDetail/:id" element={<ReviewDetail />} />
                 <Route path='/myReview' element={<MyReview />} />
                 <Route path='/MyComments' element={<MyComments />} />
                 <Route path='/myPage' element={<MyPage />} />
