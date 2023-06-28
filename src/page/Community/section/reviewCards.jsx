@@ -3,9 +3,9 @@ import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import profile from "../../../images/profile.png";
-import camping from "../../../images/camping.png";
-import ReviewApi from "../../../API/ReviewAPI";
+import profile from '../../../images/profile.png';
+import camping from '../../../images/camping.png';
+import ReviewApi from '../../../API/ReviewAPI';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -64,7 +64,7 @@ const ReviewCards = () => {
         <Col span={6} key={index}>
           <ReviewContent
             cover={
-              <Link to="/reviewDetail">
+              <Link to={`/reviewDetail/${review.memberId}`}>
                 <img
                   alt="대표이미지"
                   src={camping}
@@ -90,7 +90,7 @@ const ReviewCards = () => {
 
   return (
     <Layout>
-      <Content style={{ padding: "120px", position: 'relative' }}>
+      <Content style={{ padding: '120px', position: 'relative' }}>
         {/* 작성하기 버튼 */}
         <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
         

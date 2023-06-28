@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { HeartOutlined, ShareAltOutlined, EditOutlined } from "@ant-design/icons";
-import { Layout } from "antd";
-import Header from "../../../main/header";
-import camping from "../../../images/camping.png";
-import ReviewApi from "../../../API/ReviewAPI";
-import CommentForm from "./commentForm";
-import CommentList from "./commentList";
+import React, { useState, useEffect } from 'react';
+import { HeartOutlined, ShareAltOutlined, EditOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
+import styled from 'styled-components';
+import camping from '../../../images/camping.png';
+import ReviewApi from '../../../API/ReviewAPI';
+import CommentForm from './commentForm';
+import CommentList from './commentList';
+import { useParams } from 'react-router-dom';
+import Header from '../../../main/header';
 
 const { Content } = Layout;
 
@@ -65,12 +66,12 @@ const ReviewButton = styled.button`
 
 const ReviewDetail = () => {
   const [review, setReview] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const reviewId = 1;
-        const response = await ReviewApi.getReviewById(reviewId);
+        const response = await ReviewApi.getReviewById(id);
         const reviewData = response.data;
         setReview(reviewData);
       } catch (error) {
@@ -79,40 +80,37 @@ const ReviewDetail = () => {
     };
 
     fetchReview();
-  }, []);
+  }, [id]);
 
   return (
     <Layout>
       <Header />
-      <Content style={{ padding: "40px" }}>
+      <Content style={{ padding: '40px' }}>
         {review ? (
-          <div>
-            <ReviewContainer>
-              <ReviewTitle>{review.title}</ReviewTitle>
-              <ReviewContent>{review.content}</ReviewContent>
-              <ReviewImage src={camping} alt="Review Image" />
-              <ReviewMeta>
-                <ReviewDate>작성일: {review.date}</ReviewDate>
-                <ReviewActions>
-                  <ReviewButton>
-                    <HeartOutlined />
-                    좋아요
-                  </ReviewButton>
-                  <ReviewButton>
-                    <ShareAltOutlined />
-                    공유하기
-                  </ReviewButton>
-                  <ReviewButton>
-                    <EditOutlined />
-                    수정하기
-                  </ReviewButton>
-                </ReviewActions>
-              </ReviewMeta>
-              <CommentList reviewId={review.id} />
-            <CommentForm reviewId={review.id} />
-            </ReviewContainer>
-           
-          </div>
+          <ReviewContainer>
+            <ReviewTitle>{review.title}</ReviewTitle>
+            <ReviewContent>{review.content}</ReviewContent>
+            <ReviewImage src={camping} alt="Review Image" />
+            <ReviewMeta>
+              <ReviewDate>작성일: {review.date}</ReviewDate>
+              <ReviewActions>
+                <ReviewButton>
+                  <HeartOutlined />
+                  좋아요
+                </ReviewButton>
+                <ReviewButton>
+                  <ShareAltOutlined />
+                  공유하기
+                </ReviewButton>
+                <ReviewButton>
+                  <EditOutlined />
+                  수정하기
+                </ReviewButton>
+              </ReviewActions>
+            </ReviewMeta>
+            <CommentList reviewId={review.memberId} />
+            <CommentForm reviewId={review.memberId} />
+          </ReviewContainer>
         ) : (
           <p>리뷰가 없습니다.</p>
         )}
@@ -121,4 +119,4 @@ const ReviewDetail = () => {
   );
 };
 
-export default ReviewDetail
+export default ReviewDetail;
