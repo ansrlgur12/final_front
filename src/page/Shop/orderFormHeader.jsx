@@ -2,8 +2,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { faWonSign } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const  OrderFormHeader =(props)=> {
@@ -14,8 +12,7 @@ const  OrderFormHeader =(props)=> {
         <h2>{props.product.productName}</h2>
       </TitleBox>
       <PriceBox>
-        <FontAwesomeIcon icon={faWonSign}/>
-        <span>{props.product.price}</span>
+        <span>{new Intl.NumberFormat('ko-KR').format(props.product.price) + "원"}</span>
       </PriceBox>
     </Container>
   );
