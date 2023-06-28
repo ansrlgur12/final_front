@@ -5,10 +5,9 @@ import Header from '../../../main/header';
 import Sidebar from '../sidebar';
 import { CartContext } from '../../../context/CartContext';
 import QuantityInput from '../../Shop/quantityInput';
-import { IconButton } from "@mui/material";
-import { Delete } from "@mui/icons-material";
 import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
+import { useNavigate } from 'react-router-dom';
 
 const LayoutContainer = styled.div` 
   display: flex;
@@ -73,15 +72,16 @@ const Cart = () => {
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
   const { cart,removeFromCart } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
+  const nav = useNavigate();
   
   useEffect(() => {
     const newData = cart.map((item, index) => ({
       
       key: item.product.id, 
-      
+      id: item.product.id,
       productName: item.product.productName,
       imageUrl: item.product.imageUrl ,
-      paymentAmount: item.product.price + "원",
+      paymentAmount:new Intl.NumberFormat('ko-KR').format(item.product.price) + "원",
       quantity: item.quantity, 
       
     }));
@@ -99,6 +99,9 @@ const Cart = () => {
       title: '상품명',
       dataIndex: 'productName',
       key: 'productName',
+      render: (text, record) => (
+        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
+        ),
     },
     {
       title: '판매가',

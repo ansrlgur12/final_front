@@ -234,12 +234,17 @@ const SliderContainer = ({ selectedCategory}) => {
             setTooltipCart('장바구니 담기');
         }, 2000);  // 2초 후에 다시 '장바구니 담기'로 바뀜
     };
-    const handleAddToFavorite = () =>{
-      addToFavorite(product);
-      setTooltipFavorite('찜 완료!')
+    const handleAddToFavorite = () => {
+      // addToFavorite가 true를 반환하면 이미 찜 목록에 상품이 있음
+      if (addToFavorite(product)) {
+        setTooltipFavorite('이미 찜하셨어요!');
+      } else {
+        setTooltipFavorite('찜 완료!');
+      }
+      
       setTimeout(() => {
         setTooltipFavorite('찜하기');
-    }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
+      }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
     }
   
     return(
@@ -292,7 +297,7 @@ const SliderContainer = ({ selectedCategory}) => {
           <div className="title">
             <div className="brand">{product.brand || 'brand'}</div>
             <div className="name">{product.productName}</div>
-            <span className="price">{product.price}원</span>
+            <span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span>
           </div>
         </SwiperSlide>
       ))
@@ -322,7 +327,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '3-4인용').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
        
      
@@ -354,7 +359,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '5-6인용').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
        
      
@@ -386,7 +391,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '침낭').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -415,7 +420,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '매트').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -446,7 +451,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '야전침대').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -478,7 +483,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '가스랜턴').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -507,7 +512,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === 'led랜턴').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -538,7 +543,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '손전등').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -569,7 +574,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '후라이팬').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -598,7 +603,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '조리도구').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -629,7 +634,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '주전자').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -661,7 +666,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑의자').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -690,7 +695,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑테이블').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -720,7 +725,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑박스').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -752,7 +757,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '웨건').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -781,7 +786,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      </Swiper>
      
@@ -808,7 +813,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '토일레트리').map(product => (
-      <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+      <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
       ))}
      
   
@@ -839,7 +844,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '멀티백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -867,7 +872,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팩망치').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -897,7 +902,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '다용도칼').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -928,7 +933,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '화로').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -957,7 +962,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '스토브').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -988,7 +993,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '연료').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1020,7 +1025,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '전기요').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -1049,7 +1054,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '선풍기').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -1079,7 +1084,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팬히터').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -1110,7 +1115,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '차박텐트').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -1139,7 +1144,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1170,7 +1175,7 @@ const SliderContainer = ({ selectedCategory}) => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '보온/보냉병').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{product.price}원</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
