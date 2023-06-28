@@ -9,9 +9,9 @@ const AxiosApi = {
         return await axios.get(domain + "/camp/camping-data")
     },
 
-    getCampData : async() => {
+    getCampData : async(dho, sigungu) => {
 
-        return await axios.get(domain + "/camp/campData")
+        return await axios.get(domain + `/camp/campData/${dho}/${sigungu}`)
     },
     
     getItemList : async() => {
@@ -38,9 +38,9 @@ const AxiosApi = {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
 
-    getAnimalCampData : async() => {
+    getAnimalCampData : async(dho, sigungu, selectedSortBy) => {
 
-    return await axios.get(domain + "/camp/animalData")
+    return await axios.get(domain + `/camp/animalData/${dho}/${sigungu}`)
 },
 
     // 회원 가입 여부 확인
