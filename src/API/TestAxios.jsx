@@ -19,25 +19,15 @@ const AxiosApi = {
     },
     
     // 로그인
-    /*
-    memberLogin : async(inputEmail, inputPwd) => {
-        const login = {
-            email : inputEmail,
-            pwd : inputPwd
-        };
-        return await axios.get(domain + "/intro", login);
-    },
-    */
-
     memberLogin: async (inputEmail, inputPwd) => {
         const loginData = {
-          params: {
-            email: inputEmail,
-            pwd: inputPwd,
-          },
+            params: {
+                email: inputEmail,
+                password: inputPwd,
+            }
         };
-        return await axios.get(domain + "/intro", loginData);
-      },
+        return await axios.post(domain + "/intro/login", loginData);
+    },
 
    productDetail : async(id) =>{
     return await axios.get(domain+ `/productDetail/${id}`)
@@ -63,10 +53,11 @@ const AxiosApi = {
         const member = {
             nickName : nickName,
             email : email,
-            pwd : password,
+            password : password,
             agreed : agreed
         };
-        return await axios.post(domain + "/intro", member);
+        return await axios.post(domain + "/intro/signup", member);
+
     },
 
     searchCampData : async(searchValue, currentData) => {
