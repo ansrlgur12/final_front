@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HeartOutlined, ShareAltOutlined, EditOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
 import Header from "../../../main/header";
 import camping from "../../../images/camping.png";
+import ReviewApi from "../../../API/ReviewAPI";
+import CommentForm from "./commentForm";
+import CommentList from "./commentList";
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 const ReviewContainer = styled.div`
   max-width: 800px;
@@ -61,45 +64,61 @@ const ReviewButton = styled.button`
 `;
 
 const ReviewDetail = () => {
+  const [review, setReview] = useState(null);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const reviewId = 1;
+        const response = await ReviewApi.getReviewById(reviewId);
+        const reviewData = response.data;
+        setReview(reviewData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchReview();
+  }, []);
+
   return (
     <Layout>
-        <Header />
+      <Header />
       <Content style={{ padding: "40px" }}>
-        <ReviewContainer>
-          <ReviewTitle>강원도 캠핑장</ReviewTitle>
-          <ReviewContent>
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-            캠핑장 소개~~~~~~~~~~
-          </ReviewContent>
-          <ReviewImage src={camping} alt="Review Image" />
-          <ReviewMeta>
-            <ReviewDate>작성일: 2023-06-20</ReviewDate>
-            <ReviewActions>
-              <ReviewButton>
-                <HeartOutlined />
-                좋아요
-              </ReviewButton>
-              <ReviewButton>
-                <ShareAltOutlined />
-                공유하기
-              </ReviewButton>
-              <ReviewButton>
-                <EditOutlined />
-                수정하기
-              </ReviewButton>
-            </ReviewActions>
-          </ReviewMeta>
-        </ReviewContainer>
+        {review ? (
+          <div>
+            <ReviewContainer>
+              <ReviewTitle>{review.title}</ReviewTitle>
+              <ReviewContent>{review.content}</ReviewContent>
+              <ReviewImage src={camping} alt="Review Image" />
+              <ReviewMeta>
+                <ReviewDate>작성일: {review.date}</ReviewDate>
+                <ReviewActions>
+                  <ReviewButton>
+                    <HeartOutlined />
+                    좋아요
+                  </ReviewButton>
+                  <ReviewButton>
+                    <ShareAltOutlined />
+                    공유하기
+                  </ReviewButton>
+                  <ReviewButton>
+                    <EditOutlined />
+                    수정하기
+                  </ReviewButton>
+                </ReviewActions>
+              </ReviewMeta>
+              <CommentList reviewId={review.id} />
+            <CommentForm reviewId={review.id} />
+            </ReviewContainer>
+           
+          </div>
+        ) : (
+          <p>리뷰가 없습니다.</p>
+        )}
       </Content>
     </Layout>
   );
 };
 
-export default ReviewDetail;
+export default ReviewDetail

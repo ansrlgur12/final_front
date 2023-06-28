@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
-import { faWonSign } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const OrderInfo =({ quantity, price })=> {
     const totalPrice = quantity * price;
@@ -15,8 +14,7 @@ const OrderInfo =({ quantity, price })=> {
       <div>
         <InfoTag>TOTAL PRICE</InfoTag>
         <TotalPriceWrapper>
-          <FontAwesomeIcon icon={faWonSign}/>
-          <span>{totalPrice}</span>
+          <span>{new Intl.NumberFormat('ko-KR').format(totalPrice)}원</span>
         </TotalPriceWrapper>
       </div>
     </Container>
@@ -58,4 +56,6 @@ const TotalPriceWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+  font-weight: 600;
+        font-size: 20px;
 `;

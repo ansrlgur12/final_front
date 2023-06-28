@@ -7,7 +7,7 @@ import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
-
+import AxiosApi from "../../API/TestAxios";
 import ShareButton from "../../Commons/shareButton";
 
 const DetailContainer = styled.div`
@@ -155,8 +155,20 @@ const Section = styled.div`
 `;
 
 const DetailPage = (props) => {
-    const {open, close, campInfo} = props;
+    const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
+    const [weather, setWeather] = useState([]);
+
+    useEffect(()=>{
+        const getWeatherData = async() =>{
+            const mapX = campInfo[0].mapX;
+            const mapY = campInfo[0].mapY;
+            const rsp = await AxiosApi.getWeather(mapY, mapX);
+            setWeather(rsp.data.data)
+            console.log(weather)
+        }
+        getWeatherData();
+    },[campInfo])
 
     const splitAddress = (address) => {
         const addressParts = address.split(' ');
@@ -165,6 +177,17 @@ const DetailPage = (props) => {
         const town = addressParts[2]; // '남면 가옹개길 52-9'
         return { province, city, town };
     };
+
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${formatTwoDigits(hours)}시 ${formatTwoDigits(minutes)}분`;
+      };
+      
+      const formatTwoDigits = (number) => {
+        return number.toString().padStart(2, '0');
+      };
 
 const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.507812284,%EC%9D%BC%EC%82%B0%ED%9C%B4%EB%A8%BC%EB%B9%8C2%EC%B0%A8%EC%95%84%ED%8C%8C%ED%8A%B8,19055891,PLACE_POI/14205872.331903983,4501898.402669169,%EC%96%91%ED%8F%89%EC%88%98%EB%AA%A9%EC%9B%90%20%EC%BA%A0%ED%95%91%EC%9E%A5,32862772,PLACE_POI/-/transit?c=9,0,0,0,dh"
     return(
@@ -217,7 +240,13 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                         <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
                         <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
                     </Section>
+                    <div className="weather">최고온도 : {weather[0].app_max_temp}</div>
+                    <div className="weather">최저온도 : {weather[0].app_min_temp}</div>
+                    <div className="weather">강수확률 : {weather[0].pop}%</div>
+                    <div className="weather">일출시간: {formatTime(weather[0].sunrise_ts)}</div>
+                    <div className="weather">일몰시간: {formatTime(weather[0].sunset_ts)}</div>
                     
+
                     <div></div>
                     <a href={url}>길찾기</a>
                     <div>{campInfo.tooltip}</div>

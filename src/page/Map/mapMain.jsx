@@ -55,8 +55,6 @@ const MapMain = () => {
   const [mapLocations, setMapLocations] = useState([]);
   const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
-  const [normalData, setNormalData] = useState("");
-  const [animalData, setAnimalData] = useState("");
   
 
   useEffect(()=>{
