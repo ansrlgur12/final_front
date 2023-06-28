@@ -3,8 +3,7 @@ import { IconButton } from "@mui/material";
 import React, { forwardRef } from 'react';
 
 
-const FavoriteButton = forwardRef((props, ref) => {
-    const { onClick } = props;
+const FavoriteButtonBorder = forwardRef((props, ref) => {
 return(
 <>
 <IconButton  ref={ref}
@@ -15,4 +14,4 @@ return(
   </IconButton>
 </>
 );
-}); export default FavoriteButton
+}); export default FavoriteButtonBorder
