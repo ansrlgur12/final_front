@@ -10,7 +10,7 @@ const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, mapReset} = context;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation} = context;
   const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
@@ -24,6 +24,7 @@ const KakaoMap = (props) => {
   const MAX_MARKERS = 150;
 
   useEffect(() => {
+        setKakaoMap(null);
         const center = new kakao.maps.LatLng(markerLat, markerLng);
         container.current.style.width = `100vw`;
         container.current.style.height = `100vh`;
@@ -46,7 +47,7 @@ const KakaoMap = (props) => {
         setKakaoMap(map);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-      },[container, markerLat, markerLng, zoomLev, mapReset]);
+      },[container, markerLat, markerLng, zoomLev]);
 
       
 
@@ -143,6 +144,10 @@ const KakaoMap = (props) => {
           setOverlayOpen(false);
           console.log(overlayOpen);
         });
+
+        kakao.maps.event.addListener(kakaoMap, 'dragend', () => {        
+          infowindow.setMap(null)
+      });
 
         return marker;
       });

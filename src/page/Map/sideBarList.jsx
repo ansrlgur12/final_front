@@ -89,7 +89,7 @@ const ListStyle = styled.div`
 
 const SideBarList = (props) => {
     const context = useContext(MarkerContext);
-    const {searchValue, change} = props;
+    const {searchValue, change, dho, sigungu,selectedSortBy} = props;
     const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation} = context;
     const [currentPage, setCurrentPage] = useState(1);
     const [campListData, setCampListData] = useState([]);
@@ -97,23 +97,24 @@ const SideBarList = (props) => {
     
     
     useEffect(()=>{
+        console.log(dho, sigungu)
         if(currentData === 'animal') {
             const getAnimalList = async() => {
-                const rsp = await AxiosApi.getAnimalCampData();
+                const rsp = await AxiosApi.getAnimalCampData(dho, sigungu);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
             }
             getAnimalList();
         } else if(currentData === 'normal') {
             const getCampList = async() => {
-                const rsp = await AxiosApi.getCampData();
+                const rsp = await AxiosApi.getCampData(dho, sigungu);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
             }
             getCampList();
         }
         
-    },[currentData])
+    },[currentData, dho, sigungu])
 
     useEffect(()=>{
         if(change === 1) {
@@ -177,6 +178,7 @@ const SideBarList = (props) => {
 
     return (
         <ListStyle>
+            <div className="count">총 {campListData.length} 개의 검색결과가 있습니다</div>
           {displayedCamps && displayedCamps.map((campListData) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     

@@ -60,7 +60,7 @@ const MapMain = () => {
   useEffect(()=>{
       const loading = async() => {
         const getCampingData = async() => {
-          const rsp = await AxiosApi.getCampData();
+          const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
           const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
           setMarkerPositions(positions);
           setMarker(markerImage);
@@ -72,14 +72,14 @@ const MapMain = () => {
 
   useEffect(()=>{
     const getCampingData = async() => {
-      const rsp = await AxiosApi.getCampData();
+      const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
       const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setMapLocations(positions);
     }
     getCampingData();
 
     const getAnimalCampingData = async() => {
-      const rsp = await AxiosApi.getAnimalCampData();
+      const rsp = await AxiosApi.getAnimalCampData("ALL", "시.군.구");
       const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setAnimalLocations(positions);
       }
