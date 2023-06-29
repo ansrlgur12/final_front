@@ -20,15 +20,15 @@ const AxiosApi = {
     
     // 로그인
     memberLogin: async (inputEmail, inputPwd) => {
+        console.log("이메일 : " + inputEmail);
+        console.log("패스워드 : " + inputPwd);
         const loginData = {
-            params: {
-                email: inputEmail,
-                password: inputPwd,
-            }
+            email: inputEmail,
+            password: inputPwd
         };
         return await axios.post(domain + "/intro/login", loginData);
     },
-    
+
    productDetail : async(id) =>{
     return await axios.get(domain+ `/productDetail/${id}`)
  
@@ -57,6 +57,7 @@ const AxiosApi = {
             agreed : agreed
         };
         return await axios.post(domain + "/intro/signup", member);
+
     },
 
     searchCampData : async(searchValue, currentData) => {

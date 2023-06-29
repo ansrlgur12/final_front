@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { FavoriteContext } from '../../../context/FavoriteContext';
 import { CartContext } from '../../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -50,9 +51,10 @@ button.ant-btn{
 
 const MyFavorite = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
-  const { cart,removeFromCart,addToCart } = useContext(CartContext);
+  const {addToCart } = useContext(CartContext);
   const { favorite,removeFromFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
+  const nav = useNavigate();
   
   const handleAddToCart = () => {
     // 선택된 상품을 장바구니에 추가
@@ -66,10 +68,10 @@ const MyFavorite = () => {
     const newData = favorite.map((item, index) => ({
       
       key: item.product.id, 
-      
+      id: item.product.id,
       productName: item.product.productName,
       imageUrl: item.product.imageUrl ,
-      paymentAmount: item.product.price + "원",
+      paymentAmount:new Intl.NumberFormat('ko-KR').format(item.product.price) + "원",
   
       
     }));
@@ -87,6 +89,9 @@ const MyFavorite = () => {
       title: '상품명',
       dataIndex: 'productName',
       key: 'productName',
+      render: (text, record) => (
+        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
+        ),
     },
     {
       title: '판매가',
