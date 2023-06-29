@@ -7,6 +7,22 @@ import noImage from "../../images/CAMOLOGO.png"
 
 const ListStyle = styled.div`
 
+.count{
+    margin-left: .5em;
+    margin-top: .5em;
+    font-size: .8em;
+    display: flex;
+    align-items: center;
+}
+
+.red{
+    margin: 0;
+    padding: 0;
+    margin-left: .4em;
+    color: royalblue;
+    font-weight: bold;
+}
+
 .listContainer{
     height: 13vh;
     width: 100%;
@@ -90,7 +106,7 @@ const ListStyle = styled.div`
 const SideBarList = (props) => {
     const context = useContext(MarkerContext);
     const {searchValue, change, dho, sigungu} = props;
-    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy, setSelectedSortBy} = context;
+    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy} = context;
     const [currentPage, setCurrentPage] = useState(1);
     const [campListData, setCampListData] = useState([]);
     const pageSize = 4;
@@ -149,6 +165,9 @@ const SideBarList = (props) => {
             return camps.sort((a, b) => a.facltNm.localeCompare(b.facltNm));
           case '등록순':
             return camps.sort((a, b) => new Date(a.createdtime) - new Date(b.createdtime));
+          case '조회순':
+            return camps.sort((a, b) => b.viewCount - a.viewCount);
+
           // 다른 정렬 기준에 따른 분기 처리 작성
           default:
             return camps;
@@ -195,7 +214,7 @@ const SideBarList = (props) => {
 
     return (
         <ListStyle>
-            <div className="count">총 {campListData.length} 개의 검색결과가 있습니다</div>
+            <div className="count">총 <p className="red">'{campListData.length}'</p> 개의 검색결과가 있습니다</div>
           {displayedCamps && displayedCamps.map((campListData) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     

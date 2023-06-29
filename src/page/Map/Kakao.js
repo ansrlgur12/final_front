@@ -5,12 +5,13 @@ import InfoWindow from "./infoWindow";
 import { MarkerContext } from "../../context/MarkerInfo";
 import {getDistance} from "geolib";
 import AxiosApi from "../../API/TestAxios";
+import campingCar from "../../images/캠핑카.png"
 
 const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation} = context;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, setMyLoc} = context;
   const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
@@ -19,7 +20,9 @@ const KakaoMap = (props) => {
   const zoomControl = new kakao.maps.ZoomControl();
   const container = useRef();
   const imageSize = new kakao.maps.Size(35, 35);
+  const campingCarSize = new kakao.maps.Size(50,50);
   const image = new kakao.maps.MarkerImage(campLocMarkerImg, imageSize);
+  const gpsImg = new kakao.maps.MarkerImage(campingCar, campingCarSize);
   const offsetY = 50;
   const MAX_MARKERS = 150;
 
@@ -78,12 +81,14 @@ const KakaoMap = (props) => {
       
       // 마커와 인포윈도우를 표시합니다
       displayMarker(locPosition);
+      setMyLoc([lat, lon]);
           
       function displayMarker(locPosition) {
         // 마커를 생성합니다
         var marker = new kakao.maps.Marker({  
             map: kakaoMap, 
-            position: locPosition
+            position: locPosition,
+            image: gpsImg
         }); 
       }
     });
@@ -144,8 +149,8 @@ const KakaoMap = (props) => {
           kakaoMap.setLevel(1);
           console.log('Marker clicked');
           infowindow.setMap(null)
-          const xValue = position.La;
-          const yValue = position.Ma;  
+          let xValue = position.La;
+          let yValue = position.Ma;  
           setLocation([xValue, yValue]);
           setOverlayOpen(true);
           console.log("오버레이 오픈" + overlayOpen);
