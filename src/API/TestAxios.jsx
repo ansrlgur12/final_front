@@ -64,9 +64,13 @@ const AxiosApi = {
         return await axios.get(domain + `/camp/searchData/${searchValue}/${currentData}`)
     },
 
-    getWeather : async(mapY, mapX) => {
-        return await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${mapY}&lon=${mapX}&key=${weatherApiKey}`)  
-    },
+    // getWeather : async(mapY, mapX) => {
+    //     return await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${mapY}&lon=${mapX}&key=${weatherApiKey}`)  
+    // },
+
+    getWeather : async(mapX, mapY, date) => {
+        return await axios.get(domain + `/weather/getWeather/${mapX}/${mapY}/${date}`)
+    },                        
 
     viewCount : async(facltNm) => {
         return await axios.get(domain + `/camp/viewCount/${facltNm}`);

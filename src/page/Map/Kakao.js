@@ -149,8 +149,8 @@ const KakaoMap = (props) => {
           kakaoMap.setLevel(1);
           console.log('Marker clicked');
           infowindow.setMap(null)
-          const xValue = position.La;
-          const yValue = position.Ma;  
+          let xValue = position.La;
+          let yValue = position.Ma;  
           setLocation([xValue, yValue]);
           setOverlayOpen(true);
           console.log("오버레이 오픈" + overlayOpen);

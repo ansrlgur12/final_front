@@ -153,7 +153,7 @@ const DetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
     const {myLoc} = context;
-    const [weather, setWeather] = useState([]);
+
 
     // useEffect(()=>{
     //     const getWeatherData = async() =>{
@@ -274,15 +274,6 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                         <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
                         <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
                     </Section>
-                    
-                        
-                    {/* <div className="weather">최고온도 : {weather[0].app_max_temp}</div>
-                    <div className="weather">최저온도 : {weather[0].app_min_temp}</div>
-                    <div className="weather">강수확률 : {weather[0].pop}%</div>
-                    <div className="weather">일출시간: {formatTime(weather[0].sunrise_ts)}</div>
-                    <div className="weather">일몰시간: {formatTime(weather[0].sunset_ts)}</div> */}
-                    
-
                     <div></div>
                     <a href={url}>길찾기</a>
                     <div>{campInfo.tooltip}</div>
@@ -290,6 +281,11 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                     </>
                     );
                 })}
+                {/* <div className="weather">{weather ? `최고온도 = ${weather[0].app_max_temp}` : ``}</div>
+                <div className="weather">{weather ? `최저온도 : ${weather[0].app_min_temp}` : ``}</div>
+                <div className="weather">{weather ? `강수확률 : ${weather[0].pop}}%` : ``}</div>
+                <div className="weather">{weather ? `일출시간: ${formatTime(weather[0].sunrise_ts)}` : ``}</div>
+                <div className="weather">{weather ? `일몰시간: ${formatTime(weather[0].sunset_ts)}` : ``}</div> */}
             </div>
         </DetailContainer>
     )
