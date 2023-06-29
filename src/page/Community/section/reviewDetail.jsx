@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HeartOutlined, ShareAltOutlined, EditOutlined } from '@ant-design/icons';
+import { HeartOutlined, EditOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import camping from '../../../images/camping.png';
@@ -8,6 +8,8 @@ import CommentForm from './commentForm';
 import CommentList from './commentList';
 import { useParams } from 'react-router-dom';
 import Header from '../../../main/header';
+import { Link } from 'react-router-dom';
+import LikesApi from '../../../API/LikesAPI';
 
 const { Content } = Layout;
 
@@ -60,12 +62,13 @@ const ReviewButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: #888;
+  color: ${({ liked }) => (liked ? '#f5222d' : '#888')}; /* Red color for liked button */
   margin-left: 10px;
 `;
 
 const ReviewDetail = () => {
   const [review, setReview] = useState(null);
+  const [liked, setLiked] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -78,9 +81,21 @@ const ReviewDetail = () => {
         console.log(error);
       }
     };
-
+  
     fetchReview();
   }, [id]);
+  
+  const handleLikeReview = async () => {
+    try {
+      if (!liked) {
+        // 좋아요 API 호출
+        await LikesApi.likeReview(1, id); // memberId를 1로 설정
+        setLiked(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>
@@ -94,18 +109,16 @@ const ReviewDetail = () => {
             <ReviewMeta>
               <ReviewDate>작성일: {review.date}</ReviewDate>
               <ReviewActions>
-                <ReviewButton>
+                <ReviewButton onClick={handleLikeReview} liked={liked}>
                   <HeartOutlined />
                   좋아요
                 </ReviewButton>
-                <ReviewButton>
-                  <ShareAltOutlined />
-                  공유하기
-                </ReviewButton>
-                <ReviewButton>
-                  <EditOutlined />
-                  수정하기
-                </ReviewButton>
+                <Link to={`/modifiedReview/${id}`}>
+                  <ReviewButton>
+                    <EditOutlined />
+                    수정하기
+                  </ReviewButton>
+                </Link>
               </ReviewActions>
             </ReviewMeta>
             <CommentList reviewId={review.memberId} />

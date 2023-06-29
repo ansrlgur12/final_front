@@ -35,6 +35,7 @@ import Login from './main/login/login';
 import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
+import ModifiedReview from './page/Community/section/modifiedReview';
 
 function App() {
 /*
@@ -62,8 +63,8 @@ function App() {
                 <Route path='/mapMain' element={<MapMain />} />
                 <Route path='/community' element={<Community />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
-                
                 <Route path='/writeReviewPage' element={<WriteReviewPage />} />
+                <Route path='/modifiedReview/:id' element={<ModifiedReview />} />
                 <Route path="/reviewDetail/:id" element={<ReviewDetail />} />
                 <Route path='/myReview' element={<MyReview />} />
                 <Route path='/MyComments' element={<MyComments />} />
