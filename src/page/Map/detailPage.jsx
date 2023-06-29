@@ -14,10 +14,10 @@ const DetailContainer = styled.div`
     z-index: 2;
     position: fixed;
     right: -67rem;
-    bottom: 6vh;
+    bottom: 5vh;
 .container{
     width: 40vw;
-    height: 78vh;
+    height: 81vh;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
@@ -67,12 +67,7 @@ const TitleBarLeft = styled.h3`
     margin-left: 1em;
     color: #f6f6f6;
 `;
-const TitleBarLeftLong = styled.div`
-    margin-left: 1em;
-    color: #f6f6f6;
-    font-size: 1.1em;
-    font-weight: bold;
-`;
+
 const TitleBarRight = styled.div`
     height: 100%;
     display: flex;

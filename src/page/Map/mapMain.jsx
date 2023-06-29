@@ -12,6 +12,7 @@ import DetailPage from "./detailPage";
 import animalCamp from "../../images/강아지발바닥.png";
 import markerImage from "../../images/캠핑마커.png";
 
+
 const MainStyle = styled.div`
     .App {
         font-family: sans-serif;
@@ -49,12 +50,14 @@ const MainStyle = styled.div`
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, setCurrentData, currentData} = context;
+  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
   const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [GPSOn, setGPSOn] = useState(false);
   
 
   useEffect(()=>{
@@ -64,6 +67,7 @@ const MapMain = () => {
           const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
           setMarkerPositions(positions);
           setMarker(markerImage);
+          setSelectedSortBy("이름순");
         }
         getCampingData();
       } 
@@ -75,6 +79,7 @@ const MapMain = () => {
       const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
       const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setMapLocations(positions);
+      
     }
     getCampingData();
 
@@ -102,6 +107,9 @@ const MapMain = () => {
     setMarker(animalCamp);
   }
 
+  const setGPS = () => {
+    setGPSOn(!GPSOn)
+  }
 
   return (
     <>
@@ -109,7 +117,7 @@ const MapMain = () => {
     <MainStyle>
     <div className="App">
       <div id="wrap" style={{width:'100vw', height: '89vh'}}>
-            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
+            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker} gpsOn={GPSOn}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>
             <div className="selectBtn">
@@ -119,6 +127,9 @@ const MapMain = () => {
               <button className="selType animal" onClick={setAnimalMapInfo}>
                 애완동물 동반가능
               </button>
+              <button className="selType" onClick={setGPS}>
+                내 위치 보기
+              </button>
             </div>
       </div>
     </div>
@@ -126,5 +137,4 @@ const MapMain = () => {
     </>
   );
 }
-
 export default MapMain;
