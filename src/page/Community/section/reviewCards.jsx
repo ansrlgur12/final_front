@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import profile from '../../../images/profile.png';
 import camping from '../../../images/camping.png';
 import ReviewApi from '../../../API/ReviewAPI';
+import LikesApi from '../../../API/LikesAPI';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -37,6 +38,7 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const [reviews, setReviews] = useState([]);
+  const [likesCount, setLikesCount] = useState({});  // 좋아요 수 저장을 위한 state
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -44,6 +46,14 @@ const ReviewCards = () => {
         const response = await ReviewApi.getAllReviews();
         const reviewData = response.data;
         setReviews(reviewData);
+
+        let likesCountData = {};
+        for (let review of reviewData) {
+          const likesResponse = await LikesApi.countReviewLikes(review.id);
+          likesCountData[review.id] = likesResponse.data;
+        }
+        setLikesCount(likesCountData);
+
       } catch (error) {
         console.log(error);
       }
@@ -72,7 +82,7 @@ const ReviewCards = () => {
               </Link>
             }
             actions={[
-              <HeartOutlined />,
+              <span><HeartOutlined /> {likesCount[review.id] || 0}</span>,  // 좋아요 수 표시
               <EyeFilled key="edit" />,
             ]}
           >
