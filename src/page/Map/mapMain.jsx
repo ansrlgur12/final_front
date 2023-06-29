@@ -79,7 +79,6 @@ const MapMain = () => {
       const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
       const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setMapLocations(positions);
-      
     }
     getCampingData();
 
@@ -107,17 +106,13 @@ const MapMain = () => {
     setMarker(animalCamp);
   }
 
-  const setGPS = () => {
-    setGPSOn(!GPSOn)
-  }
-
   return (
     <>
     <Header/>
     <MainStyle>
     <div className="App">
       <div id="wrap" style={{width:'100vw', height: '89vh'}}>
-            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker} gpsOn={GPSOn}/>
+            <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>
             <div className="selectBtn">
@@ -126,9 +121,6 @@ const MapMain = () => {
               </button>
               <button className="selType animal" onClick={setAnimalMapInfo}>
                 애완동물 동반가능
-              </button>
-              <button className="selType" onClick={setGPS}>
-                내 위치 보기
               </button>
             </div>
       </div>

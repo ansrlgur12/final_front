@@ -135,25 +135,37 @@ const Overlay = (props) => {
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
+  const [clickedFacltNm, setClickedFacltNm] = useState("")
 
   // 좋아요 서버구현 전까지 쓸 useState
   const [likeClicked, setLickClicked]= useState(false);
   
   useEffect(()=>{
-    const loading = async() => {
-      console.log(location)
-      const getOverlay = async() => {
-        const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
-        setCampInfo(rsp.data);
-    };
-    getOverlay();
-    }
-    loading();
+      const loading = async() => {
+        console.log(location)
+        const getOverlay = async() => {
+          const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
+          console.log(rsp);
+          if(rsp.status === 200) {
+            setCampInfo(rsp.data);
+            if(clickedFacltNm === ""){
+              return;
+            }else{
+              await AxiosApi.viewCount(clickedFacltNm);
+            }
+          }
+          
+        };
+        getOverlay();
+      }
+      loading();
   },[location])
 
-  const detailPageOpen = () => {
+  const detailPageOpen = (e) => {
     setDetailOpen(true);
-  }
+    setClickedFacltNm(e)
+
+  } 
   
   const closeDetail = () => {
     setDetailOpen(false)
@@ -166,7 +178,7 @@ const Overlay = (props) => {
     return (
       <MapStyled>
       <div className={open ? "openOverlay wrap" : "wrap" }>
-        {open && campInfo.map((campInfo) => (
+        {campInfo && campInfo.map((campInfo) => (
         <div className="campInfo" key={campInfo.facltNm}>
         <div className="info">
           <div className="title">
@@ -190,10 +202,10 @@ const Overlay = (props) => {
                 {likeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
                 <div className="icon">2</div>
                 <VisibilityButton />
-                <div className="icon">3</div> 
+                <div className="icon">{campInfo.viewCount}</div> 
                 <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
                 <div className="icon">3</div> 
-                <button className='detailBtn' onClick={detailPageOpen}>상세페이지</button>
+                <button className='detailBtn' onClick={() => detailPageOpen(campInfo.facltNm)}>상세페이지</button>
           </div>
         </div> 
         </div>

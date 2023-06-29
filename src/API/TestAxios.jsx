@@ -67,6 +67,10 @@ const AxiosApi = {
     getWeather : async(mapY, mapX) => {
         return await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${mapY}&lon=${mapX}&key=${weatherApiKey}`)  
     },
+
+    viewCount : async(facltNm) => {
+        return await axios.get(domain + `/camp/viewCount/${facltNm}`);
+    },
 };
 
 export default AxiosApi;
