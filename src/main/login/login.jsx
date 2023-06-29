@@ -195,10 +195,9 @@ const Login = () => {
     const onClickLogin = async() => {
         // 로그인을 위해 Axios 호출
         const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
-        console.log(response.data);
-        console.log("이메일 : " + inputEmail);
-        console.log("비밀번호 : " + inputPwd);
-        if(response.data.success === true) {
+        // console.log("이메일 : " + inputEmail);
+        // console.log("비밀번호 : " + inputPwd);
+        if(response.data === true) {
             console.log("로그인");
             setLoginFinishOpen(true);
             setUserEmail(inputEmail);
