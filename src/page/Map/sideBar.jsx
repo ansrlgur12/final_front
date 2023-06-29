@@ -12,7 +12,7 @@ right: 1.5vw;
 
 .container {
     width: 23vw;
-    height: 75vh;
+    height: 80vh;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
@@ -108,17 +108,17 @@ right: 1.5vw;
 const Sidebar = () => {
 
     const context = useContext(MarkerContext);
-    const {change, setChange} = context;
+    const {change, setChange, selectedSortBy, setSelectedSortBy} = context;
 
     const [closeMenu, setCloseMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const [selectedSortBy, setSelectedSortBy] = useState('이름순');
     const [dho, setDho] = useState('ALL');
     const [sigungu, setSigungu] = useState('시.군.구');
 
     useEffect(()=>{
-        console.log(dho, sigungu)
-    },[dho, sigungu])
+        console.log(dho, sigungu, selectedSortBy)
+    },[dho, sigungu, selectedSortBy])
+
     const handleDhoChange = (event) => {
         setDho(event.target.value);
         setSigungu("시.군.구")
@@ -164,13 +164,13 @@ const Sidebar = () => {
                 
                 <div className="sortBar">
                     <p className={`sortBy ${selectedSortBy === '이름순' ? 'selected' : ''}`} onClick={() => handleSortByClick('이름순')}>이름순</p>
-                    <p className={`sortBy ${selectedSortBy === '정복순' ? 'selected' : ''}`} onClick={() => handleSortByClick('정복순')}>정복순</p>
+                    <p className={`sortBy ${selectedSortBy === '등록순' ? 'selected' : ''}`} onClick={() => handleSortByClick('등록순')}>등록순</p>
                     <p className={`sortBy ${selectedSortBy === '조회순' ? 'selected' : ''}`} onClick={() => handleSortByClick('조회순')}>조회순</p>
                     <p className={`sortBy ${selectedSortBy === '추천순' ? 'selected' : ''}`} onClick={() => handleSortByClick('추천순')}>추천순</p>
                     <p className={`sortBy ${selectedSortBy === '댓글순' ? 'selected' : ''}`} onClick={() => handleSortByClick('댓글순')}>댓글순</p>
                 </div>
                 <div className="locationList">
-                    <SideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} sortBy={selectedSortBy} />
+                    <SideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} />
                 </div>
                 <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
             </div>

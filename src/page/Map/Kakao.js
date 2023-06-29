@@ -24,7 +24,6 @@ const KakaoMap = (props) => {
   const MAX_MARKERS = 150;
 
   useEffect(() => {
-        setKakaoMap(null);
         const center = new kakao.maps.LatLng(markerLat, markerLng);
         container.current.style.width = `100vw`;
         container.current.style.height = `100vh`;
@@ -47,11 +46,9 @@ const KakaoMap = (props) => {
         setKakaoMap(map);
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
+        
       },[container, markerLat, markerLng, zoomLev]);
 
-      
-
- 
 
   useEffect(() => {
     if (kakaoMap === null) {
@@ -72,6 +69,25 @@ const KakaoMap = (props) => {
     const positions = nearestMarkers.map(
       (pos) => new kakao.maps.LatLng(pos[0], pos[1])
     );
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude; // 위도
+      var lon = position.coords.longitude; // 경도
+      
+      var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+      
+      // 마커와 인포윈도우를 표시합니다
+      displayMarker(locPosition);
+          
+      function displayMarker(locPosition) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({  
+            map: kakaoMap, 
+            position: locPosition
+        }); 
+      }
+    });
+  
 
     setMarkers(markers => {
       markers.forEach(marker => marker.setMap(null));
