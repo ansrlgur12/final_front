@@ -353,7 +353,7 @@ const SignUpPage = () => {
                         <div className="backBtn" onClick={goBack}>돌아가기</div>
                     </div>
                     <Modal open={modalOpen} confirm={closeModal} justConfirm={true} header="오류">{modalText}</Modal>
-                    <Modal open={finishModal} confirm={()=>nav("/intro")} justConfirm={true} header="성공">회원가입에 성공했습니다!</Modal>
+                    <Modal open={finishModal} confirm={()=>nav("/")} justConfirm={true} header="성공">회원가입에 성공했습니다!</Modal>
                 </div>
             </div>
         </SignUpStyle>
