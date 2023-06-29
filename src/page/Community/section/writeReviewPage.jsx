@@ -29,11 +29,10 @@ const WriteReviewPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const id = 1;
-      const memberId = 1;
+      const memberId = 2;
       const content = data;
       const date = new Date().toISOString(); 
-      await ReviewApi.createReview(id, memberId, title, content, date, postType);
+      await ReviewApi.createReview(memberId, title, content, date, postType);
       setModalVisible(true);
     } catch (error) {
       console.log(error);
