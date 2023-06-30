@@ -131,30 +131,15 @@ const MapStyled = styled.div`
 
 const Overlay = (props) => {
   const context = useContext(MarkerContext);
-  const {location} = context;
+  const {location, setContentId} = context;
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
   const [clickedFacltNm, setClickedFacltNm] = useState("");
-  const [clickedMapX, setClickedMapX] = useState("");
-  const [clickedMapY, setClickedMapY] = useState("");
-  const [weather, setWeather] = useState([]);
-  const [minTem, setMinTem] = useState("");
-  const [maxTem, setMaxTem] = useState("");
 
   // 좋아요 서버구현 전까지 쓸 useState
   const [likeClicked, setLickClicked]= useState(false);
   
-     // useEffect(()=>{
-    //     const getWeatherData = async() =>{
-    //         const mapX = campInfo[0].mapX;
-    //         const mapY = campInfo[0].mapY;
-    //         const rsp = await AxiosApi.getWeather(mapY, mapX);
-    //         setWeather(rsp.data.data)
-    //         console.log(weather)
-    //     }
-    //     getWeatherData();
-    // },[campInfo])
 
   useEffect(()=>{
       const loading = async() => {
@@ -162,7 +147,7 @@ const Overlay = (props) => {
           const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
           if(rsp.status === 200) {
             setCampInfo(rsp.data);
-
+            setContentId(rsp.data[0]);
             if(clickedFacltNm === ""){
               return;
             }else{
@@ -175,52 +160,10 @@ const Overlay = (props) => {
       loading();
   },[location])
 
-  useEffect(()=>{
-    if(location[1] === 0) {
-      return;
-    } else{
-      let mapX;
-      let mapY;
-      const getWeather = async() => {
-          const currentDate = new Date();
-          currentDate.setDate(currentDate.getDate() - 1);
-          const year = String(currentDate.getFullYear());
-          const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-          const day = String(currentDate.getDate()).padStart(2, '0');
-          
-          const date = year + month + day; 
-          mapX = Math.floor(location[1]);
-          mapY = Math.floor(location[0]);
-          const rsp = await AxiosApi.getWeather(mapX, mapY, date);
-          const filteredData = rsp.data.filter(item => item.fcstDate === '20230630' && (item.category === 'TMN' || item.category === 'TMX'))
-          console.log(filteredData)
-          let maxTemperature = -Infinity;
-          let minTemperature = Infinity;
 
-          filteredData.forEach(item => {
-            const temperature = parseInt(item.fcstValue);
-            if (temperature > maxTemperature) {
-              maxTemperature = temperature;
-            }
-            if (temperature < minTemperature) {
-              minTemperature = temperature;
-            }
-          });
-          
-          console.log('최고 기온:', maxTemperature);
-          console.log('최저 기온:', minTemperature);
-          setMinTem(minTemperature);
-          setMaxTem(maxTemperature);
-      }
-      getWeather();
-    }
-  },[location])
-
-  const detailPageOpen = (e, x, y) => {
+  const detailPageOpen = (e) => {
     setDetailOpen(true);
     setClickedFacltNm(e)
-    setClickedMapX(x);
-    setClickedMapY(y);
   } 
   
   const closeDetail = () => {
@@ -230,16 +173,6 @@ const Overlay = (props) => {
   const handleAddToFavorite = () => {
     setLickClicked(!likeClicked)
   }
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    return `${formatTwoDigits(hours)}시 ${formatTwoDigits(minutes)}분`;
-  };
-  
-  const formatTwoDigits = (number) => {
-    return number.toString().padStart(2, '0');
-  };
 
     return (
       <MapStyled>
@@ -276,8 +209,6 @@ const Overlay = (props) => {
         </div> 
         </div>
         ))}
-        {minTem}
-        {maxTem}
       </div>
       <DetailPage open={detailOpen} close = {closeDetail} campInfo = {campInfo}/>
       
