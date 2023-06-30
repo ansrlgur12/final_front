@@ -18,7 +18,7 @@ import Skeleton from "@mui/material/Skeleton";
 import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
 
 
-const SwiperStyle = styled.div`
+export const SwiperStyle = styled.div`
 
 
 .swiper {

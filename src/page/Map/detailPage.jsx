@@ -9,35 +9,57 @@ import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import AxiosApi from "../../API/TestAxios";
 import ShareButton from "../../Commons/shareButton";
+import sun from "../../images/맑음.png"
+import sunClound from "../../images/구름많음.png"
+import cloud from "../../images/흐림.png"
+import rain from "../../images/비.png"
+import snow from "../../images/눈.png"
+import snowRain from "../../images/눈비.png"
+import cloudRain from "../../images/소나기.png"
+import umbrellaImg from "../../images/우산.png"
+import highTem from "../../images/최고기온.png"
+import lowTem from "../../images/최저기온.png"
+import homePage from "../../images/홈페이지.png"
+import ImageList from "./imageList";
+import navigationImg from "../../images/길찾기.png"
+import roadMapImg from "../../images/로드맵.png"
 
+const Container = styled.div`
+
+    .closeBtn{
+        border-radius: 50px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        bottom: 37vh;
+        right: 41.5vw;
+        border: 0px;
+        background-color: rgba(146, 159, 139,0.8);
+        color: white;
+    }
+    .closeBtn:hover{
+        background-color: rgba(45, 98, 71, 0.8);
+        font-size: 1em;
+        font-weight: bold;
+    }
+    .hide{
+        display: none;
+    }
+`;
 const DetailContainer = styled.div`
     z-index: 2;
     position: fixed;
-    right: -67rem;
+    right: -68rem;
     bottom: 5vh;
 .container{
     width: 40vw;
     height: 81vh;
+    overflow-y: scroll;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
 }
-.closeBtn{
-    border-radius: 50px;
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    bottom: 35vh;
-    right: 41vw;
-    border: 0px;
-    background-color: rgba(146, 159, 139,0.8);
-    color: white;
-}
-.closeBtn:hover{
-    background-color: rgba(45, 98, 71, 0.8);
-    font-size: 1em;
-    font-weight: bold;
-}
+
 .slideOut {
     
     transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
@@ -137,6 +159,48 @@ const Section = styled.div`
     width: 80%;
     margin-left: 1em;
     justify-self: baseline;
+    
+    .selectDateSec{
+        display: flex;
+        margin-right: 10px;
+        height: 2rem;
+        position: absolute;
+        right: .5em;
+         .weatherSection{
+        position: absolute;
+        font-weight: bold;
+        font-size: .8em;
+        width: 100%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        div + div{
+            margin-right:.5rem;
+        }
+        img + div{
+            margin-right: .5rem;
+        }
+        .img{
+        width: 3.5vw;
+        height: 3.5vh;
+        margin-right: 1rem;
+        }
+        .umb{
+            width: 1vw;
+            height: 2vh;
+            margin-left: 1rem;
+        }
+    
+    }
+    }
+    .selectDate{
+        margin-right: 10px;
+        width: 6vw;
+        height: 2rem;
+        border: none;
+        color: royalblue;
+        font-weight: bold;
+    }
     .km{
         color: red;
         font-weight: bold;
@@ -147,24 +211,185 @@ const Section = styled.div`
         font-size: .85em;
         margin-left: .5em;
     }
+    .img{
+        width: 3.5vw;
+        height: 3.5vh;
+        margin-right: 15px;
+    }
+    .umb{
+        width: 2vw;
+        height: 4vh;
+        margin-left: 15px;
+    }
+    .weatherSection{
+        font-weight: bold;
+        font-size: .8em;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        div + div{
+            margin-right:10px;
+        }
+        img + div{
+            margin-right: 10px;
+        }
+        .selectDate{
+            margin-right: 10px;
+            width: 6vw;
+            height: 2rem;
+        }
+    
+    }
+`;
+
+const Navigiation = styled.div`
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    .btnSection{
+        display: flex;
+        flex-direction: column;
+        margin: 0 1vw;
+        justify-content: center;
+        align-items: center;
+    }
+    .cen{
+        margin-right: 4vw;
+    }
+    .img{
+        width: 4vw;
+        height: 4vw;
+    }
+    
+    .btn{
+        background-color: rgba(20, 151, 42, 0.3);
+        width: 5vw;
+        height: 5vw;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+    .longBtn{
+        background-color: rgba(20, 151, 42, 0.3);
+        width: 5vw;
+        height: 5vw;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: .8em;
+        flex-wrap: wrap;
+    }
+   
+`;
+const Information = styled.div`
+    margin-top: 3.5vh;
+    margin-left: 1em;
+    display: flex;  
+    width: 100%;
+    height: auto;
+    .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 5vw;
+        margin-right: .5em;
+        flex-basis: 15%;
+    }
+    .img{
+        left: 2vw;
+        width: 10vw;
+        flex-basis: 25%;
+        position: absolute;
+    }
+    .value{
+        font-size: .8em;
+        flex-basis: 75%;
+        font-weight: 500;
+    }
+`;
+const IconBox = styled.div`
+    margin-top: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    margin-bottom: 7vh;
+
+    .iconBox{
+        width: 80%;
+        height: 100%;
+        background-color: #ccc;
+    }
 `;
 
 const DetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
-    const {myLoc} = context;
-
-
-    // useEffect(()=>{
-    //     const getWeatherData = async() =>{
-    //         const mapX = campInfo[0].mapX;
-    //         const mapY = campInfo[0].mapY;
-    //         const rsp = await AxiosApi.getWeather(mapY, mapX);
-    //         setWeather(rsp.data.data)
-    //         console.log(weather)
-    //     }
-    //     getWeatherData();
-    // },[campInfo])
+    const {myLoc, location} = context;
+    const [minTem, setMinTem] = useState("");
+    const [maxTem, setMaxTem] = useState("");
+    const [pop, setPop] = useState("");
+    const [sky, setSky] = useState("");
+    const [pty, setPty] = useState("");
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];
+    const maxDate = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
+    const [selectedDate, setSelectedDate] = useState(minDate);
+    const formattedDate = selectedDate.replaceAll('-', '');
+    
+    useEffect(()=>{
+        if(location[1] === 0) {
+          return;
+        } else{
+          let mapX;
+          let mapY;
+          const getWeather = async() => {
+           
+              const currentDate = new Date();
+              currentDate.setDate(currentDate.getDate());
+              const year = String(currentDate.getFullYear());
+              const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+              const day = String(currentDate.getDate()).padStart(2, '0');
+              
+              const date = year + month + day; 
+              mapX = Math.floor(location[1]);
+              mapY = Math.floor(location[0]);
+              const rsp = await AxiosApi.getWeather(mapX, mapY, date);
+              const filteredData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'TMN' || item.category === 'TMX'))
+              const popData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'POP' || item.category === 'SKY' || item.category === 'PTY')&& item.fcstTime === '1200')
+              console.log(popData)
+            //   console.log(filteredData)
+              let maxTemperature = -Infinity;
+              let minTemperature = Infinity;
+    
+              filteredData.forEach(item => {
+                const temperature = parseInt(item.fcstValue);
+                if (temperature > maxTemperature) {
+                  maxTemperature = temperature;
+                }
+                if (temperature < minTemperature) {
+                  minTemperature = temperature;
+                }
+              });
+              
+              console.log('최고 기온:', maxTemperature);
+              console.log('최저 기온:', minTemperature);
+              setMinTem(minTemperature);
+              setMaxTem(maxTemperature);
+              setSky(popData[0].fcstValue);
+              setPty(popData[1].fcstValue);
+              setPop(popData[2].fcstValue);
+              
+          }
+          getWeather();
+        }
+      },[location, formattedDate])
 
     const splitAddress = (address) => {
         const addressParts = address.split(' ');
@@ -174,27 +399,6 @@ const DetailPage = (props) => {
         return { province, city, town };
     };
 
-    const formatTime = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        return `${formatTwoDigits(hours)}시 ${formatTwoDigits(minutes)}분`;
-      };
-      
-      const formatTwoDigits = (number) => {
-        return number.toString().padStart(2, '0');
-      };
-
-    //   const calculateDistance = () => {
-    //     if (campInfo && campInfo.length > 0) {
-    //       const distance = Math.sqrt(
-    //         Math.pow(campInfo[0].mapY - myLoc[0], 2) + Math.pow(campInfo[0].mapX - myLoc[1], 2)
-    //       );
-    
-    //       return `${distance.toFixed(2)} km`;
-    //     }
-    //     return "";
-    //   };
 
     const calculateDistance = () => {
         if (campInfo && campInfo.length > 0) {
@@ -218,17 +422,68 @@ const DetailPage = (props) => {
         return "";
       };
       
+      const findRoadUrl = () => {
+        if(campInfo) {
+            const endPoint = "https://map.kakao.com/link/to/";
+            let name = campInfo[0].facltNm;
+            let lat = campInfo[0].mapY;
+            let lon = campInfo[0].mapX;
+            return `${endPoint},${name},${lat},${lon}`
+        }
+      };
+      
+      const roadViewUrl = () => {
+        if(campInfo) {
+            const endPoint = "https://map.kakao.com/link/roadview/"
+            let lat = campInfo[0].mapY;
+            let lon = campInfo[0].mapX;
+            return `${endPoint},${lat},${lon}`
+        }
+      }
+
       const deg2rad = (deg) => {
         return deg * (Math.PI / 180);
       };
-      
 
-const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.507812284,%EC%9D%BC%EC%82%B0%ED%9C%B4%EB%A8%BC%EB%B9%8C2%EC%B0%A8%EC%95%84%ED%8C%8C%ED%8A%B8,19055891,PLACE_POI/14205872.331903983,4501898.402669169,%EC%96%91%ED%8F%89%EC%88%98%EB%AA%A9%EC%9B%90%20%EC%BA%A0%ED%95%91%EC%9E%A5,32862772,PLACE_POI/-/transit?c=9,0,0,0,dh"
-    return(
-        <DetailContainer>
-            <div className={`container ${open ? "slideIn" : "slideOut"}`}>
+      const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+      };
+
+      const getWeatherImage = () => {
+        if (pty === '0') {
+          switch (sky) {
+            case '1':
+                return <div className="img" style={{backgroundImage: `url(${sun})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            case '3':
+                return <div className="img" style={{backgroundImage: `url(${sunClound})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            case '4':
+                return <div className="img" style={{backgroundImage: `url(${cloud})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            default:
                 
-                <button className={open ? "closeBtn" : "hide"} onClick={close}>숨기기</button>
+          }
+        } else {
+          switch (pty) {
+            case '1':
+                return <div className="img" style={{backgroundImage: `url(${rain})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            case '2':
+                return <div className="img" style={{backgroundImage: `url(${snowRain})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            case '3':
+                return <div className="img" style={{backgroundImage: `url(${snow})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            case '4':
+                return <div className="img" style={{backgroundImage: `url(${cloudRain}})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/>;
+            default:
+          }
+        }
+      };
+
+      
+    return(
+        <Container>
+        <button className={open ? "closeBtn" : "hide"} onClick={close}>숨기기</button>
+        <DetailContainer>
+            
+            <div className={`container ${open ? "slideIn" : "slideOut"}`}>
+                {/* <button className={open ? "closeBtn" : "hide"} onClick={close}>숨기기</button> */}
                 {campInfo && campInfo.map((campInfo) => {
                     const { province, city, town } = splitAddress(campInfo.addr1);
 
@@ -247,7 +502,7 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                             </Addr>
                             <ViewCount>
                                 <VisibilityButton />
-                                <div className="countNm">3</div>
+                                <div className="countNm">{campInfo.viewCount}</div>
                             </ViewCount>
                         </TitleBarRight>
                     </TitleBar>
@@ -269,14 +524,70 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
                         <div className="km">{calculateDistance()}</div>
                         <div className="campInfo">{campInfo.addr1}</div>
+                        <div className="selectDateSec">
+                            <input className="selectDate" type="date" min={minDate} max={maxDate} onChange={handleDateChange} value={selectedDate}/>
+                            {getWeatherImage()}
+                        </div>
                     </Section>
+    
                     <Section>
                         <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
                         <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
+                        <div className="selectDateSec">
+                            <div className="weatherSection">
+                                <img className="img umb" src={highTem} alt="highTem Icon" />
+                                <div>{maxTem}°C</div>
+                                <img className="img umb" src={lowTem} alt="lowTem Icon" />
+                                <div>{minTem}°C</div>
+                                <img className="img umb" src={umbrellaImg} alt="Umbrella Icon" />
+                                <div>{pop}%</div>
+                            </div>
+                        </div>
                     </Section>
-                    <div></div>
-                    <a href={url}>길찾기</a>
-                    <div>{campInfo.tooltip}</div>
+                    <Navigiation>
+                        <div className="btnSection">
+                            <div className={campInfo.resveCl.length > 5 ? "longBtn" : "btn"}>{campInfo.resveCl.length > 5 ? "전화, 온라인" : "전화"}</div>
+                            <p>예약방식</p>
+                        </div>
+                        <div className="btnSection cen">
+                            <a href={campInfo.homepage} className="btn"><img className="img" src={homePage} alt="" /></a>
+                            <p>홈페이지</p>
+                        </div>
+                        <div className="btnSection">
+                            <a href={findRoadUrl()} className="btn" target="_blank"><img className="img" src={navigationImg} alt="" /></a>
+                            <p>길찾기</p>
+                        </div>
+                        <div className="btnSection">
+                            <a href={roadViewUrl()}className="btn" target="_blank"><img className="img" src={roadMapImg} alt="" /></a>
+                            <p>로드뷰</p>
+                        </div>
+                    </Navigiation>
+                    <IconBox>
+                        <div className="iconBox"></div>
+                    </IconBox>
+                    <Information>
+                        <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                        <div className="campInfo">캠핑장 소개</div>
+                        <div className="value">
+                        {campInfo.intro ? campInfo.intro : (campInfo.featureNm ? campInfo.featureNm : "소개글이 없습니다.")}
+                        </div>
+                    </Information>
+                    <Information>
+                        <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                        <div className="campInfo img">이미지</div>
+                        <div className="value">
+                            <ImageList />
+                        </div>
+                    </Information>
+                    <Information>
+                        <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                        <div className="campInfo">안내사항</div>
+                        <div className="value">{campInfo.featureNm}</div>
+                    </Information>
+                    <IconBox>
+                        <div className="iconBox"></div>
+                    </IconBox>
+                    
                     </div>
                     </>
                     );
@@ -288,6 +599,7 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                 <div className="weather">{weather ? `일몰시간: ${formatTime(weather[0].sunset_ts)}` : ``}</div> */}
             </div>
         </DetailContainer>
+        </Container>
     )
 }
 export default DetailPage;
