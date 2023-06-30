@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { HeartOutlined, EditOutlined } from '@ant-design/icons';
-import { Layout } from 'antd';
+import { HeartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Layout, Modal } from 'antd';
 import styled from 'styled-components';
 import camping from '../../../images/camping.png';
 import ReviewApi from '../../../API/ReviewAPI';
 import CommentForm from './commentForm';
 import CommentList from './commentList';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Header from '../../../main/header';
-import { Link } from 'react-router-dom';
 import LikesApi from '../../../API/LikesAPI';
 
 const { Content } = Layout;
@@ -20,6 +19,7 @@ const ReviewContainer = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #DDDDDD;
 `;
 
 const ReviewTitle = styled.h2`
@@ -69,7 +69,9 @@ const ReviewButton = styled.button`
 const ReviewDetail = () => {
   const [review, setReview] = useState(null);
   const [liked, setLiked] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { id } = useParams();
+  const memberId = 1;
 
   useEffect(() => {
     const fetchReview = async () => {
@@ -81,15 +83,14 @@ const ReviewDetail = () => {
         console.log(error);
       }
     };
-  
+
     fetchReview();
   }, [id]);
-  
+
   const handleLikeReview = async () => {
     try {
       if (!liked) {
-        // 좋아요 API 호출
-        await LikesApi.likeReview(1, id); // memberId를 1로 설정
+        await LikesApi.likeReview(memberId, id);
         setLiked(true);
       }
     } catch (error) {
@@ -97,10 +98,27 @@ const ReviewDetail = () => {
     }
   };
 
+  const handleDeleteReview = async () => {
+    try {
+      await ReviewApi.deleteReview(memberId, review?.id);
+      setShowDeleteModal(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <Layout>
       <Header />
-      <Content style={{ padding: '40px' }}>
+      <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
         {review ? (
           <ReviewContainer>
             <ReviewTitle>{review.title}</ReviewTitle>
@@ -119,10 +137,27 @@ const ReviewDetail = () => {
                     수정하기
                   </ReviewButton>
                 </Link>
+                <ReviewButton onClick={handleDeleteReview}>
+                  <DeleteOutlined />
+                  삭제하기
+                </ReviewButton>
               </ReviewActions>
             </ReviewMeta>
-            <CommentList reviewId={review.memberId} />
-            <CommentForm reviewId={review.memberId} />
+            <CommentList reviewId={review?.id} />
+            <CommentForm reviewId={review?.id} />
+
+            <Modal
+              title="리뷰 삭제"
+               visible={showDeleteModal}
+               onOk={handleConfirmDelete}
+               onCancel={handleCancelDelete}
+               footer={null}
+                  >
+                <h3>삭제 완료</h3>
+                <p>글이 성공적으로 삭제되었습니다.</p>
+                   <Link to="/community">확인</Link>
+              </Modal>
+
           </ReviewContainer>
         ) : (
           <p>리뷰가 없습니다.</p>
