@@ -75,6 +75,16 @@ const AxiosApi = {
     viewCount : async(facltNm) => {
         return await axios.get(domain + `/camp/viewCount/${facltNm}`);
     },
+
+    // 닉네임 중복 체크
+    checkNick : async(nickName) => {
+        const check = {
+            params: {
+                nickName : nickName
+              }
+        }
+        return await axios.get(domain + '/intro', check);
+      }
 };
 
 export default AxiosApi;
