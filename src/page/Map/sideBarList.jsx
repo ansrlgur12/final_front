@@ -89,31 +89,34 @@ const ListStyle = styled.div`
 
 const SideBarList = (props) => {
     const context = useContext(MarkerContext);
-    const {searchValue, change} = props;
-    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation} = context;
+    const {searchValue, change, dho, sigungu} = props;
+    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy, setSelectedSortBy} = context;
     const [currentPage, setCurrentPage] = useState(1);
     const [campListData, setCampListData] = useState([]);
     const pageSize = 4;
     
     
     useEffect(()=>{
+        
         if(currentData === 'animal') {
             const getAnimalList = async() => {
-                const rsp = await AxiosApi.getAnimalCampData();
+                const rsp = await AxiosApi.getAnimalCampData(dho, sigungu);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
+                console.log(rsp.data)
             }
             getAnimalList();
         } else if(currentData === 'normal') {
             const getCampList = async() => {
-                const rsp = await AxiosApi.getCampData();
+                const rsp = await AxiosApi.getCampData(dho, sigungu);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
+                console.log(rsp.data)
             }
             getCampList();
         }
         
-    },[currentData])
+    },[currentData, dho, sigungu])
 
     useEffect(()=>{
         if(change === 1) {
@@ -126,7 +129,7 @@ const SideBarList = (props) => {
             }
             searchCamp();
         }
-    },[change, searchValue, currentData])
+    },[change, searchValue, currentData, selectedSortBy])
 
 
     const onClickData = (x, y) => {
@@ -139,10 +142,25 @@ const SideBarList = (props) => {
         setLocation([x, y]);
         setOverlayOpen(true);
     }
+    
+    const sortCamps = (camps) => {
+        switch (selectedSortBy) {
+          case '이름순':
+            return camps.sort((a, b) => a.facltNm.localeCompare(b.facltNm));
+          case '등록순':
+            return camps.sort((a, b) => new Date(a.createdtime) - new Date(b.createdtime));
+          // 다른 정렬 기준에 따른 분기 처리 작성
+          default:
+            return camps;
+        }
+      };
+    
+      // 정렬된 캠핑장 목록
+      const sortedCamps = sortCamps(campListData);
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    const displayedCamps = campListData.slice(startIndex, endIndex);
+    const displayedCamps = sortedCamps.slice(startIndex, endIndex);
 
     const totalCamps = campListData.length;
     const totalPages = Math.ceil(totalCamps / pageSize);
@@ -177,6 +195,7 @@ const SideBarList = (props) => {
 
     return (
         <ListStyle>
+            <div className="count">총 {campListData.length} 개의 검색결과가 있습니다</div>
           {displayedCamps && displayedCamps.map((campListData) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     

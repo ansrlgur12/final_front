@@ -99,8 +99,14 @@ const SignUpStyle = styled.div`
     &.goBackStyle {
         display: none;
     }
-    
+    .hint{
+        display: flex;
+        justify-content: space-between;
+    }
     .message{
+        font-size: .8rem;
+    }
+    .checkNick{
         font-size: .8rem;
     }
     .success {
@@ -127,6 +133,8 @@ const SignUpPage = () => {
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
     const [isMail, setIsMail] = useState(false);
+    const [isOverlap, setIsOverlap] = useState(false);
+    const [isOver, setIsOver] = useState(false)
 
     // 오류 메시지
     const [nameMessage, setNameMessage] = useState("");
@@ -159,6 +167,20 @@ const SignUpPage = () => {
             setNameMessage("올바른 형식 입니다.");
             setIsId(true);
         }
+    };
+
+    // 닉네임 중복 확인
+    const checkNickName = async() => {
+        const isOverlap = await AxiosApi.checkNick(nickName);
+        console.log(isOverlap)
+        if (isOverlap.data === false) {
+            console.log(isOverlap)
+            setIsOverlap("중복된 닉네임입니다.");
+            setIsOver(true);
+          } else {
+            setIsOverlap("사용 가능한 닉네임입니다.");
+            setIsOver(false);
+          }
     };
 
     // 이메일
@@ -218,6 +240,8 @@ const SignUpPage = () => {
         console.log("agree : " + e);
     };
 
+    
+
     const onClickLogin = async() => {
         const memberReg = await AxiosApi.memberReg(nickName, email, password, agreed);
         console.log(memberReg.data);
@@ -261,15 +285,15 @@ const SignUpPage = () => {
         setGoBackPage(true);
     };
 
-
     return (
         <SignUpStyle className={goBackPage ? 'goBackStyle' : ''}>
             <div className="signup-page">
                 <div className="logo" style={logo}></div>
-                <div className="signForm" /*onSubmit={handleSubmit}*/>
+                <div className="signForm">
                     <div className="form-group">
                         <label htmlFor="name">닉네임:</label>
-                        <button>중복확인</button>
+                        
+                        <button className='overlap' onClick={checkNickName}>중복확인</button>
                     </div>
                     <input
                         type="text"
@@ -281,6 +305,9 @@ const SignUpPage = () => {
                     />
                     <div className="hint">
                         {nickName.length > 0 && <span className={`message ${isId ? 'success' : 'error'}`}>{nameMessage}</span>}
+                        <div className='checkNick'>
+                            <span className={`checkNick ${isOver ? 'error' : 'success'}`}>{isOverlap}</span>
+                        </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">이메일:</label>

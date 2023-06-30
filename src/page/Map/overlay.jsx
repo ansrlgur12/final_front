@@ -7,7 +7,7 @@ import AxiosApi from "../../API/TestAxios";
 import DetailPage from "./detailPage";
 import noImage from "../../images/CAMOLOGO.png"
 import FavoriteButton from "../../Commons/Buttons/favoriteButton";
-import FavoriteButtonBorder from "../../Commons/favoriteButtonBorder";
+import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
 import VisibilityButton from "../../Commons/visibility";  
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';

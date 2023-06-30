@@ -3,9 +3,8 @@ import axios from "axios";
 export const CAMO_DOMAIN = "http://localhost:8111";
 
 const ReviewApi = {
-  createReview: async (id, memberId, title, content, date, postType) => {
+  createReview: async (memberId, title, content, date, postType) => {
     const review = {
-      id: id,
       memberId: memberId,
       title: title,
       content: content,
@@ -31,6 +30,10 @@ const ReviewApi = {
     return await axios.delete(`${CAMO_DOMAIN}/review/${id}`);
   },
 
+  getAllReviews: async () => {
+    return await axios.get(`${CAMO_DOMAIN}/review`);
+  },
+
   getReviewsByMember: async (memberId) => {
     return await axios.get(`${CAMO_DOMAIN}/review/member/${memberId}`);
   },
@@ -40,7 +43,7 @@ const ReviewApi = {
   },
 
   getReviewById: async (id) => {
-    return await axios.get(`${CAMO_DOMAIN}/review/reviewById/${id}`);
+    return await axios.get(`${CAMO_DOMAIN}/review/${id}`);
   },
 };
 

@@ -9,9 +9,9 @@ const AxiosApi = {
         return await axios.get(domain + "/camp/camping-data")
     },
 
-    getCampData : async() => {
+    getCampData : async(dho, sigungu) => {
 
-        return await axios.get(domain + "/camp/campData")
+        return await axios.get(domain + `/camp/campData/${dho}/${sigungu}`)
     },
     
     getItemList : async() => {
@@ -38,9 +38,9 @@ const AxiosApi = {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
 
-    getAnimalCampData : async() => {
+    getAnimalCampData : async(dho, sigungu, selectedSortBy) => {
 
-    return await axios.get(domain + "/camp/animalData")
+    return await axios.get(domain + `/camp/animalData/${dho}/${sigungu}`)
 },
 
     // 회원 가입 여부 확인
@@ -67,6 +67,16 @@ const AxiosApi = {
     getWeather : async(mapY, mapX) => {
         return await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${mapY}&lon=${mapX}&key=${weatherApiKey}`)  
     },
+
+    // 닉네임 중복 체크
+    checkNick : async(nickName) => {
+        const check = {
+            params: {
+                nickName : nickName
+              }
+        }
+        return await axios.get(domain + '/intro', check);
+      }
 };
 
 export default AxiosApi;

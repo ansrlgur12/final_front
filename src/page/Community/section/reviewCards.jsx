@@ -3,9 +3,9 @@ import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import profile from "../../../images/profile.png";
-import camping from "../../../images/camping.png";
-import ReviewApi from "../../../API/ReviewAPI";
+import profile from '../../../images/profile.png';
+import camping from '../../../images/camping.png';
+import ReviewApi from '../../../API/ReviewAPI';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -37,12 +37,11 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const [reviews, setReviews] = useState([]);
-  const postType = 1; // Replace with the desired postType value
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await ReviewApi.getReviewsByPostType(postType);
+        const response = await ReviewApi.getAllReviews();
         const reviewData = response.data;
         setReviews(reviewData);
       } catch (error) {
@@ -53,10 +52,10 @@ const ReviewCards = () => {
     fetchReviews();
   }, []);
 
-  const renderReviewCards = (postType) => {
+  const renderReviewCards = () => {
     return reviews.map((review, index) => {
       let postTypeText = null;
-      if (postType === 1) {
+      if (review.postType === 1) {
         postTypeText = <p>유료캠핑장</p>;
       }
 
@@ -64,7 +63,7 @@ const ReviewCards = () => {
         <Col span={6} key={index}>
           <ReviewContent
             cover={
-              <Link to="/reviewDetail">
+              <Link to={`/reviewDetail/${review.id}`}>
                 <img
                   alt="대표이미지"
                   src={camping}
@@ -90,13 +89,13 @@ const ReviewCards = () => {
 
   return (
     <Layout>
-      <Content style={{ padding: "120px", position: 'relative' }}>
+      <Content style={{ padding: '120px', position: 'relative' }}>
         {/* 작성하기 버튼 */}
         <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
         
         {/* 리뷰 카드 목록 */}
         <Row gutter={[10, 15]}>
-          {reviews.length > 0 ? renderReviewCards(postType) : <p>리뷰가 없습니다.</p>}
+          {reviews.length > 0 ? renderReviewCards() : <p>리뷰가 없습니다.</p>}
         </Row>
         
         {/* 페이지네이션 */}

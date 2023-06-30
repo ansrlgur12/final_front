@@ -14,10 +14,10 @@ const DetailContainer = styled.div`
     z-index: 2;
     position: fixed;
     right: -67rem;
-    bottom: 6vh;
+    bottom: 5vh;
 .container{
     width: 40vw;
-    height: 78vh;
+    height: 81vh;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     transition: transform 0.3s ease-in-out;
@@ -67,12 +67,7 @@ const TitleBarLeft = styled.h3`
     margin-left: 1em;
     color: #f6f6f6;
 `;
-const TitleBarLeftLong = styled.div`
-    margin-left: 1em;
-    color: #f6f6f6;
-    font-size: 1.1em;
-    font-weight: bold;
-`;
+
 const TitleBarRight = styled.div`
     height: 100%;
     display: flex;
@@ -159,16 +154,16 @@ const DetailPage = (props) => {
     const context = useContext(MarkerContext);
     const [weather, setWeather] = useState([]);
 
-    useEffect(()=>{
-        const getWeatherData = async() =>{
-            const mapX = campInfo[0].mapX;
-            const mapY = campInfo[0].mapY;
-            const rsp = await AxiosApi.getWeather(mapY, mapX);
-            setWeather(rsp.data.data)
-            console.log(weather)
-        }
-        getWeatherData();
-    },[campInfo])
+    // useEffect(()=>{
+    //     const getWeatherData = async() =>{
+    //         const mapX = campInfo[0].mapX;
+    //         const mapY = campInfo[0].mapY;
+    //         const rsp = await AxiosApi.getWeather(mapY, mapX);
+    //         setWeather(rsp.data.data)
+    //         console.log(weather)
+    //     }
+    //     getWeatherData();
+    // },[campInfo])
 
     const splitAddress = (address) => {
         const addressParts = address.split(' ');
@@ -240,11 +235,11 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                         <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
                         <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
                     </Section>
-                    <div className="weather">최고온도 : {weather[0].app_max_temp}</div>
+                    {/* <div className="weather">최고온도 : {weather[0].app_max_temp}</div>
                     <div className="weather">최저온도 : {weather[0].app_min_temp}</div>
                     <div className="weather">강수확률 : {weather[0].pop}%</div>
                     <div className="weather">일출시간: {formatTime(weather[0].sunrise_ts)}</div>
-                    <div className="weather">일몰시간: {formatTime(weather[0].sunset_ts)}</div>
+                    <div className="weather">일몰시간: {formatTime(weather[0].sunset_ts)}</div> */}
                     
 
                     <div></div>
