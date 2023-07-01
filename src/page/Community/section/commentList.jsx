@@ -8,7 +8,7 @@ const CommentList = ({ reviewId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await CommentApi.getCommentsByReview(reviewId);
+        const response = await CommentApi.getCommentByReview(reviewId);
         const commentsData = response.data;
         setComments(commentsData);
       } catch (error) {

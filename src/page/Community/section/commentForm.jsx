@@ -19,6 +19,7 @@ const CommentForm = ({ reviewId }) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
+    window.location.href = `http://localhost:3000/reviewDetail/${reviewId}`; 
   };
 
   return (
