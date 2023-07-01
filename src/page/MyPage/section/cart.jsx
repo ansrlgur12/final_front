@@ -8,6 +8,7 @@ import QuantityInput from '../../Shop/quantityInput';
 import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
+import Payment from '../../Shop/test/inicis';
 
 const LayoutContainer = styled.div` 
   display: flex;
@@ -171,9 +172,7 @@ const Cart = () => {
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
               </TotalAmount>
-              <Button type="primary" onClick={handlePurchase}>
-                구매하기
-              </Button>
+              <Payment/>
             </TotalPayment>
           </TableContainer>
           <MyFavorite/>
