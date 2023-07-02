@@ -45,7 +45,7 @@ const ReviewCards = () => {
     const fetchReviews = async () => {
       try {
         const response = await ReviewApi.getAllReviews();
-        console.log(response.data);  // <-- 이 부분에 추가하세요
+        console.log(response.data);  
         const reviewData = response.data;
         setReviews(reviewData);
   

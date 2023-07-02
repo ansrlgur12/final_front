@@ -34,14 +34,15 @@ const WriteReviewPage = () => {
       const memberId = 1;
       const content = data;
       const date = new Date().toISOString();
-      await ReviewApi.createReview(memberId, title, content, date, postType);
+      const viewCount = 0;
+      await ReviewApi.createReview(memberId, title, content, date, postType, viewCount);
       setModalVisible(true);
     } catch (error) {
       console.log(error);
       setError('리뷰 작성에 실패하였습니다.');
     }
   };
-
+  
   const closeModal = () => {
     setModalVisible(false);
   };
