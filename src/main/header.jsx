@@ -7,6 +7,7 @@ import { MarkerContext } from "../context/MarkerInfo";
 import { IconButton, Badge } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
+import { UserContext } from "../API/UserInfo";
 
 
 const HeaderStyle = styled.div`
@@ -52,15 +53,19 @@ const HeaderStyle = styled.div`
     .myProfile {
         border: 1px solid black;
         border-radius: 50%;
-        width: 70px;
-        height: 50px;
-        display: flex;
+        width: 60px;
+        height: 60px;
+        display: inline-block;
         align-items: center;
         font-size: 12px;
-      }
+        cursor: pointer;
+    }
     .menu1:hover,.menu2:hover,.menu3:hover,.menu4:hover{
         cursor: pointer;
         opacity: 0.5;
+    }
+    .logOut{
+        cursor: pointer;
     }
     
 `;
@@ -71,10 +76,11 @@ const Header = () =>{
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
+    const userInfo = useContext(UserContext);
+    const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     
     const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
 
-    
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,
         backgroundSize: 'contain',
@@ -87,6 +93,12 @@ const Header = () =>{
         setMarkerLng(127.062835)
         setZoomLev(10)
         nav("/mapMain");
+    }
+    const logOut = () => {
+        setUserEmail(""); 
+        setPassword(""); 
+        setIsLogin(false); 
+        nav("/intro");
     }
     
 
@@ -112,7 +124,7 @@ const Header = () =>{
                             <input type="search" />
                         </div>
                         <div className="myProfile" onClick={()=>nav("/myPage")}>mypage 임시</div>
-                        <div>로그아웃</div>
+                        <div className="logOut" onClick={logOut}>로그아웃</div>
                         <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />

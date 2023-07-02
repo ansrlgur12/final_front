@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Button, Modal, Layout, Input, Select } from 'antd';
@@ -20,23 +21,40 @@ const ReviewContainer = styled.div`
   margin: 0 auto;
 `;
 
-const WriteReviewPage = () => {
+const ModifiedReview = () => {
+  const { id } = useParams(); 
   const [data, setData] = useState('');
   const [title, setTitle] = useState('');
   const [postType, setPostType] = useState(null);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const response = await ReviewApi.getReviewById(id);
+        const reviewData = response.data;
+        setData(reviewData.content);
+        setTitle(reviewData.title);
+        setPostType(reviewData.postType);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchReview();
+  }, [id]);
+  
   const handleSubmit = async () => {
     try {
-      const memberId = 1;
+      const memberId = 2; 
       const content = data;
-      const date = new Date().toISOString(); 
-      await ReviewApi.createReview(memberId, title, content, date, postType);
+      const date = new Date().toISOString();
+      await ReviewApi.updateReview(id, memberId, title, content, date, postType);
       setModalVisible(true);
     } catch (error) {
       console.log(error);
-      setError('리뷰 작성에 실패하였습니다.');
+      setError('리뷰 수정에 실패하였습니다.');
     }
   };
 
@@ -50,7 +68,7 @@ const WriteReviewPage = () => {
       <Header />
       <Content style={{ padding: '50px' }}>
         <ReviewContainer>
-          <h2>작성하기</h2>
+          <h2>수정하기</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Input
             value={title}
@@ -58,7 +76,7 @@ const WriteReviewPage = () => {
             placeholder="Enter title here"
           />
           <Select
-            style={{ width: '50%' }} 
+            style={{ width: '50%' }}
             value={postType}
             onChange={(value) => setPostType(value)}
             placeholder="카테고리를 선택해주세요."
@@ -68,11 +86,20 @@ const WriteReviewPage = () => {
           </Select>
           <CKEditor
             editor={ClassicEditor}
-            data="<p>Hello from CKEditor 5!</p>"
+            data={data}
             config={{
-              toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+              toolbar: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'link',
+                'bulletedList',
+                'numberedList',
+                'blockQuote',
+              ],
               ckfinder: {
-                uploadUrl: 'https://example.com/upload', 
+                uploadUrl: 'https://example.com/upload',
               },
             }}
             onReady={(editor) => {
@@ -84,11 +111,10 @@ const WriteReviewPage = () => {
               setData(data);
             }}
           />
-          <Button onClick={handleSubmit}>작성하기</Button>
-
+          <Button onClick={handleSubmit}>수정하기</Button>
           <Modal visible={modalVisible} onCancel={closeModal} onOk={closeModal}>
-            <h3>작성 완료</h3>
-            <p>글이 성공적으로 작성되었습니다.</p>
+            <h3>수정 완료</h3>
+            <p>글이 성공적으로 수정되었습니다.</p>
           </Modal>
         </ReviewContainer>
       </Content>
@@ -96,4 +122,4 @@ const WriteReviewPage = () => {
   );
 };
 
-export default WriteReviewPage;
+export default ModifiedReview;

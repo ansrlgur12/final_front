@@ -152,7 +152,8 @@ const Section = styled.div`
 const DetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
-    const [weather, setWeather] = useState([]);
+    const {myLoc} = context;
+
 
     // useEffect(()=>{
     //     const getWeatherData = async() =>{
@@ -183,6 +184,44 @@ const DetailPage = (props) => {
       const formatTwoDigits = (number) => {
         return number.toString().padStart(2, '0');
       };
+
+    //   const calculateDistance = () => {
+    //     if (campInfo && campInfo.length > 0) {
+    //       const distance = Math.sqrt(
+    //         Math.pow(campInfo[0].mapY - myLoc[0], 2) + Math.pow(campInfo[0].mapX - myLoc[1], 2)
+    //       );
+    
+    //       return `${distance.toFixed(2)} km`;
+    //     }
+    //     return "";
+    //   };
+
+    const calculateDistance = () => {
+        if (campInfo && campInfo.length > 0) {
+          const R = 6371; // 지구 반경 (단위: km)
+          const lat1 = myLoc[0];
+          const lon1 = myLoc[1];
+          const lat2 = campInfo[0].mapY;
+          const lon2 = campInfo[0].mapX;
+      
+          const dLat = deg2rad(lat2 - lat1);
+          const dLon = deg2rad(lon2 - lon1);
+      
+          const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          const distance = R * c;
+      
+          return `${distance.toFixed(2)} km`;
+        }
+        return "";
+      };
+      
+      const deg2rad = (deg) => {
+        return deg * (Math.PI / 180);
+      };
+      
 
 const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.507812284,%EC%9D%BC%EC%82%B0%ED%9C%B4%EB%A8%BC%EB%B9%8C2%EC%B0%A8%EC%95%84%ED%8C%8C%ED%8A%B8,19055891,PLACE_POI/14205872.331903983,4501898.402669169,%EC%96%91%ED%8F%89%EC%88%98%EB%AA%A9%EC%9B%90%20%EC%BA%A0%ED%95%91%EC%9E%A5,32862772,PLACE_POI/-/transit?c=9,0,0,0,dh"
     return(
@@ -228,20 +267,13 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                     </LickCommentShare>
                     <Section>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="km">152.4km</div>
+                        <div className="km">{calculateDistance()}</div>
                         <div className="campInfo">{campInfo.addr1}</div>
                     </Section>
                     <Section>
                         <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
                         <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
                     </Section>
-                    {/* <div className="weather">최고온도 : {weather[0].app_max_temp}</div>
-                    <div className="weather">최저온도 : {weather[0].app_min_temp}</div>
-                    <div className="weather">강수확률 : {weather[0].pop}%</div>
-                    <div className="weather">일출시간: {formatTime(weather[0].sunrise_ts)}</div>
-                    <div className="weather">일몰시간: {formatTime(weather[0].sunset_ts)}</div> */}
-                    
-
                     <div></div>
                     <a href={url}>길찾기</a>
                     <div>{campInfo.tooltip}</div>
@@ -249,6 +281,11 @@ const url = "https://map.naver.com/v5/directions/14111340.310128096,4535416.5078
                     </>
                     );
                 })}
+                {/* <div className="weather">{weather ? `최고온도 = ${weather[0].app_max_temp}` : ``}</div>
+                <div className="weather">{weather ? `최저온도 : ${weather[0].app_min_temp}` : ``}</div>
+                <div className="weather">{weather ? `강수확률 : ${weather[0].pop}}%` : ``}</div>
+                <div className="weather">{weather ? `일출시간: ${formatTime(weather[0].sunrise_ts)}` : ``}</div>
+                <div className="weather">{weather ? `일몰시간: ${formatTime(weather[0].sunset_ts)}` : ``}</div> */}
             </div>
         </DetailContainer>
     )

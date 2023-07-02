@@ -165,7 +165,7 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {setUserEmail, setPassword, setIsLogin} = context;
+    const {nickName, setUserEmail, setPassword, setIsLogin, setNickName, setUserName, setUserPhoneNm, setUserAddr, setUserImage} = context;
 
     // 아이디, 패스워드 입력
     const[inputEmail, setInputEmail] = useState("");
@@ -197,12 +197,19 @@ const Login = () => {
         const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
         // console.log("이메일 : " + inputEmail);
         // console.log("비밀번호 : " + inputPwd);
-        if(response.data === true) {
+        if(response.data) {
             console.log("로그인");
+            console.log(response.data);
             setLoginFinishOpen(true);
             setUserEmail(inputEmail);
             setPassword(inputPwd);
+            setNickName(response.data.nickName);
+            setUserName(response.data.userName);
+            setUserPhoneNm(response.data.userPhoneNm);
+            setUserAddr(response.data.userAddr);
+            setUserImage(response.data.userImg);
             setIsLogin(true);
+            console.log(nickName);
         } else {
             console.log("로그인 에러");
             setModalOpen(true);
@@ -234,8 +241,8 @@ const Login = () => {
         }
     };
 
-    
-        
+
+
     return(
         <LoginStyle>
                 <div class="container">
