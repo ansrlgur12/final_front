@@ -85,6 +85,26 @@ const AxiosApi = {
         }
         return await axios.get(domain + '/intro', check);
       },
-};
 
+    getAbleIcon : async(contentId) => {
+        return await axios.get(domain + `/camp/getIcon/${contentId}`);
+    },
+     // 장바구니 추가
+      addToCart : async(productId,quantity,email) => {
+      const item = {
+          productId : productId,
+        quantity : quantity,
+        email : email,
+      };
+      
+    return await axios.post(domain + `/cart`, item)
+},
+// 장바구니 조회
+   cartList : async(email) => {
+     
+     return await axios.post(domain + `/cart/cartList`, {
+        email: email,
+    })
+   }
+};
 export default AxiosApi;

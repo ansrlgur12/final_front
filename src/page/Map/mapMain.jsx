@@ -8,12 +8,11 @@ import AxiosApi from "../../API/TestAxios";
 import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 import Overlay from "./overlay";
-import DetailPage from "./detailPage";
 import animalCamp from "../../images/강아지발바닥.png";
 import markerImage from "../../images/캠핑마커.png";
 
 
-const MainStyle = styled.div`
+export const MainStyle = styled.div`
     .App {
         font-family: sans-serif;
         position: relative;
@@ -31,20 +30,52 @@ const MainStyle = styled.div`
         margin-top: .2em;
     }
     
+
+    .img{
+        width: 3vw;
+        height: 3vw;
+    }
     .selectBtn{
       display: flex;
-      z-index: 5;
+      flex-direction: column;
+      justify-content: center;
       position: fixed;
-      top: 10vh;
-      left: 8vw;
-      
+      top: 45vh;
+      left: 2vh;
+      z-index: 5;
+      :hover{
+        p{
+          border: 1px solid #ccc;
+          border-radius: 15px;
+          margin-top: .5em;
+          font-size: small;
+          height: 2em;
+          display: flex;
+          align-items: center;
+          padding: 0 .5em;
+          background-color: black;
+          color: white;
+        }
+      }
+        p{
+          display: none;
+          /* border: 1px solid #ccc;
+          border-radius: 15px;
+          margin-top: .5em;
+          font-size: small;
+          height: 2em;
+          display: flex;
+          align-items: center;
+          padding: 0 .5em;
+          background-color: black;
+          color: white; */
+        }
     }
-
-    .selType {
-      width: 100px;
-      height: 50px;
-      border-radius: 50px;
-      margin: .5em 1em;
+    .btnSection{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 1em;
     }
   `;
 
@@ -56,9 +87,6 @@ const MapMain = () => {
   const [mapLocations, setMapLocations] = useState([]);
   const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [GPSOn, setGPSOn] = useState(false);
-  
 
   useEffect(()=>{
       const loading = async() => {
@@ -116,12 +144,14 @@ const MapMain = () => {
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>
             <div className="selectBtn">
-              <button className="selType normal" onClick={setNormalMapInfo}>
-                전체보기
-              </button>
-              <button className="selType animal" onClick={setAnimalMapInfo}>
-                애완동물 동반가능
-              </button>
+              <div className="btnSection" onClick={setNormalMapInfo}>
+                <img className="img" src={markerImage} alt="" />
+                <p>전체 캠핑장</p>
+              </div>
+              <div className="btnSection" onClick={setAnimalMapInfo}>
+                <img className="img" src={animalCamp} alt="" />
+                <p>애완동물 동반가능</p>
+              </div>
             </div>
       </div>
     </div>

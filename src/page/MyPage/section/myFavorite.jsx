@@ -36,6 +36,14 @@ button.ant-btn{
     display: flex;
     justify-content: right;
 }
+.ant-table-thead > tr > th  {
+  text-align: center;
+}
+
+tbody {
+  text-align: center;
+}
+
 
 
 
@@ -80,7 +88,7 @@ const MyFavorite = () => {
   }, [favorite]);
   const columns = [
     {
-      title: '',
+      title: '상품 이미지',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />

@@ -6,7 +6,7 @@ const QuantityInputWrapper = styled.div`
   
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
+
 `;
 
 const Button = styled.button`
@@ -25,20 +25,23 @@ border: none;
   width: 80px;
   text-align: center;
   font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
 `;
 
 const QuantityInput = ({ quantity, setQuantity }) => {
 
   const handleIncrease = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
+    setQuantity(quantity + 1);
   };
 
   const handleDecrease = () => {
     if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
+      setQuantity(quantity - 1);
     }
   };
-
   return (
     <QuantityInputWrapper>
       <Button onClick={handleDecrease}>-</Button>

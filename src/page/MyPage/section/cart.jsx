@@ -9,9 +9,9 @@ import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import Payment from '../../Shop/test/inicis';
-
 const LayoutContainer = styled.div` 
   display: flex;
+
 `;
 
 const SidebarContainer = styled.div`
@@ -27,6 +27,7 @@ const ContentContainer = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+
 
 `;
 
@@ -47,6 +48,18 @@ button.ant-btn{
       opacity: 0.7;
     }
 }
+.ant-table-thead > tr > th  {
+  text-align: center;
+}
+
+tbody {
+  text-align: center;
+  
+
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 
@@ -71,7 +84,7 @@ const TotalAmount = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { cart,removeFromCart } = useContext(CartContext); // cartContext사용
+  const { cart,removeFromCart,setQuantity } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   
@@ -91,7 +104,7 @@ const Cart = () => {
   }, [cart]);
   const columns = [
     {
-      title: '',
+      title: '상품 이미지',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
@@ -104,6 +117,8 @@ const Cart = () => {
         <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
         ),
     },
+    
+  
     {
       title: '판매가',
       dataIndex: 'paymentAmount',
@@ -113,6 +128,11 @@ const Cart = () => {
       title: '수량',
       dataIndex: 'quantity',
       key: 'quantity',
+      render: (text, record) => (
+        <QuantityInput
+        quantity={record.quantity}
+        setQuantity={quantity => setQuantity(record.key, quantity)}
+      />)
     },
     {
       title: '삭제하기',
@@ -120,9 +140,9 @@ const Cart = () => {
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
        <DeleteButton onClick={() => removeFromCart(record.key)}/>
-    )
-    },
-  ];
+       )
+      },
+    ];
 
   useEffect(() => { //선택된 항목들의 총금액을 다시 계산하고, 상태 업데이트
     const totalAmount = calculateTotalPaymentAmount();
