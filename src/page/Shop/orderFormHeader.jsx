@@ -24,6 +24,7 @@ const Container = styled.div`
   gap: 40px;
   padding-bottom: 24px;
   border-bottom: 1px solid #888;
+  margin-bottom: 20px;
 `;
 
 const TitleBox = styled.div`

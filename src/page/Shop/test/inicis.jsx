@@ -1,8 +1,5 @@
 
 import React,{useState} from "react";
-import { GridStlye } from "../shoppingMenu";
-import Header from "../../../main/header";
-import styled from "styled-components";
 import { Button } from "antd";
 
 
