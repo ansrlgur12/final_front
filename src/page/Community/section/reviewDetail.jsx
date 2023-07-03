@@ -62,7 +62,7 @@ const ReviewButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: ${({ liked }) => (liked ? '#f5222d' : '#888')}; /* Red color for liked button */
+  color: ${({ liked }) => (liked ? '#f5222d' : '#888')};
   margin-left: 10px;
 `;
 
@@ -123,7 +123,7 @@ const ReviewDetail = () => {
           <ReviewContainer>
             <ReviewTitle>{review.title}</ReviewTitle>
             <ReviewContent>{review.content}</ReviewContent>
-            <ReviewImage src={camping} alt="Review Image" />
+            <ReviewImage src={review.img} alt="Review Image" />
             <ReviewMeta>
               <ReviewDate>작성일: {review.date}</ReviewDate>
               <ReviewActions>
@@ -148,16 +148,15 @@ const ReviewDetail = () => {
 
             <Modal
               title="리뷰 삭제"
-               visible={showDeleteModal}
-               onOk={handleConfirmDelete}
-               onCancel={handleCancelDelete}
-               footer={null}
-                  >
-                <h3>삭제 완료</h3>
-                <p>글이 성공적으로 삭제되었습니다.</p>
-                   <Link to="/community">확인</Link>
-              </Modal>
-
+              visible={showDeleteModal}
+              onOk={handleConfirmDelete}
+              onCancel={handleCancelDelete}
+              footer={null}
+            >
+              <h3>삭제 완료</h3>
+              <p>글이 성공적으로 삭제되었습니다.</p>
+              <Link to="/community">확인</Link>
+            </Modal>
           </ReviewContainer>
         ) : (
           <p>리뷰가 없습니다.</p>

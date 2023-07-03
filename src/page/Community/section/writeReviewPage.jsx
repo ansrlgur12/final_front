@@ -6,6 +6,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import ReviewApi from '../../../API/ReviewAPI';
 import Header from '../../../main/header';
 import { Link } from 'react-router-dom';
+import { storage } from '../../../firebase/firebaseConfig';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -28,6 +29,7 @@ const WriteReviewPage = () => {
   const [postType, setPostType] = useState('카테고리를 선택해주세요');
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleSubmit = async () => {
     try {
@@ -35,16 +37,35 @@ const WriteReviewPage = () => {
       const content = data;
       const date = new Date().toISOString();
       const viewCount = 0;
-      await ReviewApi.createReview(memberId, title, content, date, postType, viewCount);
+      const img = image ? await uploadImage(image) : null;
+      await ReviewApi.createReview(memberId, title, content, date, postType, viewCount, img);
       setModalVisible(true);
     } catch (error) {
       console.log(error);
       setError('리뷰 작성에 실패하였습니다.');
     }
   };
-  
+
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  const uploadImage = async (file) => {
+    try {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(file.name);
+      await fileRef.put(file);
+      const downloadUrl = await fileRef.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      console.log(error);
+      throw new Error('이미지 업로드에 실패하였습니다.');
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
   };
 
   return (
@@ -69,6 +90,7 @@ const WriteReviewPage = () => {
             <Option value="1">유료캠핑장</Option>
             <Option value="2">오지캠핑장</Option>
           </Select>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
           <CKEditor
             editor={ClassicEditor}
             data="<p>Hello from CKEditor 5!</p>"
@@ -82,6 +104,7 @@ const WriteReviewPage = () => {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
+                'uploadImage' // 이미지 업로드 버튼 추가
               ],
               ckfinder: {
                 uploadUrl: 'https://example.com/upload',
