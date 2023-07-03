@@ -75,7 +75,7 @@ const AxiosApi = {
     getImage : async(contentId) => {
         return await axios.get(domain + `/image/getImage/${contentId}`);
     },
-  
+
     // 닉네임 중복 체크
     checkNick : async(nickName) => {
         const check = {

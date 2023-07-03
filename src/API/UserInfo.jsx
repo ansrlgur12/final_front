@@ -7,9 +7,17 @@ const UserStore = (props) => {
     const[isLogin, setIsLogin] = useState(false);
     const[userImage, setUserImage] = useState("");
     const[url, setUrl] = useState("");
+    const[nickName, setNickName] = useState("");
+    const[userName, setUserName] = useState("");
+    const[userPhoneNm, setUserPhoneNm] = useState("");
+    const[userAddr, setUserAddr] = useState("");
 
     return(
-        <UserContext.Provider value={{userEmail, setUserEmail, password, setPassword, isLogin, setIsLogin, userImage, setUserImage, url, setUrl}}>
+        <UserContext.Provider value={{userEmail, setUserEmail, password, setPassword,
+                                        isLogin, setIsLogin, userImage, setUserImage,
+                                        url, setUrl, nickName, setNickName,
+                                        userName, setUserName, userPhoneNm, setUserPhoneNm,
+                                        userAddr, setUserAddr}}>
             {props.children}
         </UserContext.Provider>
     );
