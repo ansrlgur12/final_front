@@ -23,9 +23,12 @@ import homePage from "../../images/홈페이지.png"
 import ImageList from "./imageList";
 import navigationImg from "../../images/길찾기.png"
 import roadMapImg from "../../images/로드맵.png"
+import IconList from "./iconList";
 
 const Container = styled.div`
 
+    margin: 0;
+    padding: 0;
     .closeBtn{
         border-radius: 50px;
         width: 60px;
@@ -62,12 +65,14 @@ const DetailContainer = styled.div`
 
 .slideOut {
     
-    transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
+    transform: translateX(0vw); /* 다시 제자리로 이동하여 펼쳐짐 */
    
   }
 
 .slideIn {
-    transform: translateX(-180%); /* 오른쪽으로 이동하여 숨김 */
+    margin: 0;
+    padding: 0;
+    transform: translateX(-71vw); /* 오른쪽으로 이동하여 숨김 */
 }
 .hide {
     display: none;
@@ -259,8 +264,8 @@ const Navigiation = styled.div`
         margin-right: 4vw;
     }
     .img{
-        width: 4vw;
-        height: 4vw;
+        width: 3vw;
+        height: 3vw;
     }
     
     .btn{
@@ -289,10 +294,39 @@ const Navigiation = styled.div`
 `;
 const Information = styled.div`
     margin-top: 3.5vh;
+    margin-bottom: 3.5vh;
     margin-left: 1em;
     display: flex;  
-    width: 100%;
+    width: 90%;
     height: auto;
+    .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 5vw;
+        margin-right: .5em;
+        flex-basis: 15%;
+    }
+    .img{
+        left: 2vw;
+        width: 10vw;
+        flex-basis: 25%;
+        position: absolute;
+    }
+    .value{
+        font-size: .8em;
+        flex-basis: 75%;
+        font-weight: 500;
+        margin-right: 0;
+    }
+`;
+const ImageInfo = styled.div`
+    margin-top: 3.5vh;
+    margin-left: 1em;
+    display: flex;  
+    width: 95%;
+    height: auto;
+    overflow-x: scroll;
     .campInfo{
         font-weight: bold;
         font-size: .85em;
@@ -316,15 +350,26 @@ const Information = styled.div`
 const IconBox = styled.div`
     margin-top: 7vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
     height: 20vh;
-    margin-bottom: 7vh;
+    margin-bottom: 15vh;
 
-    .iconBox{
-        width: 80%;
-        height: 100%;
-        background-color: #ccc;
+    .iconBoxDesc{
+        margin-left: 1vw;
+        margin-bottom: 1vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 50%;
+    }
+    .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: auto;
+        margin-right: .5em;
+        
     }
 `;
 
@@ -489,7 +534,7 @@ const DetailPage = (props) => {
 
                     return(
                     <>
-                    <div className="detailPage" key={campInfo.facltNm}>
+                    <div className="detailPage" key={campInfo.intro}>
                     <TitleBar>
                         <TitleBarLeft>{campInfo.facltNm}</TitleBarLeft>
                         <TitleBarRight>
@@ -563,7 +608,11 @@ const DetailPage = (props) => {
                         </div>
                     </Navigiation>
                     <IconBox>
-                        <div className="iconBox"></div>
+                        <div className="iconBoxDesc">
+                            <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                            <div className="campInfo">이용시설</div>
+                        </div>
+                        <IconList />
                     </IconBox>
                     <Information>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
@@ -572,13 +621,13 @@ const DetailPage = (props) => {
                         {campInfo.intro ? campInfo.intro : (campInfo.featureNm ? campInfo.featureNm : "소개글이 없습니다.")}
                         </div>
                     </Information>
-                    <Information>
+                    <ImageInfo>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
                         <div className="campInfo img">이미지</div>
                         <div className="value">
                             <ImageList />
                         </div>
-                    </Information>
+                    </ImageInfo>
                     <Information>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
                         <div className="campInfo">안내사항</div>
@@ -592,11 +641,6 @@ const DetailPage = (props) => {
                     </>
                     );
                 })}
-                {/* <div className="weather">{weather ? `최고온도 = ${weather[0].app_max_temp}` : ``}</div>
-                <div className="weather">{weather ? `최저온도 : ${weather[0].app_min_temp}` : ``}</div>
-                <div className="weather">{weather ? `강수확률 : ${weather[0].pop}}%` : ``}</div>
-                <div className="weather">{weather ? `일출시간: ${formatTime(weather[0].sunrise_ts)}` : ``}</div>
-                <div className="weather">{weather ? `일몰시간: ${formatTime(weather[0].sunset_ts)}` : ``}</div> */}
             </div>
         </DetailContainer>
         </Container>

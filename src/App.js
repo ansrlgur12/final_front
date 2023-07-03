@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
+import OjiNojiMapMain from './page/Map/ojinoji';
+import WriteNewMarker from './page/Map/writeNewMarker';
 import KakaoLogin from './API/KaKaoLogin';
 import TestPage from './page/Map/testPage';
 import CartProvider from './context/CartContext';
@@ -62,6 +64,8 @@ function App() {
                 <Route path='/intro' element={<Intro />} />
                 <Route path='/shopMain' element={<ShopMain />} />
                 <Route path='/mapMain' element={<MapMain />} />
+                <Route path='/ojinoji' element={<OjiNojiMapMain />} />
+                <Route path='/newMark' element={<WriteNewMarker />} />
                 <Route path='/community' element={<Community />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
                 <Route path='/writeReviewPage' element={<WriteReviewPage />} />

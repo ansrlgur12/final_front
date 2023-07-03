@@ -34,12 +34,12 @@ const LocationSelect = ({ dho, sigungu, onDhoChange, onSigunguChange, onResetCli
         <option value="울산">울산</option>
         <option value="경기">경기</option>
         <option value="강원">강원</option>
-        <option value="충북">충북</option>
-        <option value="충남">충남</option>
-        <option value="전북">전북</option>
-        <option value="전남">전남</option>
-        <option value="경북">경북</option>
-        <option value="경남">경남</option>
+        <option value="충청북도">충북</option>
+        <option value="충청남도">충남</option>
+        <option value="전라북도">전북</option>
+        <option value="전라남도">전남</option>
+        <option value="경상북도">경북</option>
+        <option value="경상남도">경남</option>
         <option value="제주">제주</option>
       </select>
     {dho!=="ALL" &&
@@ -71,22 +71,22 @@ const LocationSelect = ({ dho, sigungu, onDhoChange, onSigunguChange, onResetCli
         {dho === "강원" && area9.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "충북" && area10.map((area, index) => (
+        {dho === "충청북도" && area10.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "충남" && area11.map((area, index) => (
+        {dho === "충청남도" && area11.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "전북" && area12.map((area, index) => (
+        {dho === "전라북도" && area12.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "전남" && area13.map((area, index) => (
+        {dho === "전라남도" && area13.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "경북" && area14.map((area, index) => (
+        {dho === "경상북도" && area14.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
-        {dho === "경남" && area15.map((area, index) => (
+        {dho === "경상남도" && area15.map((area, index) => (
           <option key={index} value={area}>{area}</option>
         ))}
         {dho === "제주" && area16.map((area, index) => (
