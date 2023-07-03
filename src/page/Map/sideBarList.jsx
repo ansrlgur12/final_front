@@ -219,7 +219,7 @@ const SideBarList = (props) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     
             return (
-              <div className="listContainer" key={campListData.id}>
+              <div className="listContainer" key={campListData.facltNm}>
                 <div className="leftSide">
                   <div className="imageContainer" style={{ backgroundImage: `url(${campListData.firstImageUrl ? campListData.firstImageUrl : noImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
                 </div>

@@ -94,6 +94,12 @@ const Header = () =>{
         setZoomLev(10)
         nav("/mapMain");
     }
+
+    const onClickOjinojiCamping = () => {
+        setCurrentData("ojinoji");
+        nav("/ojinoji")
+    }
+
     const logOut = () => {
         setUserEmail(""); 
         setPassword(""); 
@@ -101,6 +107,10 @@ const Header = () =>{
         nav("/intro");
     }
     
+    // 성능최적화. nav바에 적용
+    // 전역관리
+
+    // 테스트 
 
     return(
         <>
@@ -113,7 +123,7 @@ const Header = () =>{
                         <nav className="navibar">
                             <ul className="navContainer">
                                 <li className="menu1" onClick={onClickNormalCamping}>유료캠핑장</li>
-                                <li className="menu2">오지·노지</li>
+                                <li className="menu2" onClick={onClickOjinojiCamping}>오지·노지</li>
                                 <li className="menu3" onClick={()=>nav("/community")}>캠핑정보</li>
                                 <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                             </ul>

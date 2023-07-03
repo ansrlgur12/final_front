@@ -105,8 +105,8 @@ right: 1.5vw;
 }
 `;
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+    const {ojinoji} = props;
     const context = useContext(MarkerContext);
     const {change, setChange, selectedSortBy, setSelectedSortBy} = context;
 

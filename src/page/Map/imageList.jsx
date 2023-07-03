@@ -7,10 +7,9 @@ import { MarkerContext } from "../../context/MarkerInfo";
 const ImageBox = styled.div`
 
 display: flex;
-overflow-x: scroll;
 position: relative;
 left: 4vw;
-
+background-color: white;
     .imageContainer{
     margin-left: 1em;
     width: 100px;
@@ -45,7 +44,7 @@ const ImageList = () => {
     return(
         <ImageBox>
         {imageUrl && imageUrl.map((image)=>(
-            <div className="imageContainer" style={{ backgroundImage: `url(${image.imageUrl})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <div key={image.serialnum} className="imageContainer" style={{ backgroundImage: `url(${image.imageUrl})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
         ))}
         </ImageBox>
     )
