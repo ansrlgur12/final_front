@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HeartOutlined, EyeFilled } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout } from 'antd';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import camping from "../../../images/camping.png";
 import Header from '../../../main/header';
 import Sider from 'antd/es/layout/Sider';
 import Sidebar from '../sidebar';
+import axios from 'axios';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -46,41 +47,43 @@ const Title = styled.h2`
 `;
 
 const MyReview = () => {
-  // 더미 데이터
-  const dummyData = [
-    { id: 1, title: '게시글 1', author: '사용자1' },
-    { id: 2, title: '게시글 2', author: '사용자1' },
-    { id: 3, title: '게시글 3', author: '사용자1' },
-    { id: 4, title: '게시글 4', author: '사용자1' },
-  ];
+  const [posts, setPosts] = useState([]);
 
-  const filteredPosts = dummyData.filter(post => post.author === '사용자1');
+  useEffect(() => {
+    const memberId = 1; // Your memberId constant
+    fetchPostsByMember(memberId);
+  }, []);
 
-  const posts = filteredPosts.map(post => (
-    <Col span={8} key={post.id}>
-      <PostContent
-        cover={
-          <Link to={`/post/${post.id}`}>
-            <img
-              alt="대표이미지"
-              src={camping}
-              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-            />
-          </Link>
-        }
-        actions={[
-          <HeartOutlined />,
-          <EyeFilled key="edit" />,
-        ]}
-      >
-        <Meta
-          avatar={<Avatar src={profile} />}
-          title={post.title}
-          description={post.author}
-        />
-      </PostContent>
-    </Col>
-  ));
+  const fetchPostsByMember = async (memberId) => {
+    try {
+      const response = await axios.get(`http://localhost:8111/review/member/${memberId}`);
+      const data = response.data;
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const renderPosts = () => {
+    return posts.map((post) => (
+      <Col span={10} key={post.id}>
+        <PostContent
+          cover={
+            <Link to={`/reviewDetail/${post.id}`}>
+              <img
+                alt="대표이미지"
+                src={camping}
+                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+              />
+            </Link>
+          }
+          actions={[<HeartOutlined />, <EyeFilled key="edit" />]}
+        >
+          <Meta avatar={<Avatar src={profile} />} title={post.title} description={post.author} />
+        </PostContent>
+      </Col>
+    ));
+  };
 
   return (
     <>
@@ -89,8 +92,7 @@ const MyReview = () => {
         <Sidebar />
         <StyledContent>
           <MyPostsWrapper>
-            <Title>내가 쓴 게시글</Title>
-            <Row gutter={[10, 15]}>{posts}</Row>
+            <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
         </StyledContent>
       </StyledLayout>
@@ -98,4 +100,4 @@ const MyReview = () => {
   );
 };
 
-export default MyReview
+export default MyReview;

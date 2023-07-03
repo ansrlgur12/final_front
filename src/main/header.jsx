@@ -77,7 +77,7 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
     const userInfo = useContext(UserContext);
-    const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
+    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage} = userInfo;
     
     const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
 
@@ -85,7 +85,14 @@ const Header = () =>{
         backgroundImage: `url(${logoImg})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
-      };
+    };
+
+    const profileImg = {
+        backgroundImage : `url(${userImage})`,
+        backgroundSize : 'contain',
+        backgroundRepeat : 'no-repeat'
+        
+    }
     
     const onClickNormalCamping = () => {
         setCurrentData("normal");
@@ -123,7 +130,7 @@ const Header = () =>{
                         <div>
                             <input type="search" />
                         </div>
-                        <div className="myProfile" onClick={()=>nav("/myPage")}>mypage 임시</div>
+                        <div className="myProfile" style={profileImg} onClick={()=>nav("/myPage")}>mypage 임시</div>
                         <div className="logOut" onClick={logOut}>로그아웃</div>
                         <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
                         <Badge badgeContent={itemsCount} color="success" >

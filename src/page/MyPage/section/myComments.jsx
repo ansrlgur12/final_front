@@ -1,87 +1,55 @@
-import React, { useState } from 'react';
-import { Popconfirm, Table } from 'antd';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
-
-const LayoutContainer = styled.div`
-  display: flex;
-`;
-
-const ContentContainer = styled.div`
-  flex: 1;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-`;
+import CommentApi from '../../../API/CommnetAPI';
+import { Layout, Card, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const MyComments = () => {
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      boardNumber: '1',
-      boardName: '게시판 1',
-      content: '내용 1',
-      date: '2023-06-01',
-      userId: 'user1',
-    },
-    {
-      key: '1',
-      boardNumber: '2',
-      boardName: '게시판 2',
-      content: '내용 2',
-      date: '2023-06-02',
-      userId: 'user2',
-    },
-  ]);
+  const [comments, setComments] = useState([]);
+  const userId = 1;
 
-  const handleDelete = (key) => { //특정 댓글 삭제함수
-    setDataSource((prevDataSource) => prevDataSource.filter((item) => item.key !== key));
-  };
+  useEffect(() => {
+    const fetchMyComments = async () => {
+      try {
+        const response = await CommentApi.getCommentsByMember(userId);
+        const myCommentsData = response.data;
+        setComments(myCommentsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const columns = [
-    {
-      title: '게시판번호',
-      dataIndex: 'boardNumber',
-    },
-    {
-      title: '게시판명',
-      dataIndex: 'boardName',
-    },
-    {
-      title: '내용',
-      dataIndex: 'content',
-    },
-    {
-      title: '날짜',
-      dataIndex: 'date',
-    },
-    {
-      title: '아이디',
-      dataIndex: 'userId',
-    },
-    {
-      title: '상태',
-      dataIndex: 'operation',
-      render: (_, record) => //
-        dataSource.length >= 1 ? (
-          <Popconfirm title="정말 삭제하시겠습니까?" onConfirm={() => handleDelete(record.key)}>
-            <a>삭제하기</a>
-          </Popconfirm>
-        ) : null,
-    },
-  ];
+    fetchMyComments();
+  }, []);
 
   return (
     <>
       <Header />
-      <LayoutContainer>
+      <Layout>
         <Sidebar />
-        <ContentContainer>
-          <Table dataSource={dataSource} columns={columns} />
-        </ContentContainer>
-      </LayoutContainer>
+        <div style={{ padding: '24px' }}>
+          {comments.map((comment) => (
+            <Card
+              key={comment.id}
+              style={{ marginBottom: '50px' }}
+              title={
+                <Link
+                  to={`/reviewDetail/${comment.reviewId}`}
+                  style={{ fontWeight: 'bold', color: '#1890ff' }}
+                >
+                  {comment.content}
+                </Link>
+              }
+            >
+              <Card.Meta
+                avatar={<Avatar icon={<UserOutlined />} />}
+              />
+            </Card>
+          ))}
+        </div>
+      </Layout>
     </>
   );
 };

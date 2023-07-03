@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import Modal from '../../../util/modal';
+import { UserContext } from '../../../API/UserInfo';
+import AxiosApi from '../../../API/TestAxios';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -24,6 +27,19 @@ const StyledForm = styled(Form)`
 
 const StyledFormItem = styled(Form.Item)`
   margin-bottom: 50px;
+
+  .message{
+    font-size: .8rem;
+  }
+  .checkNick{
+    font-size: .8rem;
+  }
+  .success {
+    color: royalblue;
+  }
+  .error {
+    color: red;
+  }
 `;
 
 const passwordRules = { //비밀번호 입력필드 유효성 검사 규칙 정의
@@ -44,14 +60,65 @@ const passwordRules = { //비밀번호 입력필드 유효성 검사 규칙 정�
 };
 
 const NewPassword = () => { //새로운 비밀번호 입력하고 확인하는 함수
+  const context = useContext(UserContext);
+  const { userEmail } = context;
+
+  const [newPwd, setNewPwd] = useState('');
+  const [checkPwd, setCheckPwd] = useState('');
+
+  const [isPw, setIsPw] = useState(false)
+  const [isConPw, setIsConPw] = useState(false);
+  const [pwdMessage, setPwdMessage] = useState("");
+  const [checkPwdMessage, setCheckPwdMessage] = useState("");
+
   const [form] = Form.useForm();
+
+  // 팝업
+  const [modalOpen, setModalOpen] = useState(false);
+  const [finishModal, setFinishModal] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const closeModal = () => {
+    setFinishModal(false);
+    setModalOpen(false);
+  };
+
+  // 비밀번호
+  const passwordChange = (e) => {
+    //const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/
+    const passwordCurrent = e.target.value ;
+    setNewPwd(passwordCurrent);
+    if (!passwordRegex.test(passwordCurrent)) {
+        setPwdMessage('숫자+영문자 조합으로 8자리 이상 입력해주세요!')
+        setIsPw(false)
+    } else {
+        setPwdMessage('안전한 비밀번호에요 : )')
+        setIsPw(true);
+    }  
+    console.log("Password : " + e);
+};
+
+  // 비밀번호 검사
+  const checkPasswordChange = (e) => {
+    const passwordCurrent = e.target.value ;
+    setCheckPwd(passwordCurrent)
+    if (passwordCurrent !== newPwd) {
+        setCheckPwdMessage('비밀 번호가 일치하지 않습니다.')
+        setIsConPw(false)
+    } else {
+        setCheckPwdMessage('비밀 번호가 일치 합니다.')
+        setIsConPw(true);
+    }  
+    console.log("checkPwd : " + e);
+};
   
-  const onCheck = async () => {
-    try {
-      const values = await form.validateFields();
-      console.log('성공:', values);
-    } catch (errorInfo) {
-      console.log('실패:', errorInfo);
+  const changeConfirm = async() => {
+    const newPassword = await AxiosApi.newPassword(userEmail, newPwd);
+    if(newPassword.data === true) {
+      setFinishModal(true);
+    } else {
+      setModalOpen(true);
+      setModalText("비밀 번호 변경에 실패했습니다.");
     }
   };
 
@@ -67,7 +134,8 @@ const NewPassword = () => { //새로운 비밀번호 입력하고 확인하는 �
               label="New Password"
               rules={passwordRules.newPassword}
             >
-              <Input.Password placeholder="새로운 비밀번호를 입력하세요" />
+              <Input.Password placeholder="새로운 비밀번호를 입력하세요" onChange={passwordChange}/>
+              {newPwd.length > 0 && <span className={`message ${isPw ? 'success' : 'error'}`}>{pwdMessage}</span>}
             </StyledFormItem>
             <StyledFormItem
               name="confirmPassword"
@@ -75,16 +143,24 @@ const NewPassword = () => { //새로운 비밀번호 입력하고 확인하는 �
               dependencies={['newPassword']}
               rules={passwordRules.confirmPassword}
             >
-              <Input.Password placeholder="다시한번 입력해주세요." />
+              <Input.Password placeholder="다시한번 입력해주세요." onChange={checkPasswordChange}/>
+              {checkPwd.length > 0 && <span className={`message ${isConPw ? 'success' : 'error'}`}>{checkPwdMessage}</span>}
             </StyledFormItem>
             <StyledFormItem>
-              <Button type="primary" onClick={onCheck}>
+              {(isPw && isConPw) ?
+              <Button type="primary" onClick={changeConfirm}>
                 비밀번호 변경
+              </Button> : 
+              <Button type="primary" disabled>
+              비밀번호 변경
               </Button>
+              }
             </StyledFormItem>
           </StyledForm>
         </ContentContainer>
       </LayoutContainer>
+      <Modal open={modalOpen} confirm={closeModal} justConfirm={true} header="오류">{modalText}</Modal>
+      <Modal open={finishModal} confirm={closeModal} justConfirm={true} header="성공">비밀 번호가 변경 되었습니다.</Modal>
     </>
   );
 };

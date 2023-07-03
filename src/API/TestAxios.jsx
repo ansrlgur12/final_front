@@ -29,12 +29,12 @@ const AxiosApi = {
         return await axios.post(domain + "/intro/login", loginData);
     },
 
-   productDetail : async(id) =>{
-    return await axios.get(domain+ `/productDetail/${id}`)
- 
-   },
+    productDetail : async(id) =>{
+        return await axios.get(domain+ `/productDetail/${id}`)
+    
+    },
 
-   getOverlayInfo : async(xValue, yValue) => {
+    getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
 
@@ -75,16 +75,37 @@ const AxiosApi = {
     getImage : async(contentId) => {
         return await axios.get(domain + `/image/getImage/${contentId}`);
     },
-  
+
     // 닉네임 중복 체크
     checkNick : async(nickName) => {
         const check = {
             params: {
                 nickName : nickName
-              }
+            }
         }
         return await axios.get(domain + '/intro', check);
-      },
+    },
+
+    // 회원 정보 수정
+    userInfo : async(id, chgNick, chgEmail, chgPhone, chgImg)=> {
+        const info = {
+            id : id,
+            newNick : chgNick,
+            email : chgEmail,
+            newPhone : chgPhone,
+            newImg : chgImg
+        };
+        return await axios.post(domain + "/UserEdit", info);
+    },
+
+    // 비밀번호 변경
+    newPassword : async(userEmail, pwdChange) => {
+        const newP = {
+            email : userEmail,
+            newPwd : pwdChange
+        };
+        return await axios.post(domain + "/NewPassword", newP);
+    },
 };
 
 export default AxiosApi;
