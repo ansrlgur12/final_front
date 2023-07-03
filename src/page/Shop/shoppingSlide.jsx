@@ -18,7 +18,7 @@ import Skeleton from "@mui/material/Skeleton";
 import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
 
 
-const SwiperStyle = styled.div`
+export const SwiperStyle = styled.div`
 
 
 .swiper {
@@ -298,7 +298,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : 
@@ -335,7 +335,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '3-4인용').map(product => (
@@ -367,7 +367,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '5-6인용').map(product => (
@@ -399,7 +399,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '침낭').map(product => (
@@ -428,7 +428,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '매트').map(product => (
@@ -459,7 +459,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '야전침대').map(product => (
@@ -491,7 +491,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '가스랜턴').map(product => (
@@ -520,7 +520,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === 'led랜턴').map(product => (
@@ -551,7 +551,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '손전등').map(product => (
@@ -582,7 +582,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '후라이팬').map(product => (
@@ -611,7 +611,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '조리도구').map(product => (
@@ -642,7 +642,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '주전자').map(product => (
@@ -674,7 +674,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑의자').map(product => (
@@ -703,7 +703,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑테이블').map(product => (
@@ -733,7 +733,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑박스').map(product => (
@@ -765,7 +765,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '웨건').map(product => (
@@ -794,7 +794,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
@@ -821,7 +821,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '토일레트리').map(product => (
@@ -852,7 +852,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '멀티백').map(product => (
@@ -880,7 +880,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팩망치').map(product => (
@@ -910,7 +910,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '다용도칼').map(product => (
@@ -941,7 +941,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '화로').map(product => (
@@ -970,7 +970,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '스토브').map(product => (
@@ -1001,7 +1001,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '연료').map(product => (
@@ -1033,7 +1033,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '전기요').map(product => (
@@ -1062,7 +1062,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '선풍기').map(product => (
@@ -1092,7 +1092,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팬히터').map(product => (
@@ -1123,7 +1123,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '차박텐트').map(product => (
@@ -1152,7 +1152,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
@@ -1183,7 +1183,7 @@ useEffect(() => {
     loading ? // 로딩 상태에 따라서 Skeleton 혹은 실제 데이터를 보여줌
       Array.from(new Array(3)).map((_, index) => (
         <SwiperSlide key={index}>
-          <Skeleton variant="rectangular" width={260} height={200} />
+          <Skeleton variant="rectangular" animation="wave" width={260} height={200} />
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '보온/보냉병').map(product => (

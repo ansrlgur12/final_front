@@ -15,6 +15,7 @@ const ReviewContent = styled(Card)`
   width: 300px;
   margin: 0 auto;
   margin-bottom: 40px;
+  border: 1px solid #DDDDDD;
 `;
 
 const WriteButton = styled(Link)`
@@ -44,23 +45,25 @@ const ReviewCards = () => {
     const fetchReviews = async () => {
       try {
         const response = await ReviewApi.getAllReviews();
+        console.log(response.data);  
         const reviewData = response.data;
         setReviews(reviewData);
-
+  
         let likesCountData = {};
         for (let review of reviewData) {
           const likesResponse = await LikesApi.countReviewLikes(review.id);
           likesCountData[review.id] = likesResponse.data;
         }
         setLikesCount(likesCountData);
-
+  
       } catch (error) {
         console.log(error);
       }
     };
-
+  
     fetchReviews();
   }, []);
+  
 
   const renderReviewCards = () => {
     return reviews.map((review, index) => {
@@ -83,7 +86,7 @@ const ReviewCards = () => {
             }
             actions={[
               <span><HeartOutlined /> {likesCount[review.id] || 0}</span>,  // 좋아요 수 표시
-              <EyeFilled key="edit" />,
+              <span><EyeFilled /> {review.viewCount || 0}</span>,  // viewCount 표시
             ]}
           >
             <Meta
@@ -99,7 +102,7 @@ const ReviewCards = () => {
 
   return (
     <Layout>
-      <Content style={{ padding: '120px', position: 'relative' }}>
+      <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
         {/* 작성하기 버튼 */}
         <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
         

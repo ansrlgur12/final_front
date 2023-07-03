@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Button, Modal, Layout, Input, Select } from 'antd';
@@ -19,10 +19,11 @@ const GlobalStyle = createGlobalStyle`
 const ReviewContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
+  border: 1px solid #DDDDDD;
 `;
 
 const ModifiedReview = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [data, setData] = useState('');
   const [title, setTitle] = useState('');
   const [postType, setPostType] = useState(null);
@@ -41,13 +42,13 @@ const ModifiedReview = () => {
         console.error(error);
       }
     };
-  
+
     fetchReview();
   }, [id]);
-  
+
   const handleSubmit = async () => {
     try {
-      const memberId = 2; 
+      const memberId = 1;
       const content = data;
       const date = new Date().toISOString();
       await ReviewApi.updateReview(id, memberId, title, content, date, postType);
@@ -66,7 +67,7 @@ const ModifiedReview = () => {
     <Layout>
       <GlobalStyle />
       <Header />
-      <Content style={{ padding: '50px' }}>
+      <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
         <ReviewContainer>
           <h2>수정하기</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -112,9 +113,10 @@ const ModifiedReview = () => {
             }}
           />
           <Button onClick={handleSubmit}>수정하기</Button>
-          <Modal visible={modalVisible} onCancel={closeModal} onOk={closeModal}>
+          <Modal visible={modalVisible} onCancel={closeModal} footer={null}>
             <h3>수정 완료</h3>
             <p>글이 성공적으로 수정되었습니다.</p>
+            <Link to="/community">확인</Link>
           </Modal>
         </ReviewContainer>
       </Content>
