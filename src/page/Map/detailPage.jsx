@@ -49,7 +49,7 @@ const Container = styled.div`
 const DetailContainer = styled.div`
     z-index: 2;
     position: fixed;
-    right: -68rem;
+    right: -71vw;
     bottom: 5vh;
 .container{
     width: 40vw;
