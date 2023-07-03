@@ -95,5 +95,12 @@ const AxiosApi = {
       
     return await axios.post(domain + `/cart`, item)
 },
+// 장바구니 조회
+   cartList : async(email) => {
+     
+     return await axios.post(domain + `/cart/cartList`, {
+        email: email,
+    })
+   }
 };
 export default AxiosApi;
