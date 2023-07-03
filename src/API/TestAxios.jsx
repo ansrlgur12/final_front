@@ -85,6 +85,15 @@ const AxiosApi = {
         }
         return await axios.get(domain + '/intro', check);
       },
+     // 장바구니 추가
+      addToCart : async(productId,quantity,email) => {
+      const item = {
+          productId : productId,
+        quantity : quantity,
+        email : email,
+      };
+      
+    return await axios.post(domain + `/cart`, item)
+},
 };
-
 export default AxiosApi;
