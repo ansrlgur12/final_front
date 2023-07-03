@@ -28,8 +28,8 @@ const ReviewApi = {
       postType: postType,
       viewCount: viewCount
     };
-    return await axios.put(`${CAMO_DOMAIN}/review/${id}`, reviewDto);
-  },
+    return await axios.put(`${CAMO_DOMAIN}/review/${id}?memberId=${memberId}`, reviewDto);
+  },  
 
 // 리뷰 삭제
 deleteReview: async (memberId, reviewId) => {

@@ -48,7 +48,7 @@ const ModifiedReview = () => {
 
   const handleSubmit = async () => {
     try {
-      const memberId = 2;
+      const memberId = 1;
       const content = data;
       const date = new Date().toISOString();
       await ReviewApi.updateReview(id, memberId, title, content, date, postType);
