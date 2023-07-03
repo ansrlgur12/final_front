@@ -27,7 +27,7 @@ const CommentApi = {
   },
 
   // 댓글 조회
-  getCommentsByReview: async (reviewId) => {
+  getCommentByReview: async (reviewId) => {
     return await axios.get(`${COMMENT_API_URL}/review/${reviewId}`);
   }
 };

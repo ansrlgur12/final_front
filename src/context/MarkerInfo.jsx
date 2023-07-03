@@ -13,11 +13,12 @@ const MarkerStore = (props) => {
     const[change, setChange] = useState(0);
     const[selectedSortBy, setSelectedSortBy] = useState('이름순');
     const[myLoc, setMyLoc] = useState([]);
+    const[contentId, setContentId] = useState("");
 
 
     return(
         <MarkerContext.Provider value={{markerLat, setMarkerLat, markerLng, setMarkerLng, zoomLev, setZoomLev, viewOverlay, setViewOverlay, overlayOpen, setOverlayOpen,
-            closeMenu, setCloseMenu, location, setLocation, currentData, setCurrentData, change, setChange, selectedSortBy, setSelectedSortBy, myLoc, setMyLoc }}>
+            closeMenu, setCloseMenu, location, setLocation, currentData, setCurrentData, change, setChange, selectedSortBy, setSelectedSortBy, myLoc, setMyLoc, contentId, setContentId }}>
             {props.children}
         </MarkerContext.Provider>
     );
