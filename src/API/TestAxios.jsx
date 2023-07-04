@@ -108,4 +108,41 @@ const AxiosApi = {
     },
 };
 
+
+    getAbleIcon : async(contentId) => {
+        return await axios.get(domain + `/camp/getIcon/${contentId}`);
+    },
+     // 장바구니 추가
+      addToCart : async(productId,quantity,email) => {
+      const item = {
+          productId : productId,
+        quantity : quantity,
+        email : email,
+      };
+      
+    return await axios.post(domain + `/cart`, item)
+},
+// 장바구니 조회
+   cartList : async(email) => {
+     
+     return await axios.post(domain + `/cart/cartList`, {
+        email: email,
+    })
+   },
+
+// 장바구니 삭제
+deleteItem : async(cartItemId, email) => {
+    return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,
+    })
+},
+// 장바구니 수량 수정
+updateItem : async(cartItemId, quantity, email) => {
+    const item = {
+        cartItemId : cartItemId,
+      quantity : quantity,
+      email : email,
+    };
+    return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
+},
+}
 export default AxiosApi;

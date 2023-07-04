@@ -78,9 +78,10 @@ const Header = () =>{
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
     const userInfo = useContext(UserContext);
     const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage} = userInfo;
-    
     const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
-
+    //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
+    //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
+  
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,
         backgroundSize: 'contain',
@@ -101,6 +102,12 @@ const Header = () =>{
         setZoomLev(10)
         nav("/mapMain");
     }
+
+    const onClickOjinojiCamping = () => {
+        setCurrentData("ojinoji");
+        nav("/ojinoji")
+    }
+
     const logOut = () => {
         setUserEmail(""); 
         setPassword(""); 
@@ -108,6 +115,10 @@ const Header = () =>{
         nav("/intro");
     }
     
+    // 성능최적화. nav바에 적용
+    // 전역관리
+
+    // 테스트 
 
     return(
         <>
@@ -120,7 +131,7 @@ const Header = () =>{
                         <nav className="navibar">
                             <ul className="navContainer">
                                 <li className="menu1" onClick={onClickNormalCamping}>유료캠핑장</li>
-                                <li className="menu2">오지·노지</li>
+                                <li className="menu2" onClick={onClickOjinojiCamping}>오지·노지</li>
                                 <li className="menu3" onClick={()=>nav("/community")}>캠핑정보</li>
                                 <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                             </ul>

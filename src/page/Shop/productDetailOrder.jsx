@@ -4,12 +4,12 @@ import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
 import OrderInfo from "./orderInfo";
-import { Button } from "@mui/material-next";
-import { AddShoppingCart, DoneOutline } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import QuantityInput from "./quantityInput";
 import { CartContext } from "../../context/CartContext";
 import Modal from "../../Commons/Modal";
+import  { UserContext } from "../../API/UserInfo";
+import AxiosApi from "../../API/TestAxios";
 
 
 
@@ -18,9 +18,11 @@ import Modal from "../../Commons/Modal";
 const ProductDetailOrder=({product})=> {
     const [quantity, setQuantity] = useState(1);
   const nav = useNavigate();
-  const {addToCart} = useContext(CartContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const { userEmail } = useContext(UserContext);
+  const { addToCart } = useContext(CartContext);
 
+  const [isOpen, setIsOpen] = useState(false);
+  
   const openModal = () => {
     setIsOpen(true);
   };
@@ -28,10 +30,28 @@ const ProductDetailOrder=({product})=> {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const handleAddToCart = async () => {
+    try {
+      console.log(product.id, quantity, userEmail);
+      const response = await AxiosApi.addToCart(product.id, quantity, userEmail);
+      
+      if(response.status === 200) {
+        console.log('성공');
+        
+      
+      // Context에 아이템 추가
+      addToCart(response.data); 
+        closeModal(); 
+      } else {
+        console.log('오류'); 
+      }
+    } catch(error) {
+      console.error( error);
+    }
+  };
 
   return (
     <>
-    {/* onClick={()=> { addToCart(product, quantity);nav("/cart");} */}
    
     <Container>
       <OrderFormHeader product={product}/>
@@ -47,7 +67,8 @@ const ProductDetailOrder=({product})=> {
        
         <p>상품을 카트에 추가하시겠습니까?</p>
          <div className="btnWrapper">
-        <button className="modalBtn" onClick={() => {  addToCart(product, quantity); closeModal(); }}>예</button>
+        <button className="modalBtn"  onClick={handleAddToCart}>
+      예</button>
         <button className="modalBtn" onClick={() => {  closeModal(); }}>아니오</button>  
          
         </div>
