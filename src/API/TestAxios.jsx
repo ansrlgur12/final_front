@@ -105,6 +105,21 @@ const AxiosApi = {
      return await axios.post(domain + `/cart/cartList`, {
         email: email,
     })
-   }
-};
+   },
+
+// 장바구니 삭제
+deleteItem : async(cartItemId, email) => {
+    return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,
+    })
+},
+// 장바구니 수량 수정
+updateItem : async(cartItemId, quantity, email) => {
+    const item = {
+        cartItemId : cartItemId,
+      quantity : quantity,
+      email : email,
+    };
+    return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
+},
+}
 export default AxiosApi;

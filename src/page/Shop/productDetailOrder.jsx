@@ -36,13 +36,17 @@ const ProductDetailOrder=({product})=> {
       const response = await AxiosApi.addToCart(product.id, quantity, userEmail);
       
       if(response.status === 200) {
-        console.log('Item added to cart successfully.');
-        closeModal(); // closeModal() call moved here
+        console.log('성공');
+        
+      
+      // Context에 아이템 추가
+      addToCart(response.data); 
+        closeModal(); 
       } else {
-        console.log('There was an issue with the request.'); // Added this line for error handling
+        console.log('오류'); 
       }
     } catch(error) {
-      console.error('An error occurred while adding the item to the cart:', error);
+      console.error( error);
     }
   };
 
