@@ -78,7 +78,7 @@ const Header = () =>{
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
     const userInfo = useContext(UserContext);
     const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage} = userInfo;
-    const itemsCount = cart.length; // 장바구니에 있는 모든 항목의 개수를 계산합니다
+    const itemsCount = cart.reduce((quantity, product) =>product.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
   
