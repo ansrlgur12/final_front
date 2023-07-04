@@ -3,6 +3,8 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import styled from "@emotion/styled";
 import Header from "../../main/header";
 import SmallKakaoMap from "./SmallKakao";
+import LocationSelect from "./locationSelect";
+import AxiosApi from "../../API/TestAxios";
 
 const WriteContainer = styled.div`
     margin-left: 5vw;
@@ -23,13 +25,6 @@ const Radio = styled.div`
   }
 `;
 
-const TextInput = ({ label }) => (
-  <Option>
-    <label>{label} : </label>
-    <input type="text" />
-  </Option>
-);
-
 const SelectInput = ({ label, options }) => (
   <Option>
     <label>{label} : </label>
@@ -47,7 +42,28 @@ const WriteNewMarker = () => {
   const context = useContext(MarkerContext);
   const { isLatlng } = context;
   const [selectedRadios, setSelectedRadios] = useState([]); // 선택된 라디오 버튼의 상태를 저장할 배열
+  const [dho, setDho] = useState('ALL');
+  const [sigungu, setSigungu] = useState('시.군.구');
+  const [spotNm, setSpotNm] = useState("");
+  const [spotDiff, setSpotDiff] = useState(1);
+  const [spotDesc, setSpotDesc] = useState("");
+  const [mapX, setMapX] = useState("");
+  const [mapY, setMapY] = useState("");
+  const selectedRadiosString = selectedRadios.join(', ');
 
+  const handleDhoChange = (event) => {
+    setDho(event.target.value);
+    setSigungu("시.군.구")
+  };
+
+    const handleSigunguChange = (event) => {
+    setSigungu(event.target.value);
+    };
+
+    const handleResetClick = () => {
+        setDho("ALL");
+        setSigungu("시.군.구");
+    }
 
   const radioOptions = [
     "주변 수돗물",
@@ -63,8 +79,8 @@ const WriteNewMarker = () => {
   ];
 
   useEffect(() => {
-    console.log(isLatlng.La);
-    console.log(selectedRadios);
+    setMapX(isLatlng.Ma);
+    setMapY(isLatlng.La);
   }, [isLatlng, selectedRadios]);
 
   function handleRadioChange(option) {
@@ -78,6 +94,37 @@ const WriteNewMarker = () => {
       setSelectedRadios((prevSelected) => [...prevSelected, option]);
     }
   }
+  const onChangeSpotNm = (e) => {
+    setSpotNm(e.target.value);
+  }
+  const onChangeDiff = (e) => {
+    setSpotDiff(e.target.value);
+  }
+  const onChangeSpotDesc = (e) => {
+    setSpotDesc(e.target.value);
+  }
+  const onClickSubmit = () => {
+    console.log("넘길 자료들");
+    console.log(mapX);
+    console.log(mapY);
+    console.log(selectedRadiosString);
+    console.log(dho);
+    console.log(sigungu);
+    console.log(spotNm);
+    console.log(spotDiff);
+    console.log(spotDesc);
+    submit();
+  }
+  const submit = async() => {
+    const rsp = await AxiosApi.onojiCampData(mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc);
+    console.log(rsp)
+    if(rsp.request.status === 200){
+        console.log("정상등록되었습니다.")
+    }
+    else{
+        console.log("등록 실패")
+    }
+  }
 
   return (
     <>
@@ -85,10 +132,15 @@ const WriteNewMarker = () => {
       <WriteContainer>
         <h2>캠핑 마커 신청하기</h2>
         <Option>
-          <TextInput label="스팟 이름" />
+          <label>스팟 이름 : </label>
+          <input type="text" onChange={onChangeSpotNm}/>
         </Option>
         <Option>
-          <SelectInput label="야영 난이도" options={[1, 2, 3, 4, 5]} />
+          <SelectInput label="야영 난이도" options={[1, 2, 3, 4, 5]} onChange={onChangeDiff}/>
+        </Option>
+        <Option>
+        <LocationSelect dho={dho} sigungu={sigungu} onDhoChange={handleDhoChange} onSigunguChange={handleSigunguChange} onResetClick={handleResetClick} />
+        <button>등록</button>
         </Option>
         {radioOptions.map((option) => (
         <Radio key={option}>
@@ -118,9 +170,9 @@ const WriteNewMarker = () => {
         </Option>
         <Option>
           <label>스팟 소개 : </label>
-          <input type="text" />
+          <input type="text" onChange={onChangeSpotDesc}/>
         </Option>
-        <button>등록</button>
+        <button onClick={onClickSubmit}>등록</button>
       </WriteContainer>
     </>
   );

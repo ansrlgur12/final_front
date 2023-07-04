@@ -106,7 +106,6 @@ const AxiosApi = {
         };
         return await axios.post(domain + "/NewPassword", newP);
     },
-};
 
 
     getAbleIcon : async(contentId) => {
@@ -144,5 +143,20 @@ updateItem : async(cartItemId, quantity, email) => {
     };
     return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
 },
+
+onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro) => {
+    const data = {
+        mapX : mapX,
+        mapY : mapY,
+        sbrsCl : sbrsCl,
+        doNm : doNm,
+        sigunguNm : sigunguNm,
+        facltNm : facltNm,
+        diff : diff.toString(),
+        intro : intro
+    };
+    return await axios.post(domain + '/oji/newMark', data)
+},
+
 }
 export default AxiosApi;
