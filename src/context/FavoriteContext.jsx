@@ -23,13 +23,13 @@ export const FavoriteContext = createContext();
   };
   
  
-  const removeFromFavorite = (productId) => {
+  const removeFromFavorite = (favoriteItemId) => {
     setFavorite(prevFavorite => 
-      prevFavorite.filter(item => item.product.id !== productId) // 주어진 상품 ID와 일치하지 않는 상품들만을 남김
+      prevFavorite.filter(item => item.id !== favoriteItemId) // 주어진 상품 ID와 일치하지 않는 상품들만을 남김
     );
   };
   return (
-    <FavoriteContext.Provider value={{ favorite, addToFavorite,removeFromFavorite,isProductInFavorite }}>
+    <FavoriteContext.Provider value={{ setFavorite, favorite, addToFavorite,removeFromFavorite,isProductInFavorite }}>
       {children}
     </FavoriteContext.Provider>
   );  

@@ -157,6 +157,32 @@ onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro)
     };
     return await axios.post(domain + '/oji/newMark', data)
 },
+  // 찜하기
+  addToFavorite : async(productId,email) => {
+    const item = {
+        productId : productId,
+      email : email,
+    };
+    
+  return await axios.post(domain + `/favorite/add`, item)
+},
+// 찜목록 조회
+favoriteList : async(email) => {
+     
+    return await axios.post(domain + `/favorite/favoriteList`, {
+       email: email,
+   })
+  },
+  // 찜한 상품 삭제
+  favoriteDelete : async(favoriteItemId, email) => {
+    return await axios.post (domain + `/favorite/deleteItem/${favoriteItemId}`, {email : email,
+    })
+},
+  // 찜한 상품 장바구니로 옮기기
+  favoriteMoveToCart : async(favoriteItemId, email) => {
+    return await axios.post (domain + `/favorite/moveToCart/${favoriteItemId}`, {email : email,
+    })
+},
 
 }
 export default AxiosApi;

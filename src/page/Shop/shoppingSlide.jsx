@@ -259,26 +259,34 @@ const SliderContainer = ({ selectedCategory}) => {
         console.error( error);
       }
     };
+    const handleAddToFavorite = async () => {
+      try {
+          console.log(product.id, userEmail);
+          const response = await AxiosApi.addToFavorite(product.id,userEmail);
   
-    
+          if(response.status === 200) {
+              console.log('성공');
+              addToFavorite(product);
+              setLikeClicked(true);
+              setTooltipFavorite('찜 완료!');
+          } else {
+              console.log('오류'); 
+              setTooltipFavorite('이미 찜하셨어요!');
+          }
+  
+      } catch(error) {
+          console.error(error);
+      }
+  
+      setTimeout(() => {
+          setTooltipFavorite('찜하기');
+      }, 2000); // 2초 후에 다시 '찜하기'로 바뀜
+  };
 useEffect(() => {
   // 페이지 로딩시에 해당 상품이 찜 목록에 있는지 확인
   setLikeClicked(isProductInFavorite(product));
 }, []);
-    const handleAddToFavorite = () => {
-      // isProductInFavorite가 true를 반환하면 이미 찜 목록에 상품이 있음
-      if (!likeClicked) {
-        addToFavorite(product);
-        setLikeClicked(true);
-        setTooltipFavorite('찜 완료!');
-      } else {
-        setTooltipFavorite('이미 찜하셨어요!');
-      }
-    
-      setTimeout(() => {
-        setTooltipFavorite('찜하기');
-      }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
-    }
+   
   
     return(
       <>

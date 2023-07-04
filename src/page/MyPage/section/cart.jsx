@@ -95,7 +95,7 @@ const Cart = () => {
 const [cartData, setCartData] = useState([]);
 
 // 서버로부터 데이터를 받아오는 함수
-async function fetchCartData() {
+const fetchCartData= async()=> {
     const response = await AxiosApi.cartList(userEmail);
     if (response.status === 200) {
         setCartData(response.data);
@@ -106,7 +106,7 @@ async function fetchCartData() {
 // useEffect 내에서 fetchCartData 호출
 useEffect(() => {
     fetchCartData();
-}, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행됩니다.
+}, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
 const setQuantity = async (key, quantity) => {
   setQuantityInContext(key, quantity);
 
@@ -240,7 +240,7 @@ const handleRemoveFromCart = async (cartItemId) => {
               <Payment/>
             </TotalPayment>
           </TableContainer>
-          <MyFavorite/>
+          <MyFavorite fetchCartData={fetchCartData}/>
         </ContentContainer>
         
         
