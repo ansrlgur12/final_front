@@ -106,7 +106,6 @@ const AxiosApi = {
         };
         return await axios.post(domain + "/NewPassword", newP);
     },
-};
 
 
     getAbleIcon : async(contentId) => {

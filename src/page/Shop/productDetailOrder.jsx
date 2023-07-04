@@ -40,7 +40,7 @@ const ProductDetailOrder=({product})=> {
         
       
       // Context에 아이템 추가
-      addToCart(response.data); 
+      addToCart(product, quantity); 
         closeModal(); 
       } else {
         console.log('오류'); 
