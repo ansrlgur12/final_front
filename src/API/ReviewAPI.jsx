@@ -5,20 +5,21 @@ export const CAMO_DOMAIN = "http://localhost:8111";
 const ReviewApi = {
 
   //리뷰 생성
-  createReview: async (memberId, title, content, date, postType, viewCount) => {
+  createReview: async (memberId, title, content, date, postType, viewCount, img) => {
     const review = {
       memberId: memberId,
       title: title,
       content: content,
       date: date,
       postType: postType,
-      viewCount: viewCount
+      viewCount: viewCount,
+      img: img
     };
     return await axios.post(`${CAMO_DOMAIN}/review`, review);
   },
 
   //리뷰 수정
-  updateReview: async (id, memberId, title, content, date, postType, viewCount) => {
+  updateReview: async (id, memberId, title, content, date, postType, viewCount, img) => {
     const reviewDto = {
       id: id,
       memberId: memberId,
@@ -26,7 +27,8 @@ const ReviewApi = {
       content: content,
       date: date,
       postType: postType,
-      viewCount: viewCount
+      viewCount: viewCount,
+      img: img
     };
     return await axios.put(`${CAMO_DOMAIN}/review/${id}?memberId=${memberId}`, reviewDto);
   },  

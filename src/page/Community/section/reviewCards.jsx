@@ -39,31 +39,29 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const [reviews, setReviews] = useState([]);
-  const [likesCount, setLikesCount] = useState({});  // 좋아요 수 저장을 위한 state
+  const [likesCount, setLikesCount] = useState({});
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await ReviewApi.getAllReviews();
-        console.log(response.data);  
+        console.log(response.data);
         const reviewData = response.data;
         setReviews(reviewData);
-  
+
         let likesCountData = {};
         for (let review of reviewData) {
           const likesResponse = await LikesApi.countReviewLikes(review.id);
           likesCountData[review.id] = likesResponse.data;
         }
         setLikesCount(likesCountData);
-  
       } catch (error) {
         console.log(error);
       }
     };
-  
+
     fetchReviews();
   }, []);
-  
 
   const renderReviewCards = () => {
     return reviews.map((review, index) => {
@@ -72,25 +70,27 @@ const ReviewCards = () => {
         postTypeText = <p>유료캠핑장</p>;
       }
 
+      const memberProfileImg = review.member ? review.member.profileImg : '';
+
       return (
         <Col span={6} key={index}>
           <ReviewContent
             cover={
               <Link to={`/reviewDetail/${review.id}`}>
                 <img
+                  src={review.img}
                   alt="대표이미지"
-                  src={camping}
                   style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                 />
               </Link>
             }
             actions={[
-              <span><HeartOutlined /> {likesCount[review.id] || 0}</span>,  // 좋아요 수 표시
-              <span><EyeFilled /> {review.viewCount || 0}</span>,  // viewCount 표시
+              <span><HeartOutlined /> {likesCount[review.id] || 0}</span>,
+              <span><EyeFilled /> {review.viewCount || 0}</span>,
             ]}
           >
             <Meta
-              avatar={<Avatar src={profile} />} //유저프로필
+              avatar={<Avatar src={memberProfileImg} />}
               title={review.title}
             />
             {postTypeText}
@@ -103,15 +103,10 @@ const ReviewCards = () => {
   return (
     <Layout>
       <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
-        {/* 작성하기 버튼 */}
         <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
-        
-        {/* 리뷰 카드 목록 */}
         <Row gutter={[10, 15]}>
           {reviews.length > 0 ? renderReviewCards() : <p>리뷰가 없습니다.</p>}
         </Row>
-        
-        {/* 페이지네이션 */}
         <PaginationWrapper>
           <Pagination defaultCurrent={1} total={15} />
         </PaginationWrapper>
