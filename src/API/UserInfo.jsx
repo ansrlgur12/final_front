@@ -11,13 +11,14 @@ const UserStore = (props) => {
     const[userName, setUserName] = useState("");
     const[userPhoneNm, setUserPhoneNm] = useState("");
     const[userAddr, setUserAddr] = useState("");
+    const[id, setId] = useState("");
 
     return(
         <UserContext.Provider value={{userEmail, setUserEmail, password, setPassword,
                                         isLogin, setIsLogin, userImage, setUserImage,
                                         url, setUrl, nickName, setNickName,
                                         userName, setUserName, userPhoneNm, setUserPhoneNm,
-                                        userAddr, setUserAddr}}>
+                                        userAddr, setUserAddr, id, setId}}>
             {props.children}
         </UserContext.Provider>
     );
