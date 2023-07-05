@@ -3,6 +3,7 @@ import styled from "styled-components"
 import SideBarList from "./sideBarList";
 import { MarkerContext } from "../../context/MarkerInfo";
 import LocationSelect from "./locationSelect";
+import OjiSideBarList from "./ojiSideBarList";
 
 const SidebarStyle = styled.div`
 
@@ -105,16 +106,16 @@ right: 1.5vw;
 }
 `;
 
-const Sidebar = (props) => {
-    const {ojinoji} = props;
+const Sidebar = () => {
     const context = useContext(MarkerContext);
-    const {change, setChange, selectedSortBy, setSelectedSortBy} = context;
+    const {change, setChange, selectedSortBy, setSelectedSortBy, currentData} = context;
 
     const [closeMenu, setCloseMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [dho, setDho] = useState('ALL');
     const [sigungu, setSigungu] = useState('시.군.구');
 
+     
     useEffect(()=>{
         console.log(dho, sigungu, selectedSortBy)
     },[dho, sigungu, selectedSortBy])
@@ -149,6 +150,7 @@ const Sidebar = (props) => {
         setDho("ALL");
         setSigungu("시.군.구");
     }
+    
 
    
 
@@ -170,7 +172,11 @@ const Sidebar = (props) => {
                     <p className={`sortBy ${selectedSortBy === '댓글순' ? 'selected' : ''}`} onClick={() => handleSortByClick('댓글순')}>댓글순</p>
                 </div>
                 <div className="locationList">
+                    {currentData === "ojinoji" ? 
+                    <OjiSideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} />
+                    :
                     <SideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} />
+                    }
                 </div>
                 <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
             </div>

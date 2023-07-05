@@ -26,7 +26,7 @@ const IconListBox = styled.div`
     justify-content: flex-start;
     
     margin: 0 2vw;
-    padding: .5em;
+    padding: 1em;
     background-color: rgb(235, 235, 235);
     box-shadow: 1px salmon;
 `;

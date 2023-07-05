@@ -6,7 +6,7 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import AxiosApi from "../../API/TestAxios";
 import ShareButton from "../../Commons/shareButton";
 import sun from "../../images/맑음.png"
@@ -19,13 +19,12 @@ import cloudRain from "../../images/소나기.png"
 import umbrellaImg from "../../images/우산.png"
 import highTem from "../../images/최고기온.png"
 import lowTem from "../../images/최저기온.png"
-import homePage from "../../images/홈페이지.png"
-import ImageList from "./imageList";
 import navigationImg from "../../images/길찾기.png"
 import roadMapImg from "../../images/로드맵.png"
-import IconList from "./iconList";
-import CampReview from "./reviewList";
-
+import OjiIconList from "./ojiIconList";
+import OjiImageList from "./OjiImageList";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 const Container = styled.div`
 
     margin: 0;
@@ -322,7 +321,7 @@ const Information = styled.div`
     }
 `;
 const ImageInfo = styled.div`
-    margin-top: 3.5vh;
+    padding-top: 3.5vh;
     margin-left: 1em;
     display: flex;  
     width: 95%;
@@ -349,12 +348,12 @@ const ImageInfo = styled.div`
     }
 `;
 const IconBox = styled.div`
-    margin-top: 7vh;
+    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 20vh;
-    margin-bottom: 15vh;
+    margin-bottom: 7vh;
 
     .iconBoxDesc{
         margin-left: 1vw;
@@ -374,7 +373,7 @@ const IconBox = styled.div`
     }
 `;
 
-const DetailPage = (props) => {
+const OjiDetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
     const {myLoc, location} = context;
@@ -393,6 +392,7 @@ const DetailPage = (props) => {
         if(location[1] === 0) {
           return;
         } else{
+            console.log(campInfo)
           let mapX;
           let mapY;
           const getWeather = async() => {
@@ -577,8 +577,17 @@ const DetailPage = (props) => {
                     </Section>
     
                     <Section>
-                        <FontAwesomeIcon icon={faPhone} size="lg" color="#9c9c9c" />
-                        <div className="campInfo">{campInfo.tel ? campInfo.tel : "전화번호 없음"}</div>
+                    <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                        <div className="campInfo">캠핑난이도
+                        {[...Array(5)].map((_, index) => (
+                                <FontAwesomeIcon
+                                key={index}
+                                icon={index < Math.round(campInfo.diff) ? fasStar : farStar}
+                                color={index < Math.round(campInfo.diff) ? "#ffc107" : "#e4e5e9"}
+                                size="lg"
+                                />
+                            ))}
+                        </div>
                         <div className="selectDateSec">
                             <div className="weatherSection">
                                 <img className="img umb" src={highTem} alt="highTem Icon" />
@@ -592,14 +601,6 @@ const DetailPage = (props) => {
                     </Section>
                     <Navigiation>
                         <div className="btnSection">
-                            <div className={campInfo.resveCl.length > 5 ? "longBtn" : "btn"}>{campInfo.resveCl.length > 5 ? "전화, 온라인" : "전화"}</div>
-                            <p>예약방식</p>
-                        </div>
-                        <div className="btnSection cen">
-                            <a href={campInfo.homepage} className="btn"><img className="img" src={homePage} alt="" /></a>
-                            <p>홈페이지</p>
-                        </div>
-                        <div className="btnSection">
                             <a href={findRoadUrl()} className="btn" target="_blank"><img className="img" src={navigationImg} alt="" /></a>
                             <p>길찾기</p>
                         </div>
@@ -611,13 +612,13 @@ const DetailPage = (props) => {
                     <IconBox>
                         <div className="iconBoxDesc">
                             <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                            <div className="campInfo">이용시설</div>
+                            <div className="campInfo">야영지 시설</div>
                         </div>
-                        <IconList />
+                        <OjiIconList />
                     </IconBox>
                     <Information>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="campInfo">캠핑장 소개</div>
+                        <div className="campInfo">야영지 정보</div>
                         <div className="value">
                         {campInfo.intro ? campInfo.intro : (campInfo.featureNm ? campInfo.featureNm : "소개글이 없습니다.")}
                         </div>
@@ -626,20 +627,11 @@ const DetailPage = (props) => {
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
                         <div className="campInfo img">이미지</div>
                         <div className="value">
-                            <ImageList />
+                            <OjiImageList />
                         </div>
                     </ImageInfo>
-                    <Information>
-                        <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="campInfo">안내사항</div>
-                        <div className="value">{campInfo.featureNm ? campInfo.featureNm : "안내사항이 없습니다."}</div>
-                    </Information>
                     <IconBox>
-                        <div className="iconBoxDesc">
-                            <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                            <div className="campInfo">리뷰</div>
-                        </div>
-                            <CampReview />
+                        <div className="iconBox"></div>
                     </IconBox>
                     
                     </div>
@@ -651,4 +643,4 @@ const DetailPage = (props) => {
         </Container>
     )
 }
-export default DetailPage;
+export default OjiDetailPage;

@@ -5,6 +5,7 @@ import Header from "../../main/header";
 import SmallKakaoMap from "./SmallKakao";
 import LocationSelect from "./locationSelect";
 import AxiosApi from "../../API/TestAxios";
+import { storage } from '../../firebase/firebaseConfig';
 
 const WriteContainer = styled.div`
     margin-left: 5vw;
@@ -49,7 +50,11 @@ const WriteNewMarker = () => {
   const [spotDesc, setSpotDesc] = useState("");
   const [mapX, setMapX] = useState("");
   const [mapY, setMapY] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [downloadUrls, setDownloadUrls] = useState([]);
   const selectedRadiosString = selectedRadios.join(', ');
+  const selectedUrlsString = downloadUrls.join(', ');
+  const addr1 = `${dho} ${sigungu}`;
 
   const handleDhoChange = (event) => {
     setDho(event.target.value);
@@ -79,8 +84,8 @@ const WriteNewMarker = () => {
   ];
 
   useEffect(() => {
-    setMapX(isLatlng.Ma);
-    setMapY(isLatlng.La);
+    setMapY(isLatlng.Ma);
+    setMapX(isLatlng.La);
   }, [isLatlng, selectedRadios]);
 
   function handleRadioChange(option) {
@@ -113,10 +118,12 @@ const WriteNewMarker = () => {
     console.log(spotNm);
     console.log(spotDiff);
     console.log(spotDesc);
+    console.log(addr1);
+    console.log(selectedUrlsString);
     submit();
   }
   const submit = async() => {
-    const rsp = await AxiosApi.onojiCampData(mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc);
+    const rsp = await AxiosApi.onojiCampData(mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
     console.log(rsp)
     if(rsp.request.status === 200){
         console.log("정상등록되었습니다.")
@@ -126,6 +133,28 @@ const WriteNewMarker = () => {
     }
   }
 
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    const filesArray = Array.from(files);
+    setSelectedFiles([...selectedFiles, ...filesArray]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const uploadPromises = selectedFiles.map(async (file) => {
+        const storageRef = storage.ref();
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        return fileRef.getDownloadURL();
+      });
+
+      const urls = await Promise.all(uploadPromises);
+      setDownloadUrls(urls);
+    } catch (error) {
+      console.log(error);
+      throw new Error('이미지 업로드에 실패하였습니다.');
+    }
+  };
   return (
     <>
       <Header />
@@ -136,11 +165,17 @@ const WriteNewMarker = () => {
           <input type="text" onChange={onChangeSpotNm}/>
         </Option>
         <Option>
-          <SelectInput label="야영 난이도" options={[1, 2, 3, 4, 5]} onChange={onChangeDiff}/>
+          <label>야영 난이도</label>
+          <select value={spotDiff} onChange={onChangeDiff}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
         </Option>
         <Option>
         <LocationSelect dho={dho} sigungu={sigungu} onDhoChange={handleDhoChange} onSigunguChange={handleSigunguChange} onResetClick={handleResetClick} />
-        <button>등록</button>
         </Option>
         {radioOptions.map((option) => (
         <Radio key={option}>
@@ -171,6 +206,23 @@ const WriteNewMarker = () => {
         <Option>
           <label>스팟 소개 : </label>
           <input type="text" onChange={onChangeSpotDesc}/>
+        </Option>
+        <Option>
+            <div>
+            <input type="file" multiple onChange={handleFileChange} />
+            <button onClick={handleUpload}>등록</button>
+            </div>
+            <div className="preview-container">
+                {selectedFiles.map((file) => (
+                <img
+                    key={file.name}
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                    className="preview-image"
+                />
+                ))}
+            </div>
         </Option>
         <button onClick={onClickSubmit}>등록</button>
       </WriteContainer>

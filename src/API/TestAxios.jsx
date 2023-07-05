@@ -8,7 +8,7 @@ const AxiosApi = {
 
         return await axios.get(domain + "/camp/camping-data")
     },
-
+// 캠핑데이터 가져오기
     getCampData : async(dho, sigungu) => {
 
         return await axios.get(domain + `/camp/campData/${dho}/${sigungu}`)
@@ -33,12 +33,12 @@ const AxiosApi = {
         return await axios.get(domain+ `/productDetail/${id}`)
     
     },
-
+// 캠핑데이터 오버레이 띄우기
     getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
-
-    getAnimalCampData : async(dho, sigungu, selectedSortBy) => {
+// 애완동물 가능 캠핑장 데이터
+    getAnimalCampData : async(dho, sigungu) => {
 
     return await axios.get(domain + `/camp/animalData/${dho}/${sigungu}`)
 },
@@ -59,19 +59,19 @@ const AxiosApi = {
         return await axios.post(domain + "/intro/signup", member);
 
     },
-
+// 일반 캠핑장 검색
     searchCampData : async(searchValue, currentData) => {
         return await axios.get(domain + `/camp/searchData/${searchValue}/${currentData}`)
     },
-
+// 날씨 가져오기
     getWeather : async(mapX, mapY, date) => {
         return await axios.get(domain + `/weather/getWeather/${mapX}/${mapY}/${date}`)
     },                        
-
+// 조회수
     viewCount : async(facltNm) => {
         return await axios.get(domain + `/camp/viewCount/${facltNm}`);
     },
-
+// 이미지 띄우기
     getImage : async(contentId) => {
         return await axios.get(domain + `/image/getImage/${contentId}`);
     },
@@ -107,7 +107,7 @@ const AxiosApi = {
         return await axios.post(domain + "/NewPassword", newP);
     },
 
-
+// 각 캠핑장 부대시설, 강아지출입 등 정보 가져오기
     getAbleIcon : async(contentId) => {
         return await axios.get(domain + `/camp/getIcon/${contentId}`);
     },
@@ -143,9 +143,10 @@ updateItem : async(cartItemId, quantity, email) => {
     };
     return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
 },
-
-onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro) => {
+// 오지캠핑 데이터 db에 저장
+onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
     const data = {
+        addr1 : addr1,
         mapX : mapX,
         mapY : mapY,
         sbrsCl : sbrsCl,
@@ -153,7 +154,8 @@ onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro)
         sigunguNm : sigunguNm,
         facltNm : facltNm,
         diff : diff.toString(),
-        intro : intro
+        intro : intro,
+        url : url
     };
     return await axios.post(domain + '/oji/newMark', data)
 },
@@ -182,7 +184,22 @@ favoriteList : async(email) => {
   favoriteMoveToCart : async(favoriteItemId, email) => {
     return await axios.post (domain + `/favorite/moveToCart/${favoriteItemId}`, {email : email,
     })
+}, // 오지 캠핑 데이터 가져오기
+getOjiNojiData : async(dho, sigungu) => {
+
+    return await axios.get(domain + `/oji/ojiData/${dho}/${sigungu}`)
+},  // 오지 캠핑 데이터 오버레이로 불러오기
+getOjiOverLayInfo : async(xValue, yValue) => {
+    return await axios.get(domain + `/oji/overlay/${xValue}/${yValue}`)
+}, // 오지 캠핑 데이터 검색창 검색
+searchOjiCampData : async(searchValue) => {
+    console.log(searchValue)
+    return await axios.get(domain + `/oji/searchOjiData/${searchValue}`)
+}, // 오지 캠핑 상세페이지 조회수
+viewOjiCount : async(facltNm) => {
+    return await axios.get(domain + `/oji/viewCount/${facltNm}`);
 },
+
 
 }
 export default AxiosApi;
