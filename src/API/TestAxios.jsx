@@ -199,7 +199,16 @@ searchOjiCampData : async(searchValue) => {
 viewOjiCount : async(facltNm) => {
     return await axios.get(domain + `/oji/viewCount/${facltNm}`);
 },
-
+createComment: async(campId, content) => {
+    const comment = {
+        campId: campId,
+      content: content
+    };
+    return await axios.post(domain + `/campcomment`, comment);
+  },
+getComment : async(campId) => {
+    return await axios.get(domain + `/campcomment/${campId}`);
+},
 
 }
 export default AxiosApi;

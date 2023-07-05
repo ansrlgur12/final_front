@@ -392,25 +392,27 @@ const OjiDetailPage = (props) => {
         if(location[1] === 0) {
           return;
         } else{
-            console.log(campInfo)
-          let mapX;
-          let mapY;
+            const currentDate = new Date();
+            const currentHour = currentDate.getHours();
+        
+            // Check if current hour is between 00:00 and 05:00
+            if (currentHour >= 0 && currentHour < 5) {
+              // Subtract 1 day from the current date
+              currentDate.setDate(currentDate.getDate() - 1);
+            }
+        
+            const year = String(currentDate.getFullYear());
+            const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+            const day = String(currentDate.getDate()).padStart(2, "0");
+        
+            const date = year + month + day;
+            let mapX = Math.floor(location[1]);
+            let mapY = Math.floor(location[0]);
           const getWeather = async() => {
-           
-              const currentDate = new Date();
-              currentDate.setDate(currentDate.getDate());
-              const year = String(currentDate.getFullYear());
-              const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-              const day = String(currentDate.getDate()).padStart(2, '0');
-              
-              const date = year + month + day; 
-              mapX = Math.floor(location[1]);
-              mapY = Math.floor(location[0]);
               const rsp = await AxiosApi.getWeather(mapX, mapY, date);
               const filteredData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'TMN' || item.category === 'TMX'))
               const popData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'POP' || item.category === 'SKY' || item.category === 'PTY')&& item.fcstTime === '1200')
               console.log(popData)
-            //   console.log(filteredData)
               let maxTemperature = -Infinity;
               let minTemperature = Infinity;
     
