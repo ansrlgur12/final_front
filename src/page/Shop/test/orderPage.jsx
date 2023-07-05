@@ -387,16 +387,8 @@ const handleOrderConfirm = async () => {
           value={1}
           onChange={handleChange}
         />
-        <label htmlFor="1">무통장입금</label>
-        {payMethodId === '1' && (
-          <input
-            className="payerName"
-            name="payerName"
-            value={payerName}
-            placeholder={'입금자명'}
-            onChange={handleChange}
-          />
-        )}
+        <label htmlFor="1">카카오페이</label>
+     
       </Wrapper>
       <h3>개인정보 수집/제공</h3>
       <Wrapper>
