@@ -292,17 +292,16 @@ const handleOrderConfirm = async () => {
       <Header />
      
         <Container>
+        <h1>주문 결제</h1>
+        <h3>주문 상품</h3>
+          
            
-             <Table  
+      
+      <Wrapper>
+      
+      <Table  
                     columns={columns}
                     dataSource={data} /> 
-            <TotalPayment>
-             
-            </TotalPayment>
-            <h1>주문 결제</h1>
-      <h3>주문 상품</h3>
-      <Wrapper>
-      <span>주문리스트</span>
       </Wrapper>
       <h3>주문자 정보</h3>
       <Wrapper>
