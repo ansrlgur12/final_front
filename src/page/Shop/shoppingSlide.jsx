@@ -1,4 +1,4 @@
-import React, {useState,useEffect, useCallback} from "react";
+import React, {useState,useEffect, useCallback,useContext} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "styled-components";
 import 'swiper/css';
@@ -16,6 +16,7 @@ import CartButton from "../../Commons/Buttons/cartButton";
 import ArrowButton from "../../Commons/Buttons/arrowButton";
 import Skeleton from "@mui/material/Skeleton";
 import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
+import { UserContext } from "../../API/UserInfo";
 
 
 export const SwiperStyle = styled.div`
@@ -183,6 +184,7 @@ const SliderContainer = ({ selectedCategory}) => {
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
     const [productCache, setProductCache] = useState({});
+    
   
 
     const fetchProducts = useCallback(async () => {
@@ -225,38 +227,66 @@ const SliderContainer = ({ selectedCategory}) => {
 
      const IconButtons = ({productId,product}) =>{
       const { addToCart } = useCart(); // CartContext를 사용해서 addToCart 함수를 가져옴
+      const { userEmail } = useContext(UserContext);
       const { addToFavorite,isProductInFavorite} = useFavorite(); // FavoriteContext를 사용해서 addToFavorite 함수를 가져옴
       const [tooltipCart, setTooltipCart] = useState('장바구니 담기');
       const [tooltipFavorite, setTooltipFavorite] = useState('찜하기')
       // 좋아요 서버구현 전까지 쓸 useState
   const [likeClicked, setLikeClicked]= useState(false);
-      const handleAddToCart = () => {
-        addToCart(product, 1);
+
+
+ 
+
+    const handleAddToCart = async () => {
+      try {
+        console.log(product.id, userEmail);
+        const response = await AxiosApi.addToCart(product.id, 1, userEmail);
+        
+        if(response.status === 200) {
+          console.log('성공');
+          
+        
+        // Context에 아이템 추가
+        addToCart(product, 1); 
         setTooltipCart('장바구니에 담겼어요!');
         setTimeout(() => {
             setTooltipCart('장바구니 담기');
         }, 2000);  // 2초 후에 다시 '장바구니 담기'로 바뀜
+        } else {
+          console.log('오류'); 
+        }
+      } catch(error) {
+        console.error( error);
+      }
     };
+    const handleAddToFavorite = async () => {
+      try {
+          console.log(product.id, userEmail);
+          const response = await AxiosApi.addToFavorite(product.id,userEmail);
   
-    
+          if(response.status === 200) {
+              console.log('성공');
+              addToFavorite(product);
+              setLikeClicked(true);
+              setTooltipFavorite('찜 완료!');
+          } else {
+              console.log('오류'); 
+              setTooltipFavorite('이미 찜하셨어요!');
+          }
+  
+      } catch(error) {
+          console.error(error);
+      }
+  
+      setTimeout(() => {
+          setTooltipFavorite('찜하기');
+      }, 2000); // 2초 후에 다시 '찜하기'로 바뀜
+  };
 useEffect(() => {
   // 페이지 로딩시에 해당 상품이 찜 목록에 있는지 확인
   setLikeClicked(isProductInFavorite(product));
 }, []);
-    const handleAddToFavorite = () => {
-      // isProductInFavorite가 true를 반환하면 이미 찜 목록에 상품이 있음
-      if (!likeClicked) {
-        addToFavorite(product);
-        setLikeClicked(true);
-        setTooltipFavorite('찜 완료!');
-      } else {
-        setTooltipFavorite('이미 찜하셨어요!');
-      }
-    
-      setTimeout(() => {
-        setTooltipFavorite('찜하기');
-      }, 2000);  // 2초 후에 다시 '찜하기'로 바뀜
-    }
+   
   
     return(
       <>

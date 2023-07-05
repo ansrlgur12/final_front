@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Descriptions } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import { UserContext } from '../../../API/UserInfo';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -18,6 +19,8 @@ const StyledContent = styled.div`
 `;
 
 const UserInfo = () => {
+  const context = useContext(UserContext);
+  const { nickName, userName, userPhoneNm, userEmail, userAddr } = context;
   return (
     <>
       <Header />
@@ -25,12 +28,12 @@ const UserInfo = () => {
         <Sidebar />
         <StyledContent>
           <Descriptions title="User Info">
-            <Descriptions.Item label="UserName">정승현</Descriptions.Item>
-            <Descriptions.Item label="NickName">곰돌이</Descriptions.Item>
-            <Descriptions.Item label="Telephone">01023618786</Descriptions.Item>
-            <Descriptions.Item label="Email">tmdgus21@naver.com</Descriptions.Item>
+            <Descriptions.Item label="UserName">{userName}</Descriptions.Item>
+            <Descriptions.Item label="NickName">{nickName}</Descriptions.Item>
+            <Descriptions.Item label="Telephone">{userPhoneNm}</Descriptions.Item>
+            <Descriptions.Item label="Email">{userEmail}</Descriptions.Item>
             <Descriptions.Item label="Address">
-              서울
+              {userAddr}
             </Descriptions.Item>
           </Descriptions>
         </StyledContent>

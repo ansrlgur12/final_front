@@ -29,12 +29,12 @@ const AxiosApi = {
         return await axios.post(domain + "/intro/login", loginData);
     },
 
-   productDetail : async(id) =>{
-    return await axios.get(domain+ `/productDetail/${id}`)
- 
-   },
+    productDetail : async(id) =>{
+        return await axios.get(domain+ `/productDetail/${id}`)
+    
+    },
 
-   getOverlayInfo : async(xValue, yValue) => {
+    getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
 
@@ -81,10 +81,32 @@ const AxiosApi = {
         const check = {
             params: {
                 nickName : nickName
-              }
+            }
         }
         return await axios.get(domain + '/intro', check);
-      },
+    },
+
+    // 회원 정보 수정
+    userInfo : async(id, chgNick, chgEmail, chgPhone, chgImg)=> {
+        const info = {
+            id : id,
+            newNick : chgNick,
+            email : chgEmail,
+            newPhone : chgPhone,
+            newImg : chgImg
+        };
+        return await axios.post(domain + "/UserEdit", info);
+    },
+
+    // 비밀번호 변경
+    newPassword : async(userEmail, pwdChange) => {
+        const newP = {
+            email : userEmail,
+            newPwd : pwdChange
+        };
+        return await axios.post(domain + "/NewPassword", newP);
+    },
+
 
     getAbleIcon : async(contentId) => {
         return await axios.get(domain + `/camp/getIcon/${contentId}`);
@@ -105,6 +127,62 @@ const AxiosApi = {
      return await axios.post(domain + `/cart/cartList`, {
         email: email,
     })
-   }
-};
+   },
+
+// 장바구니 삭제
+deleteItem : async(cartItemId, email) => {
+    return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,
+    })
+},
+// 장바구니 수량 수정
+updateItem : async(cartItemId, quantity, email) => {
+    const item = {
+        cartItemId : cartItemId,
+      quantity : quantity,
+      email : email,
+    };
+    return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
+},
+
+onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro) => {
+    const data = {
+        mapX : mapX,
+        mapY : mapY,
+        sbrsCl : sbrsCl,
+        doNm : doNm,
+        sigunguNm : sigunguNm,
+        facltNm : facltNm,
+        diff : diff.toString(),
+        intro : intro
+    };
+    return await axios.post(domain + '/oji/newMark', data)
+},
+  // 찜하기
+  addToFavorite : async(productId,email) => {
+    const item = {
+        productId : productId,
+      email : email,
+    };
+    
+  return await axios.post(domain + `/favorite/add`, item)
+},
+// 찜목록 조회
+favoriteList : async(email) => {
+     
+    return await axios.post(domain + `/favorite/favoriteList`, {
+       email: email,
+   })
+  },
+  // 찜한 상품 삭제
+  favoriteDelete : async(favoriteItemId, email) => {
+    return await axios.post (domain + `/favorite/deleteItem/${favoriteItemId}`, {email : email,
+    })
+},
+  // 찜한 상품 장바구니로 옮기기
+  favoriteMoveToCart : async(favoriteItemId, email) => {
+    return await axios.post (domain + `/favorite/moveToCart/${favoriteItemId}`, {email : email,
+    })
+},
+
+}
 export default AxiosApi;

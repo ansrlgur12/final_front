@@ -9,6 +9,8 @@ import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import Payment from '../../Shop/test/inicis';
+import AxiosApi from '../../../API/TestAxios';
+import { UserContext } from '../../../API/UserInfo';
 const LayoutContainer = styled.div` 
   display: flex;
 
@@ -84,24 +86,67 @@ const TotalAmount = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { cart,removeFromCart,setQuantity } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
-  
-  useEffect(() => {
-    const newData = cart.map((item, index) => ({
-      
-      key: item.product.id, 
-      id: item.product.id,
-      productName: item.product.productName,
-      imageUrl: item.product.imageUrl ,
-      paymentAmount:new Intl.NumberFormat('ko-KR').format(item.product.price) + "원",
-      quantity: item.quantity, 
-      
-    }));
+  const { userEmail } = useContext(UserContext);
 
-    setData(newData);
-  }, [cart]);
+// 상태 정의
+const [cartData, setCartData] = useState([]);
+
+// 서버로부터 데이터를 받아오는 함수
+const fetchCartData= async()=> {
+    const response = await AxiosApi.cartList(userEmail);
+    if (response.status === 200) {
+        setCartData(response.data);
+        setCart(response.data);
+    }
+}
+
+// useEffect 내에서 fetchCartData 호출
+useEffect(() => {
+    fetchCartData();
+}, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
+const setQuantity = async (key, quantity) => {
+  setQuantityInContext(key, quantity);
+
+  if (window.location.pathname === '/cart') {
+    const response = await AxiosApi.updateItem(key, quantity, userEmail);
+    if (response.status !== 200) {
+      console.error('Failed to update item quantity');
+    } else {
+      fetchCartData();
+    }
+  }
+};
+  
+useEffect(() => {
+  const newData = cartData.map((item) => ({
+      key: item.cartItemId, 
+      id: item.cartItemId,
+      productName: item.productName,
+      imageUrl: item.imageUrl,
+      paymentAmount: new Intl.NumberFormat('ko-KR').format(item.price) + "원",
+      quantity: item.quantity,
+  }));
+
+  setData(newData);
+}, [cartData]);
+
+const handleRemoveFromCart = async (cartItemId) => {
+  try {
+    console.log(userEmail,cartItemId);
+    const response = await AxiosApi.deleteItem(cartItemId, userEmail);
+    if (response.status === 200) {
+      removeFromCart(cartItemId);
+      fetchCartData(); // 장바구니 데이터를 다시 가져옵니다.
+    } else {
+      console.log('삭제에 실패하였습니다.'); 
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
   const columns = [
     {
       title: '상품 이미지',
@@ -139,7 +184,7 @@ const Cart = () => {
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
-       <DeleteButton onClick={() => removeFromCart(record.key)}/>
+       <DeleteButton onClick={() => handleRemoveFromCart(record.key)}/>
        )
       },
     ];
@@ -195,7 +240,7 @@ const Cart = () => {
               <Payment/>
             </TotalPayment>
           </TableContainer>
-          <MyFavorite/>
+          <MyFavorite fetchCartData={fetchCartData}/>
         </ContentContainer>
         
         

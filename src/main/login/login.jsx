@@ -165,7 +165,7 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {nickName, setUserEmail, setPassword, setIsLogin, setNickName, setUserName, setUserPhoneNm, setUserAddr, setUserImage} = context;
+    const {nickName, setUserEmail, setPassword, setIsLogin, setNickName, setUserName, setUserPhoneNm, setUserAddr, setUserImage, setId} = context;
 
     // 아이디, 패스워드 입력
     const[inputEmail, setInputEmail] = useState("");
@@ -208,8 +208,9 @@ const Login = () => {
             setUserPhoneNm(response.data.userPhoneNm);
             setUserAddr(response.data.userAddr);
             setUserImage(response.data.userImg);
+            setId(response.data.id);
             setIsLogin(true);
-            console.log(nickName);
+            console.log(response.data.id);
         } else {
             console.log("로그인 에러");
             setModalOpen(true);

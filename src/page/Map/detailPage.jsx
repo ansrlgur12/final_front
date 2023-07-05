@@ -631,7 +631,7 @@ const DetailPage = (props) => {
                     <Information>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
                         <div className="campInfo">안내사항</div>
-                        <div className="value">{campInfo.featureNm}</div>
+                        <div className="value">{campInfo.featureNm ? campInfo.featureNm : "안내사항이 없습니다."}</div>
                     </Information>
                     <IconBox>
                         <div className="iconBox"></div>

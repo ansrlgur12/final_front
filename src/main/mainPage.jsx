@@ -21,7 +21,7 @@ const MainPage = () => {
             <MainPageStyle>
                 <Header/>
                 <MainSection1/>
-            </MainPageStyle> :
+            </MainPageStyle>
 
         </>
     );
