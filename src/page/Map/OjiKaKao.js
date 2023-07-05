@@ -9,7 +9,7 @@ import campingCar from "../../images/캠핑카.png"
 
 const { kakao } = window;
 
-const KakaoMap = (props) => {
+const OjiKakaoMap = (props) => {
   const context = useContext(MarkerContext);
   const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, setMyLoc} = context;
   const { markerPositions, campLocMarkerImg} = props;
@@ -57,7 +57,7 @@ const KakaoMap = (props) => {
     if (kakaoMap === null) {
       return;
     }
-    console.log(markerPositions)
+    console.log(markerPositions);
     const sortedMarkers = markerPositions.sort((a, b) => {
         const distanceA = getDistance(
           { latitude: isCenter.getLat(), longitude: isCenter.getLng() },
@@ -184,4 +184,4 @@ const KakaoMap = (props) => {
   );
 }
 
-export default KakaoMap;
+export default OjiKakaoMap;

@@ -39,6 +39,7 @@ import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
 import Payment from './page/Shop/test/inicis';
+import ImageTest from './page/Map/ImageTest';
 
 function App() {
 /*
@@ -88,6 +89,8 @@ function App() {
                 <Route path='/signup' element={<SignUpPage />} />
                 <Route path='/myFavorite' element={<MyFavorite />} />
                 <Route path='/payment' element={<Payment />} />
+                <Route path='/imageTest' element={<ImageTest />} />
+
            
               </Routes>
             </Router>

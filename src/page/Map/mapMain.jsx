@@ -94,6 +94,7 @@ const MapMain = () => {
           const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
           const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
           setMarkerPositions(positions);
+          console.log(markerPositions);
           setMarker(markerImage);
           setSelectedSortBy("이름순");
         }
@@ -107,6 +108,7 @@ const MapMain = () => {
       const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
       const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
       setMapLocations(positions);
+      console.log(markerPositions);
     }
     getCampingData();
 
