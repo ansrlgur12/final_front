@@ -40,6 +40,7 @@ import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
 import Payment from './page/Shop/test/inicis';
 import ImageTest from './page/Map/ImageTest';
+import OrderPage from './page/Shop/test/orderPage';
 
 function App() {
 /*
@@ -91,6 +92,7 @@ function App() {
                 <Route path='/payment' element={<Payment />} />
                 <Route path='/imageTest' element={<ImageTest />} />
 
+                <Route path='/orderpage' element={<OrderPage />} />
            
               </Routes>
             </Router>
