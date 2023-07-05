@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
-import { Table, Button } from 'antd';
+import { Table } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import Payment from '../../Shop/test/inicis';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+
+
 const LayoutContainer = styled.div` 
   display: flex;
 
@@ -61,7 +63,14 @@ tbody {
   align-items: center;
   justify-content: center;
 }
-
+.ant-table-cell div{
+  align-items: center;
+  justify-content: center;
+}
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  
+ 
+}
 
 
 
@@ -216,9 +225,7 @@ const handleRemoveFromCart = async (cartItemId) => {
     
   };
  
-  const handlePurchase = () => {//구매금액 출력 핸들러
-    alert(`구매하기: ${totalPaymentAmount.toLocaleString()}원`);
-  };
+
 
   return (
     <>
