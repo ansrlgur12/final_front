@@ -25,6 +25,7 @@ import navigationImg from "../../images/길찾기.png"
 import roadMapImg from "../../images/로드맵.png"
 import IconList from "./iconList";
 import CampReview from "./reviewList";
+import DetailPageComment from "./detailPageComment";
 
 const Container = styled.div`
 
@@ -295,7 +296,7 @@ const Navigiation = styled.div`
 `;
 const Information = styled.div`
     margin-top: 3.5vh;
-    margin-bottom: 3.5vh;
+    margin-bottom: 7vh;
     margin-left: 1em;
     display: flex;  
     width: 90%;
@@ -354,11 +355,34 @@ const IconBox = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     height: 20vh;
-    margin-bottom: 15vh;
+    margin-bottom: 10vh;
 
     .iconBoxDesc{
         margin-left: 1vw;
-        margin-bottom: 1vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 50%;
+    }
+    .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: auto;
+        margin-right: .5em;
+        
+    }
+`;
+const CommentBox = styled.div`
+    margin-top: 7vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    margin-bottom: 10vh;
+
+    .iconBoxDesc{
+        margin-left: 1vw;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -393,24 +417,27 @@ const DetailPage = (props) => {
         if(location[1] === 0) {
           return;
         } else{
-          let mapX;
-          let mapY;
-          const getWeather = async() => {
-           
-              const currentDate = new Date();
-              currentDate.setDate(currentDate.getDate());
-              const year = String(currentDate.getFullYear());
-              const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-              const day = String(currentDate.getDate()).padStart(2, '0');
-              
-              const date = year + month + day; 
-              mapX = Math.floor(location[1]);
-              mapY = Math.floor(location[0]);
+            const currentDate = new Date();
+            const currentHour = currentDate.getHours();
+        
+            // Check if current hour is between 00:00 and 05:00
+            if (currentHour >= 0 && currentHour < 5) {
+              // Subtract 1 day from the current date
+              currentDate.setDate(currentDate.getDate() - 1);
+            }
+        
+            const year = String(currentDate.getFullYear());
+            const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+            const day = String(currentDate.getDate()).padStart(2, "0");
+        
+            const date = year + month + day;
+            let mapX = Math.floor(location[1]);
+            let mapY = Math.floor(location[0]);
+            const getWeather = async() => {
               const rsp = await AxiosApi.getWeather(mapX, mapY, date);
               const filteredData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'TMN' || item.category === 'TMX'))
               const popData = rsp.data.filter(item => item.fcstDate === formattedDate && (item.category === 'POP' || item.category === 'SKY' || item.category === 'PTY')&& item.fcstTime === '1200')
               console.log(popData)
-            //   console.log(filteredData)
               let maxTemperature = -Infinity;
               let minTemperature = Infinity;
     
@@ -629,11 +656,14 @@ const DetailPage = (props) => {
                             <ImageList />
                         </div>
                     </ImageInfo>
-                    <Information>
-                        <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="campInfo">안내사항</div>
-                        <div className="value">{campInfo.featureNm ? campInfo.featureNm : "안내사항이 없습니다."}</div>
-                    </Information>
+                   
+                    <CommentBox>
+                        <div className="iconBoxDesc">
+                            <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
+                            <div className="campInfo">댓글</div>
+                        </div>
+                            <DetailPageComment />
+                    </CommentBox>
                     <IconBox>
                         <div className="iconBoxDesc">
                             <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
