@@ -7,7 +7,7 @@ const Community = () => {
     <>
       <Header />
       <ReviewCards />
-      <SearchComponent />
+      {/* <SearchComponent /> */}
     </>
   );
 };
