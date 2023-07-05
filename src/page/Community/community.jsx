@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "../../main/header";
 import ReviewCards from "./section/reviewCards";
-import SearchComponent from "../../util/SearchComponent";
+import BlogSearch from "../../util/SearchComponent";
+
 
 
 const Community = () => {
@@ -9,7 +10,7 @@ const Community = () => {
     <>
       <Header />
       <ReviewCards />
-      {/* <SearchComponent /> */}
+      <BlogSearch/>
     </>
   );
 };
