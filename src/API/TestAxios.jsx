@@ -38,7 +38,7 @@ const AxiosApi = {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
     },
 
-    getAnimalCampData : async(dho, sigungu, selectedSortBy) => {
+    getAnimalCampData : async(dho, sigungu) => {
 
     return await axios.get(domain + `/camp/animalData/${dho}/${sigungu}`)
 },
@@ -144,8 +144,9 @@ updateItem : async(cartItemId, quantity, email) => {
     return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
 },
 
-onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro) => {
+onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
     const data = {
+        addr1 : addr1,
         mapX : mapX,
         mapY : mapY,
         sbrsCl : sbrsCl,
@@ -153,7 +154,8 @@ onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro)
         sigunguNm : sigunguNm,
         facltNm : facltNm,
         diff : diff.toString(),
-        intro : intro
+        intro : intro,
+        url : url
     };
     return await axios.post(domain + '/oji/newMark', data)
 },
@@ -183,6 +185,21 @@ favoriteList : async(email) => {
     return await axios.post (domain + `/favorite/moveToCart/${favoriteItemId}`, {email : email,
     })
 },
+getOjiNojiData : async(dho, sigungu) => {
+
+    return await axios.get(domain + `/oji/ojiData/${dho}/${sigungu}`)
+},
+getOjiOverLayInfo : async(xValue, yValue) => {
+    return await axios.get(domain + `/oji/overlay/${xValue}/${yValue}`)
+},
+searchOjiCampData : async(searchValue) => {
+    console.log(searchValue)
+    return await axios.get(domain + `/oji/searchOjiData/${searchValue}`)
+},
+viewOjiCount : async(facltNm) => {
+    return await axios.get(domain + `/oji/viewCount/${facltNm}`);
+},
+
 
 }
 export default AxiosApi;

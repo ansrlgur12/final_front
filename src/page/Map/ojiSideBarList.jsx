@@ -103,7 +103,7 @@ const ListStyle = styled.div`
 }
 `;
 
-const SideBarList = (props) => {
+const OjiSideBarList = (props) => {
     const context = useContext(MarkerContext);
     const {searchValue, change, dho, sigungu} = props;
     const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy} = context;
@@ -113,31 +113,12 @@ const SideBarList = (props) => {
     
     
     useEffect(()=>{
-        
-        if(currentData === 'animal') {
-            const getAnimalList = async() => {
-                const rsp = await AxiosApi.getAnimalCampData(dho, sigungu);
-                setCampListData(rsp.data);
-                setCurrentPage(1);
-                console.log(rsp.data)
-            }
-            getAnimalList();
-        } else if(currentData === 'normal') {
-            const getCampList = async() => {
-                const rsp = await AxiosApi.getCampData(dho, sigungu);
-                setCampListData(rsp.data);
-                setCurrentPage(1);
-                console.log(rsp.data)
-            }
-            getCampList();
-        } else if(currentData === "ojinoji") {
             const getOjiList = async ()=> {
                 const rsp = await AxiosApi.getOjiNojiData(dho, sigungu);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
             }
             getOjiList();
-        }
         
     },[currentData, dho, sigungu])
 
@@ -145,10 +126,11 @@ const SideBarList = (props) => {
         if(change === 1) {
             console.log(searchValue)
             const searchCamp = async() => {
-                const rsp = await AxiosApi.searchCampData(searchValue, currentData);
+                const rsp = await AxiosApi.searchOjiCampData(searchValue);
+                console.log(rsp);
                 setCampListData(rsp.data);
                 setCurrentPage(1);
-                setChange(0)
+                setChange(0);
             }
             searchCamp();
         }
@@ -227,7 +209,14 @@ const SideBarList = (props) => {
             return (
               <div className="listContainer" key={campListData.facltNm}>
                 <div className="leftSide">
-                  <div className="imageContainer" style={{ backgroundImage: `url(${campListData.firstImageUrl ? campListData.firstImageUrl : noImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+                  <div className="imageContainer" style={{
+                      backgroundImage: `url(${campListData.url
+                        ? campListData.url.split(",")[0]
+                        : noImage})`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                    }}></div>
                 </div>
                 <div className="rightSide" onClick={() => onClickData(campListData.mapX, campListData.mapY)}>
                   <div className="campTitle">
@@ -258,4 +247,4 @@ const SideBarList = (props) => {
     )
 }
 
-export default SideBarList;
+export default OjiSideBarList;

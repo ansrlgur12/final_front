@@ -12,6 +12,7 @@ import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import OjiDetailPage from "./ojiDetailPage";
 
 
 const MapStyled = styled.div`
@@ -129,7 +130,7 @@ const MapStyled = styled.div`
     }
  `;
 
-const Overlay = (props) => {
+const OjiOverlay = (props) => {
   const context = useContext(MarkerContext);
   const {location, setContentId, currentData} = context;
   const {open, close} = props
@@ -139,22 +140,20 @@ const Overlay = (props) => {
 
   // 좋아요 서버구현 전까지 쓸 useState
   const [likeClicked, setLickClicked]= useState(false);
+
   
 
   useEffect(()=>{
       const loading = async() => {
         const getOverlay = async() => {
-          const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
-          if(rsp.status === 200) {
+            const rsp = await AxiosApi.getOjiOverLayInfo(location[0], location[1]);
             setCampInfo(rsp.data);
-            console.log(rsp.data)
             setContentId(rsp.data[0]);
             if(clickedFacltNm === ""){
-              return;
+                return;
             }else{
-              await AxiosApi.viewCount(clickedFacltNm);
+                await AxiosApi.viewOjiCount(clickedFacltNm);
             }
-          }
         };
         getOverlay();
       }
@@ -182,20 +181,21 @@ const Overlay = (props) => {
         <div className="campInfo" key={campInfo.facltNm}>
         <div className="info">
           <div className="title">
-            <p className="titleDesc">유료 캠핑장</p>
+            <p className="titleDesc">오지.노지</p>
             <p className="campTitle">{campInfo.facltNm.length > 8 ? campInfo.facltNm.substring(0, 8) + "..." : campInfo.facltNm}</p>
             <div onClick={close} className="close" title="닫기"></div>
           </div>
           <div className="body">
-            <div className="img" style={{backgroundImage: `url(${campInfo.firstImageUrl ? campInfo.firstImageUrl : noImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}></div>
+            <div className="img" style={{
+                      backgroundImage: `url(${campInfo.url
+                        ? campInfo.url.split(",")[0]
+                        : noImage})`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                    }}></div>
             <div className="desc">
               <div className="ellipsis">{campInfo.addr1}</div>
-              <div className="ellipsis jibun">
-                <FontAwesomeIcon icon={faPhone} />
-                  <div className="num">
-                    {campInfo.tel ? campInfo.tel : " 전화번호 없음"}
-                  </div>
-                </div>
             </div>
           </div>
           <div className="bottomLine">
@@ -211,7 +211,7 @@ const Overlay = (props) => {
         </div>
         ))}
       </div>
-      <DetailPage open={detailOpen} close = {closeDetail} campInfo = {campInfo}/>
+      <OjiDetailPage open={detailOpen} close = {closeDetail} campInfo = {campInfo}/>
       
     
 
@@ -221,4 +221,4 @@ const Overlay = (props) => {
     );
 };
 
-export default Overlay;
+export default OjiOverlay;
