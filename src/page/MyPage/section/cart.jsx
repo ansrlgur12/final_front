@@ -18,14 +18,16 @@ const LayoutContainer = styled.div`
 
 `;
 
-const SidebarContainer = styled.div`
+export const SidebarContainer = styled.div`
   flex: 0 0 200px;
+  margin-top:1.2rem ;
   height: 100vh;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 `;
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   flex: 1;
   padding: 20px;
   text-align: center;

@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import { CartContext } from '../../../context/CartContext';
-
+import { ContentContainer, SidebarContainer } from '../../MyPage/section/cart';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import Payment from '../../Shop/test/inicis';
@@ -11,6 +11,7 @@ import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import OrderInput from '../../../Commons/OrderInput';
 import SearchAddress from '../../../Commons/Adress';
+import Sidebar from '../../MyPage/sidebar';
 
 
 
@@ -70,8 +71,9 @@ const TotalAmount = styled.div`
 
 
 const Container = styled.section`
+display: flex;
 box-sizing: border-box;
-padding-top: 130px;
+padding-top: 70px;
 width: 70vw;
 height: auto;
 margin: auto;
@@ -81,7 +83,7 @@ h1 {
   }
 
   h3 {
-    margin-top: 5rem;
+    margin-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
   }
@@ -292,17 +294,27 @@ const handleOrderConfirm = async () => {
       <Header />
      
         <Container>
-        <h1>주문 결제</h1>
-        <h3>주문 상품</h3>
+        
+       
+        <SidebarContainer>
+        주문자정보
+        </SidebarContainer>
+        <ContentContainer>
+       
+        
           
            
       
-      <Wrapper>
-      
+     
+      <TableContainer>
+      <h3>주문 상품</h3>
       <Table  
                     columns={columns}
                     dataSource={data} /> 
-      </Wrapper>
+                    </TableContainer>
+   
+     
+      <TableContainer>
       <h3>주문자 정보</h3>
       <Wrapper>
         <OrderInput
@@ -317,13 +329,7 @@ const handleOrderConfirm = async () => {
           value={ordererPhone}
           onChange={handleChange}
         />
-        <OrderInput
-          label={'이메일(선택)'}
-          name="ordererEmail"
-          type="email"
-          value={ordererEmail}
-          onChange={handleChange}
-        />
+       
       </Wrapper>
       <h3>배송 정보</h3>
       <Wrapper>
@@ -391,6 +397,7 @@ const handleOrderConfirm = async () => {
      
       </Wrapper>
       <h3>개인정보 수집/제공</h3>
+      </TableContainer>
       <Wrapper>
         <input
           type="checkbox"
@@ -399,6 +406,7 @@ const handleOrderConfirm = async () => {
           value={agree}
         />
         결제 진행 필수 전체 동의
+        
         <BtnWrapper>
           {agree ? (
             <button type="button" onClick={handleOrderConfirm}>
@@ -411,7 +419,7 @@ const handleOrderConfirm = async () => {
           )}
         </BtnWrapper>
       </Wrapper>
-         
+      </ContentContainer>
         
           </Container>
       </>
