@@ -209,6 +209,9 @@ createComment: async(campId, content) => {
 getComment : async(campId) => {
     return await axios.get(domain + `/campcomment/${campId}`);
 },
-
+verifyPayment : async(imp_uid) =>{
+    
+    return await axios.post(domain + `/verifyIamport/${imp_uid}`);
+},
 }
 export default AxiosApi;

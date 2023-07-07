@@ -5,7 +5,7 @@ import Modal from './Modal';
 
 
 
-const SearchAddress = (props) => {
+const SearchAddress = ({handleAddress}) => {
   
   
 
@@ -18,13 +18,16 @@ const SearchAddress = (props) => {
     const closeModal = () => {
       setIsOpen(false);
     };
-    const address = props.address;
-    const setAddress = props.setAddress;
   
     const onCompletePost = (data) => {
-      console.log(data.address);
-      setAddress(data.address);
-    };
+      console.log(data);
+      handleAddress({
+          fullAddress: data.address, 
+          zipcode: data.zonecode,
+      });
+      closeModal();
+  };
+
   
     const postCodeStyle = {
      
@@ -43,7 +46,7 @@ const SearchAddress = (props) => {
        
       <button onClick={openModal}>
         주소찾기
-        <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal isOpen={isOpen} onClose={closeModal}> 
        
         <DaumPostcode
           style={postCodeStyle}
@@ -73,9 +76,10 @@ const BtnWrapper = styled.div`
     background: #ccc;
     padding: 0.5rem 0.8rem;
     border-radius: 0.4rem;
+    cursor: pointer;
   }
 
   button:hover {
-    background: green;
+    background: #2D6247; 
   }
 `;

@@ -2,7 +2,7 @@ import React, { createContext, useState,useContext } from 'react';
 export const CartContext = createContext();
 const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
-  
+    const [selectedItems, setSelectedItems] = useState([]);
     let cartItemId = 0;  // 각 항목에 할당할 고유한 cartItemId
   
     const addToCart = (product, quantity) => {
@@ -17,7 +17,7 @@ const CartProvider = ({ children }) => {
         )
       );
     };
-  
+   
     const removeFromCart = (cartItemId) => {
       setCart(prevCart =>
         prevCart.filter(item => item.id !== cartItemId)
@@ -25,7 +25,7 @@ const CartProvider = ({ children }) => {
     };
   
   return (
-    <CartContext.Provider value={{ setCart,cart, addToCart,setQuantity,removeFromCart }}>
+    <CartContext.Provider value={{ setCart,cart, addToCart,setQuantity,removeFromCart,selectedItems, setSelectedItems }}>
       {children}
     </CartContext.Provider>
   );  

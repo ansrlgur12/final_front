@@ -6,12 +6,13 @@ import { CartContext } from '../../../context/CartContext';
 import { ContentContainer, SidebarContainer } from '../../MyPage/section/cart';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
-import Payment from '../../Shop/test/inicis';
+import Payment from './danal';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import OrderInput from '../../../Commons/OrderInput';
-import SearchAddress from '../../../Commons/Adress';
+import SearchAddress from '../../../Commons/Address';
 import Sidebar from '../../MyPage/sidebar';
+import { useOrderContext } from '../../../context/OrderContext';
 
 
 
@@ -25,6 +26,7 @@ const TableContainer = styled.div`
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
+  margin-bottom: 20rem;
 }
 button.ant-btn{
   background-color: #2D6247; 
@@ -105,9 +107,10 @@ const BtnWrapper = styled.div`
   button {
     width: 100%;
     border: 0;
+  cursor: pointer;
   
-    color: #ccc;
-    background: green;
+    color: #fff;
+    background: #2D6247; 
     padding: 1rem 2rem;
     border-radius: 0.4rem;
   }
@@ -125,44 +128,44 @@ const OrderPage = () => {
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
-  
+  const {selectedItems} = useContext(CartContext)
   const [orderList, setOrderList] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [totalShipCost, setTotalShipCost] = useState(0);
   const [agree, setAgree] = useState(false);
   const orderNumber = Math.floor(Math.random() * 10000000) + 1;
   const orderTime = new Date().toLocaleString();
+  const [numberValue, setNumberValue] = useState("");
+  const { setOrderData } = useOrderContext();
+
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
 
-// 서버로부터 데이터를 받아오는 함수
-// const fetchCartData= async()=> {
-//     const response = await AxiosApi.cartList(userEmail);
-//     if (response.status === 200) {
-//         setCartData(response.data);
-//         setCart(response.data);
-//     }
-// }
 
-// useEffect 내에서 fetchCartData 호출
-// useEffect(() => {
-//     fetchCartData();
-// }, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
 
   
 useEffect(() => {
-  const newData = cartData.map((item) => ({
-      key: item.cartItemId, 
-      id: item.cartItemId,
-      productName: item.productName,
-      imageUrl: item.imageUrl,
-      paymentAmount: new Intl.NumberFormat('ko-KR').format(item.price) + "원",
-      quantity: item.quantity,
+  console.log(selectedItems);
+  const newData = selectedItems.map((item) => ({
+    key: item.cartItemId,
+    id: item.cartItemId,
+    productName: item.productName,
+    imageUrl: item.imageUrl,
+    price: item.price,
+    quantity: item.quantity,
   }));
 
   setData(newData);
-}, [cartData]);
+  const cost = selectedItems.reduce((acc, item) => {
+    const price = parseInt(item.price.replace(/[^0-9]/g, ""));  // extract numeric part of price
+    return acc + price * item.quantity;
+  }, 0);
+  setTotalCost(cost);
+  console.log(cost);
+}, [selectedItems]);
+
+
 
 
 const [inputs, setInputs] = useState({
@@ -180,7 +183,7 @@ const [inputs, setInputs] = useState({
 
 const {
   ordererName,
-  ordererPhone,
+ ordererPhone,
   ordererEmail,
   delivName,
   delivPhone,
@@ -194,11 +197,33 @@ const {
 
 const handleChange = (e) => {
   const { value, name } = e.target;
-  setInputs({
-    ...inputs,
-    [name]: value,
-  });
+  if (name === "ordererPhone" || name === "delivPhone") {
+  
+    let digitOnlyValue = value.replace(/\D/g, "");
+
+    //하이픈 추가가
+    if (digitOnlyValue.length > 2) {
+      if (digitOnlyValue.length < 7) {
+        digitOnlyValue = digitOnlyValue.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+      } else {
+        digitOnlyValue = digitOnlyValue.replace(
+          /(\d{3})(\d{4})(\d{1,4})/,
+          "$1-$2-$3"
+        );
+      }
+    }
+    setInputs({
+      ...inputs,
+      [name]: digitOnlyValue,
+    });
+  } else {
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  }
 };
+
 
 const [isSameInfo, setIsSameInfo] = useState(false);
 
@@ -208,7 +233,7 @@ const handleIsSameInfo = () => {
     setInputs({
       ...inputs,
       delivName: ordererName,
-      delivPhone: ordererPhone,
+      delivPhone: delivPhone,
     });
   }
 };
@@ -223,25 +248,29 @@ const handleAddress = (data) => {
 
 const handleAgree = () => {
   setAgree(!agree);
+
+  setOrderData(orderdata); 
 };
 
-const handleOrderConfirm = async () => {
-  const orderdata = {
-    orderNumber,
-    orderTime,
-    products: orderList,
-    totalCost,
-    orderer_name: ordererName,
-    orderer_phone: ordererPhone,
-    orderer_email: ordererEmail,
-    deliv_name: delivName,
-    deliv_Phone: delivPhone,
-    address: fullAddress,
-    payMethod: payMethodId,
-    agree,
-  };
+const orderdata = {
+   
+  products: orderList,
+  totalCost,
+  orderer_name: ordererName,
+  orderer_phone: ordererPhone,
+  orderer_email: ordererEmail,
+  deliv_name: delivName,
+  deliv_Phone: delivPhone,
+  address: fullAddress,
+  zipcode: zipcode,
+  
+  agree,
+};
 
-}
+ 
+ 
+
+
   const columns = [
     {
       title: '상품 이미지',
@@ -261,8 +290,8 @@ const handleOrderConfirm = async () => {
   
     {
       title: '판매가',
-      dataIndex: 'paymentAmount',
-      key: 'paymentAmount',
+      dataIndex: 'price',
+      key: 'price',
     },
     {
       title: '수량',
@@ -270,12 +299,11 @@ const handleOrderConfirm = async () => {
       key: 'quantity',
     },
     {
-      title: '삭제하기',
-      dataIndex: 'delete',
-      key: 'delete',
-      render: (text, record) => ( // 이 함수가 IconButton을 반환
-       <DeleteButton />
-       )
+      title: '배송비',
+      dataIndex: 'delivery',
+      render: () => '무료',
+      
+       
       },
     ];
 
@@ -366,7 +394,7 @@ const handleOrderConfirm = async () => {
             />
           </>
         )}
-        <SearchAddress handleAddress={handleAddress} />
+        <SearchAddress  handleAddress={handleAddress} />
         <OrderInput label={'우편번호'} value={zipcode} readOnly={true} />
         <OrderInput label={'주소'} value={fullAddress} readOnly={true} />
         <OrderInput
@@ -397,7 +425,6 @@ const handleOrderConfirm = async () => {
      
       </Wrapper>
       <h3>개인정보 수집/제공</h3>
-      </TableContainer>
       <Wrapper>
         <input
           type="checkbox"
@@ -409,16 +436,16 @@ const handleOrderConfirm = async () => {
         
         <BtnWrapper>
           {agree ? (
-            <button type="button" onClick={handleOrderConfirm}>
-              {totalCost}원 결제하기
-            </button>
+           <Payment totalCost={totalCost.toLocaleString()}/>
           ) : (
-            <button type="button" onClick={handleOrderConfirm} disabled>
-              {totalCost}원 결제하기
+            <button type="button" disabled>
+             결제하기
             </button>
           )}
         </BtnWrapper>
       </Wrapper>
+      </TableContainer>
+    
       </ContentContainer>
         
           </Container>
