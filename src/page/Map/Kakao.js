@@ -11,7 +11,7 @@ const { kakao } = window;
 
 const KakaoMap = (props) => {
   const context = useContext(MarkerContext);
-  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, setMyLoc} = context;
+  const {markerLat, markerLng, zoomLev, overlayOpen, setOverlayOpen, setLocation, setMyLoc, setXValue, setYValue} = context;
   const { markerPositions, campLocMarkerImg} = props;
   const [kakaoMap, setKakaoMap] = useState(null);
   const [, setMarkers] = useState([]);
@@ -41,8 +41,13 @@ const KakaoMap = (props) => {
         const map = new kakao.maps.Map(container.current, options);
 
         kakao.maps.event.addListener(map, 'dragend', function() {        
-          var latlng = map.getCenter(); 
+          var latlng = map.getCenter();
+          console.log(latlng);
           setCenter(latlng);
+          console.log(latlng.La);
+          console.log(latlng.Ma);
+          setXValue(latlng.La);
+          setYValue(latlng.Ma);
           setOverlayOpen(false);
       });
         setCenter(center);
