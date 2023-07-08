@@ -113,7 +113,7 @@ const SideBarList = (props) => {
     
     
     useEffect(()=>{
-        
+
         if(currentData === 'animal') {
             const getAnimalList = async() => {
                 const rsp = await AxiosApi.getAnimalCampData(dho, sigungu);
@@ -138,7 +138,7 @@ const SideBarList = (props) => {
             }
             getOjiList();
         }
-        
+
     },[currentData, dho, sigungu])
 
     useEffect(()=>{
@@ -220,7 +220,6 @@ const SideBarList = (props) => {
 
     return (
         <ListStyle>
-            <div className="count">총 <p className="red">'{campListData.length}'</p> 개의 검색결과가 있습니다</div>
           {displayedCamps && displayedCamps.map((campListData) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     
