@@ -210,11 +210,16 @@ getComment : async(campId) => {
     return await axios.get(domain + `/campcomment/${campId}`);
 },
 
+
 viewCampMarker : async(markerLat, markerLng) => {
 
     return await axios.get(domain + `/camp/viewCampMarker/${markerLat}/${markerLng}`)
 },
 
+verifyPayment : async(imp_uid) =>{
+    
+    return await axios.post(domain + `/verifyIamport/${imp_uid}`);
+},
 
 }
 export default AxiosApi;
