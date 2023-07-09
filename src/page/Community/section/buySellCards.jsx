@@ -3,11 +3,12 @@ import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import 사고팔기header from '../../../images/사고팔기header.jpg';
+import profile from '../../../images/profile.png';
+import 사고팔기1header from '../../../images/사고팔기1header.jpg';
 import ReviewApi from '../../../API/ReviewAPI';
 import LikesApi from '../../../API/LikesAPI';
-import { SelectButton } from '../community';
 import Header from '../../../main/header';
+import { SelectButton } from '../community';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -38,7 +39,7 @@ const PaginationWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ReviewCards = () => {
+const BuySellCards = () => {
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
 
@@ -66,8 +67,13 @@ const ReviewCards = () => {
 
   const renderReviewCards = () => {
     return reviews.map((review, index) => {
-      if (review.postType !== 1) {
-        return null; // postType이 1이 아닌 경우, 리뷰 카드를 렌더링하지 않음
+      if (review.postType !== 2) {
+        return null; // postType이 1이면 나오지않음
+      }
+
+      let postTypeText = null;
+      if (review.postType === 1) {
+        postTypeText = <p>유료캠핑장</p>;
       }
 
       const memberProfileImg = review.member ? review.member.profileImg : '';
@@ -93,7 +99,7 @@ const ReviewCards = () => {
               avatar={<Avatar src={memberProfileImg} />}
               title={review.title}
             />
-            <p>유료캠핑장</p>
+            {postTypeText}
           </ReviewContent>
         </Col>
       );
@@ -104,9 +110,10 @@ const ReviewCards = () => {
     <>
     <Header />
     <img
-                  src={사고팔기header}
+                  src={사고팔기1header}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '270px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '270px', objectFit: 'cover',
+                 }}
                 />
     <SelectButton />
     <Layout>
@@ -124,4 +131,4 @@ const ReviewCards = () => {
   );
 };
 
-export default ReviewCards;
+export default BuySellCards;
