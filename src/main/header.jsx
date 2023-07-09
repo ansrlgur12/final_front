@@ -8,6 +8,8 @@ import { IconButton, Badge } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../API/UserInfo";
+import SearchBox from "./search/searchBox";
+import { UserOutlined } from '@ant-design/icons';
 
 
 const HeaderStyle = styled.div`
@@ -138,11 +140,9 @@ const Header = () =>{
                         </nav>
                     </div>
                     <div className="headerRight">
-                        <div>
-                            <input type="search" />
-                        </div>
-                        <div className="myProfile" style={profileImg} onClick={()=>nav("/myPage")}>mypage 임시</div>
-                        <div className="logOut" onClick={logOut}>로그아웃</div>
+                        <SearchBox />
+                        <UserOutlined onClick={()=>nav("/myPage")}/>
+                        {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
