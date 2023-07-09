@@ -38,10 +38,9 @@ import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
-import Payment from './page/Shop/test/danal';
+import Payment from './page/Shop/test/inicis';
 import ImageTest from './page/Map/ImageTest';
 import OrderPage from './page/Shop/test/orderPage';
-import { OrderProvider } from './context/OrderContext';
 
 function App() {
 /*
@@ -58,7 +57,6 @@ function App() {
   return (
     <div className="App">
       <UserStore>
-        <OrderProvider>
         <MarkerStore>
           <FavoriteProvider>
           <CartProvider>
@@ -101,9 +99,7 @@ function App() {
           </CartProvider>
           </FavoriteProvider>
         </MarkerStore>
-        </OrderProvider>
       </UserStore>
-
     </div>
   );
 }

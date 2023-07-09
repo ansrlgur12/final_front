@@ -111,54 +111,54 @@ const AxiosApi = {
     getAbleIcon : async(contentId) => {
         return await axios.get(domain + `/camp/getIcon/${contentId}`);
     },
-     // 장바구니 추가
-      addToCart : async(productId,quantity,email) => {
-      const item = {
-          productId : productId,
-        quantity : quantity,
-        email : email,
-      };
-      
-    return await axios.post(domain + `/cart`, item)
-},
-// 장바구니 조회
-   cartList : async(email) => {
-     
-     return await axios.post(domain + `/cart/cartList`, {
-        email: email,
-    })
-   },
 
-// 장바구니 삭제
-deleteItem : async(cartItemId, email) => {
-    return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,
-    })
-},
-// 장바구니 수량 수정
-updateItem : async(cartItemId, quantity, email) => {
-    const item = {
-        cartItemId : cartItemId,
-      quantity : quantity,
-      email : email,
-    };
-    return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
-},
-// 오지캠핑 데이터 db에 저장
-onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
-    const data = {
-        addr1 : addr1,
-        mapX : mapX,
-        mapY : mapY,
-        sbrsCl : sbrsCl,
-        doNm : doNm,
-        sigunguNm : sigunguNm,
-        facltNm : facltNm,
-        diff : diff.toString(),
-        intro : intro,
-        url : url
-    };
-    return await axios.post(domain + '/oji/newMark', data)
-},
+     // 장바구니 추가
+    addToCart : async(productId,quantity,email) => {
+        const item = {
+            productId : productId,
+            quantity : quantity,
+            email : email,
+        };
+        return await axios.post(domain + `/cart`, item);
+    },
+
+    // 장바구니 조회
+    cartList : async(email) => {
+        return await axios.post(domain + `/cart/cartList`, {
+        email: email,
+        })
+    },
+
+    // 장바구니 삭제
+    deleteItem : async(cartItemId, email) => {
+        return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,})
+    },
+
+    // 장바구니 수량 수정
+    updateItem : async(cartItemId, quantity, email) => {
+        const item = {
+            cartItemId : cartItemId,
+            quantity : quantity,
+            email : email,
+        };
+        return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
+    },
+    // 오지캠핑 데이터 db에 저장
+    onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
+        const data = {
+            addr1 : addr1,
+            mapX : mapX,
+            mapY : mapY,
+            sbrsCl : sbrsCl,
+            doNm : doNm,
+            sigunguNm : sigunguNm,
+            facltNm : facltNm,
+            diff : diff.toString(),
+            intro : intro,
+            url : url
+        };
+        return await axios.post(domain + '/oji/newMark', data)
+    },
   // 찜하기
   addToFavorite : async(productId,email) => {
     const item = {
@@ -209,9 +209,13 @@ createComment: async(campId, content) => {
 getComment : async(campId) => {
     return await axios.get(domain + `/campcomment/${campId}`);
 },
-verifyPayment : async(imp_uid) =>{
-    
-    return await axios.post(domain + `/verifyIamport/${imp_uid}`);
-},
+
+    // 이메일 인증
+    emailCheck : async(checkEmail) => {
+        const conEmail = {
+            emailOverlap : checkEmail
+        };
+        return await axios.post(domain + `/intro`, conEmail)
+    }
 }
 export default AxiosApi;
