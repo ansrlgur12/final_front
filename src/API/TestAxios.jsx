@@ -210,6 +210,13 @@ getComment : async(campId) => {
     return await axios.get(domain + `/campcomment/${campId}`);
 },
 
+
+viewCampMarker : async(markerLat, markerLng) => {
+
+    return await axios.get(domain + `/camp/viewCampMarker/${markerLat}/${markerLng}`)
+},
+
+
     // 이메일 인증
     emailCheck : async(checkEmail) => {
         const conEmail = {
@@ -217,5 +224,6 @@ getComment : async(campId) => {
         };
         return await axios.post(domain + `/intro`, conEmail)
     }
+
 }
 export default AxiosApi;

@@ -9,10 +9,6 @@ import WriteNewMarker from './page/Map/writeNewMarker';
 import KakaoLogin from './API/KaKaoLogin';
 import TestPage from './page/Map/testPage';
 import CartProvider from './context/CartContext';
-// 게시판
-// import Post from './page/MyPage/section/post'; // 회의 후 진행
-
-// 마이 페이지
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
 import Delete from './page/MyPage/section/delete';
@@ -26,12 +22,11 @@ import ProductDetailForm from './page/Shop/productDetail';
 import Intro from './main/intro';
 import ChannelService from './util/ChannelService';
 import ReviewCards from './page/Community/section/reviewCards';
+import BuySellCards from './page/Community/section/buySellCards';
 import ReviewDetail from './page/Community/section/reviewDetail';
 import Community from './page/Community/community';
 import MyReview from './page/MyPage/section/myReview';
 import MyFavorite from './page/MyPage/section/myFavorite';
-
-
 import SignUpPage from './main/login/signUp';
 import Login from './main/login/login';
 import UserStore from './API/UserInfo';
@@ -42,8 +37,9 @@ import Payment from './page/Shop/test/inicis';
 import ImageTest from './page/Map/ImageTest';
 import OrderPage from './page/Shop/test/orderPage';
 
+
 function App() {
-/*
+
   ChannelService.boot({
     "pluginKey": "c9dca6c0-c10b-43ae-8b33-46985229621d",
     "memberId": "유저ID",
@@ -53,7 +49,7 @@ function App() {
       "id": "유저ID"
     }
   });
-*/
+
   return (
     <div className="App">
       <UserStore>
@@ -69,6 +65,7 @@ function App() {
                 <Route path='/ojinoji' element={<OjiNojiMapMain />} />
                 <Route path='/newMark' element={<WriteNewMarker />} />
                 <Route path='/community' element={<Community />} />
+                <Route path='/buySellCards' element={<BuySellCards />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
                 <Route path='/writeReviewPage' element={<WriteReviewPage />} />
                 <Route path='/modifiedReview/:id' element={<ModifiedReview />} />

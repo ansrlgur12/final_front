@@ -54,7 +54,7 @@ const ReviewCard = styled.div`
 }
 `;
 const ReviewList = styled.div`
-padding-top: 2vh;
+    padding-top: 2vh;
     padding-bottom: 2vh;
     height: auto;
     display: flex;
@@ -80,6 +80,7 @@ padding-top: 2vh;
     }
     .title{
         font-size: 1.1em;
+        margin-bottom: .5em;
     }
     .nameDate{
         display: flex;
