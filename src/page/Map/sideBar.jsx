@@ -168,7 +168,7 @@ const Sidebar = () => {
                     <p className={`sortBy ${selectedSortBy === '이름순' ? 'selected' : ''}`} onClick={() => handleSortByClick('이름순')}>이름순</p>
                     <p className={`sortBy ${selectedSortBy === '등록순' ? 'selected' : ''}`} onClick={() => handleSortByClick('등록순')}>등록순</p>
                     <p className={`sortBy ${selectedSortBy === '조회순' ? 'selected' : ''}`} onClick={() => handleSortByClick('조회순')}>조회순</p>
-                    <p className={`sortBy ${selectedSortBy === '추천순' ? 'selected' : ''}`} onClick={() => handleSortByClick('추천순')}>추천순</p>
+                    <p className={`sortBy ${selectedSortBy === '인기순' ? 'selected' : ''}`} onClick={() => handleSortByClick('인기순')}>인기순</p>
                     <p className={`sortBy ${selectedSortBy === '댓글순' ? 'selected' : ''}`} onClick={() => handleSortByClick('댓글순')}>댓글순</p>
                 </div>
                 <div className="locationList">

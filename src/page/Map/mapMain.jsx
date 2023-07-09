@@ -36,6 +36,9 @@ export const MainStyle = styled.div`
         height: 3vw;
     }
     .selectBtn{
+      border-radius : 15px;
+      background-color: rgba(45, 98, 71, 0.8);
+      padding: 1vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -81,44 +84,33 @@ export const MainStyle = styled.div`
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy} = context;
+  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
   const [mapLocations, setMapLocations] = useState([]);
   const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
 
+
   useEffect(()=>{
-      const loading = async() => {
-        const getCampingData = async() => {
-          const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
-          const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
-          setMarkerPositions(positions);
-          console.log(markerPositions);
-          setMarker(markerImage);
-          setSelectedSortBy("이름순");
+    const viewCampMarker = async() => {
+        const rsp = await AxiosApi.viewCampMarker(yValue, xValue);
+        const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
+        const filteredData = rsp.data.filter(item => item.animalCmgCl !== "불가능");
+        const animalPositions = filteredData.map(item => [item.mapY, item.mapX, item.facltNm]);
+
+        if(currentData === "normal") {
+              setMarkerPositions(positions);
+              setMarker(markerImage);
+              setSelectedSortBy("이름순");
+        }else if(currentData === "animal") {
+              setMarkerPositions(animalPositions);
+              setMarker(animalCamp);
+              setSelectedSortBy("이름순");
         }
-        getCampingData();
-      } 
-      loading();
-  },[])
-
-  useEffect(()=>{
-    const getCampingData = async() => {
-      const rsp = await AxiosApi.getCampData("ALL", "시.군.구");
-      const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
-      setMapLocations(positions);
-      console.log(markerPositions);
     }
-    getCampingData();
-
-    const getAnimalCampingData = async() => {
-      const rsp = await AxiosApi.getAnimalCampData("ALL", "시.군.구");
-      const positions = rsp.data.map(item => [item.mapY, item.mapX, item.facltNm]);
-      setAnimalLocations(positions);
-      }
-      getAnimalCampingData();
-  },[currentData])
+    viewCampMarker();
+  },[xValue, yValue, currentData]);
 
   const closeOverlay = () => {
     setOverlayOpen(false)

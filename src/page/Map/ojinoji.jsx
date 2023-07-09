@@ -9,6 +9,7 @@ import AxiosApi from "../../API/TestAxios";
 import { MarkerContext } from "../../context/MarkerInfo";
 import OjiKakaoMap from "./OjiKaKao";
 import OjiOverlay from "./ojiOverlay";
+import newMark from "../../images/종이펜.png"
 
 
 
@@ -51,12 +52,22 @@ const OjiNojiMapMain = () => {
                 <OjiKakaoMap markerPositions={markerPositions} campLocMarkerImg={markerImage}/>
                 <Sidebar />
                 <OjiOverlay open={overlayOpen} close={closeOverlay}/>
-                <button className="selectBtn" onClick={()=>nav("/newMark")}>장소 신청하기</button>
+                <div className="selectBtn">
+                    <div className="btnSection" onClick={()=>nav("/newMark")}>
+                        <img className="img" src={newMark} alt="" />
+                        <p>캠핑장 등록</p>
+                    </div>
+                </div>
                 </div>
             </div>
             <button onClick={()=>nav("/imageTest")}>이미지테스트</button>
         </MainStyle>
         </>
     );
+
+    //<div className="btnSection" onClick={setNormalMapInfo}>
+//     <img className="img" src={markerImage} alt="" />
+//     <p>전체 캠핑장</p>
+//   </div>
 }
 export default OjiNojiMapMain;
