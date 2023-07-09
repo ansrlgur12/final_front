@@ -34,7 +34,7 @@ const KakaoMap = (props) => {
         console.log(zoomLev + "zoom 값")
     
         const options = {
-          center,
+          center: center,
           level: zoomLev,
           maxLevel: 13
         };
@@ -42,10 +42,7 @@ const KakaoMap = (props) => {
 
         kakao.maps.event.addListener(map, 'dragend', function() {        
           var latlng = map.getCenter();
-          console.log(latlng);
           setCenter(latlng);
-          console.log(latlng.La);
-          console.log(latlng.Ma);
           setXValue(latlng.La);
           setYValue(latlng.Ma);
           setOverlayOpen(false);
@@ -159,7 +156,6 @@ const KakaoMap = (props) => {
           let yValue = position.Ma;  
           setLocation([xValue, yValue]);
           setOverlayOpen(true);
-          console.log("오버레이 오픈" + overlayOpen);
           
           const markerPosition = marker.getPosition();
           kakaoMap.setCenter(markerPosition);

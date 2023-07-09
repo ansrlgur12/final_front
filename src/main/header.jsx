@@ -84,7 +84,6 @@ const Header = () =>{
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
   
-    console.log(id)
 
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,

@@ -139,6 +139,7 @@ const Overlay = (props) => {
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
   const [clickedFacltNm, setClickedFacltNm] = useState("");
+  const [dataId, setDataId] = useState(10);
   
   // const [count, setCount] = useState(0);
   // const [likeClicked, setLikeClicked]= useState(false);
@@ -146,27 +147,30 @@ const Overlay = (props) => {
   useEffect(()=>{
       const loading = async() => {
         const getOverlay = async() => {
+          const userId = id;
           const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
           if(rsp.status === 200) {
-            setCampInfo(rsp.data);
-            setContentId(rsp.data[0]);
+            if (rsp.data && rsp.data.length > 0) {
+              setDataId(rsp.data[0].id);
+              setCampInfo(rsp.data);
+              setContentId(rsp.data[0]);
+              const rsp2 = await AxiosApi.viewCampLike(dataId);
+              const rsp3 = await AxiosApi.checkLike(dataId, userId);
+              const rsp4 = await AxiosApi.commentCount(dataId);
+              setCommentCount(rsp4.data);
+              setCount(rsp2.data);
+              if(rsp3.data === 0) {
+                setLikeClicked(false);
+              } else {
+                setLikeClicked(true);
+              }
+            }
           }
-          const rsp2 = await AxiosApi.viewCampLike(rsp.data[0].id);
-          const rsp3 = await AxiosApi.checkLike(rsp.data[0].id, id);
-          const rsp4 = await AxiosApi.commentCount(rsp.data[0].id);
-          setCommentCount(rsp4.data);
-          setCount(rsp2.data);
-          if(rsp3.data === 0) {
-            setLikeClicked(false);
-          } else {
-            setLikeClicked(true);
-          }
-          
         };
         getOverlay();
       }
       loading();
-  },[location,count,likeClicked,clickedFacltNm,detailOpen])
+  },[location,count,likeClicked,clickedFacltNm,detailOpen, id])
 
   const likeBtnClick = async() => {
     await AxiosApi.campLike(contentId.id, id);
