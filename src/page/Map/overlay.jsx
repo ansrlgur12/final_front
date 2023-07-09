@@ -12,6 +12,7 @@ import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from "../../API/UserInfo";
 
 
 const MapStyled = styled.div`
@@ -131,15 +132,16 @@ const MapStyled = styled.div`
 
 const Overlay = (props) => {
   const context = useContext(MarkerContext);
-  const {location, setContentId, currentData} = context;
+  const idContext = useContext(UserContext);
+  const {location, setContentId, contentId, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount} = context;
+  const {id} = idContext;
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
   const [clickedFacltNm, setClickedFacltNm] = useState("");
-
-  // 좋아요 서버구현 전까지 쓸 useState
-  const [likeClicked, setLickClicked]= useState(false);
   
+  // const [count, setCount] = useState(0);
+  // const [likeClicked, setLikeClicked]= useState(false);
 
   useEffect(()=>{
       const loading = async() => {
@@ -147,24 +149,42 @@ const Overlay = (props) => {
           const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
           if(rsp.status === 200) {
             setCampInfo(rsp.data);
-            console.log(rsp.data)
             setContentId(rsp.data[0]);
-            if(clickedFacltNm === ""){
-              return;
-            }else{
-              await AxiosApi.viewCount(clickedFacltNm);
-            }
           }
+          const rsp2 = await AxiosApi.viewCampLike(rsp.data[0].id);
+          const rsp3 = await AxiosApi.checkLike(rsp.data[0].id, id);
+          const rsp4 = await AxiosApi.commentCount(rsp.data[0].id);
+          setCommentCount(rsp4.data);
+          setCount(rsp2.data);
+          if(rsp3.data === 0) {
+            setLikeClicked(false);
+          } else {
+            setLikeClicked(true);
+          }
+          
         };
         getOverlay();
       }
       loading();
-  },[location])
+  },[location,count,likeClicked,clickedFacltNm,detailOpen])
 
+  const likeBtnClick = async() => {
+    await AxiosApi.campLike(contentId.id, id);
+  }
+
+  const likeBtnUnClick = async() => {
+    await AxiosApi.campUnLike(contentId.id, id);
+  }
+
+  const viewCount = async(clickedFacltNm) => {
+    const rsp = await AxiosApi.viewCount(clickedFacltNm);
+    console.log(rsp.data);
+  }
 
   const detailPageOpen = (e) => {
     setDetailOpen(true);
     setClickedFacltNm(e)
+    viewCount(e);
   } 
   
   const closeDetail = () => {
@@ -172,7 +192,14 @@ const Overlay = (props) => {
   }
 
   const handleAddToFavorite = () => {
-    setLickClicked(!likeClicked)
+    if(likeClicked){
+      setLikeClicked(!likeClicked)
+      likeBtnUnClick();
+    } else{
+      setLikeClicked(!likeClicked)
+      likeBtnClick();
+    }
+    
   }
 
     return (
@@ -200,11 +227,11 @@ const Overlay = (props) => {
           </div>
           <div className="bottomLine">
                 {likeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
-                <div className="icon">2</div>
+                <div className="icon">{count}</div>
                 <VisibilityButton />
                 <div className="icon">{campInfo.viewCount}</div> 
                 <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
-                <div className="icon">3</div> 
+                <div className="icon">{commentCount}</div> 
                 <button className='detailBtn' onClick={() => detailPageOpen(campInfo.facltNm, campInfo.mapX, campInfo.mapY)}>상세페이지</button>
           </div>
         </div> 

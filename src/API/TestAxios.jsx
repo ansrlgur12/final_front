@@ -221,5 +221,28 @@ verifyPayment : async(imp_uid) =>{
     return await axios.post(domain + `/verifyIamport/${imp_uid}`);
 },
 
+campLike : async(contentId, id) => {
+    
+    return await axios.post(domain + `/likes/camp/${contentId}/member/${id}`);
+},
+
+campUnLike : async(contentId, id) => {
+    
+    return await axios.delete(domain + `/likes/camp/${contentId}/member/${id}`);
+},
+
+viewCampLike : async(contentId) => {
+
+    return await axios.get(domain + `/likes/camp/${contentId}`);
+},
+
+checkLike : async(contentId, id) => {
+    return await axios.get(domain + `/likes/checkLike/${contentId}/${id}`);
+},
+
+commentCount : async(campId) => {
+    return await axios.get(domain + `/campcomment/checkCount/${campId}`)
+},
+
 }
 export default AxiosApi;

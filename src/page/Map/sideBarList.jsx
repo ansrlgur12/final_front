@@ -147,6 +147,7 @@ const SideBarList = (props) => {
             const searchCamp = async() => {
                 const rsp = await AxiosApi.searchCampData(searchValue, currentData);
                 setCampListData(rsp.data);
+                console.log(rsp.data);
                 setCurrentPage(1);
                 setChange(0)
             }
@@ -168,17 +169,20 @@ const SideBarList = (props) => {
     const sortCamps = (camps) => {
         switch (selectedSortBy) {
           case '이름순':
-            return camps.sort((a, b) => a.facltNm.localeCompare(b.facltNm));
+            return [...camps].sort((a, b) => a.facltNm.localeCompare(b.facltNm));
           case '등록순':
-            return camps.sort((a, b) => new Date(a.createdtime) - new Date(b.createdtime));
+            return [...camps].sort((a, b) => new Date(b.createdtime) - new Date(a.createdtime));
           case '조회순':
-            return camps.sort((a, b) => b.viewCount - a.viewCount);
-
-          // 다른 정렬 기준에 따른 분기 처리 작성
+            return [...camps].sort((a, b) => Number(b.viewCount) - Number(a.viewCount));
+          case '인기순':
+            return [...camps].sort((a, b) => Number(b.likes) - Number(a.likes));
+          case '댓글순':
+            return [...camps].sort((a, b) => Number(b.comments) - Number(a.comments));
           default:
-            return camps;
+            return [...camps];
         }
       };
+      
     
       // 정렬된 캠핑장 목록
       const sortedCamps = sortCamps(campListData);
