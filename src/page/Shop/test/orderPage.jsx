@@ -3,16 +3,14 @@ import { Table } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import { CartContext } from '../../../context/CartContext';
-import { ContentContainer, SidebarContainer } from '../../MyPage/section/cart';
+
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
-import Payment from './danal';
+import Payment from '../../Shop/test/inicis';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import OrderInput from '../../../Commons/OrderInput';
-import SearchAddress from '../../../Commons/Address';
-import Sidebar from '../../MyPage/sidebar';
-import { useOrderContext } from '../../../context/OrderContext';
+import SearchAddress from '../../../Commons/Adress';
 
 
 
@@ -26,7 +24,6 @@ const TableContainer = styled.div`
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
-  margin-bottom: 20rem;
 }
 button.ant-btn{
   background-color: #2D6247; 
@@ -73,9 +70,8 @@ const TotalAmount = styled.div`
 
 
 const Container = styled.section`
-display: flex;
 box-sizing: border-box;
-padding-top: 70px;
+padding-top: 130px;
 width: 70vw;
 height: auto;
 margin: auto;
@@ -85,7 +81,7 @@ h1 {
   }
 
   h3 {
-    margin-top: 1rem;
+    margin-top: 5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
   }
@@ -107,10 +103,9 @@ const BtnWrapper = styled.div`
   button {
     width: 100%;
     border: 0;
-  cursor: pointer;
   
-    color: #fff;
-    background: #2D6247; 
+    color: #ccc;
+    background: green;
     padding: 1rem 2rem;
     border-radius: 0.4rem;
   }
@@ -128,44 +123,44 @@ const OrderPage = () => {
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
-  const {selectedItems} = useContext(CartContext)
+  
   const [orderList, setOrderList] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [totalShipCost, setTotalShipCost] = useState(0);
   const [agree, setAgree] = useState(false);
   const orderNumber = Math.floor(Math.random() * 10000000) + 1;
   const orderTime = new Date().toLocaleString();
-  const [numberValue, setNumberValue] = useState("");
-  const { setOrderData } = useOrderContext();
-
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
 
+// 서버로부터 데이터를 받아오는 함수
+// const fetchCartData= async()=> {
+//     const response = await AxiosApi.cartList(userEmail);
+//     if (response.status === 200) {
+//         setCartData(response.data);
+//         setCart(response.data);
+//     }
+// }
 
+// useEffect 내에서 fetchCartData 호출
+// useEffect(() => {
+//     fetchCartData();
+// }, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
 
   
 useEffect(() => {
-  console.log(selectedItems);
-  const newData = selectedItems.map((item) => ({
-    key: item.cartItemId,
-    id: item.cartItemId,
-    productName: item.productName,
-    imageUrl: item.imageUrl,
-    price: item.price,
-    quantity: item.quantity,
+  const newData = cartData.map((item) => ({
+      key: item.cartItemId, 
+      id: item.cartItemId,
+      productName: item.productName,
+      imageUrl: item.imageUrl,
+      paymentAmount: new Intl.NumberFormat('ko-KR').format(item.price) + "원",
+      quantity: item.quantity,
   }));
 
   setData(newData);
-  const cost = selectedItems.reduce((acc, item) => {
-    const price = parseInt(item.price.replace(/[^0-9]/g, ""));  // extract numeric part of price
-    return acc + price * item.quantity;
-  }, 0);
-  setTotalCost(cost);
-  console.log(cost);
-}, [selectedItems]);
-
-
+}, [cartData]);
 
 
 const [inputs, setInputs] = useState({
@@ -183,7 +178,7 @@ const [inputs, setInputs] = useState({
 
 const {
   ordererName,
- ordererPhone,
+  ordererPhone,
   ordererEmail,
   delivName,
   delivPhone,
@@ -197,33 +192,11 @@ const {
 
 const handleChange = (e) => {
   const { value, name } = e.target;
-  if (name === "ordererPhone" || name === "delivPhone") {
-  
-    let digitOnlyValue = value.replace(/\D/g, "");
-
-    //하이픈 추가가
-    if (digitOnlyValue.length > 2) {
-      if (digitOnlyValue.length < 7) {
-        digitOnlyValue = digitOnlyValue.replace(/(\d{3})(\d{1,4})/, "$1-$2");
-      } else {
-        digitOnlyValue = digitOnlyValue.replace(
-          /(\d{3})(\d{4})(\d{1,4})/,
-          "$1-$2-$3"
-        );
-      }
-    }
-    setInputs({
-      ...inputs,
-      [name]: digitOnlyValue,
-    });
-  } else {
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  }
+  setInputs({
+    ...inputs,
+    [name]: value,
+  });
 };
-
 
 const [isSameInfo, setIsSameInfo] = useState(false);
 
@@ -233,7 +206,7 @@ const handleIsSameInfo = () => {
     setInputs({
       ...inputs,
       delivName: ordererName,
-      delivPhone: delivPhone,
+      delivPhone: ordererPhone,
     });
   }
 };
@@ -248,29 +221,25 @@ const handleAddress = (data) => {
 
 const handleAgree = () => {
   setAgree(!agree);
-
-  setOrderData(orderdata); 
 };
 
-const orderdata = {
-   
-  products: orderList,
-  totalCost,
-  orderer_name: ordererName,
-  orderer_phone: ordererPhone,
-  orderer_email: ordererEmail,
-  deliv_name: delivName,
-  deliv_Phone: delivPhone,
-  address: fullAddress,
-  zipcode: zipcode,
-  
-  agree,
-};
+const handleOrderConfirm = async () => {
+  const orderdata = {
+    orderNumber,
+    orderTime,
+    products: orderList,
+    totalCost,
+    orderer_name: ordererName,
+    orderer_phone: ordererPhone,
+    orderer_email: ordererEmail,
+    deliv_name: delivName,
+    deliv_Phone: delivPhone,
+    address: fullAddress,
+    payMethod: payMethodId,
+    agree,
+  };
 
- 
- 
-
-
+}
   const columns = [
     {
       title: '상품 이미지',
@@ -290,8 +259,8 @@ const orderdata = {
   
     {
       title: '판매가',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'paymentAmount',
+      key: 'paymentAmount',
     },
     {
       title: '수량',
@@ -299,11 +268,12 @@ const orderdata = {
       key: 'quantity',
     },
     {
-      title: '배송비',
-      dataIndex: 'delivery',
-      render: () => '무료',
-      
-       
+      title: '삭제하기',
+      dataIndex: 'delete',
+      key: 'delete',
+      render: (text, record) => ( // 이 함수가 IconButton을 반환
+       <DeleteButton />
+       )
       },
     ];
 
@@ -322,27 +292,17 @@ const orderdata = {
       <Header />
      
         <Container>
-        
-       
-        <SidebarContainer>
-        주문자정보
-        </SidebarContainer>
-        <ContentContainer>
-       
-        
+        <h1>주문 결제</h1>
+        <h3>주문 상품</h3>
           
            
       
-     
-      <TableContainer>
-      <h3>주문 상품</h3>
+      <Wrapper>
+      
       <Table  
                     columns={columns}
                     dataSource={data} /> 
-                    </TableContainer>
-   
-     
-      <TableContainer>
+      </Wrapper>
       <h3>주문자 정보</h3>
       <Wrapper>
         <OrderInput
@@ -357,7 +317,13 @@ const orderdata = {
           value={ordererPhone}
           onChange={handleChange}
         />
-       
+        <OrderInput
+          label={'이메일(선택)'}
+          name="ordererEmail"
+          type="email"
+          value={ordererEmail}
+          onChange={handleChange}
+        />
       </Wrapper>
       <h3>배송 정보</h3>
       <Wrapper>
@@ -394,7 +360,7 @@ const orderdata = {
             />
           </>
         )}
-        <SearchAddress  handleAddress={handleAddress} />
+        <SearchAddress handleAddress={handleAddress} />
         <OrderInput label={'우편번호'} value={zipcode} readOnly={true} />
         <OrderInput label={'주소'} value={fullAddress} readOnly={true} />
         <OrderInput
@@ -433,20 +399,19 @@ const orderdata = {
           value={agree}
         />
         결제 진행 필수 전체 동의
-        
         <BtnWrapper>
           {agree ? (
-           <Payment totalCost={totalCost.toLocaleString()}/>
+            <button type="button" onClick={handleOrderConfirm}>
+              {totalCost}원 결제하기
+            </button>
           ) : (
-            <button type="button" disabled>
-             결제하기
+            <button type="button" onClick={handleOrderConfirm} disabled>
+              {totalCost}원 결제하기
             </button>
           )}
         </BtnWrapper>
       </Wrapper>
-      </TableContainer>
-    
-      </ContentContainer>
+         
         
           </Container>
       </>

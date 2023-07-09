@@ -13,6 +13,7 @@ import { UserContext } from "../../API/UserInfo";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
+    position: relative; // 추가
 
     .loginLogo{
         width: 100%;
@@ -120,15 +121,29 @@ const LoginStyle = styled.div`
     }
 `;
 
+// const SignUpStyle = styled.div`
+//     position: absolute;
+//     top: 46%;
+//     right: -100%;
+//     transform: translateY(-50%);
+//     /* transition: right 0.6s ease-in-out; */
+
+//     &.showSign {
+//         right: 0%;
+//     }
+
+//     &.cutSign{
+//         display: none;
+//     }
+// `;
 const SignUpStyle = styled.div`
     position: absolute;
-    top: 46%;
-    right: -100%;
-    transform: translateY(-50%);
-    /* transition: right 0.6s ease-in-out; */
+    top: 0;
+    left: 0;
+    width: 100%;
 
     &.showSign {
-        right: 0%;
+        display: inline-block;
     }
 
     &.cutSign{

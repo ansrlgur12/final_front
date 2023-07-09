@@ -13,8 +13,14 @@ export const MainPageStyle = styled.div`
 
 const MainPage = () => {
     const context = useContext(UserContext);
-    const { IsLogin } = context;
+    const { isLogin } = context;
     const nav = useNavigate();
+
+    useEffect( () => {
+        if(!isLogin) {
+            nav('/intro');
+        }
+    }, [isLogin, nav]);
    
     return (
         <>

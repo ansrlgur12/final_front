@@ -109,6 +109,9 @@ const SignUpStyle = styled.div`
     .checkNick{
         font-size: .8rem;
     }
+    .checkEmail{
+        font-size: .8rem;
+    }
     .success {
         color: royalblue;
     }
@@ -122,19 +125,22 @@ const SignUpPage = () => {
     const [nickName, setNickName] = useState('');
     const [email, setEmail] = useState('');
     const [checkEmail, setCheckEmail] = useState('');
+    const [checkEmail2, setCheckEmail2] = useState('');
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
     const [agreed, setAgreed] = useState(false);
     const [goBackPage, setGoBackPage] = useState(false);
 
 
-    // 유효성 검ㅏ
+    // 유효성 검사
     const [isId, setIsId] = useState(false);
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
     const [isMail, setIsMail] = useState(false);
     const [isOverlap, setIsOverlap] = useState(false);
+    const [isOverlap2, setIsOverlap2] = useState(false);
     const [isOver, setIsOver] = useState(false)
+    const [isOver2, setIsOver2] = useState(false)
 
     // 오류 메시지
     const [nameMessage, setNameMessage] = useState("");
@@ -199,9 +205,25 @@ const SignUpPage = () => {
     }
 
     // 이메일 인증
-    const checkEmailChange = (e) => {
-        setCheckEmail(e.target.value);
+    const conEmail = async() => {
+        const isOverlap2 = await AxiosApi.emailCheck(email);
+        console.log(isOverlap2.data);
+        if (isOverlap2.data === false) {
+            console.log(isOverlap2)
+            setIsOverlap2("이미 가입된 이메일입니다.");
+            setIsOver2(true);
+          } else {
+            setIsOverlap2("사용 가능한 이메일입니다.");
+            setIsOver2(false);
+            setCheckEmail(isOverlap2.data.toString());
+          }
     };
+    
+    // 이메일 인증코드 담기
+    const emailCheck = (e) => {
+        setCheckEmail2(e.target.value.toString()); // 입력한 인증번호를 문자열로 변환하여 저장
+    }
+
 
     // 비밀번호
     const passwordChange = (e) => {
@@ -240,46 +262,29 @@ const SignUpPage = () => {
         console.log("agree : " + e);
     };
 
-    
-
     const onClickLogin = async() => {
-        const memberReg = await AxiosApi.memberReg(nickName, email, password, agreed);
-        console.log(memberReg.data);
-        if(memberReg.data === true) {
-            setFinishModal(true);
-        } else {
-            if (!agreed) {
-                setModalOpen(true);
-                setModelText("이용 약관에 동의해야 합니다.");
-                return;
-            }
-            setModalOpen(true);
-            setModelText("회원 가입에 실패 했습니다.");
-        }
-    }
-
-/*  Back 구현 후 등록 예정
-            // 가입 여부 우선 확인
-            const memberCheck = await AxiosApi.memberRegCheck(email);
-            console.log("가입 가능 여부 확인 : ", memberCheck.data);
-            // 가입 여부 확인 후 가입 절차 진행
-
-            if (memberCheck.data === true) {
-                console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
+        console.log(checkEmail, checkEmail2);
+        if(checkEmail === checkEmail2){
+            if(agreed){
                 const memberReg = await AxiosApi.memberReg(nickName, email, password, agreed);
                 console.log(memberReg.data);
                 if(memberReg.data === true) {
                     setFinishModal(true);
-                } else {
+                } else { 
                     setModalOpen(true);
-                    setModelText("회원 가입에 실패 했습니다.");
+                    setModelText('인증번호 or 이메일을 확인하세요.');
                 }
             } else {
-                console.log("이미 가입된 회원 입니다.")
                 setModalOpen(true);
-                setModelText("이미 가입된 회원 입니다.");
-            } 
-*/
+                setModelText("이용 약관에 동의해야 합니다.");
+                return;
+            }
+        } else {
+            setModalOpen(true);
+            setModelText("이메일 인증 번호가 맞지 않습니다.");
+            return;
+        }
+    };
 
     const goBack = () => {
         setGoBackPage(true);
@@ -297,11 +302,11 @@ const SignUpPage = () => {
                     </div>
                     <input
                         type="text"
-                        id="name"
                         value={nickName}
                         onChange={nameChange}
                         required
                         className='textInput'
+                        placeholder=' 5자리 이상 12자리 미만으로 입력해 주세요.'
                     />
                     <div className="hint">
                         {nickName.length > 0 && <span className={`message ${isId ? 'success' : 'error'}`}>{nameMessage}</span>}
@@ -311,39 +316,41 @@ const SignUpPage = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">이메일:</label>
-                        <button className='confirm'>이메일 인증</button>
+                        <button className='confirm' onClick={conEmail}>이메일 인증</button>
                     </div>
                     <input
                         type="email"
-                        id="email"
                         value={email}
                         onChange={emailChange}
                         required
                         className='textInput email1'
+                        placeholder=' example@example.com'
                     />
                     <div className="hint">
                         {email.length > 0 && <span className={`message ${isMail ? 'success' : 'error'}`}>{mailMessage}</span>}
+                        <div className='checkEmail'>
+                            <span className={`checkEmail ${isOver2 ? 'error' : 'success'}`}>{isOverlap2}</span>
+                        </div>
                     </div>
-{/*                       이메일 중복 확인 예정    
+                    {/* 이메일 인증 */}
                     <input
                         type="text"
-                        id="checkEmail"
-                        value={checkEmail}
-                        onChange={checkEmailChange}
                         required
                         className='textInput email2'
+                        placeholder=' 이메일 인증 번호를 입력하세요.'
+                        onChange={emailCheck}
                     />
-*/}                        
+                    
                     <div className="form-group">
                         <label htmlFor="password">비밀번호:</label>
                     </div>
                     <input
                         type="password"
-                        id="password"
                         value={password}
                         onChange={passwordChange}
                         required
                         className='textInput'
+                        placeholder=' 숫자+영문자 조합으로 8자리 이상 입력해주세요.'
                     />
                     <div className="hint">
                         {password.length > 0 && <span className={`message ${isPw ? 'success' : 'error'}`}>{pwdMessage}</span>}
@@ -353,11 +360,11 @@ const SignUpPage = () => {
                     </div>
                     <input
                         type="Password"
-                        id="checkPassword"
                         value={checkPassword}
                         onChange={checkPasswordChange}
                         required
                         className='textInput'
+                        placeholder=' 동일한 비밀번호를 입력해 주세요.'
                     />
                     <div className="hint">
                         {checkPassword.length > 0 && <span className={`message ${isConPw ? 'success' : 'error'}`}>{checkPwdMessage}</span>}

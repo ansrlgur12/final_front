@@ -87,10 +87,11 @@ const ModalStyled = styled.div`
         opacity: 1;
         }
   }
+  
 `;
 
 const Modal = (props) => {
-
+    
     const {open, confirm, close, type, header, children, justConfirm} = props;
 
     return(
