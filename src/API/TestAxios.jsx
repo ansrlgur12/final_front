@@ -144,8 +144,9 @@ const AxiosApi = {
         return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
     },
     // 오지캠핑 데이터 db에 저장
-    onojiCampData : async(mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
+    onojiCampData : async(memberId, mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
         const data = {
+            memberId : memberId.toString(),
             addr1 : addr1,
             mapX : mapX,
             mapY : mapY,
@@ -224,6 +225,37 @@ viewCampMarker : async(markerLat, markerLng) => {
         };
         return await axios.post(domain + `/intro`, conEmail)
     },
+
+campLike : async(contentId, id) => {
+    
+    return await axios.post(domain + `/likes/camp/${contentId}/member/${id}`);
+},
+
+campUnLike : async(contentId, id) => {
+    
+    return await axios.delete(domain + `/likes/camp/${contentId}/member/${id}`);
+},
+
+viewCampLike : async(contentId) => {
+
+    return await axios.get(domain + `/likes/camp/${contentId}`);
+},
+
+checkLike : async(contentId, id) => {
+    return await axios.get(domain + `/likes/checkLike/${contentId}/${id}`);
+},
+
+commentCount : async(campId) => {
+    return await axios.get(domain + `/campcomment/checkCount/${campId}`)
+},
+
+memberLikedCamp : async(memberId) => {
+    return await axios.get(domain + `/likes/memberLikedCamp/${memberId}`)
+},
+
+memberMarkedCamp : async(memberId) => {
+    return await axios.get(domain + `/oji/memberMarkedCamp/${memberId}`)
+},
 
     // 메인페이지 캠핑장 정보
     getCampList : async(lt, sigungu) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
-import { Avatar, Card, Row, Col, Layout, Pagination } from 'antd';
+import { Avatar, Card, Row, Col, Layout, Pagination, message } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import 사고팔기header from '../../../images/사고팔기header.jpg';
@@ -41,6 +41,14 @@ const PaginationWrapper = styled.div`
 const ReviewCards = () => {
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
+
+  const heart = () => {
+    message.success('좋아요 갯수가 현재 리뷰에 몇개가 있는지 알수있는 아이콘입니다.');
+  };
+  
+  const view = () => {
+    message.success('현재 리뷰의 조회수를 확인 할 수있습니다.');
+  };
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -85,8 +93,8 @@ const ReviewCards = () => {
               </Link>
             }
             actions={[
-              <span><HeartOutlined /> {likesCount[review.id] || 0}</span>,
-              <span><EyeFilled /> {review.viewCount || 0}</span>,
+              <span onClick={heart}><HeartOutlined /> {likesCount[review.id] || 0}</span>,
+              <span onClick={view}><EyeFilled /> {review.viewCount || 0}</span>,
             ]}
           >
             <Meta

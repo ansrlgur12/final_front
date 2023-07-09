@@ -36,6 +36,10 @@ import ModifiedReview from './page/Community/section/modifiedReview';
 import Payment from './page/Shop/test/inicis';
 import ImageTest from './page/Map/ImageTest';
 import OrderPage from './page/Shop/test/orderPage';
+// import { OrderProvider } from './context/OrderContext';
+import Search from './main/search/search';
+import MyCamp from './page/MyPage/section/myCamp';
+import MyOji from './page/MyPage/section/myOji';
 
 
 function App() {
@@ -64,6 +68,7 @@ function App() {
                 <Route path='/mapMain' element={<MapMain />} />
                 <Route path='/ojinoji' element={<OjiNojiMapMain />} />
                 <Route path='/newMark' element={<WriteNewMarker />} />
+                <Route path='/search' element={<Search />} />
                 <Route path='/community' element={<Community />} />
                 <Route path='/buySellCards' element={<BuySellCards />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />
@@ -71,6 +76,8 @@ function App() {
                 <Route path='/modifiedReview/:id' element={<ModifiedReview />} />
                 <Route path="/reviewDetail/:id" element={<ReviewDetail />} />
                 <Route path='/myReview' element={<MyReview />} />
+                <Route path='/myCamp' element={<MyCamp />} />
+                <Route path='/myOji' element={<MyOji />} />
                 <Route path='/MyComments' element={<MyComments />} />
                 <Route path='/myPage' element={<MyPage />} />
                 <Route path='/userInfo' element={<UserInfo />} />

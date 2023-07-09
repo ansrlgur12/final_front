@@ -6,41 +6,120 @@ import SmallKakaoMap from "./SmallKakao";
 import LocationSelect from "./locationSelect";
 import AxiosApi from "../../API/TestAxios";
 import { storage } from '../../firebase/firebaseConfig';
+import { useNavigate } from "react-router";
+import { UserContext } from "../../API/UserInfo";
 
 const WriteContainer = styled.div`
+    display: flex;
     margin-left: 5vw;
+    margin-top: 3vh;
+    margin-left: 10vw;
+    position: relative;
+    h2{
+        color: rgb(45, 98, 71);
+    }
+    .buttonBox{
+        padding-top: 5vh;
+        position: absolute;
+        right: 2vw;
+        padding-bottom: 5vh;
+    }
+    .lastSubmit{
+        width: 8vw;
+        height: 6vh;
+        font-size: 1.1em;
+        margin-left: 1vw;
+        border-radius: 5px;
+        font-weight: bold;
+        border: .5px solid rgb(117, 117, 117);
+        background-color: #d8d8d8;
+    }
+    .sub{
+        background-color: rgb(45, 98, 71);
+        color: white;
+        border: none;
+    }
+    .preview-image{
+        margin: 10px;
+    }
+    .image{
+        margin-top: 10vh;
+    }
+    .right{
+        flex-basis: 50%;
+        margin-top: 5vh;
+    }
+    .left{
+        flex-basis: 50%;
+    }
+    .title{
+        margin: 5vh 0;
+    }
+    .selectBar{
+        height: 2.5em;
+        width: 5vw;
+    }
+    .selectBar + .selectBar{
+        margin-left: .5vw;
+    }
+    .reset{
+        margin-left: 1vw;
+    }
+    .diff{
+        width: 3vw;
+        height: 2.5em;
+    }
+    .jubyun{
+        margin-top: 10vh;
+    }
+    .radio{
+    }
+    label {
+    margin-right: 0.5em;
+    font-size: .9em;
+    font-weight : bold;
+    color: rgb(76, 76, 76);
+  }
+  .notice{
+    font-size: 1em;
+    color: red;
+    font-weight: bold;
+  }
+
 `;
   
 const Option = styled.div`
-  margin: 5vw;
-  label {
-    margin-right: 0.5em;
+  
+  .spotNm{
+    height: 2em;
+    width: 20vw;
   }
+  .selectLc{
+    margin-right: 1vw;
+  }
+  .spotDesc{
+    width: 80%;
+    height: 30vh;
+  }
+ margin: 1vw;
+ display: flex;
+ align-items: center;
+
 `;
 
 const Radio = styled.div`
   margin: 1vw;
 
-  label {
-    margin-right: 0.5em;
-  }
+  
 `;
 
-const SelectInput = ({ label, options }) => (
-  <Option>
-    <label>{label} : </label>
-    <select name="" id="">
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  </Option>
-);
+
 
 const WriteNewMarker = () => {
+  const nav = useNavigate();
   const context = useContext(MarkerContext);
+  const idContext = useContext(UserContext);
+  const {id} = idContext;
   const { isLatlng } = context;
   const [selectedRadios, setSelectedRadios] = useState([]); // 선택된 라디오 버튼의 상태를 저장할 배열
   const [dho, setDho] = useState('ALL');
@@ -121,9 +200,10 @@ const WriteNewMarker = () => {
     console.log(addr1);
     console.log(selectedUrlsString);
     submit();
+    nav("/ojinoji")
   }
   const submit = async() => {
-    const rsp = await AxiosApi.onojiCampData(mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
+    const rsp = await AxiosApi.onojiCampData(id, mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
     console.log(rsp)
     if(rsp.request.status === 200){
         console.log("정상등록되었습니다.")
@@ -159,14 +239,21 @@ const WriteNewMarker = () => {
     <>
       <Header />
       <WriteContainer>
-        <h2>캠핑 마커 신청하기</h2>
+        
+        <div className="left">
+        <h2 className="title">캠핑 마커 신청하기</h2>
         <Option>
-          <label>스팟 이름 : </label>
-          <input type="text" onChange={onChangeSpotNm}/>
+            <label className="selectLc">지역선택</label>
+            <LocationSelect dho={dho} sigungu={sigungu} onDhoChange={handleDhoChange} onSigunguChange={handleSigunguChange} onResetClick={handleResetClick} />
+        </Option>
+        <Option><label className="spotLabel">스팟 이름</label><input type="text" className="spotNm" onChange={onChangeSpotNm}/></Option>
+        <Option>
+          <label className="spotLabel">스팟 소개</label>
+          <textarea type="text" className="spotDesc" onChange={onChangeSpotDesc}/>
         </Option>
         <Option>
           <label>야영 난이도</label>
-          <select value={spotDiff} onChange={onChangeDiff}>
+          <select className="diff" value={spotDiff} onChange={onChangeDiff}>
             <option value={1}>1</option>
             <option value={2}>2</option>
             <option value={3}>3</option>
@@ -174,12 +261,12 @@ const WriteNewMarker = () => {
             <option value={5}>5</option>
           </select>
         </Option>
-        <Option>
-        <LocationSelect dho={dho} sigungu={sigungu} onDhoChange={handleDhoChange} onSigunguChange={handleSigunguChange} onResetClick={handleResetClick} />
-        </Option>
+       
+        
+        <h2 className="jubyun">주변시설</h2>
         {radioOptions.map((option) => (
         <Radio key={option}>
-          <label>
+          <label  className="radio">
             {option}
             <input
               type="checkbox"
@@ -189,28 +276,26 @@ const WriteNewMarker = () => {
           </label>
         </Radio>
       ))}
-        <Option>
+      
+    </div>
+            
+        
+        <div className="right">
+            <div className="map">
           <h2>위치 설정</h2>
           <div className="App">
             <div id="wrap" style={{ width: "40vw", height: "40vw" }}>
               <SmallKakaoMap />
-              <p>취소하려면 마커를 한번 더 클릭해 주세요</p>
+              <p className="notice">※ 취소하려면 마커를 한번 더 클릭해 주세요</p>
             </div>
           </div>
-        </Option>
-        <Option>
-          <p>선택한 좌표</p>
-          <p>{isLatlng.La}</p>
-          <p>{isLatlng.Ma}</p>
-        </Option>
-        <Option>
-          <label>스팟 소개 : </label>
-          <input type="text" onChange={onChangeSpotDesc}/>
-        </Option>
-        <Option>
+          </div>
+
+        <div className="image">
+        <h2>이미지 등록</h2>
             <div>
             <input type="file" multiple onChange={handleFileChange} />
-            <button onClick={handleUpload}>등록</button>
+            <button className="selectBar" onClick={handleUpload}>선택완료</button>
             </div>
             <div className="preview-container">
                 {selectedFiles.map((file) => (
@@ -218,13 +303,17 @@ const WriteNewMarker = () => {
                     key={file.name}
                     src={URL.createObjectURL(file)}
                     alt={file.name}
-                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                    style={{ maxWidth: "100px", maxHeight: "100px" }}
                     className="preview-image"
                 />
                 ))}
             </div>
-        </Option>
-        <button onClick={onClickSubmit}>등록</button>
+        </div>
+        <div className="buttonBox">
+            <button className="lastSubmit sub" onClick={onClickSubmit}>등록</button>
+            <button className="lastSubmit" onClick={()=>nav(-1)}>취소</button>
+        </div>
+        </div>
       </WriteContainer>
     </>
   );

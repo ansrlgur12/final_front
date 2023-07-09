@@ -8,6 +8,8 @@ import { IconButton, Badge } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../API/UserInfo";
+import SearchBox from "./search/searchBox";
+import { UserOutlined } from '@ant-design/icons';
 
 
 const HeaderStyle = styled.div`
@@ -71,17 +73,18 @@ const HeaderStyle = styled.div`
 `;
 
 const Header = () =>{
-
+    
     const nav = useNavigate();
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
     const userInfo = useContext(UserContext);
-    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage} = userInfo;
+    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, userEmail} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
   
+
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,
         backgroundSize: 'contain',
@@ -138,11 +141,9 @@ const Header = () =>{
                         </nav>
                     </div>
                     <div className="headerRight">
-                        <div>
-                            <input type="search" />
-                        </div>
-                        <div className="myProfile" style={profileImg} onClick={()=>nav("/myPage")}>mypage 임시</div>
-                        <div className="logOut" onClick={logOut}>로그아웃</div>
+                        <SearchBox />
+                        <UserOutlined onClick={()=>nav("/myPage")}/>
+                        {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />

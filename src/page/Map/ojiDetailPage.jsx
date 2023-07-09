@@ -353,7 +353,7 @@ const IconBox = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     height: 20vh;
-    margin-bottom: 7vh;
+    margin-bottom: 15vh;
 
     .iconBoxDesc{
         margin-left: 1vw;
@@ -560,8 +560,6 @@ const OjiDetailPage = (props) => {
                             <Number>3</Number>
                             <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
                             <Number>3</Number>
-                            <FontAwesomeIcon icon={faFlag} size="lg" color="#ff8400"/>
-                            <Number>3</Number>
                         </LikeCommentArea>
                         <ShareArea>
                             공유하기
@@ -632,9 +630,6 @@ const OjiDetailPage = (props) => {
                             <OjiImageList />
                         </div>
                     </ImageInfo>
-                    <IconBox>
-                        <div className="iconBox"></div>
-                    </IconBox>
                     
                     </div>
                     </>
