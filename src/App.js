@@ -36,6 +36,8 @@ import ModifiedReview from './page/Community/section/modifiedReview';
 import Payment from './page/Shop/test/inicis';
 import ImageTest from './page/Map/ImageTest';
 import OrderPage from './page/Shop/test/orderPage';
+import { OrderProvider } from './context/OrderContext';
+import Search from './main/search/search';
 
 
 function App() {
@@ -64,6 +66,7 @@ function App() {
                 <Route path='/mapMain' element={<MapMain />} />
                 <Route path='/ojinoji' element={<OjiNojiMapMain />} />
                 <Route path='/newMark' element={<WriteNewMarker />} />
+                <Route path='/search' element={<Search />} />
                 <Route path='/community' element={<Community />} />
                 <Route path='/buySellCards' element={<BuySellCards />} />
                 <Route path='/reviewCards' element={<ReviewCards />} />

@@ -6,7 +6,7 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faPhone, faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import AxiosApi from "../../API/TestAxios";
 import ShareButton from "../../Commons/shareButton";
 import sun from "../../images/맑음.png"
@@ -401,7 +401,7 @@ const CommentBox = styled.div`
 const DetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
-    const {myLoc, location} = context;
+    const {myLoc, location, count, likeClicked, commentCount} = context;
     const [minTem, setMinTem] = useState("");
     const [maxTem, setMaxTem] = useState("");
     const [pop, setPop] = useState("");
@@ -462,7 +462,7 @@ const DetailPage = (props) => {
           }
           getWeather();
         }
-      },[location, formattedDate])
+      },[location, formattedDate, count, commentCount])
 
     const splitAddress = (address) => {
         const addressParts = address.split(' ');
@@ -581,12 +581,10 @@ const DetailPage = (props) => {
                     </TitleBar>
                     <LickCommentShare>
                         <LikeCommentArea>
-                            <FontAwesomeIcon icon={faHeart} size="lg" color="red"/>
-                            <Number>3</Number>
+                            {likeClicked ? <FontAwesomeIcon icon={heart} size="lg" color="red"/> : <FontAwesomeIcon icon={faHeart} size="lg" color="red"/>}
+                            <Number>{count}</Number>
                             <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
-                            <Number>3</Number>
-                            <FontAwesomeIcon icon={faFlag} size="lg" color="#ff8400"/>
-                            <Number>3</Number>
+                            <Number>{commentCount}</Number>
                         </LikeCommentArea>
                         <ShareArea>
                             공유하기
