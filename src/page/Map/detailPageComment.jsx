@@ -46,6 +46,10 @@ position: relative;
         right: 1vh;
         margin-top: 2vh;
     }
+    .no-comments{
+        margin-left: vw;
+        font-size: .8em;
+    }
 `;
 
 
@@ -53,7 +57,7 @@ position: relative;
 const DetailPageComment = () => {
     const markContext = useContext(MarkerContext);
     const context = useContext(UserContext);
-    const {nickname, userName, userEmail} = context;
+    const {nickName} = context;
     const {contentId} = markContext;
     const [writeComment, setWriteComment] = useState(false);
     const [content, setContent] = useState("");
@@ -100,7 +104,7 @@ const DetailPageComment = () => {
                 ) : (
                 comment.map((comment) => (
                 <div className="comments" key={comment.id}>
-                    <div className="userImage"></div>
+                    <div className="nickNm">{nickName}</div>
                     <div className="content">{comment.content}</div>
                 </div>
                 ))

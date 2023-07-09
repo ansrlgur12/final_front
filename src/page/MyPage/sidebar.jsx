@@ -79,15 +79,13 @@ const items = [
     children: [
       {
         key: 'sub4-1',
-        label: '내가 등록한 캠핑장(x)',
+        label: '내가 등록한 캠핑장',
+        to: '/MyOji'
       },
       {
         key: 'sub4-2',
-        label: '찜한 캠핑장(x)',
-      },
-      {
-        key: 'sub4-3',
-        label: '정복한 캠핑장(x)',
+        label: '좋아요 누른 캠핑장',
+        to: '/MyCamp'
       },
     ],
   },

@@ -7,6 +7,7 @@ import LocationSelect from "./locationSelect";
 import AxiosApi from "../../API/TestAxios";
 import { storage } from '../../firebase/firebaseConfig';
 import { useNavigate } from "react-router";
+import { UserContext } from "../../API/UserInfo";
 
 const WriteContainer = styled.div`
     display: flex;
@@ -117,6 +118,8 @@ const Radio = styled.div`
 const WriteNewMarker = () => {
   const nav = useNavigate();
   const context = useContext(MarkerContext);
+  const idContext = useContext(UserContext);
+  const {id} = idContext;
   const { isLatlng } = context;
   const [selectedRadios, setSelectedRadios] = useState([]); // 선택된 라디오 버튼의 상태를 저장할 배열
   const [dho, setDho] = useState('ALL');
@@ -200,7 +203,7 @@ const WriteNewMarker = () => {
     nav("/ojinoji")
   }
   const submit = async() => {
-    const rsp = await AxiosApi.onojiCampData(mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
+    const rsp = await AxiosApi.onojiCampData(id, mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
     console.log(rsp)
     if(rsp.request.status === 200){
         console.log("정상등록되었습니다.")
