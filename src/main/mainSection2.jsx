@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import itemp1 from "../images/itemp1.jpg";
 import itemp2 from "../images/itemp2.jpg";
 import itemp3 from "../images/itemp3.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Section2 = styled.div`
     margin-top: 40px;
@@ -25,10 +26,6 @@ const Section2 = styled.div`
         position: relative;
     }
 
-    .item:hover {
-        background-color: black;
-    }
-
     .item:hover::before {
         content: "";
         position: absolute;
@@ -47,6 +44,7 @@ const Section2 = styled.div`
         transform: translateY(-20px);
         opacity: 1;
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        
     }
 
     .item1{
@@ -89,6 +87,7 @@ const Section2 = styled.div`
         margin-left: 40px;
         transform: translateY(20px);
         opacity: 0;
+        text-shadow: 2px 2px 5px #ccc; /* 테두리 색과 크기 설정 */
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
@@ -103,18 +102,19 @@ const Section2 = styled.div`
 `;
 
 const MainSection2 = () => {
+    const nav = useNavigate();
     return (
         <Section2>
             <div className="container2">
-                <div className="item item1">
+                <div className="item item1" onClick={() => nav('/newMark')}>
                     <div className="itemtext">무료로 이용할 수 있는<br /> 캠핑장을 공유해주세요!</div>
                     <button className="itemBtn">이동하기</button>
                 </div>
-                <div className="item item2">
+                <div className="item item2" onClick={() => nav('/shopMain')}>
                     <div className="itemtext">인기 제품을 만나러 가요!</div>
                     <button className="itemBtn">shop</button>
                 </div>
-                <div className="item item3">
+                <div className="item item3" onClick={() => nav('/community')}>
                     <div className="itemtext">캠퍼들의 인기 캠핑장을 확인해 보세요!</div>
                     <button className="itemBtn">이동하기</button>
                 </div>

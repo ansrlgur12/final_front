@@ -9,6 +9,7 @@ const { Content } = Layout;
 const StyledContent = styled(Content)`
   padding: 24px;
   background-color: #FFFFFF;
+  margin-top: 14vh;
 `;
 
 const CardWrapper = styled(Card)`

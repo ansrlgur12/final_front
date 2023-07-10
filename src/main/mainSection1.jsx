@@ -14,7 +14,7 @@ export const Section1 = styled.div`
 
     .backImg {
         width: 100vw;
-        height: 80vh;
+        height: 90vh;
         overflow: hidden;
         position: relative;
     }
@@ -34,12 +34,18 @@ export const Section1 = styled.div`
         position: absolute;
         transform: translate(-50%, -50%);
         opacity: 0; /* 초기에 텍스트를 숨김 */
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
         transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+    }
+    .text2, .text3{
+        color: white;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
     }
     .mainText.show {
         opacity: 1; /* 텍스트를 나타냄 */
         top: calc(50% - 10px); /* 위로 10px 이동 */
     }
+
     .mainBtn{
         width: 5rem;
         height: 2.5rem;
@@ -91,37 +97,39 @@ const MainSection1 = () => {
                     <SwiperSlide>
                         <img src={backImg1} alt=""/>
                         <div className={`mainText ${showText && slideIndex === 0 ? 'show' : ''}`} >
-                            <p className="textTitle">
+                            <p className="textTitle text1">
                                 자연과 하나가 되십시오
                                 <br/>
                                 완벽한 여행을 위해 필요한 것이 있습니다.
                                 <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
+                            {/* <button className='mainBtn'>SHOP</button> */}
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={backImg2} alt=""/>
                         <div className={`mainText ${showText && slideIndex === 1 ? 'show' : ''}`} >
-                            <p className="textTitle">
-                                자연과 하나가 되십시오
+                            <p className="textTitle text2">
+                                도시의 소음과 시간의 구속을 벗어나,
                                 <br/>
-                                완벽한 여행을 위해 필요한 것이 있습니다.
+                                자연과 조화로운 휴식과 자유를 선사하는
+                                <br/>
+                                특별한 여정을 떠나보세요.
                                 <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
+                            {/* <button className='mainBtn'>SHOP</button> */}
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={backImg3} alt=""/>
                         <div className={`mainText ${showText && slideIndex === 2 ? 'show' : ''}`} >
-                            <p className="textTitle">
-                                자연과 하나가 되십시오
+                            <p className="textTitle text3">
+                                자연 속에서 불을 지피고 별을 바라보며, 
                                 <br/>
-                                완벽한 여행을 위해 필요한 것이 있습니다.
+                                내 안에 잠든 평화를 깨워보아요.
                                 <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
+
                         </div>
                     </SwiperSlide>
                 </Swiper>

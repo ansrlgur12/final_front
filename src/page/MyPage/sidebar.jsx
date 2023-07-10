@@ -2,8 +2,13 @@ import React from 'react';
 import { UserOutlined, SettingOutlined, HeartOutlined, CompassOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 const { Sider } = Layout;
+
+const StyledContent = styled(Sider)`
+
+`;
 
 const items = [
   {
