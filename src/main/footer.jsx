@@ -2,9 +2,9 @@ import React from "react";
 import { styled } from "styled-components";
 
 const FooterStyle = styled.div`
-background-color: #ccc;
-padding: 40px 0;
-margin-top: 40px;
+    background-color: #ccc;
+    padding: 40px 10px;
+    margin-top: 40px;
 
     footer p {
         margin-bottom: 10px;

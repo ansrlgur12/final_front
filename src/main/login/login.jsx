@@ -121,35 +121,35 @@ const LoginStyle = styled.div`
     }
 `;
 
+const SignUpStyle = styled.div`
+    position: absolute;
+    top: 46%;
+    right: -100%;
+    transform: translateY(-50%);
+    /* transition: right 0.6s ease-in-out; */
+
+    &.showSign {
+        right: 0%;
+    }
+
+    &.cutSign{
+        right: -100%;
+    }
+`;
 // const SignUpStyle = styled.div`
 //     position: absolute;
-//     top: 46%;
-//     right: -100%;
-//     transform: translateY(-50%);
-//     /* transition: right 0.6s ease-in-out; */
+//     top: 0;
+//     left: 0;
+//     width: 100%;
 
 //     &.showSign {
-//         right: 0%;
+//         display: inline-block;
 //     }
 
 //     &.cutSign{
 //         display: none;
 //     }
 // `;
-const SignUpStyle = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    &.showSign {
-        display: inline-block;
-    }
-
-    &.cutSign{
-        display: none;
-    }
-`;
 
 const Login = () => {
     const [showSign, setShowSign] = useState(false);
@@ -210,12 +210,8 @@ const Login = () => {
     const onClickLogin = async() => {
         // 로그인을 위해 Axios 호출
         const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
-        // console.log("이메일 : " + inputEmail);
-        // console.log("비밀번호 : " + inputPwd);
-        console.log()
         if(response.data) {
             console.log("로그인");
-            console.log(response.data);
             setLoginFinishOpen(true);
             setUserEmail(inputEmail);
             setPassword(inputPwd);
@@ -226,8 +222,8 @@ const Login = () => {
             setUserImage(response.data.userImg);
             setId(response.data.id);
             setIsLogin(true);
-            console.log(response.data.id);
-        } else {
+        } 
+        else {
             console.log("로그인 에러");
             setModalOpen(true);
         }

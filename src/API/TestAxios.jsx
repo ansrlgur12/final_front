@@ -20,8 +20,6 @@ const AxiosApi = {
     
     // 로그인
     memberLogin: async (inputEmail, inputPwd) => {
-        console.log("이메일 : " + inputEmail);
-        console.log("패스워드 : " + inputPwd);
         const loginData = {
             email: inputEmail,
             password: inputPwd
