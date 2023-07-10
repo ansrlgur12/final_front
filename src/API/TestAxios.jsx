@@ -256,12 +256,26 @@ memberLikedCamp : async(memberId) => {
 memberMarkedCamp : async(memberId) => {
     return await axios.get(domain + `/oji/memberMarkedCamp/${memberId}`)
 },
+  // 주문 생성
+  createOrder : async(email,productId,quantity) => {
+    const item = {
+        email : email,
+        productId : productId,
+      quantity : quantity,
+    };
+    
+  return await axios.post(domain + `/order`, item)
+},
+// 결제 검증
+verifyPayment : async(imp_uid) =>{
+    return await axios.post(domain + `/verifyIamport/${imp_uid}`);
+},
 
     // 메인페이지 캠핑장 정보
     getCampList : async(lt, sigungu) => {
 
         return await axios.get(domain + `/mainsection3/${lt}/${sigungu}`)
     },
-
-}
+  
+};
 export default AxiosApi;
