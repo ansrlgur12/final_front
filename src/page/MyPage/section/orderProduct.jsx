@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useContext,useEffect} from 'react';
 import { Table, Popconfirm } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
-
+import AxiosApi from '../../../API/TestAxios';
+import { UserContext } from '../../../API/UserInfo';
 const LayoutContainer = styled.div`
   display: flex;
 `;
@@ -106,6 +107,18 @@ const data = [
 ];
 
 const OrderedProduct = () => {
+  const { userEmail } = useContext(UserContext);
+
+
+  const fetchCartData= async()=> {
+    const response = await AxiosApi.getOrderList(userEmail);
+    if (response.status === 200) {
+     console.log(response.data);
+    }
+}
+useEffect(() => {
+  fetchCartData();
+}, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
   return (
     <>
       <Header />

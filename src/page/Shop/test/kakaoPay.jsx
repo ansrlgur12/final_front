@@ -4,7 +4,7 @@ import { useOrderContext } from "../../../context/OrderContext";
 import AxiosApi from "../../../API/TestAxios";
 import { UserContext } from "../../../API/UserInfo";
 import { CartContext } from "../../../context/CartContext";
-
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -17,9 +17,9 @@ import { CartContext } from "../../../context/CartContext";
 const KakaoPay=(totalCost)=> {
   const { orderData } = useOrderContext();
   const { userEmail } = useContext(UserContext);
-  const {selectedItems} = useContext(CartContext);
-  console.log(totalCost); 
-  console.log(selectedItems);
+  const {setCart,selectedItems,removeFromCart} = useContext(CartContext);
+  const [cartData, setCartData] = useState([]);
+  const nav = useNavigate();
   
     const onClickPayment=()=> {
       /* 1. 가맹점 식별하기 */
@@ -59,9 +59,10 @@ const KakaoPay=(totalCost)=> {
             console.log(selectedItems); 
             const productId = selectedItems.map(item => item.id);  // 제품 ID 리스트
           const quantity = selectedItems.map(item => item.quantity);  // 제품 수량 리스트
-
+           
           for(let i=0; i<productId.length; i++){
             await AxiosApi.createOrder(userEmail, productId[i], quantity[i]);
+            handleRemoveFromCart();
           }
           } else {
             alert("결제 검증 실패");
@@ -74,7 +75,29 @@ const KakaoPay=(totalCost)=> {
         alert(`결제 실패: ${error_msg}`);
       }
     }
-  
+    const handleRemoveFromCart = async (selectItems) => {
+      try {
+        const cartItemId = selectedItems.map(item => item.key); 
+        console.log(userEmail,cartItemId);
+        const response = await AxiosApi.deleteItem(cartItemId, userEmail);
+        if (response.status === 200) {
+          removeFromCart(cartItemId);
+          fetchCartData(); // 장바구니 데이터를 다시 가져옵니다.
+        } else {
+          console.log('삭제에 실패하였습니다.'); 
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchCartData= async()=> {
+      const response = await AxiosApi.cartList(userEmail);
+      if (response.status === 200) {
+          setCartData(response.data);
+          setCart(response.data);
+      }
+      nav("/payComplete")
+  }
   
     return (
         <>
@@ -86,4 +109,3 @@ const KakaoPay=(totalCost)=> {
     );
   };
   export default KakaoPay;
-

@@ -8,7 +8,6 @@ import QuantityInput from '../../Shop/quantityInput';
 import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
-import Payment from '../../Shop/test/danal';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 
@@ -98,7 +97,7 @@ const TotalAmount = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { setCart,removeFromCart,setQuantity: setQuantityInContext,selectedItems,setSelectedItems } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);

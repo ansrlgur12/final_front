@@ -276,6 +276,12 @@ verifyPayment : async(imp_uid) =>{
 
         return await axios.get(domain + `/mainsection3/${lt}/${sigungu}`)
     },
+    getOrderList : async(email) => {
+        return await axios.post(domain + `/order/orders`, {
+            email: email,
+            })
+
+    }
   
 };
 export default AxiosApi;

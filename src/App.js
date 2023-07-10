@@ -41,6 +41,7 @@ import KakaoPay from './page/Shop/test/kakaoPay';
 import Search from './main/search/search';
 import MyCamp from './page/MyPage/section/myCamp';
 import MyOji from './page/MyPage/section/myOji';
+import PayComplete from './page/Shop/test/PayComplete';
 
 
 function App() {
@@ -98,6 +99,7 @@ function App() {
                 <Route path='/danal' element={<Danal />} />
                 <Route path='/imageTest' element={<ImageTest />} />
                 <Route path='/kakaoPay' element={<KakaoPay />} />
+                <Route path='/payComplete' element={<PayComplete />} />
 
                 <Route path='/orderpage' element={<OrderPage />} />
            
