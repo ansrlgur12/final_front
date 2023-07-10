@@ -256,6 +256,20 @@ memberLikedCamp : async(memberId) => {
 memberMarkedCamp : async(memberId) => {
     return await axios.get(domain + `/oji/memberMarkedCamp/${memberId}`)
 },
+  // 주문 생성
+  createOrder : async(email,productId,quantity) => {
+    const item = {
+        email : email,
+        productId : productId,
+      quantity : quantity,
+    };
+    
+  return await axios.post(domain + `/order`, item)
+},
+// 결제 검증
+verifyPayment : async(imp_uid) =>{
+    return await axios.post(domain + `/verifyIamport/${imp_uid}`);
+},
 
-}
+};
 export default AxiosApi;

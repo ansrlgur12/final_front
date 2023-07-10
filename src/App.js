@@ -33,10 +33,11 @@ import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
-import Payment from './page/Shop/test/inicis';
+import Danal from './page/Shop/test/danal';
 import ImageTest from './page/Map/ImageTest';
 import OrderPage from './page/Shop/test/orderPage';
-// import { OrderProvider } from './context/OrderContext';
+import { OrderProvider } from './context/OrderContext';
+import KakaoPay from './page/Shop/test/kakaoPay';
 import Search from './main/search/search';
 import MyCamp from './page/MyPage/section/myCamp';
 import MyOji from './page/MyPage/section/myOji';
@@ -58,6 +59,7 @@ function App() {
     <div className="App">
       <UserStore>
         <MarkerStore>
+          <OrderProvider>
           <FavoriteProvider>
           <CartProvider>
             <Router>
@@ -93,8 +95,9 @@ function App() {
                 <Route path='/testPage' element={<TestPage />} />
                 <Route path='/signup' element={<SignUpPage />} />
                 <Route path='/myFavorite' element={<MyFavorite />} />
-                <Route path='/payment' element={<Payment />} />
+                <Route path='/danal' element={<Danal />} />
                 <Route path='/imageTest' element={<ImageTest />} />
+                <Route path='/kakaoPay' element={<KakaoPay />} />
 
                 <Route path='/orderpage' element={<OrderPage />} />
            
@@ -102,6 +105,7 @@ function App() {
             </Router>
           </CartProvider>
           </FavoriteProvider>
+          </OrderProvider>
         </MarkerStore>
       </UserStore>
     </div>

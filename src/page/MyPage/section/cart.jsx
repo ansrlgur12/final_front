@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
@@ -8,9 +8,10 @@ import QuantityInput from '../../Shop/quantityInput';
 import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
-import Payment from '../../Shop/test/inicis';
+import Payment from '../../Shop/test/danal';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+
 
 
 const LayoutContainer = styled.div` 
@@ -18,14 +19,16 @@ const LayoutContainer = styled.div`
 
 `;
 
-const SidebarContainer = styled.div`
+export const SidebarContainer = styled.div`
   flex: 0 0 200px;
+  margin-top:1.2rem ;
   height: 100vh;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 `;
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   flex: 1;
   padding: 20px;
   text-align: center;
@@ -95,7 +98,7 @@ const TotalAmount = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { setCart,removeFromCart,setQuantity: setQuantityInContext } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext,selectedItems,setSelectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
@@ -132,10 +135,10 @@ const setQuantity = async (key, quantity) => {
 useEffect(() => {
   const newData = cartData.map((item) => ({
       key: item.cartItemId, 
-      id: item.cartItemId,
+      id: item.productId,
       productName: item.productName,
       imageUrl: item.imageUrl,
-      paymentAmount: new Intl.NumberFormat('ko-KR').format(item.price) + "원",
+      price: new Intl.NumberFormat('ko-KR').format(item.price) + "원",
       quantity: item.quantity,
   }));
 
@@ -156,6 +159,10 @@ const handleRemoveFromCart = async (cartItemId) => {
     console.error(error);
   }
 };
+useEffect(() => {
+  const selectedData = data.filter((item) => selectedRowKeys.includes(item.key));
+  setSelectedItems(selectedData);
+}, [selectedRowKeys]);
   const columns = [
     {
       title: '상품 이미지',
@@ -175,8 +182,8 @@ const handleRemoveFromCart = async (cartItemId) => {
   
     {
       title: '판매가',
-      dataIndex: 'paymentAmount',
-      key: 'paymentAmount',
+      dataIndex: 'price',
+      key: 'price',
     },
     {
       title: '수량',
@@ -208,7 +215,7 @@ const handleRemoveFromCart = async (cartItemId) => {
     selectedRowKeys.forEach((key) => { //각 항목 반복문 실행
       const item = data.find((d) => d.key === key); 
       const paymentAmount = parseFloat(
-        item.paymentAmount.replace(',', '').replace('원', '')
+        item.price.replace(',', '').replace('원', '')
       );
       const quantity = item.quantity;
       totalAmount += paymentAmount * quantity;
@@ -244,7 +251,9 @@ const handleRemoveFromCart = async (cartItemId) => {
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
               </TotalAmount>
-              <Payment/>
+              <Button type="primary" onClick={()=>nav("/orderpage")}>
+                 결제하기
+                </Button>
             </TotalPayment>
           </TableContainer>
           <MyFavorite fetchCartData={fetchCartData}/>
