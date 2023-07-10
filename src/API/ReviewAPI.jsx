@@ -62,6 +62,22 @@ deleteReview: async (memberId, reviewId) => {
   getReviewById: async (id) => {
     return await axios.get(`${CAMO_DOMAIN}/review/${id}`);
   },
-};
 
+
+//리뷰 검색
+searchReviews: async (keyword) => {
+  return await axios.get(`${CAMO_DOMAIN}/review/search/${keyword}`);
+},
+
+//상품 검색
+searchProducts: async (brand, productName) => {
+  return await axios.get(`${CAMO_DOMAIN}/product-search?brand=${brand}&productName=${productName}`);
+},
+
+//캠핑장명 검색
+searchCamps: async (facltNm) => {
+  return await axios.get(`${CAMO_DOMAIN}/camp/search?facltNm=${facltNm}`);
+}
+
+};
 export default ReviewApi;
