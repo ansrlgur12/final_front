@@ -13,7 +13,7 @@ import { UserContext } from '../../../API/UserInfo';
 
 
 
-const LayoutContainer = styled.div` 
+export const LayoutContainer = styled.div` 
   display: flex;
 
 `;
