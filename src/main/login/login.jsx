@@ -212,6 +212,7 @@ const Login = () => {
         const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
         // console.log("이메일 : " + inputEmail);
         // console.log("비밀번호 : " + inputPwd);
+        console.log()
         if(response.data) {
             console.log("로그인");
             console.log(response.data);

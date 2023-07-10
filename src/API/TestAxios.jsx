@@ -271,5 +271,11 @@ verifyPayment : async(imp_uid) =>{
     return await axios.post(domain + `/verifyIamport/${imp_uid}`);
 },
 
+    // 메인페이지 캠핑장 정보
+    getCampList : async(lt, sigungu) => {
+
+        return await axios.get(domain + `/mainsection3/${lt}/${sigungu}`)
+    },
+  
 };
 export default AxiosApi;
