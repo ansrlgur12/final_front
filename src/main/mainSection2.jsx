@@ -115,7 +115,7 @@ const MainSection2 = () => {
                     <button className="itemBtn">shop</button>
                 </div>
                 <div className="item item3" onClick={() => nav('/community')}>
-                    <div className="itemtext">캠퍼들의 인기 캠핑장을 확인해 보세요!</div>
+                    <div className="itemtext">캠퍼들 사이에 소문난 캠핑장을 확인해 보세요!</div>
                     <button className="itemBtn">이동하기</button>
                 </div>
             </div>
