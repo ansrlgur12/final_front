@@ -129,7 +129,12 @@ const AxiosApi = {
 
     // 장바구니 삭제
     deleteItem : async(cartItemId, email) => {
-        return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,})
+        const item = {
+            cartItemId : Array.isArray(cartItemId) ? cartItemId : [cartItemId],
+        email : email,
+
+        }
+        return await axios.post (domain + `/cart/deleteItem/`,item)
     },
 
     // 장바구니 수량 수정
