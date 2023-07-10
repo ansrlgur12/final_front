@@ -15,13 +15,40 @@ const Section2 = styled.div`
         padding: 0;
         margin: 0;
         display: flex;
-        flex-wrap: wrap; /* 추가: 요소들을 여러 줄로 나열 */
-
+        flex-wrap: wrap;
     }
+
     .item{
         margin: 0;
         padding: 0;
+        cursor: pointer;
+        position: relative;
     }
+
+    .item:hover {
+        background-color: black;
+    }
+
+    .item:hover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .item:hover .itemtext,
+    .item:hover .itemBtn {
+        transform: translateY(-20px);
+        opacity: 1;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
     .item1{
         width: 38vw;
         height: 500px;
@@ -33,6 +60,7 @@ const Section2 = styled.div`
         justify-content: center;
         flex-direction: column;
     }
+
     .item2{
         width: 50vw;
         background-image: url(${itemp2});
@@ -42,6 +70,7 @@ const Section2 = styled.div`
         justify-content: center;
         flex-direction: column;
     }
+
     .item3{
         width: 100vw;
         height: 500px;
@@ -53,15 +82,23 @@ const Section2 = styled.div`
         justify-content: center;
         flex-direction: column;
     }
-    .itemtext{
+
+    .itemtext {
         color: white;
         font-size: 2rem;
         margin-left: 40px;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
+
     .itemBtn {
         width: 100px;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         margin: 10px 0 0 40px;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 `;
 
@@ -70,16 +107,16 @@ const MainSection2 = () => {
         <Section2>
             <div className="container2">
                 <div className="item item1">
-                    <div className="itemtext">새로운 제품을 만나보세요!</div>
-                    <button className="itemBtn">shop</button>
+                    <div className="itemtext">무료로 이용할 수 있는<br /> 캠핑장을 공유해주세요!</div>
+                    <button className="itemBtn">이동하기</button>
                 </div>
                 <div className="item item2">
-                    <div className="itemtext">새로운 제품을 만나보세요!</div>
+                    <div className="itemtext">인기 제품을 만나러 가요!</div>
                     <button className="itemBtn">shop</button>
                 </div>
                 <div className="item item3">
-                    <div className="itemtext">새로운 제품을 만나보세요!</div>
-                    <button className="itemBtn">shop</button>
+                    <div className="itemtext">캠퍼들의 인기 캠핑장을 확인해 보세요!</div>
+                    <button className="itemBtn">이동하기</button>
                 </div>
             </div>
         </Section2>

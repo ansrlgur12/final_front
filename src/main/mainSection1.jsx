@@ -9,11 +9,12 @@ import{ Navigation, Pagination } from "swiper";
 
 
 export const Section1 = styled.div`
-    padding-top: 10px;
+    display: flex;
+    justify-content: center;
 
     .backImg {
         width: 100vw;
-        height: 100vh;
+        height: 80vh;
         overflow: hidden;
         position: relative;
     }
