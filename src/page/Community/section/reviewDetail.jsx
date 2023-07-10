@@ -144,7 +144,6 @@ const ReviewDetail = () => {
               </ReviewActions>
             </ReviewMeta>
             <CommentList reviewId={review?.id} />
-            <CommentForm reviewId={review?.id} />
 
             <Modal
               title="리뷰 삭제"

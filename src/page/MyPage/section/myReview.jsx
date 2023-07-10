@@ -8,7 +8,7 @@ import camping from "../../../images/camping.png";
 import Header from '../../../main/header';
 import Sider from 'antd/es/layout/Sider';
 import Sidebar from '../sidebar';
-import axios from 'axios';
+import ReviewApi from '../../../API/ReviewAPI';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -50,13 +50,13 @@ const MyReview = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const memberId = 1; // Your memberId constant
+    const memberId = 1;
     fetchPostsByMember(memberId);
   }, []);
 
   const fetchPostsByMember = async (memberId) => {
     try {
-      const response = await axios.get(`http://localhost:8111/review/member/${memberId}`);
+      const response = await ReviewApi.getReviewsByMember(memberId);
       const data = response.data;
       setPosts(data);
     } catch (error) {

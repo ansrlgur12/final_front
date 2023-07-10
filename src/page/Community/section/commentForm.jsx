@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Modal } from 'antd';
+import { useNavigate } from 'react-router-dom'; 
 import CommentApi from '../../../API/CommnetAPI';
 
 const CommentForm = ({ reviewId }) => {
   const [content, setContent] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -19,7 +21,7 @@ const CommentForm = ({ reviewId }) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    window.location.href = `http://localhost:3000/reviewDetail/${reviewId}`; 
+    navigate(`/reviewDetail/${reviewId}`); 
   };
 
   return (
