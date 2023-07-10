@@ -200,11 +200,11 @@ const OjiOverlay = (props) => {
           </div>
           <div className="bottomLine">
                 {likeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
-                <div className="icon">2</div>
+                <div className="icon">0</div>
                 <VisibilityButton />
                 <div className="icon">{campInfo.viewCount}</div> 
                 <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
-                <div className="icon">3</div> 
+                <div className="icon">0</div> 
                 <button className='detailBtn' onClick={() => detailPageOpen(campInfo.facltNm, campInfo.mapX, campInfo.mapY)}>상세페이지</button>
           </div>
         </div> 

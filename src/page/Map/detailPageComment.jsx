@@ -47,7 +47,7 @@ position: relative;
         margin-top: 2vh;
     }
     .no-comments{
-        margin-left: vw;
+        margin-left: 2vw;
         font-size: .8em;
     }
 `;
