@@ -14,7 +14,12 @@ import { UserOutlined } from '@ant-design/icons';
 
 const HeaderStyle = styled.div`
     box-sizing: border-box;
-    box-shadow: 1px 2px 5px gray;
+    box-shadow: 1px 2px 5px #ccc;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+    width: 100vw;
+    margin: 0;
 
     * {
         margin: 0;
