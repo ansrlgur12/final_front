@@ -557,9 +557,9 @@ const OjiDetailPage = (props) => {
                     <LickCommentShare>
                         <LikeCommentArea>
                             <FontAwesomeIcon icon={faHeart} size="lg" color="red"/>
-                            <Number>3</Number>
+                            <Number>0</Number>
                             <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
-                            <Number>3</Number>
+                            <Number>0</Number>
                         </LikeCommentArea>
                         <ShareArea>
                             공유하기
