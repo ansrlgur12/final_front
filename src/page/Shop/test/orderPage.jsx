@@ -60,17 +60,7 @@ tbody {
 
 `;
 
-const TotalPayment = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-`;
 
-const TotalAmount = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-`;
 
 
 const Container = styled.section`
@@ -125,18 +115,13 @@ const BtnWrapper = styled.div`
 
 const OrderPage = () => { 
 
-  const { setCart,removeFromCart,setQuantity } = useContext(CartContext); // cartContext사용
+
   const [data, setData] = useState([]);
   const nav = useNavigate();
-  const { userEmail } = useContext(UserContext);
   const {selectedItems} = useContext(CartContext);
   const [orderList, setOrderList] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
-  const [totalShipCost, setTotalShipCost] = useState(0);
   const [agree, setAgree] = useState(false);
-  const orderNumber = Math.floor(Math.random() * 10000000) + 1;
-  const orderTime = new Date().toLocaleString();
-  const [numberValue, setNumberValue] = useState("");
   const { setOrderData } = useOrderContext();
   const [payMethodId, setPayMethodId] = useState(0); 
 
@@ -442,11 +427,11 @@ const orderdata = {
         
         <BtnWrapper>
         {agree ? (
-                  payMethodId === 0 ? (
-                    <Danal totalCost={totalCost.toLocaleString()}selectedItems={selectedItems}/>
-                  ) : (
-                    <KakaoPay totalCost={totalCost.toLocaleString()}selectedItems={selectedItems}/>
-                  )
+                 payMethodId === 0 ? (
+                  <Danal totalCost={totalCost.toLocaleString()}selectedItems={selectedItems}/>
+                ) : (
+                  <KakaoPay totalCost={totalCost.toLocaleString()}selectedItems={selectedItems}/>
+                )
                 ) : (
                   <button type="button" disabled>
                     결제하기

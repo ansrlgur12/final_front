@@ -17,9 +17,8 @@ import { CartContext } from "../../../context/CartContext";
 const Danal=(totalCost)=> {
   const { orderData } = useOrderContext();
   const { userEmail } = useContext(UserContext);
-  const {selectedItems} = useContext(CartContext);
-  console.log(totalCost); 
-  console.log(selectedItems);
+  const {setCart,selectedItems,removeFromCart} = useContext(CartContext);
+  const [cartData, setCartData] = useState([]);
   
     const onClickPayment=()=> {
       /* 1. 가맹점 식별하기 */
@@ -62,6 +61,7 @@ const Danal=(totalCost)=> {
            
           for(let i=0; i<productId.length; i++){
             await AxiosApi.createOrder(userEmail, productId[i], quantity[i]);
+            handleRemoveFromCart();
           }
           } else {
             alert("결제 검증 실패");
@@ -74,7 +74,28 @@ const Danal=(totalCost)=> {
         alert(`결제 실패: ${error_msg}`);
       }
     }
-  
+    const handleRemoveFromCart = async (selectItems) => {
+      try {
+        const cartItemId = selectedItems.map(item => item.key); 
+        console.log(userEmail,cartItemId);
+        const response = await AxiosApi.deleteItem(cartItemId, userEmail);
+        if (response.status === 200) {
+          removeFromCart(cartItemId);
+          fetchCartData(); // 장바구니 데이터를 다시 가져옵니다.
+        } else {
+          console.log('삭제에 실패하였습니다.'); 
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchCartData= async()=> {
+      const response = await AxiosApi.cartList(userEmail);
+      if (response.status === 200) {
+          setCartData(response.data);
+          setCart(response.data);
+      }
+  }
   
     return (
         <>
