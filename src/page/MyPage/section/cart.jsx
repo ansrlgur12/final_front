@@ -15,6 +15,8 @@ import { UserContext } from '../../../API/UserInfo';
 
 export const LayoutContainer = styled.div` 
   display: flex;
+  padding-top: 100px;
+
 
 `;
 
@@ -236,6 +238,7 @@ useEffect(() => {
   return (
     <>
       <Header />
+
       <LayoutContainer>
         <SidebarContainer>
           <Sidebar />
