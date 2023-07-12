@@ -321,7 +321,7 @@ useEffect(() => {
       loop ={true}
       
       modules={[Navigation, Pagination, Keyboard]}
-      spaceBetween={30}
+      spaceBetween={25}
       slidesPerView={3}
       navigation
       keyboard={{enable:true}}

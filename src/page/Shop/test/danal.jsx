@@ -4,7 +4,7 @@ import { useOrderContext } from "../../../context/OrderContext";
 import AxiosApi from "../../../API/TestAxios";
 import { UserContext } from "../../../API/UserInfo";
 import { CartContext } from "../../../context/CartContext";
-
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,7 +19,7 @@ const Danal=(totalCost)=> {
   const { userEmail } = useContext(UserContext);
   const {setCart,selectedItems,removeFromCart} = useContext(CartContext);
   const [cartData, setCartData] = useState([]);
-  
+  const nav = useNavigate();
     const onClickPayment=()=> {
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
@@ -45,15 +45,16 @@ const Danal=(totalCost)=> {
   
     /* 3. 콜백 함수 정의하기 */
     const callback = async (response) => {
-      const { success, error_msg, imp_uid, paid_amount } = response;
+      const { success, error_msg, imp_uid, paid_amount,merchant_uid } = response;
   
       if (success) {
         try {
           // 결제 검증
           const verify = await AxiosApi.verifyPayment(imp_uid);
           const data = verify.data;
+          console.log(merchant_uid);
           // 결제검증을 추가
-          if (paid_amount == data.response.amount) {
+          if (paid_amount === data.response.amount) {
             alert("결제 및 결제검증완료");
             console.log(selectedItems); 
             const productId = selectedItems.map(item => item.id);  // 제품 ID 리스트
@@ -95,6 +96,7 @@ const Danal=(totalCost)=> {
           setCartData(response.data);
           setCart(response.data);
       }
+      nav("/payComplete")
   }
   
     return (
