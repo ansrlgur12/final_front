@@ -12,7 +12,7 @@ import { UserContext } from "../../API/UserInfo";
 const WriteContainer = styled.div`
     display: flex;
     margin-left: 5vw;
-    margin-top: 3vh;
+    padding-top: 8vh;
     margin-left: 10vw;
     position: relative;
     h2{

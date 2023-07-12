@@ -28,6 +28,7 @@ export const MainStyle = styled.div`
         align-items: flex-end;
         flex-direction: column;
         margin-top: .2em;
+        padding-top: 10.5vh;
     }
     
 
@@ -79,6 +80,23 @@ export const MainStyle = styled.div`
       flex-direction: column;
       justify-content: center;
       margin-bottom: 1em;
+    }
+
+    @media screen and (max-width: 768px) {
+      .selectBtn {
+        top: auto;
+        left: 1vw;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1vh 2vh;
+      }
+      .btnSection {
+        margin : 1vw;
+      }
+      .img {
+        width: 4vh;
+        height: 4vh;
+      }
     }
   `;
 

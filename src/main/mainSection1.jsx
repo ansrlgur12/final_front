@@ -52,6 +52,30 @@ export const Section1 = styled.div`
     .textLine{
         border: 1px solid #afafaf;
     }
+    @media screen and (max-width: 768px) {
+        .backImg {
+        width: 100vw;
+        height: 50vh;
+    }
+    img {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+        object-position: center;
+    }
+    .mainText {
+        top: 50%;
+        margin-left: 10vw;
+        z-index: 1;
+        font-size: 1.3rem;
+        color: #1111aa;
+        font-weight: bold;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        opacity: 0; /* 초기에 텍스트를 숨김 */
+        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+    }
+    }
 `;
 
 const MainSection1 = () => {
