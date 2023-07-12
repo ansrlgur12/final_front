@@ -21,6 +21,7 @@ import shower from "../../images/샤워.png";
 
 
 const IconListBox = styled.div`
+    height: auto + 5vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -28,7 +29,7 @@ const IconListBox = styled.div`
     padding: 1em;
     margin-top: 2vh;
     background-color: rgb(235, 235, 235);
-    box-shadow: 1px salmon;
+
 `;
 
 const Icon = styled.div`
@@ -46,6 +47,15 @@ const Icon = styled.div`
     .desc{
         font-size: .7em;
     }
+    @media screen and (max-width: 768px) {
+        width: 10.5vw;
+        margin: .7rem;
+        margin-bottom: 1.3rem;
+      .icon {
+        width: 6.5vw;
+        height: 6.5vw;
+    }
+}
 `;
 
 const IconList = () => {

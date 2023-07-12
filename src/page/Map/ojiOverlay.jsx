@@ -128,6 +128,19 @@ const MapStyled = styled.div`
     .num{
       margin-left: .5em;
     }
+    @media screen and (max-width: 768px) {
+      .wrap {
+      display: none;
+      border-radius: 15px;
+      position: absolute;
+      right: 20vw;
+      bottom: 49vh;
+      margin-left: -144px;
+    }
+    .openOverlay {
+      display: flex;
+    }
+    }
  `;
 
 const OjiOverlay = (props) => {

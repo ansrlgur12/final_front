@@ -209,9 +209,9 @@ const Section = styled.div`
     @media screen and (max-width: 768px) {
             .selectDate{
                 position: absolute;
-                top: 4vh;
+                top: 5vh;
                 right: 4vh;
-                font-size: .9em;
+                font-size: 1em;
             }
     }
     .selectDateSec{
@@ -268,8 +268,8 @@ const Section = styled.div`
             }
             .wImage{
                 position: absolute;
-                top: 4vh;
-                right: .5vh;
+                top: 5vh;
+                right: 0vh;
             }
     }
     .km{
@@ -312,6 +312,12 @@ const Section = styled.div`
         .umb{
             width: 10vw;
             height: 4vw;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .weatherSection{
+            position: absolute;
+            top: 3vh;
         }
     }
 
@@ -398,6 +404,16 @@ const Information = styled.div`
         font-weight: 500;
         margin-right: 0;
     }
+    @media screen and (max-width: 768px) {
+        .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 10vw;
+        margin-right: .5em;
+        flex-basis: 20%;
+    }
+    }
 `;
 const ImageInfo = styled.div`
     margin-top: 3.5vh;
@@ -405,7 +421,6 @@ const ImageInfo = styled.div`
     display: flex;  
     width: 95%;
     height: auto;
-    overflow-x: scroll;
     .campInfo{
         font-weight: bold;
         font-size: .85em;
@@ -413,6 +428,8 @@ const ImageInfo = styled.div`
         width: 5vw;
         margin-right: .5em;
         flex-basis: 15%;
+        position: absolute;
+        left: 2em;
     }
     .img{
         left: 2vw;
@@ -425,13 +442,31 @@ const ImageInfo = styled.div`
         flex-basis: 75%;
         font-weight: 500;
     }
+    @media screen and (max-width: 768px) {
+        .campInfo{
+            position: absolute;
+            left: 2em;
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 10vw;
+        margin-right: .5em;
+        
+    }
+    .value{
+        font-size: .8em;
+        flex-basis: 70%;
+        font-weight: 500;
+    }
+    }
+    
 `;
 const IconBox = styled.div`
     margin-top: 7vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 20vh;
+    height: auto;
     margin-bottom: 10vh;
 
     .iconBoxDesc{
@@ -727,7 +762,7 @@ const DetailPage = (props) => {
                     </Information>
                     <ImageInfo>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="campInfo img">이미지</div>
+                        <div className="campInfo">이미지</div>
                         <div className="value">
                             <ImageList />
                         </div>

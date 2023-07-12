@@ -14,6 +14,7 @@ import toilet from "../../images/공중화장실.png"
 
 
 const IconListBox = styled.div`
+height: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -44,6 +45,15 @@ const Icon = styled.div`
         padding-top: .5em;
         font-size: .7em;
     }
+    @media screen and (max-width: 768px) {
+        width: 10.5vw;
+        margin: .7rem;
+        margin-bottom: 1.3rem;
+      .icon {
+        width: 6.5vw;
+        height: 6.5vw;
+    }
+}
 `;
 
 const OjiIconList = () => {
