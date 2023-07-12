@@ -19,7 +19,7 @@ const items = [
       {
         key: 'sub1-2',
         label: '내가 주문한 상품',
-        to: '/OrderedProduct'
+        to: '/OrderList'
       },
       {
         key: 'sub1-3',

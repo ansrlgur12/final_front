@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import logoImg from "../images/CAMO로고.png"
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { CartContext } from "../context/CartContext";
 import { UserContext } from "../API/UserInfo";
 import SearchBox from "./search/searchBox";
 import { UserOutlined } from '@ant-design/icons';
-
+import Modal from "../Commons/Modal";
 
 const HeaderStyle = styled.div`
     box-sizing: border-box;
@@ -86,9 +86,22 @@ const Header = () =>{
     const userInfo = useContext(UserContext);
     const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, userEmail} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
-    //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
-    //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
-  
+    const [isOpen, setIsOpen] = useState(false);
+
+   
+       
+      
+    const handleCartClick = () => {
+        if (!userEmail) {
+            setIsOpen(true);
+        } else {
+            nav("/cart");
+        }
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
 
     const logoImage = { // 로고 이미지를 객체로 만들어서 return 문에 객체만 삽입
         backgroundImage: `url(${logoImg})`,
@@ -149,7 +162,7 @@ const Header = () =>{
                         <SearchBox />
                         <UserOutlined onClick={()=>nav("/myPage")}/>
                         {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
-                        <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
+                        <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
                         </Badge>
@@ -157,6 +170,17 @@ const Header = () =>{
                     </div>
                 </div>
             </HeaderStyle>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <p>로그인 후 확인 가능합니다.</p>
+                <div className="btnWrapper">
+                    <button className="modalBtn" onClick={() => {
+                        closeModal();
+                        nav("/intro");
+                    }}>
+                        로그인
+                    </button>
+                </div>
+            </Modal>
         </>
     );
 }

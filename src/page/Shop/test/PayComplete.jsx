@@ -14,9 +14,9 @@ const nav = useNavigate();
         <GridStlye>
         <h1>구매 완료!</h1>
         <button  onClick={()=>nav("/shopMain")}>쇼핑 계속하기</button>
-        <button onClick={()=>nav("/orderProduct")}>구매 내역 확인</button>
-        <Footer/>
+        <button onClick={()=>nav("/OrderList")}>구매 내역 확인</button>
         </GridStlye>
+        <Footer/>
         </>
     );
 }; export default PayComplete;

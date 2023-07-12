@@ -12,7 +12,7 @@ import CartProvider from './context/CartContext';
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
 import Delete from './page/MyPage/section/delete';
-import OrderedProduct from './page/MyPage/section/orderProduct';
+import OrderList from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
@@ -86,7 +86,7 @@ function App() {
                 <Route path='/userInfo' element={<UserInfo />} />
                 <Route path="/UserInfo" element={<UserInfo />} />
                 <Route path="/Delete" element={<Delete />} />
-                <Route path="/OrderedProduct" element={<OrderedProduct />} />
+                <Route path="/OrderList" element={<OrderList />} />
                 <Route path="/Cart" element={<Cart />} />
                 <Route path="/NewPassword" element={<NewPassword />} />
                 <Route path="/UserEdit" element={<UserEdit />} />
