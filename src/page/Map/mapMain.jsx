@@ -102,11 +102,9 @@ export const MainStyle = styled.div`
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue} = context;
+  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue, location} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
-  const [mapLocations, setMapLocations] = useState([]);
-  const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
 
 
@@ -136,13 +134,11 @@ const MapMain = () => {
 
   const setNormalMapInfo = () => {
     setCurrentData("normal");
-    setMarkerPositions(mapLocations)
     setMarker(markerImage);
   }
 
   const setAnimalMapInfo = () => {
     setCurrentData("animal");
-    setMarkerPositions(animalLocations);
     setMarker(animalCamp);
   }
 

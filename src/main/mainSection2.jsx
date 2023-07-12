@@ -140,17 +140,20 @@ const Section2 = styled.div`
         font-size: 1rem;
         margin-top: 1rem;
         margin-left: 1rem;
-        transform: translateY(20px);
-        opacity: 0;
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transform: translateY(0px);
+        opacity: 1;
     }
     .itemBtn {
         width: 100px;
         font-size: 1rem;
         margin: 1rem 0 0 1rem;
-        transform: translateY(20px);
-        opacity: 0;
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transform: translateY(0px);
+        opacity: 1;
+    }
+
+    .item:hover .itemtext,
+    .item:hover .itemBtn {
+        transform: translateY(0px);
     }
     }
 `;

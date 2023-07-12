@@ -106,7 +106,7 @@ const ListStyle = styled.div`
 const OjiSideBarList = (props) => {
     const context = useContext(MarkerContext);
     const {searchValue, change, dho, sigungu} = props;
-    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy} = context;
+    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy, setCloseSideBar} = context;
     const [currentPage, setCurrentPage] = useState(1);
     const [campListData, setCampListData] = useState([]);
     const pageSize = 4;
@@ -145,6 +145,7 @@ const OjiSideBarList = (props) => {
         setZoomLev(1);
         setLocation([x, y]);
         setOverlayOpen(true);
+        setCloseSideBar(true);
     }
     
     const sortCamps = (camps) => {
