@@ -12,7 +12,7 @@ import SearchBox from "./search/searchBox";
 import { UserOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
+import Modal from "../Commons/Modal";
 
 const HeaderStyle = styled.div`
     box-sizing: border-box;
@@ -143,7 +143,22 @@ const Header = () =>{
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
-  
+    const [isOpen, setIsOpen] = useState(false);
+
+   
+       
+      
+    const handleCartClick = () => {
+        if (!userEmail) {
+            setIsOpen(true);
+        } else {
+            nav("/cart");
+        }
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
 
     useEffect(()=>{
 
@@ -216,7 +231,7 @@ const Header = () =>{
                         <SearchBox />
                         <UserOutlined onClick={()=>nav("/myPage")}/>
                         {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
-                        <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
+                        <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
                         </Badge>
@@ -241,6 +256,17 @@ const Header = () =>{
                     <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                 </div>
             </HeaderStyle>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <p>로그인 후 확인 가능합니다.</p>
+                <div className="btnWrapper">
+                    <button className="modalBtn" onClick={() => {
+                        closeModal();
+                        nav("/intro");
+                    }}>
+                        로그인
+                    </button>
+                </div>
+            </Modal>
         </>
     );
 }

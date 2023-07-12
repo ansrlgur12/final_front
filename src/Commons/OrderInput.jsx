@@ -24,7 +24,8 @@ const InputContainer = styled.div`
   color: #ccc;
 
   input {
-    width: 70%;
+    margin-right:20rem;
+    width: 40%;
     height: auto;
     line-height: normal;
     padding: 0.6em 0.5em;
