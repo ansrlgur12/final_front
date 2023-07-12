@@ -90,6 +90,25 @@ const Section3 = styled.div`
     font-weight: 600 !important;
     margin-bottom: 10px;
     }
+    @media screen and (max-width: 768px) {
+        .sBottom{
+        background-color: #f3f3f3;
+        height: 20vh;
+        margin-top: 0;
+        padding: 1em 0;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+    background-color: #56966b;
+    opacity: 0.5;
+    padding: 10px 3px;
+    border-radius: 20px;
+    color: white !important;
+
+    
+
+    }
+    }
 `;
 const CardContainer = styled.div`
 width: 20vw;
@@ -98,6 +117,12 @@ border-radius: 15px;
 display: flex;
 flex-direction: column-reverse;
 box-shadow: 1px 2px 5px gray;
+@media screen and (max-width: 768px) {
+    width: 21vw;
+    height: 21vw;
+    margin-top: 1em;
+}
+
 
 `
 const CardDesc = styled.div`
@@ -112,11 +137,17 @@ const Title = styled.h2`
     color: white;
     margin: .5em;
     margin-bottom: 0;
+    @media screen and (max-width: 768px) {
+      font-size: .5em;
+    }
 `;
 const CampDesc = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media screen and (max-width: 768px) {
+      font-size: .5em;
+    }
 `;
 const CampDescSection = styled.div`
     color: white;
@@ -127,6 +158,8 @@ const CampDescSection = styled.div`
         margin-left: .5em;
         
     }
+
+    
 `;
 
 const MainSection3 = (props) => {

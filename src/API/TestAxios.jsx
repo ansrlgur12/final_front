@@ -284,7 +284,11 @@ verifyPayment : async(imp_uid) =>{
             email: email,
             })
 
-    }
+    },
+
+    getSidebarList : async(dho, sigungu, page, size, sortBy) => {
+        return await axios.get(domain + `/camp/sideBarList/${dho}/${sigungu}/${page}/${size}/${sortBy}`)
+    },
   
 };
 export default AxiosApi;

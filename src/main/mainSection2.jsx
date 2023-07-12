@@ -100,6 +100,59 @@ const Section2 = styled.div`
         opacity: 0;
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
+    @media screen and (max-width: 768px) {
+        margin-top: 20px;
+         .item1{
+        width: 38vw;
+        height: 20vh;
+        margin-right: 2vw;
+        background-image: url(${itemp1});
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .item2{
+        width: 50vw;
+        background-image: url(${itemp2});
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .item3{
+        width: 100vw;
+        height: 25vh;
+        margin-top: 4vh;
+        background-image: url(${itemp3});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .itemtext {
+        color: white;
+        font-size: 1rem;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .itemBtn {
+        width: 100px;
+        font-size: 1rem;
+        margin: 1rem 0 0 1rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    }
 `;
 
 const MainSection2 = () => {

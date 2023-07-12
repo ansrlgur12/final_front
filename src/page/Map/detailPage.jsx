@@ -50,6 +50,19 @@ const Container = styled.div`
     .hide{
         display: none;
     }
+    @media screen and (max-width: 768px) {
+        .closeBtn{
+        border-radius: 50px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        bottom: 51vh;
+        right: 80.5vw;
+        border: 0px;
+        background-color: rgba(146, 159, 139,0.8);
+        color: white;
+    }
+    }
 `;
 const DetailContainer = styled.div`
     z-index: 2;
@@ -79,6 +92,32 @@ const DetailContainer = styled.div`
 .hide {
     display: none;
 }   
+@media screen and (max-width: 768px) {
+    z-index: 2;
+    position: fixed;
+    right: -80vw;
+    bottom: 1vh;
+    .container{
+    width: 80vw;
+    height: 81vh;
+    overflow-y: scroll;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+    font-size: .8em;
+}
+.slideOut {
+    
+    transform: translateX(0vw); /* 다시 제자리로 이동하여 펼쳐짐 */
+   
+  }
+
+.slideIn {
+    margin: 0;
+    padding: 0;
+    transform: translateX(-80vw); /* 오른쪽으로 이동하여 숨김 */
+}
+}
     
     
 `;
@@ -167,6 +206,14 @@ const Section = styled.div`
     margin-left: 1em;
     justify-self: baseline;
     
+    @media screen and (max-width: 768px) {
+            .selectDate{
+                position: absolute;
+                top: 4vh;
+                right: 4vh;
+                font-size: .9em;
+            }
+    }
     .selectDateSec{
         display: flex;
         margin-right: 10px;
@@ -197,6 +244,13 @@ const Section = styled.div`
             height: 2vh;
             margin-left: 1rem;
         }
+        @media screen and (max-width: 768px) {
+            .umb{
+            width: 3vw;
+            height: 3vw;
+            margin-left: 1rem;
+        }
+    }
     
     }
     }
@@ -207,6 +261,16 @@ const Section = styled.div`
         border: none;
         color: royalblue;
         font-weight: bold;
+    }
+    @media screen and (max-width: 768px) {
+            .selectDate{
+                width: 15vw;
+            }
+            .wImage{
+                position: absolute;
+                top: 4vh;
+                right: .5vh;
+            }
     }
     .km{
         color: red;
@@ -245,8 +309,12 @@ const Section = styled.div`
             width: 6vw;
             height: 2rem;
         }
-    
+        .umb{
+            width: 10vw;
+            height: 4vw;
+        }
     }
+
 `;
 
 const Navigiation = styled.div`
@@ -292,7 +360,16 @@ const Navigiation = styled.div`
         font-size: .8em;
         flex-wrap: wrap;
     }
-   
+    @media screen and (max-width: 768px) {
+        .btn{
+            width: 12vw;
+            height: 12vw;
+        }
+        .img{
+        width: 8vw;
+        height: 8vw;
+    }
+    }
 `;
 const Information = styled.div`
     margin-top: 3.5vh;
@@ -597,7 +674,8 @@ const DetailPage = (props) => {
                         <div className="campInfo">{campInfo.addr1}</div>
                         <div className="selectDateSec">
                             <input className="selectDate" type="date" min={minDate} max={maxDate} onChange={handleDateChange} value={selectedDate}/>
-                            {getWeatherImage()}
+                            <div className="wImage">{getWeatherImage()}</div>
+                            
                         </div>
                     </Section>
     
