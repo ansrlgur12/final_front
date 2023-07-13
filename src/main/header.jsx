@@ -133,6 +133,23 @@ const HeaderStyle = styled.div`
   }
     
 `;
+const ModalStyle = styled.div`
+
+ 
+
+ .btnWrapper{
+    display: flex;
+  gap:4rem;
+  .modalBtn{
+    width:80px;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2D6247;
+  padding:10px;
+  }
+ 
+ }
+`
 
 const Header = () =>{
     
@@ -258,6 +275,7 @@ const Header = () =>{
                     <li className="menu4" onClick={()=>nav("/shopMain")}>쇼핑</li>
                 </div>
             </HeaderStyle>
+            <ModalStyle>
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <p>로그인 후 확인 가능합니다.</p>
                 <div className="btnWrapper">
@@ -269,6 +287,7 @@ const Header = () =>{
                     </button>
                 </div>
             </Modal>
+            </ModalStyle>
         </>
     );
 }
