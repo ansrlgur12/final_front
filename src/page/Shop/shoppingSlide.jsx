@@ -180,10 +180,21 @@ export const SwiperStyle = styled.div`
     background-size: cover;
     width: 20vw;
     height: 25.25vh;
-    
-
-  
 }
+.brand{
+  font-size: 0.5rem;
+ } 
+ .name{
+  width:20vw;
+  height:6vh;
+  font-size: 0.8rem;
+ }
+ .price{
+  font-size: 1rem;
+  display: flex;
+  justify-content: end;
+  font-weight: bold;
+ }
 }
 
 `;
