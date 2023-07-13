@@ -82,6 +82,9 @@ const HeaderStyle = styled.div`
     .hamburgerHide{
         display: none;
     }
+    .hamburgerMenu{
+        display: none;
+    }
 
     @media screen and (max-width: 768px) {
         .headerContainer {
@@ -260,7 +263,6 @@ const Header = () =>{
                     <div className="hamburgerMenu">
                         <SearchBox />
                         <UserOutlined onClick={()=>nav("/myPage")}/>
-                        {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />

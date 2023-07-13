@@ -466,7 +466,7 @@ const IconBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 20vh;
+    height: auto;
     margin-bottom: 15vh;
 
     .iconBoxDesc{

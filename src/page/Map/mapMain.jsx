@@ -28,8 +28,9 @@ export const MainStyle = styled.div`
         align-items: flex-end;
         flex-direction: column;
         margin-top: .2em;
-        padding-top: 10.5vh;
+        padding-top: 11.5vh;
     }
+
     
 
     .img{
@@ -97,6 +98,22 @@ export const MainStyle = styled.div`
         width: 4vh;
         height: 4vh;
       }
+      #wrap{
+        padding-top: 12vh;
+      }
+    }
+
+    @media screen and (max-width: 414px){
+      #wrap{
+        padding-top: 9vh;
+      }
+    }
+
+    @media screen and (max-width: 375px){
+      #wrap{
+        padding-top: 12vh;
+      }
+      
     }
   `;
 

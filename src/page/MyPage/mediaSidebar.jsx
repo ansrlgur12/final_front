@@ -9,7 +9,10 @@ const { Sider } = Layout;
 const SideBarContainer = styled.div`
 background-color: white;
     @media screen and (max-width: 768px) {
-     display: none;
+      width: auto;
+      height: 80vh;
+      position: absolute;
+      z-index: 1;
     }
 `;
 const items = [
@@ -98,7 +101,7 @@ const items = [
   },
 ];
 
-const Sidebar = () => {
+const MediaSidebar = () => {
   const navigate = useNavigate();
 
   const defaultOpenKeys = items.map((item) => item.key);
@@ -110,7 +113,6 @@ const Sidebar = () => {
       marginTop : "10.5vh", 
       backgroundColor : 'white',
       '@media screen and (max-width: 768px)' : {
-        display : 'none'
       }
 
       }}>
@@ -139,4 +141,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default MediaSidebar;

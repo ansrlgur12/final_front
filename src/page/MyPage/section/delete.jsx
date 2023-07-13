@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import SmallSideBar from '../smallSidebar';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -11,9 +12,13 @@ const SidebarContainer = styled.div`
   flex: 0 0 200px;
   height: 10vh;
   background-color: #FFFFFF;
+  @media screen and (max-width: 768px) {
+    display: none;
+    }
 `;
 
 const ContentContainer = styled.div`
+margin-top: 10vh;
   flex: 1;
   padding: 20px;
   display: flex;
@@ -61,6 +66,7 @@ function Delete() {
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
+        <SmallSideBar />
         <ContentContainer>
           <h4>정말 탈퇴 하시겠습니까?</h4>
           <NoticeList>

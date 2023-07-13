@@ -8,10 +8,13 @@ import { CartContext } from '../../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+import SmallSideBar from '../smallSidebar';
+import Header from '../../../main/header';
 
 
 
 const TableContainer = styled.div`
+margin-top: 10vh;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 10px;
@@ -174,8 +177,8 @@ useEffect(() => {
 
   return (
     <>
-      
-        
+        <Header />
+        <SmallSideBar />
           <TableContainer>
            <h2> 찜목록</h2>
             <Table  rowSelection={rowSelection}

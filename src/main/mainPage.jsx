@@ -19,9 +19,9 @@ const MainPage = () => {
     const nav = useNavigate();
 
     useEffect( () => {
-        // if(!isLogin) {
-        //     nav('/intro');
-        // }
+        if(!isLogin) {
+            nav('/intro');
+        }
     }, [isLogin, nav]);
    
     return (
