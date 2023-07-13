@@ -182,7 +182,7 @@ const Container = styled.div`
  }
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
   button {
