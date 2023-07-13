@@ -19,11 +19,9 @@ const ProductDetailOrder=({product})=> {
   const [quantity, setQuantity] = useState(1);
 const nav = useNavigate();
 const { userEmail } = useContext(UserContext);
-const { setCart,addToCart,setSelectedItems } = useContext(CartContext);
-const [cartData, setCartData] = useState([]);
+const { addToCart,setSelectedItems } = useContext(CartContext);
 const [isOpen, setIsOpen] = useState(false);
-const [data, setData] = useState([]);
-const [addedCartItemId, setAddedCartItemId] = useState(null);
+const [ setAddedCartItemId] = useState(null);
 const openModal = () => {
   setIsOpen(true);
 };
@@ -90,11 +88,7 @@ const handleBuyNow = async() =>{
   nav("/orderPage");
 };
 
-// useEffect(() => {
-//   if (addedCartItemId) {
-//     handleBuyNow();
-//   }
-// }, [addedCartItemId]);
+
 
   return (
     <>

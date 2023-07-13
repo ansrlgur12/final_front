@@ -10,6 +10,7 @@ import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+import Modal from '../../../Commons/Modal';
 
 
 
@@ -103,6 +104,7 @@ const Cart = () => {
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
@@ -132,7 +134,6 @@ const setQuantity = async (key, quantity) => {
     }
   }
 };
-  
 useEffect(() => {
   const newData = cartData.map((item) => ({
       key: item.cartItemId, 
