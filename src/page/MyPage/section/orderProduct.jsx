@@ -11,6 +11,7 @@ import { UserContext } from '../../../API/UserInfo';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
 import { LayoutContainer,SidebarContainer,ContentContainer } from './cart';
+import SmallSideBar from '../smallSidebar';
 
 
 
@@ -20,7 +21,7 @@ const TableContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-top:50px;
+  /* margin-top:50px; */
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
@@ -187,6 +188,7 @@ useEffect(() => {
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
+        <SmallSideBar />
         <ContentContainer>
           <TableContainer>
            <h2> 구매 내역</h2>

@@ -371,6 +371,10 @@ const Navigiation = styled.div`
             width: 12vw;
             height: 12vw;
         }
+        .longBtn{
+            width: 12vw;
+            height: 12vw;
+        }
         .img{
         width: 8vw;
         height: 8vw;

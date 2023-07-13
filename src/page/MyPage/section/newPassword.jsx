@@ -6,12 +6,14 @@ import Sidebar from '../sidebar';
 import Modal from '../../../util/modal';
 import { UserContext } from '../../../API/UserInfo';
 import AxiosApi from '../../../API/TestAxios';
+import SmallSideBar from '../smallSidebar';
 
 const LayoutContainer = styled.div`
   display: flex;
 `;
 
 const ContentContainer = styled.div`
+margin-top: 10vh;
   height: 150px;
   flex: 1;
   padding: 150px;
@@ -127,6 +129,7 @@ const NewPassword = () => { //새로운 비밀번호 입력하고 확인하는 �
       <Header />
       <LayoutContainer>
         <Sidebar />
+        <SmallSideBar />
         <ContentContainer>
           <StyledForm form={form} name="dynamic_rule">
             <StyledFormItem

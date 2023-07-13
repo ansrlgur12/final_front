@@ -7,6 +7,7 @@ import Sidebar from '../sidebar';
 import { UserContext } from '../../../API/UserInfo';
 import AxiosApi from '../../../API/TestAxios';
 import Modal from '../../../util/modal';
+import SmallSideBar from '../smallSidebar';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -16,9 +17,13 @@ const SidebarContainer = styled.div`
   flex: 0 0 200px;
   height: 10vh;
   background-color: #FFFFFF;
+  @media screen and (max-width: 768px) {
+      display: none;
+    }
 `;
 
 const ContentContainer = styled.div`
+margin-top: 10vh;
   flex: 1;
   padding: 50px;
   display: flex;
@@ -48,6 +53,9 @@ const StyledUserEdit = styled(Form)`
     color: red;
     margin: 0;
   }
+  @media screen and (max-width: 768px) {
+    width: 50vw;
+    }
 `;
 
 const StyledButton = styled(Button)`
@@ -158,6 +166,7 @@ const UserEdit = () => {
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
+        <SmallSideBar />
         <ContentContainer>
           <StyledCheckbox
             checked={!formDisabled}

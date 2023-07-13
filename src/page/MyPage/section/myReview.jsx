@@ -9,6 +9,7 @@ import Header from '../../../main/header';
 import Sider from 'antd/es/layout/Sider';
 import Sidebar from '../sidebar';
 import ReviewApi from '../../../API/ReviewAPI';
+import SmallSideBar from '../smallSidebar';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -18,6 +19,7 @@ const StyledLayout = styled.div`
 `;
 
 const StyledContent = styled.div`
+  margin-top: 10vh;
   flex: 1;
   padding: 20px;
   margin: 20px;
@@ -90,7 +92,8 @@ const MyReview = () => {
       <Header />
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
+        <SmallSideBar />
+        <StyledContent style={{marginTop : '15vh'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>

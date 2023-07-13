@@ -5,6 +5,7 @@ import CommentApi from '../../../API/CommnetAPI';
 import { Layout, Card, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import SmallSideBar from '../smallSidebar';
 
 const MyComments = () => {
   const [comments, setComments] = useState([]);
@@ -29,6 +30,7 @@ const MyComments = () => {
       <Header />
       <Layout>
         <Sidebar />
+        <SmallSideBar />
         <div style={{ padding: '24px' }}>
           {comments.map((comment) => (
             <Card

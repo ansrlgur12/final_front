@@ -20,7 +20,7 @@ height: auto;
     justify-content: flex-start;
     
     margin: 0 2vw;
-    padding: 1em;
+    padding: 1.5em 1em 1em 1em ;
     background-color: rgb(235, 235, 235);
     box-shadow: 1px salmon;
 `;

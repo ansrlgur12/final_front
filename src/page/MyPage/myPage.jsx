@@ -3,10 +3,12 @@ import { Layout, Card, Space, Row, Col } from 'antd';
 import styled from 'styled-components';
 import Sidebar from './sidebar';
 import Header from '../../main/header';
+import SmallSideBar from './smallSidebar';
 
 const { Content } = Layout;
 
 const StyledContent = styled(Content)`
+  margin-top: 9.5vh;
   padding: 24px;
   background-color: #FFFFFF;
 `;
@@ -48,6 +50,7 @@ const MyPage = () => {
       <Header />
       <Layout>
         <Sidebar />
+        <SmallSideBar />
         <StyledContent>
           <MyPageDefaultView />
         </StyledContent>
