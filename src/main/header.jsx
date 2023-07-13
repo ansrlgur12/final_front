@@ -133,7 +133,7 @@ const HeaderStyle = styled.div`
   }
     
 `;
-const ModalStyle = styled.div`
+export const ModalStyle = styled.div`
 
  
 

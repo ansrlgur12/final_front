@@ -10,7 +10,7 @@ import { CartContext } from "../../context/CartContext";
 import Modal from "../../Commons/Modal";
 import  { UserContext } from "../../API/UserInfo";
 import AxiosApi from "../../API/TestAxios";
-
+import { ModalStyle } from "../../main/header";
 
 
 
@@ -21,7 +21,17 @@ const nav = useNavigate();
 const { userEmail } = useContext(UserContext);
 const { addToCart,setSelectedItems } = useContext(CartContext);
 const [isOpen, setIsOpen] = useState(false);
-const [ setAddedCartItemId] = useState(null);
+const [addedCartItemId, setAddedCartItemId] = useState(null);
+
+const loginCheck = () => {
+  if (!userEmail) {
+      setIsOpen(true);
+  } else {
+      handleBuyNow();
+  }
+};
+
+
 const openModal = () => {
   setIsOpen(true);
 };
@@ -46,6 +56,7 @@ const handleAddToCart = async () => {
       closeModal(); 
        
       // 추가된 상품의 cartItemId 저장
+      console.log(response.data);
       setAddedCartItemId(response.data);
       
 
@@ -118,6 +129,19 @@ const handleBuyNow = async() =>{
         
       
     </Container>
+    <ModalStyle>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <p>로그인 후 확인 가능합니다.</p>
+                <div className="btnWrapper">
+                    <button className="modalBtn" onClick={() => {
+                        closeModal();
+                        nav("/intro");
+                    }}>
+                        로그인
+                    </button>
+                </div>
+            </Modal>
+            </ModalStyle>
    
     </>
   );
