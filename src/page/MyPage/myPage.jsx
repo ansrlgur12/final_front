@@ -45,7 +45,7 @@ const MyPageDefaultView = () => (
 const MyPage = () => {
   return (
     <>
-      <Header />
+    
       <Layout>
         <Sidebar />
         <StyledContent>

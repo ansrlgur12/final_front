@@ -153,7 +153,7 @@ const UserEdit = () => {
 
   return (
     <>
-      <Header />
+
       <LayoutContainer>
         <SidebarContainer>
           <Sidebar />
