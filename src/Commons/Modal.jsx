@@ -7,6 +7,7 @@ const ModalStyle = styled.div`
   position: fixed;
   top:0; left: 0; bottom: 0; right: 0;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
 }
 .modalBox{
   position: absolute;
@@ -18,6 +19,7 @@ const ModalStyle = styled.div`
   border-radius: 10px;
   width: 400px;
   height: 200px;
+  z-index: 1000;
 }
  
 `;
