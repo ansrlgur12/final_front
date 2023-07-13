@@ -54,7 +54,7 @@ export const GridStlye = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 0.6rem; 
-    width:80vw;
+    width:86vw;
     border: 1px solid #ccc;
     padding: 0.6rem;
     border-radius: 2px;
@@ -66,12 +66,16 @@ export const GridStlye = styled.div`
     border-radius: 4px;
     box-shadow: 1px 1px 1px #ccc;
     border: 1px solid #ccc;
-    height: 11.5vh;
+    height: 9vh;
     text-align: center;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .itemName{
+  font-size: 0.5rem;
+  margin-top: 0.6rem;
   }
   }
 `

@@ -15,12 +15,28 @@ const Container = styled.section`
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 100px;
 
+  @media screen and (max-width:768px) {
+    width: 42vw;
 
+  }
 `;
-
-const ImageWrapper = styled.div`
+const DetailStyle = styled.div`
+  
+box-sizing: border-box;
+margin: 0px;
+display: flex;
+flex-direction: column;
+align-items: center;
+flex-grow: 1;
+padding-bottom: 70px;
+@media screen and (max-width:768px) {
+    padding: 0;
+    
+  }
+`;
+export const ImageWrapper = styled.div`
   width: 100%;
   max-width: 620px;
 
@@ -31,6 +47,11 @@ const ImageWrapper = styled.div`
     border-radius: 8px;
     border: 2px solid #ccc;
   }
+  @media screen and (max-width:768px) {
+
+  display: none;
+  }
+
 `;
 
 const OrderWrapper = styled.div`
@@ -65,7 +86,7 @@ const ProductDetailForm =() => {
   return (
     <>
     <Header/>
-    <GridStlye>
+    <DetailStyle>
     <Container>
       <OrderWrapper>
         <ImageWrapper>
@@ -75,7 +96,7 @@ const ProductDetailForm =() => {
       </OrderWrapper>
      
     </Container>
-    </GridStlye>
+    </DetailStyle>
     </>
   );
 }; export default ProductDetailForm;

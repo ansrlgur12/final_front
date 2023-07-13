@@ -167,10 +167,10 @@ export const SwiperStyle = styled.div`
 
 @media screen and (max-width:768px) {
   .swiper {
-    width: 80vw;
-    height: 50vh;
+    width: 86vw;
+    height: 40vh;
     padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-bottom: 0.2rem;
     border:none;
 
   }
@@ -178,8 +178,8 @@ export const SwiperStyle = styled.div`
     position: relative;
     background-position: center;
     background-size: cover;
-    width: 20vw;
-    height: 25.25vh;
+    width: 40vw;
+    height: 12vh;
 }
 .brand{
   font-size: 0.5rem;
@@ -195,6 +195,43 @@ export const SwiperStyle = styled.div`
   justify-content: end;
   font-weight: bold;
  }
+
+ .swiper-slide button{
+    position:absolute;
+  transform: translate(-50%, -50%);
+  display: none;
+  }
+  .swiper-slide button.btn{
+    top:50%;
+    right:35%;
+  }
+  .swiper-slide button.btn2{
+    top:50%;
+    left: 70%;
+    
+  }
+  .swiper-slide button.btn3{
+    top:88%;
+    right:-35%;
+  }  
+  .swiper-button-prev,
+.swiper-button-next {
+  background-color: #fff;
+  opacity: 0.5;
+  padding: 0.4rem 0.2rem;
+  border-radius: 20px;
+  color: black !important;
+  margin-top:-7rem;
+  width:0.6rem;
+  
+
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.6rem;
+}
 }
 
 `;
