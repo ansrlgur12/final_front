@@ -23,10 +23,10 @@ export const SwiperStyle = styled.div`
 
 
 .swiper {
-    width: 840px;
-    height: 400px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    width: 48.2vw;
+    height: 46.5vh;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     border:none;
 
   }
@@ -34,8 +34,8 @@ export const SwiperStyle = styled.div`
     position: relative;
     background-position: center;
     background-size: cover;
-    width: 200px;
-    height: 200px;
+    width: 11.5vw;
+    height: 23.25vh;
     border: none;
   }
   .swiper-slide:before{
@@ -98,10 +98,10 @@ export const SwiperStyle = styled.div`
 .swiper-button-next {
   background-color: #fff;
   opacity: 0.5;
-  padding: 15px 3px;
+  padding: 0.9rem 0.2rem;
   border-radius: 20px;
   color: black !important;
-  margin-top:-130px;
+  margin-top:-8rem;
   
 
 }
@@ -109,15 +109,15 @@ export const SwiperStyle = styled.div`
 .swiper-button-next:after {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
-  margin-bottom: 10px;
+  margin-bottom: 0.6rem;
 }
   
  .brand{
   font-size: 0.5rem;
  } 
  .name{
-  width:246px;
-  height:35px;
+  width:14vw;
+  height:4vh;
   font-size: 0.8rem;
  }
  .price{
@@ -147,8 +147,8 @@ export const SwiperStyle = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  width: 400px;
-  height: 200px;
+  width: 22vw;
+  height: 23vh;
 }
 
 .ModalBackground{
@@ -165,15 +165,28 @@ export const SwiperStyle = styled.div`
 
 
 
- 
- 
-  
-  
-  
-  
- 
+@media screen and (max-width:768px) {
+  .swiper {
+    width: 80vw;
+    height: 50vh;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border:none;
 
-`
+  }
+  .swiper-slide{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    width: 20vw;
+    height: 25.25vh;
+    
+
+  
+}
+}
+
+`;
 
 
 

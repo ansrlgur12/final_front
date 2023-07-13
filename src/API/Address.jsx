@@ -72,7 +72,7 @@ const BtnWrapper = styled.div`
   button {
     width: 100px;
     border: 0;
-    margin-left: 10rem;
+    margin-left: 23rem;
     color: #fff;
     background: #ccc;
     padding: 0.5rem 0.8rem;

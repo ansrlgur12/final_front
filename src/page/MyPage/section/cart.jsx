@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import SmallSideBar from '../smallSidebar';
-import Modal from '../../../Commons/Modal';
+
 
 
 
@@ -36,7 +36,7 @@ export const SidebarContainer = styled.div`
 export const ContentContainer = styled.div`
   margin-top: 100px;
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
   display: flex;
   flex-direction: column;
