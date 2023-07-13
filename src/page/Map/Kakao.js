@@ -72,7 +72,7 @@ const KakaoMap = (props) => {
         return distanceA - distanceB;
     });
     const nearestMarkers = sortedMarkers.slice(0, MAX_MARKERS);
-    const positions = markerPositions.map(
+    const positions = nearestMarkers.map(
       (pos) => new kakao.maps.LatLng(pos[0], pos[1])
     );
     

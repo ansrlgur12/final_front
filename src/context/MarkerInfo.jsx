@@ -20,12 +20,13 @@ const MarkerStore = (props) => {
     const [count, setCount] = useState(0);
     const [likeClicked, setLikeClicked]= useState(false);
     const [commentCount, setCommentCount] = useState(0);
+    const [closeSideBar, setCloseSideBar] = useState(true);
 
 
     return(
         <MarkerContext.Provider value={{markerLat, setMarkerLat, markerLng, setMarkerLng, zoomLev, setZoomLev, viewOverlay, setViewOverlay, overlayOpen, setOverlayOpen,
             closeMenu, setCloseMenu, location, setLocation, currentData, setCurrentData, change, setChange, selectedSortBy, setSelectedSortBy, myLoc, setMyLoc, contentId, setContentId,
-            isLatlng, setLatlng, xValue, setXValue, yValue, setYValue, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount }}>
+            isLatlng, setLatlng, xValue, setXValue, yValue, setYValue, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount, closeSideBar, setCloseSideBar }}>
             {props.children}
         </MarkerContext.Provider>
     );

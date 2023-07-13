@@ -260,28 +260,32 @@ const SliderContainer = ({ selectedCategory}) => {
       }
     };
     const handleAddToFavorite = async () => {
-      try {
-          console.log(product.id, userEmail);
-          const response = await AxiosApi.addToFavorite(product.id,userEmail);
-  
-          if(response.status === 200) {
-              console.log('성공');
-              addToFavorite(product);
-              setLikeClicked(true);
-              setTooltipFavorite('찜 완료!');
-          } else {
-              console.log('오류'); 
-              setTooltipFavorite('이미 찜하셨어요!');
-          }
-  
-      } catch(error) {
-          console.error(error);
+      // 이미 찜한 상품을 추가하려는 시도를 막음
+      if (isProductInFavorite(product)) {
+        setTooltipFavorite('이미 찜하셨어요!');
+        return;
       }
-  
+    
+      try {
+        console.log(product.id, userEmail);
+        const response = await AxiosApi.addToFavorite(product.id,userEmail);
+    
+        if(response.status === 200) {
+          console.log('성공');
+          addToFavorite(product);
+          setLikeClicked(true);
+          setTooltipFavorite('찜 완료!');
+        } 
+    
+      } catch(error) {
+        console.error(error);
+        setTooltipFavorite('찜하기 실패!');
+      }
+    
       setTimeout(() => {
-          setTooltipFavorite('찜하기');
+        setTooltipFavorite('찜하기');
       }, 2000); // 2초 후에 다시 '찜하기'로 바뀜
-  };
+    };
 useEffect(() => {
   // 페이지 로딩시에 해당 상품이 찜 목록에 있는지 확인
   setLikeClicked(isProductInFavorite(product));
@@ -317,7 +321,7 @@ useEffect(() => {
       loop ={true}
       
       modules={[Navigation, Pagination, Keyboard]}
-      spaceBetween={30}
+      spaceBetween={25}
       slidesPerView={3}
       navigation
       keyboard={{enable:true}}

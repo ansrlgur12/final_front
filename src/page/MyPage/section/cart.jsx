@@ -10,24 +10,31 @@ import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+import SmallSideBar from '../smallSidebar';
+import Modal from '../../../Commons/Modal';
 
 
 
-const LayoutContainer = styled.div` 
+export const LayoutContainer = styled.div` 
   display: flex;
+  /* padding-top: 100px; */
+
 
 `;
 
 export const SidebarContainer = styled.div`
   flex: 0 0 200px;
-  margin-top:1.2rem ;
   height: 100vh;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+  @media screen and (max-width: 768px) {
+      display: none;
+    }
 `;
 
 export const ContentContainer = styled.div`
+  margin-top: 100px;
   flex: 1;
   padding: 20px;
   text-align: center;
@@ -101,6 +108,7 @@ const Cart = () => {
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
@@ -130,7 +138,6 @@ const setQuantity = async (key, quantity) => {
     }
   }
 };
-  
 useEffect(() => {
   const newData = cartData.map((item) => ({
       key: item.cartItemId, 
@@ -236,10 +243,12 @@ useEffect(() => {
   return (
     <>
       <Header />
+
       <LayoutContainer>
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
+        <SmallSideBar />
         <ContentContainer>
           <TableContainer>
           <h2> 장바구니</h2>

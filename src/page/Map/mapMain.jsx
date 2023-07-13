@@ -28,7 +28,9 @@ export const MainStyle = styled.div`
         align-items: flex-end;
         flex-direction: column;
         margin-top: .2em;
+        padding-top: 11.5vh;
     }
+
     
 
     .img{
@@ -80,15 +82,46 @@ export const MainStyle = styled.div`
       justify-content: center;
       margin-bottom: 1em;
     }
+
+    @media screen and (max-width: 768px) {
+      .selectBtn {
+        top: auto;
+        left: 1vw;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1vh 2vh;
+      }
+      .btnSection {
+        margin : 1vw;
+      }
+      .img {
+        width: 4vh;
+        height: 4vh;
+      }
+      #wrap{
+        padding-top: 12vh;
+      }
+    }
+
+    @media screen and (max-width: 414px){
+      #wrap{
+        padding-top: 9vh;
+      }
+    }
+
+    @media screen and (max-width: 375px){
+      #wrap{
+        padding-top: 12vh;
+      }
+      
+    }
   `;
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue} = context;
+  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue, location} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
-  const [mapLocations, setMapLocations] = useState([]);
-  const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
 
 
@@ -118,13 +151,11 @@ const MapMain = () => {
 
   const setNormalMapInfo = () => {
     setCurrentData("normal");
-    setMarkerPositions(mapLocations)
     setMarker(markerImage);
   }
 
   const setAnimalMapInfo = () => {
     setCurrentData("animal");
-    setMarkerPositions(animalLocations);
     setMarker(animalCamp);
   }
 

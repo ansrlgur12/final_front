@@ -3,10 +3,12 @@ import { Descriptions } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
+import SmallSideBar from '../smallSidebar';
 import { UserContext } from '../../../API/UserInfo';
 
 const StyledLayout = styled.div`
   display: flex;
+  
 `;
 
 const StyledContent = styled.div`
@@ -25,8 +27,9 @@ const UserInfo = () => {
     <>
       <Header />
       <StyledLayout>
-        <Sidebar />
-        <StyledContent>
+      <Sidebar />
+      <SmallSideBar />
+        <StyledContent style={{marginTop : '15vh'}}>
           <Descriptions title="User Info">
             <Descriptions.Item label="UserName">{userName}</Descriptions.Item>
             <Descriptions.Item label="NickName">{nickName}</Descriptions.Item>

@@ -60,7 +60,6 @@ const OjiNojiMapMain = () => {
                 </div>
                 </div>
             </div>
-            <button onClick={()=>nav("/imageTest")}>이미지테스트</button>
         </MainStyle>
         </>
     );

@@ -3,12 +3,14 @@ import styled from "styled-components"
 import AxiosApi from "../../API/TestAxios";
 import { useEffect, useContext, useState } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Keyboard } from "swiper";
 
 const ImageBox = styled.div`
 
-display: flex;
+/* display: flex;
 position: relative;
-left: 4vw;
+left: 5vw;
 background-color: white;
     .imageContainer{
     margin-left: 1em;
@@ -16,7 +18,41 @@ background-color: white;
     height: 10vh;
     background-color: #ccc;
     border-radius: 15px;
+
     
+    
+}
+@media screen and (max-width: 768px) {
+    left: 5em;
+    } */
+
+    .sBottom{
+        margin-top: 5vh;
+        padding: 1em;
+        width: 34vw;
+    }
+    @media screen and (max-width: 768px) {
+        .sBottom{
+        margin-top: 0;
+        padding: 1em;
+        width: 65vw;
+    }
+}
+`;
+
+
+
+const CardContainer = styled.div`
+width: 10vw;
+height: 7vw;
+border-radius: 15px;
+display: flex;
+flex-direction: column-reverse;
+box-shadow: 1px 2px 5px gray;
+@media screen and (max-width: 768px) {
+    width: 20vw;
+    height: 15vw;
+    margin-top: 1em;
 }
 `;
 
@@ -42,11 +78,33 @@ const ImageList = () => {
         }
     },[contentId])
     return(
+        // <ImageBox>
+        // {imageUrl && imageUrl.map((image)=>(
+        //     <div key={image.serialnum} className="imageContainer" style={{ backgroundImage: `url(${image.imageUrl})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+        // ))}
+        // </ImageBox>
         <ImageBox>
+    <div className="sBottom">
+    <Swiper
+        // loop={true}
+        modules={[Navigation, Pagination, Keyboard]}
+        spaceBetween={8}
+        slidesPerView={3}
+        navigation
+        keyboard={{enable:true}}
+        scrollbar={{ draggable: true }}
+    >
+        
         {imageUrl && imageUrl.map((image)=>(
-            <div key={image.serialnum} className="imageContainer" style={{ backgroundImage: `url(${image.imageUrl})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+        <SwiperSlide>
+        <CardContainer  style={{backgroundImage: `url(${image.imageUrl})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', cursor: 'pointer'}} >
+        </CardContainer>
+        </SwiperSlide>
         ))}
-        </ImageBox>
+        
+    </Swiper>
+    </div>
+    </ImageBox>
     )
 }
 

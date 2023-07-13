@@ -14,6 +14,7 @@ const Section3 = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 10vh;
     .swipe-slide{
         height: 100%;
     }
@@ -38,10 +39,11 @@ const Section3 = styled.div`
         background-color: #f3f3f3;
     }
     .menuChoice{
-        display: flex;
+        
         margin: 0;
     }
     .topNav{
+        display: flex;
         margin: 0;
     }
     .sTop{
@@ -64,9 +66,19 @@ const Section3 = styled.div`
     }
     .sortBy{
     font-size: .7rem;
-    margin: 5px 8px 0px 8px;
+    margin: 5px 3px 0px 5px;
     cursor: pointer;
     font-weight: bold;
+    height: auto;
+        list-style: none;
+        border: 2px solid #56966b;;
+        border-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        padding: 6px;
+        /* margin: 5px; */
+        background-color: #f3f3f3;
+
     }
     .selected{
         font-size: .9rem;
@@ -90,14 +102,39 @@ const Section3 = styled.div`
     font-weight: 600 !important;
     margin-bottom: 10px;
     }
+    @media screen and (max-width: 768px) {
+        .sBottom{
+        background-color: #f3f3f3;
+        height: 20vh;
+        margin-top: 0;
+        padding: 1em 0;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+    background-color: #56966b;
+    opacity: 0.5;
+    padding: 10px 3px;
+    border-radius: 20px;
+    color: white !important;
+
+    
+
+    }
+    }
 `;
 const CardContainer = styled.div`
-width: 20vw;
-height: 20vw;
+width: 25vw;
+height: 25vw;
 border-radius: 15px;
 display: flex;
 flex-direction: column-reverse;
 box-shadow: 1px 2px 5px gray;
+@media screen and (max-width: 768px) {
+    width: 25vw;
+    height: 25vw;
+    margin-top: 1em;
+}
+
 
 `
 const CardDesc = styled.div`
@@ -107,16 +144,24 @@ width: 100%;
 height: 30%;
 background-color: rgba(34, 34, 34, 0.8);
 
+
 `;
 const Title = styled.h2`
     color: white;
-    margin: .5em;
+    margin: .4em .4em .2em .4em;
     margin-bottom: 0;
+    @media screen and (max-width: 768px) {
+      font-size: .5em;
+    }
 `;
 const CampDesc = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media screen and (max-width: 768px) {
+      font-size: .4em;
+      margin: 0 .5em 1.5em .5em;
+    }
 `;
 const CampDescSection = styled.div`
     color: white;
@@ -127,6 +172,11 @@ const CampDescSection = styled.div`
         margin-left: .5em;
         
     }
+    @media screen and (max-width: 768px) {
+      margin-bottom: .5em;
+      
+    }
+    
 `;
 
 const MainSection3 = (props) => {
@@ -218,13 +268,11 @@ const MainSection3 = (props) => {
         <Section3>
             <div className="select">
                 <div className="sTop">
-                    <nav className="topNav">
-                        <ul className="menuChoice">
-                            <li className={`sortBy ${selectedSortBy === '이름순' ? 'selected' : ''}`} onClick={() => handleSortByClick('이름순')}>이름순</li>
-                            <li className={`sortBy ${selectedSortBy === '등록순' ? 'selected' : ''}`} onClick={() => handleSortByClick('등록순')}>최신순</li>
-                            <li className={`sortBy ${selectedSortBy === '인기순' ? 'selected' : ''}`} onClick={() => handleSortByClick('인기순')}>추천순</li>
-                        </ul>
-                    </nav>
+                    <div className="topNav">
+                        <div className={`sortBy ${selectedSortBy === '이름순' ? 'selected' : ''}`} onClick={() => handleSortByClick('이름순')}>이름순</div>
+                        <div className={`sortBy ${selectedSortBy === '등록순' ? 'selected' : ''}`} onClick={() => handleSortByClick('등록순')}>최신순</div>
+                        <div className={`sortBy ${selectedSortBy === '인기순' ? 'selected' : ''}`} onClick={() => handleSortByClick('인기순')}>추천순</div>
+                    </div>
                 </div>
                 <div className="sBottom">
                         <Swiper

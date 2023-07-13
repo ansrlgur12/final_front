@@ -50,6 +50,13 @@ position: relative;
         margin-left: 2vw;
         font-size: .8em;
     }
+    @media screen and (max-width: 768px) {
+        .writeBtn{
+            width: auto;
+            height: 4vh;
+            font-size: .8em;
+        }
+    }
 `;
 
 

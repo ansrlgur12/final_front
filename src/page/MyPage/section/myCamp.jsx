@@ -12,6 +12,8 @@ import axios from 'axios';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import { MarkerContext } from '../../../context/MarkerInfo';
+import SmallSideBar from '../smallSidebar';
+import { Margin } from '@mui/icons-material';
 
 const { Meta } = Card;
 
@@ -21,7 +23,8 @@ const StyledLayout = styled.div`
 
 const StyledContent = styled.div`
   flex: 1;
-  padding: 20px;
+  height: auto;
+  padding: 1em;
   margin: 20px;
   background: #fff;
   border-radius: 5px;
@@ -34,6 +37,12 @@ const StyledContent = styled.div`
 const MyPostsWrapper = styled.div`
   padding: 40px;
   text-align: center;
+  height: auto;
+  @media screen and (max-width: 768px) {
+      margin-left: 1em;
+      padding: 0;
+      
+    }
 `;
 
 const PostContent = styled(Card)`
@@ -42,6 +51,12 @@ const PostContent = styled(Card)`
   margin-bottom: 40px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  @media screen and (max-width: 768px) {
+      width: 33vw;
+      height: 33vw;
+      
+      font-size: .5em;
+    }
 `;
 
 const Title = styled.h2`
@@ -78,9 +93,6 @@ const MyCamp = () => {
     setMarkerLng(x);
     setLocation([x, y])
     setOverlayOpen(true);
-    
-
-    
   };
 
   const renderPosts = () => {
@@ -92,7 +104,7 @@ const MyCamp = () => {
                 onClick={()=>onClickImage(post.mapX, post.mapY)}
                 alt="대표이미지"
                 src={post.firstImageUrl}
-                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                style={{ width: '100%', height: '20vw', objectFit: 'cover' }}
               />
           }
         >
@@ -107,7 +119,8 @@ const MyCamp = () => {
       <Header />
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
+        <SmallSideBar />
+        <StyledContent style={{marginTop : '15vh', height : 'auto'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
