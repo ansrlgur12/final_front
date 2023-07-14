@@ -42,8 +42,8 @@ import Search from './main/search/search';
 import MyCamp from './page/MyPage/section/myCamp';
 import MyOji from './page/MyPage/section/myOji';
 import PayComplete from './page/Shop/order/PayComplete';
-
-
+import MobileCart from './page/MyPage/section/mobileCart';
+import MobileFavorite from './page/MyPage/section/mobileFavorite';
 function App() {
 
   ChannelService.boot({
@@ -102,6 +102,8 @@ function App() {
                 <Route path='/payComplete' element={<PayComplete />} />
 
                 <Route path='/orderpage' element={<OrderPage />} />
+                <Route path='/mobileCart' element={<MobileCart />} />
+                <Route path='/mobileFavorite' element={<MobileFavorite />} />
            
               </Routes>
             </Router>

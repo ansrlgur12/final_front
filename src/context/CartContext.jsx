@@ -1,8 +1,14 @@
-import React, { createContext, useState,useContext } from 'react';
+import React, { createContext, useState,useContext,useEffect } from 'react';
+import AxiosApi from '../API/TestAxios';
+import { UserContext } from '../API/UserInfo';
+
 export const CartContext = createContext();
+
 const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const { userEmail } = useContext(UserContext);
+    const [cartData, setCartData] = useState([]);
     let cartItemId = 0;  // 각 항목에 할당할 고유한 cartItemId
   
     const addToCart = (product, quantity) => {
@@ -23,6 +29,10 @@ const CartProvider = ({ children }) => {
         prevCart.filter(item => item.id !== cartItemId)
       );
     };
+  
+  
+
+  
   
   return (
     <CartContext.Provider value={{ setCart,cart, addToCart,setQuantity,removeFromCart,selectedItems, setSelectedItems }}>

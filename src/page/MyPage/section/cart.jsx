@@ -15,6 +15,7 @@ import MobileCart from './mobileCart';
 
 
 
+
 export const LayoutContainer = styled.div` 
   display: flex;
   /* padding-top: 100px; */
@@ -246,6 +247,7 @@ useEffect(() => {
 
   return (
     <>
+    
       <Header />
       <LayoutContainer>
         <SidebarContainer>
@@ -269,8 +271,9 @@ useEffect(() => {
                 </Button>
             </TotalPayment>
           </TableContainer>
-          <MobileCart />
+          <MobileCart/>
           <MyFavorite fetchCartData={fetchCartData}/>
+         
         </ContentContainer>
         
         

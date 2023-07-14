@@ -3,12 +3,11 @@ import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import { CartContext } from '../../../context/CartContext';
 import QuantityInput from '../../Shop/quantityInput';
-import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
-
+import MobileFavorite from './mobileFavorite';
 
 
 
@@ -109,6 +108,8 @@ const fetchCartData= async()=> {
         setCart(response.data);
     }
 }
+
+
 
 // useEffect 내에서 fetchCartData 호출
 useEffect(() => {
@@ -237,6 +238,7 @@ useEffect(() => {
                 </Button>
             </TotalPayment>
             </TableContainer>
+            <MobileFavorite fetchCartData={fetchCartData} />
 
     </>
   );
