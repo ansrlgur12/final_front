@@ -50,7 +50,14 @@ tbody {
 
 
 
+@media screen and (max-width:768px) {
+   
+   .ant-table {
+    
+ font-size: 0.06rem;
+}
 
+}
 
 
 `;
@@ -63,8 +70,7 @@ tbody {
 
 const MyFavorite = ({fetchCartData}) => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
-  const {addToCart } = useContext(CartContext);
-  const { favorite,removeFromFavorite,setFavorite } = useContext(FavoriteContext); // cartContext사용
+  const { removeFromFavorite,setFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
   const { userEmail } = useContext(UserContext);
   const nav = useNavigate();
@@ -119,6 +125,7 @@ useEffect(() => {
       
       key: item.favoriteItemId, 
       id: item.favoriteItemId,
+      productId: item.productId,
       productName: item.productName,
       imageUrl: item.imageUrl ,
       paymentAmount:new Intl.NumberFormat('ko-KR').format(item.price) + "원",
@@ -133,16 +140,16 @@ useEffect(() => {
       title: '상품 이미지',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
+      render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.productId}`)} src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
-    {
-      title: '상품명',
-      dataIndex: 'productName',
-      key: 'productName',
-      render: (text, record) => (
-        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
-        ),
-    },
+    // {
+    //   title: '상품명',
+    //   dataIndex: 'productName',
+    //   key: 'productName',
+    //   render: (text, record) => (
+    //     <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
+    //     ),
+    // },
     {
       title: '판매가',
       dataIndex: 'paymentAmount',
@@ -177,13 +184,14 @@ useEffect(() => {
 
   return (
     <>
-        <Header />
+       
         <SmallSideBar />
-          <TableContainer>
+          <TableContainer style={{ width: '80vw', overflowX: 'auto' }}>
            <h2> 찜목록</h2>
             <Table  rowSelection={rowSelection}
                     columns={columns}
-                    dataSource={data} />
+                    dataSource={data} 
+                    tableLayout="fixed"/>
                     <div className="btnContainer">
                     <Button type="primary" className='btn' onClick={() => {
     selectedRowKeys.forEach(key => {

@@ -96,11 +96,11 @@ export const SwiperStyle = styled.div`
   }
   .swiper-button-prev,
 .swiper-button-next {
-  background-color: #fff;
+  background-color: #2D6247; 
   opacity: 0.5;
   padding: 0.9rem 0.2rem;
   border-radius: 20px;
-  color: black !important;
+  color: #fff !important;
   margin-top:-8rem;
   
 
@@ -216,11 +216,11 @@ export const SwiperStyle = styled.div`
   }  
   .swiper-button-prev,
 .swiper-button-next {
-  background-color: #fff;
+  background-color: #2D6247; 
   opacity: 0.5;
   padding: 0.4rem 0.2rem;
   border-radius: 20px;
-  color: black !important;
+  color: #fff !important;
   margin-top:-7rem;
   width:0.6rem;
   
