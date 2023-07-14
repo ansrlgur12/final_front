@@ -3,15 +3,11 @@ import { Table } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import { CartContext } from '../../../context/CartContext';
-import { ContentContainer, SidebarContainer } from '../../MyPage/section/cart';
-import DeleteButton from '../../../Commons/Buttons/deleteButton';
+import { ContentContainer } from '../../MyPage/section/cart';
 import { useNavigate } from 'react-router-dom';
 import Danal from './danal';
-import AxiosApi from '../../../API/TestAxios';
-import { UserContext } from '../../../API/UserInfo';
 import OrderInput from '../../../Commons/OrderInput';
 import SearchAddress from '../../../API/Address';
-import Sidebar from '../../MyPage/sidebar';
 import { useOrderContext } from '../../../context/OrderContext';
 import KakaoPay from './kakaoPay';
 
@@ -24,6 +20,7 @@ const TableContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 5rem;
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
@@ -315,9 +312,6 @@ const orderdata = {
         <Container>
         
        
-        <SidebarContainer>
-        주문자정보
-        </SidebarContainer>
         <ContentContainer>
        
         

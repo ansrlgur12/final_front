@@ -6,7 +6,9 @@ const QuantityInputWrapper = styled.div`
   
   align-items: center;
   gap: 10px;
-
+  @media screen and (max-width:768px) {
+    justify-content: center;
+  }
 `;
 
 const Button = styled.button`

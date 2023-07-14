@@ -33,15 +33,15 @@ import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
-import Danal from './page/Shop/test/danal';
+import Danal from './page/Shop/order/danal';
 import ImageTest from './page/Map/ImageTest';
-import OrderPage from './page/Shop/test/orderPage';
+import OrderPage from './page/Shop/order/orderPage';
 import { OrderProvider } from './context/OrderContext';
-import KakaoPay from './page/Shop/test/kakaoPay';
+import KakaoPay from './page/Shop/order/kakaoPay';
 import Search from './main/search/search';
 import MyCamp from './page/MyPage/section/myCamp';
 import MyOji from './page/MyPage/section/myOji';
-import PayComplete from './page/Shop/test/PayComplete';
+import PayComplete from './page/Shop/order/PayComplete';
 
 
 function App() {
