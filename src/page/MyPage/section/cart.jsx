@@ -56,9 +56,7 @@ width:70vw;
   background-color:#2D6247;
   border-color: #2D6247; 
 }
-.ant-table {
-  font-size: 0.4rem;
-}
+
 button.ant-btn{
   background-color: #2D6247; 
    &:hover {
