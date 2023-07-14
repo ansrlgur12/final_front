@@ -185,7 +185,7 @@ useEffect(() => {
   return (
     <>
        
-        <SmallSideBar />
+        
           <TableContainer style={{ width: '80vw', overflowX: 'auto' }}>
            <h2> 찜목록</h2>
             <Table  rowSelection={rowSelection}
