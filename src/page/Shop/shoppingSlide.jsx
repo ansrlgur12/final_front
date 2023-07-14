@@ -17,7 +17,7 @@ import ArrowButton from "../../Commons/Buttons/arrowButton";
 import Skeleton from "@mui/material/Skeleton";
 import FavoriteButtonBorder from "../../Commons/Buttons/favoriteButtonBorder";
 import { UserContext } from "../../API/UserInfo";
-
+import EllipsisText from "../../Commons/ellipsis";
 
 export const SwiperStyle = styled.div`
 
@@ -119,6 +119,9 @@ export const SwiperStyle = styled.div`
   width:14vw;
   height:4vh;
   font-size: 0.8rem;
+  /* overflow: hidden; 
+  text-overflow: ellipsis;  */
+  /* white-space: nowrap;  */
  }
  .price{
   font-size: 1rem;
@@ -398,17 +401,9 @@ useEffect(() => {
       ))
     : 
       products.filter(product => product.category4Name === '1-2인용').map(product => (
-        <SwiperSlide key={product.id}>
-          <img src={product.imageUrl} alt="" />
-          <IconButtons product={product} productId={product.id}/>
-          <div className="title">
-            <div className="brand">{product.brand || 'brand'}</div>
-            <div className="name">{product.productName}</div>
-            <span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span>
-          </div>
-        </SwiperSlide>
-      ))
-  }
+        <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+        ))}
+  
 </Swiper>
     
     </div>
@@ -434,7 +429,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '3-4인용').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
        
      
@@ -466,7 +461,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '5-6인용').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
        
      
@@ -498,7 +493,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '침낭').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -527,7 +522,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '매트').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -558,7 +553,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '야전침대').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -590,7 +585,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '가스랜턴').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -619,7 +614,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === 'led랜턴').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -650,7 +645,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '손전등').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -681,7 +676,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '후라이팬').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -710,7 +705,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '조리도구').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -741,7 +736,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '주전자').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -773,7 +768,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑의자').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -802,7 +797,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑테이블').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -832,7 +827,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '캠핑박스').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -864,7 +859,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '웨건').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -893,7 +888,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      </Swiper>
      
@@ -920,7 +915,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '토일레트리').map(product => (
-      <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+      <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
       ))}
      
   
@@ -951,7 +946,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '멀티백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -979,7 +974,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팩망치').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -1009,7 +1004,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '다용도칼').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1040,7 +1035,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '화로').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -1069,7 +1064,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '스토브').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1100,7 +1095,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '연료').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1132,7 +1127,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '전기요').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -1161,7 +1156,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '선풍기').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -1191,7 +1186,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '팬히터').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
@@ -1222,7 +1217,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '차박텐트').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
     
  
@@ -1251,7 +1246,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '루프백').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
      
   
@@ -1282,7 +1277,7 @@ useEffect(() => {
         </SwiperSlide>
       ))
     : products.filter(product => product.category4Name === '보온/보냉병').map(product => (
-       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><div className="name">{product.productName}</div><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
+       <SwiperSlide key={product.id}> <img src={product.imageUrl} alt="" /><IconButtons product={product} productId={product.id}/><div className="title"><p className="brand">{product.brand || 'brand'}</p><EllipsisText text={product.productName} maxLine={2} /><span className="price">{new Intl.NumberFormat('ko-KR').format(product.price) + "원"}</span></div></SwiperSlide>
        ))}
   
      </Swiper>
