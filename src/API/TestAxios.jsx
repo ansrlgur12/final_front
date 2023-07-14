@@ -18,19 +18,37 @@ const AxiosApi = {
         return await axios.get(domain+ "/product")
     },
     
-    // 로그인
+
+
+
+
+// 로그인
     memberLogin: async (inputEmail, inputPwd) => {
         const loginData = {
             email: inputEmail,
             password: inputPwd
         };
-        return await axios.post(domain + "/intro/login", loginData);
+        return await axios.post(domain + "/auth/login", loginData);
     },
 
     productDetail : async(id) =>{
         return await axios.get(domain+ `/productDetail/${id}`)
     
     },
+
+//회원 가입
+memberReg : async(nickName, email, password, agreed) => {
+    const member = {
+        nickName : nickName,
+        email : email,
+        password : password,
+        agreed : agreed
+    };
+    return await axios.post(domain + "/auth/signup", member);
+
+},
+
+
 // 캠핑데이터 오버레이 띄우기
     getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
@@ -46,17 +64,7 @@ const AxiosApi = {
         return await axios.get(domain + `/check?join=${email}`);
     },
 
-    // 회원 가입
-    memberReg : async(nickName, email, password, agreed) => {
-        const member = {
-            nickName : nickName,
-            email : email,
-            password : password,
-            agreed : agreed
-        };
-        return await axios.post(domain + "/intro/signup", member);
 
-    },
 // 일반 캠핑장 검색
     searchCampData : async(searchValue, currentData) => {
         return await axios.get(domain + `/camp/searchData/${searchValue}/${currentData}`)
@@ -81,7 +89,7 @@ const AxiosApi = {
                 nickName : nickName
             }
         }
-        return await axios.get(domain + '/intro', check);
+        return await axios.get(domain + '/api/v1/intro/nickName', check);
     },
 
     // 회원 정보 수정
@@ -226,7 +234,7 @@ viewCampMarker : async(markerLat, markerLng) => {
         const conEmail = {
             emailOverlap : checkEmail
         };
-        return await axios.post(domain + `/intro`, conEmail)
+        return await axios.post(domain + `/api/v1/intro/email`, conEmail)
     },
 
 campLike : async(contentId, id) => {

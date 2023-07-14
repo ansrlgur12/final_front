@@ -47,7 +47,6 @@ const MyPageDefaultView = () => (
 const MyPage = () => {
   return (
     <>
-      
       <Layout>
         <Sidebar />
         <SmallSideBar />
