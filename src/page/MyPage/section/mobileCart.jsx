@@ -1,51 +1,20 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { Table, Button } from 'antd';
 import styled from 'styled-components';
-import Header from '../../../main/header';
-import Sidebar from '../sidebar';
 import { CartContext } from '../../../context/CartContext';
 import QuantityInput from '../../Shop/quantityInput';
-import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
-import SmallSideBar from '../smallSidebar';
-import MobileCart from './mobileCart';
+import MobileFavorite from './mobileFavorite';
 
 
 
 
-export const LayoutContainer = styled.div` 
-  display: flex;
-  /* padding-top: 100px; */
-
-
-`;
-
-export const SidebarContainer = styled.div`
-  flex: 0 0 200px;
-  height: 100vh;
-  background-color: #FFFFFF;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  @media screen and (max-width: 768px) {
-      display: none;
-    }
-`;
-
-export const ContentContainer = styled.div`
-  margin-top: 100px;
-  flex: 1;
-  padding: 1.25rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-
-
-`;
 
 const TableContainer = styled.div`
+display: none;
 width:70vw;
   background-color: #FFFFFF;
   padding: 1.25rem;
@@ -56,7 +25,9 @@ width:70vw;
   background-color:#2D6247;
   border-color: #2D6247; 
 }
-
+.ant-table {
+  font-size: 0.4rem;
+}
 button.ant-btn{
   background-color: #2D6247; 
    &:hover {
@@ -66,6 +37,7 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
+  font-size: 0.1rem;
 }
 
 tbody {
@@ -78,13 +50,25 @@ tbody {
 .ant-table-cell div{
   align-items: center;
   justify-content: center;
+  
 }
-.mobileCart{
-  display: none;
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  
+ 
 }
 
 @media screen and (max-width:768px) {
-display: none;
+    padding:0.8rem;
+   width: 84vw;
+   overflow-x: auto;
+  display:block;
+    .ant-table {
+      width: 100%;
+    display:flex;
+
+  font-size: 0.1rem;
+}
+
 }
 `;
 
@@ -104,14 +88,14 @@ const TotalAmount = styled.div`
 
 
 
-const Cart = () => { 
+const MobileCart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
   const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
-
+ 
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
@@ -124,6 +108,8 @@ const fetchCartData= async()=> {
         setCart(response.data);
     }
 }
+
+
 
 // useEffect 내에서 fetchCartData 호출
 useEffect(() => {
@@ -174,20 +160,11 @@ useEffect(() => {
 }, [selectedRowKeys]);
   const columns = [
     {
-      title: '상품 이미지',
+      title: '상품',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
+      render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.id}`)}  src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
-    {
-      title: '상품명',
-      dataIndex: 'productName',
-      key: 'productName',
-      render: (text, record) => (
-        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
-        ),
-    },
-    
   
     {
       title: '판매가',
@@ -205,7 +182,7 @@ useEffect(() => {
       />)
     },
     {
-      title: '삭제하기',
+      title: '삭제',
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
@@ -245,15 +222,7 @@ useEffect(() => {
 
   return (
     <>
-    
-      <Header />
-      <LayoutContainer>
-        <SidebarContainer>
-          <Sidebar />
-        </SidebarContainer>
-        <SmallSideBar />
-        <ContentContainer>
-          <TableContainer>
+         <TableContainer>
           <h2> 장바구니</h2>
             <Table className="cart-table" rowSelection={rowSelection}
                     columns={columns}
@@ -268,16 +237,11 @@ useEffect(() => {
                  결제하기
                 </Button>
             </TotalPayment>
-          </TableContainer>
-          <MobileCart/>
-          <MyFavorite fetchCartData={fetchCartData}/>
-         
-        </ContentContainer>
-        
-        
-      </LayoutContainer>
+            </TableContainer>
+            <MobileFavorite fetchCartData={fetchCartData} />
+
     </>
   );
 };
 
-export default Cart;
+export default MobileCart;

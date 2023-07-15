@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 
 
-const  OrderFormHeader =(props)=> {
+
+const  OrderFormHeader =(props,product)=> {
   return (
     <Container>
       <TitleBox>

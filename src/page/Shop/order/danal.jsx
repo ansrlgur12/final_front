@@ -37,6 +37,7 @@ const Danal=(totalCost)=> {
         buyer_email: userEmail,               // 구매자 이메일
         buyer_addr: orderData.address,                    // 구매자 주소
         buyer_postcode: orderData.zipcode,                      // 구매자 우편번호
+        m_redirect_url: "http://localhost:3000/payComplete",
       };
   
       /* 4. 결제 창 호출하기 */
