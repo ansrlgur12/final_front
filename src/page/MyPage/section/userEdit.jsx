@@ -110,7 +110,7 @@ const UserEdit = () => {
 
   return (
     <>
-    <Header />
+ <Header />
       <LayoutContainer>
         <SidebarContainer>
           <Sidebar />

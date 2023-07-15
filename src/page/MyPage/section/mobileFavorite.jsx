@@ -12,7 +12,7 @@ import { UserContext } from '../../../API/UserInfo';
 
 
 const TableContainer = styled.div`
-display: block;
+display: none;
 margin-top: 10vh;
   background-color: #FFFFFF;
   padding: 20px;
@@ -50,7 +50,7 @@ tbody {
 
 
 @media screen and (max-width:768px) {
-   display: none;
+   display: block;
    .ant-table {
     
  font-size: 0.06rem;
@@ -67,7 +67,7 @@ tbody {
 
 
 
-const MyFavorite = ({fetchCartData}) => { 
+const MobileFavorite = ({fetchCartData}) => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const { removeFromFavorite,setFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
@@ -84,7 +84,7 @@ const fetchFavoriteData = async() =>{
         setFavorite(response.data);
     }
 }
-  // useEffect 내에서 fetchFavoriteData 호출
+
 useEffect(() => {
   fetchFavoriteData();
 }, []); // 의존성 배열에 아무것도 넣지 않으면 컴포넌트가 마운트될 때만 실행
@@ -136,26 +136,19 @@ useEffect(() => {
   }, [favoriteData]);
   const columns = [
     {
-      title: '상품 이미지',
+      title: '상품',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.productId}`)} src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
-    {
-      title: '상품명',
-      dataIndex: 'productName',
-      key: 'productName',
-      render: (text, record) => (
-        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
-        ),
-    },
+  
     {
       title: '판매가',
       dataIndex: 'paymentAmount',
       key: 'paymentAmount',
     },
     {
-      title: '삭제하기',
+      title: '삭제',
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
@@ -207,4 +200,4 @@ useEffect(() => {
   );
 };
 
-export default MyFavorite;
+export default MobileFavorite;

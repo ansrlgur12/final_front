@@ -166,7 +166,13 @@ const Header = () =>{
     const [isOpen, setIsOpen] = useState(false);
 
    
-       
+    const handleMyPageClick = () => {
+        if (!userEmail) {
+            setIsOpen(true);
+        } else {
+            nav("/mypage");
+        }
+    };
       
     const handleCartClick = () => {
         if (!userEmail) {
@@ -249,7 +255,7 @@ const Header = () =>{
                     </div>
                     <div className="headerRight">
                         <SearchBox />
-                        <UserOutlined onClick={()=>nav("/myPage")}/>
+                        <UserOutlined onClick={handleMyPageClick}/>
                         {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
@@ -262,8 +268,8 @@ const Header = () =>{
                 <div className={hamburgerClicked ? "hamburgerShow" : "hamburgerHide"}>
                     <div className="hamburgerMenu">
                         <SearchBox />
-                        <UserOutlined onClick={()=>nav("/myPage")}/>
-                        <IconButton aria-label="cart" onClick={()=>nav("/cart")} >
+                        <UserOutlined onClick={handleMyPageClick}/>
+                        <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
                         </Badge>

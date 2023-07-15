@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const QuantityInputWrapper = styled.div`
   display: flex;
   
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
   @media screen and (max-width:768px) {
-    justify-content: center;
+   margin-left: 0.5rem;
+    justify-content: left;
+    gap: 0.3rem;
   }
 `;
 
@@ -15,22 +17,31 @@ const Button = styled.button`
   background:  #2D6247;
   color: #fff;
   border: none;
- width: 40px;
+ width: 2vw;
   cursor: pointer;
-  font-size: 26px;
+  font-size: 1.6rem;
   font-weight: bold;
-
+  @media screen and (max-width:768px) {
+    width:2vw;
+    font-size: 0.8rem;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
 `;
 
 const Input = styled.input`
 border: none;
-  width: 80px;
+  width: 4vw;
   text-align: center;
-  font-size: 18px;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
- 
+  @media screen and (max-width:768px) {
+    width:2vw;
+    font-size: 0.8rem;
+  }
 `;
 
 const QuantityInput = ({ quantity, setQuantity }) => {
