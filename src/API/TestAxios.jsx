@@ -89,29 +89,60 @@ memberReg : async(nickName, email, password, agreed) => {
                 nickName : nickName
             }
         }
-        return await axios.get(domain + '/api/v1/intro/nickName', check);
+        return await axios.get(domain + "/api/v1/intro/nickName", check);
     },
+    // 회원 정보 조회
+    userInfo : async(token)=> {
+         try {
+             return await axios.get(domain + "/api/v1/userinfo", {
+               headers: {
+               'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+              }
+          });
+         } catch (error) {
+           throw error;
+          }
+         },
 
     // 회원 정보 수정
-    userInfo : async(id, chgNick, chgEmail, chgPhone, chgImg)=> {
+    userUpdate : async(token, chgAddr, chgPhone, chgImg)=> {
         const info = {
-            id : id,
-            newNick : chgNick,
-            email : chgEmail,
-            newPhone : chgPhone,
-            newImg : chgImg
+            userAddr : chgAddr,
+            userPhoneNm : chgPhone,
+            userImg : chgImg
         };
-        return await axios.post(domain + "/UserEdit", info);
-    },
+      
+        try {
+          return await axios.put(domain + "/api/v1/updateUserInfo", info, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          });
+        } catch (error) {
+          throw error;
+        }
+      },
 
     // 비밀번호 변경
-    newPassword : async(userEmail, pwdChange) => {
-        const newP = {
-            email : userEmail,
-            newPwd : pwdChange
+    updateUserPwd: async (token, password) => {
+        const newPwd = {
+          password: password
         };
-        return await axios.post(domain + "/NewPassword", newP);
-    },
+      
+        try {
+          return await axios.put(domain + "/api/v1/changePwd", newPwd, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          });
+        } catch (error) {
+          throw error;
+        }
+      },
+      
 
 // 각 캠핑장 부대시설, 강아지출입 등 정보 가져오기
     getAbleIcon : async(contentId) => {

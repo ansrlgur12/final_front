@@ -8,6 +8,7 @@ import { UserContext } from '../../../API/UserInfo';
 import AxiosApi from '../../../API/TestAxios';
 import Modal from '../../../util/modal';
 import SmallSideBar from '../smallSidebar';
+import Functions from '../../../Functions';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -71,12 +72,12 @@ const normFile = (e) => { //프로필사진 업로드 설정 함수
 };
 
 const UserEdit = () => {
+  const token = Functions.getAccessToken();
   const context = useContext(UserContext);
-  const { nickName, userPhoneNm, userEmail, userAddr, id } = context;
+  const { id } = context;
 
   // 전송 데이터
-  const [chgNick, setChgNick] = useState('');
-  const [chgEmail, setChgEmail] = useState('');
+  const [chgAddr, setAddr] = useState('');
   const [chgPhone, setChgPhone] = useState('');
   const [chgImg, setChgImg] = useState('');
   
@@ -89,68 +90,16 @@ const UserEdit = () => {
     setModalOpen(false);
   };
 
-  // 오류 메세지
-  const [nickMessage, setNickMessage] = useState("");
-  const [mailMessage, setMailMessage] = useState("");
-  const [phoneMessage, setPhoneMessage] = useState("");
-
-  //유효성 검사
-  const [isNick, setIsNick] = useState(false);
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
-
-  const generateDummyData = () => {
-    return {
-      userId: id,
-      userNname: nickName,
-      userMail: userEmail,
-      userTel: userPhoneNm,
-    };
-  };
-
-  const changeNick = (e) => {
-    setChgNick(e.target.value);
-    if (e.target.value.length < 5 || e.target.value.length > 12) {
-        setNickMessage("5자리 이상 12자리 미만으로 입력해 주세요.");
-        setIsNick(false);    
-    } else {
-        setNickMessage("올바른 형식 입니다.");
-        setIsNick(true);
-    }
-  };
-
-  const changeEmail = (e) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    const emailCurrent = e.target.value;
-    setChgEmail(emailCurrent);
-    if (!emailRegex.test(emailCurrent)) {
-        setMailMessage('이메일 형식을 입력해주세요.');
-        setIsEmail(false);
-    } else {
-        setMailMessage('이메일 형식에 맞습니다.');
-        setIsEmail(true);
-    }
+  const changeAddr = (e) => {
+    setAddr(e.target.value);
   };
 
   const changePhone = (e) => {
-    const phoneNumber = e.target.value; // 입력된 값을 문자열로 직접 가져옵니다.
-    setChgPhone(phoneNumber);
-    if (phoneNumber.length < 5 || phoneNumber.length > 12) {
-        setPhoneMessage("전화번호 형식에 맞춰 주세요.");
-        setIsPhone(false);    
-    } else {
-        setPhoneMessage("올바른 형식 입니다.");
-        setIsPhone(true);
-    }
+    setChgPhone(e.target.value);
   };
 
-
-
-  const [formDisabled, setFormDisabled] = useState(true);
-  const [initialValues, setInitialValues] = useState(generateDummyData());
-
-  const subUserInfo = async() => {
-    const infoUpdate = await AxiosApi.userInfo(id, chgNick, chgEmail, chgPhone, chgImg)
+  const subUserInfo = async () => {
+    const infoUpdate = await AxiosApi.userUpdate(token, chgAddr, chgPhone, chgImg)
     if(!infoUpdate.data === true){
       setModalText("입력 사항을 다시 확인해 주세요.");
       setModalOpen(true);
@@ -168,33 +117,19 @@ const UserEdit = () => {
         </SidebarContainer>
         <SmallSideBar />
         <ContentContainer>
-          <StyledCheckbox
-            checked={!formDisabled}
-            onChange={(e) => setFormDisabled(!e.target.checked)}
-          >
+          <StyledCheckbox>
             나의 정보 수정하기
           </StyledCheckbox>
 
-          <StyledUserEdit
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            layout="horizontal"
-            initialValues={initialValues}
-          >
+          <StyledUserEdit>
             <Form.Item label="User ID" name="userId">
               <Input disabled />
             </Form.Item>
-            <Form.Item label="Nickname" name="userNname">
-              <Input disabled={formDisabled} onChange={changeNick} />
-              {chgNick.length > 0 && <span className={`hint ${isNick ? 'success' : 'error'}`}>{nickMessage}</span>}
-            </Form.Item>
-            <Form.Item label="Email" name="userMail">
-              <Input disabled={formDisabled} onChange={changeEmail}/>
-              {chgEmail.length > 0 && <span className={`hint ${isEmail ? 'success' : 'error'}`}>{mailMessage}</span>}
+            <Form.Item label="Address" name="userAddr">
+              <Input onChange={changeAddr} />
             </Form.Item>
             <Form.Item label="Phone Number" name="userTel">
-              <Input disabled={formDisabled} onChange={changePhone}/>
-              {chgPhone > 0 && <span className={`hint ${isPhone ? 'success' : 'error'}`}>{phoneMessage}</span>}
+              <Input onChange={changePhone}/>
             </Form.Item>
             <Form.Item
               label="Profile Image"
@@ -202,7 +137,7 @@ const UserEdit = () => {
               valuePropName="fileList"
               getValueFromEvent={normFile}
             >
-              <Upload action="/upload.do" listType="picture-card" disabled={formDisabled}>
+              <Upload action="/upload.do" listType="picture-card">
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>사진 올리기</div>
@@ -210,7 +145,7 @@ const UserEdit = () => {
               </Upload>
             </Form.Item>
             <Form.Item>
-              <StyledButton type="primary" disabled={formDisabled} onClick={subUserInfo}>
+              <StyledButton type="primary" onClick={subUserInfo}>
                 회원 정보 변경
               </StyledButton>
             </Form.Item>
