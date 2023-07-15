@@ -222,6 +222,12 @@ const Login = () => {
             setUserImage(response.data.userImg);
             setId(response.data.id);
             setIsLogin(true);
+
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+
+            console.log('Access Token: ', localStorage.getItem('accessToken'));
+            console.log('Refresh Token: ', localStorage.getItem('refreshToken'));
         } 
         else {
             console.log("로그인 에러");
