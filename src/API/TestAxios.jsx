@@ -105,6 +105,20 @@ memberReg : async(nickName, email, password, agreed) => {
           }
          },
 
+    // 회원 탈퇴
+    userDelete : async(token)=> {
+        try {
+            return await axios.delete(domain + "/api/v1/deleteUser", {
+              headers: {
+              'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token
+             }
+         });
+        } catch (error) {
+          throw error;
+         }
+        },
+
     // 회원 정보 수정
     userUpdate : async(token, chgAddr, chgPhone, chgImg)=> {
         const info = {

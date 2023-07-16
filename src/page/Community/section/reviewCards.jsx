@@ -78,7 +78,7 @@ const ReviewCards = () => {
         return null; // postType이 1이 아닌 경우, 리뷰 카드를 렌더링하지 않음
       }
 
-      const memberProfileImg = review.member ? review.member.profileImg : '';
+      const memberProfileImg = review.member ? review.member.userImg : '';
 
       return (
         <Col span={6} key={index}>

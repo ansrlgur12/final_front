@@ -7,6 +7,7 @@ import ReviewApi from '../../../API/ReviewAPI';
 import Header from '../../../main/header';
 import { Link } from 'react-router-dom';
 import { storage } from '../../../firebase/firebaseConfig';
+import Functions from '../../../Functions';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -24,6 +25,7 @@ const ReviewContainer = styled.div`
 `;
 
 const WriteReviewPage = () => {
+  const token = Functions.getAccessToken();
   const [data, setData] = useState('');
   const [title, setTitle] = useState('');
   const [postType, setPostType] = useState('카테고리를 선택해주세요');
@@ -33,12 +35,13 @@ const WriteReviewPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const memberId = 1;
       const content = data;
       const date = new Date().toISOString();
       const viewCount = 0;
       const img = image ? await uploadImage(image) : null;
-      await ReviewApi.createReview(memberId, title, content, date, postType, viewCount, img);
+
+      await ReviewApi.createReview(token, title, content, date, postType, viewCount, img);
+
       setModalVisible(true);
     } catch (error) {
       console.log(error);
