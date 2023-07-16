@@ -85,7 +85,7 @@ export const MainStyle = styled.div`
 
     @media screen and (max-width: 768px) {
       .selectBtn {
-        top: auto;
+        top: 80vh;
         left: 1vw;
         flex-direction: column;
         justify-content: center;
@@ -99,19 +99,19 @@ export const MainStyle = styled.div`
         height: 4vh;
       }
       #wrap{
-        padding-top: 12vh;
+        padding-top: 12.5vh;
       }
     }
 
     @media screen and (max-width: 414px){
       #wrap{
-        padding-top: 9vh;
+        padding-top: 9.5vh;
       }
     }
 
     @media screen and (max-width: 375px){
       #wrap{
-        padding-top: 12vh;
+        padding-top: 12.5vh;
       }
       
     }

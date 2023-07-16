@@ -28,6 +28,8 @@ right: -23vw;
 }
     
 .hideBtn{
+    font-size: 1em;
+    font-weight: bold;
     z-index: 3;
     border-radius: 50px;
     width: 60px;
@@ -107,10 +109,11 @@ right: -23vw;
 @media screen and (max-width: 768px) {
     position: fixed;
     z-index: 1;
-    right: -80vw;
+    right: -75vw;
+    bottom: 10vh;
 
     .container {
-    width: 80vw;
+    width: 75vw;
     height: 75vh;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
@@ -132,7 +135,7 @@ right: -23vw;
     height: 60px;
     position: absolute;
     bottom: 45vh;
-    right: 81vw;
+    right: 76vw;
     border: 0px;
     background-color: rgba(146, 159, 139,0.8);
     color: white;
@@ -217,7 +220,7 @@ const Sidebar = () => {
                     <SideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} />
                     }
                 </div>
-                <button className="hideBtn" onClick={hideMenuBar}>{closeSideBar ? "펼치기" : "숨기기"}</button>
+                <button className="hideBtn" onClick={hideMenuBar}>{closeSideBar ? "<<" : ">>"}</button>
             </div>
         </SidebarStyle>
     )

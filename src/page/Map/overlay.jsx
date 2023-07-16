@@ -141,6 +141,19 @@ const MapStyled = styled.div`
       display: flex;
     }
     }
+    @media screen and (max-width: 414px) {
+      .wrap {
+      display: none;
+      border-radius: 15px;
+      position: absolute;
+      right: 10vw;
+      bottom: 49vh;
+      margin-left: -144px;
+    }
+    .openOverlay {
+      display: flex;
+    }
+    }
  `;
 
 const Overlay = (props) => {
