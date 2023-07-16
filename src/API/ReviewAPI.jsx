@@ -5,9 +5,8 @@ export const CAMO_DOMAIN = "http://localhost:8111";
 const ReviewApi = {
 
   //리뷰 생성
-  createReview: async (memberId, title, content, date, postType, viewCount, img) => {
+  createReview: async (token, title, content, date, postType, viewCount, img) => {
     const review = {
-      memberId: memberId,
       title: title,
       content: content,
       date: date,
@@ -15,14 +14,23 @@ const ReviewApi = {
       viewCount: viewCount,
       img: img
     };
-    return await axios.post(`${CAMO_DOMAIN}/review`, review);
+
+    try {
+      return await axios.post(CAMO_DOMAIN + "/review", review, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   },
 
   //리뷰 수정
   updateReview: async (id, memberId, title, content, date, postType, viewCount, img) => {
     const reviewDto = {
       id: id,
-      memberId: memberId,
       title: title,
       content: content,
       date: date,

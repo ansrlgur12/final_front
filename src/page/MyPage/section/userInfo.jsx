@@ -43,7 +43,7 @@ const UserInfo = () => {
     return null; 
   }
 
-  const { nickName, userPhoneNm, email, userAddr } = userInfo;
+  const { nickName, userPhoneNm, email, userAddr, userImg } = userInfo;
 
   return (
     <>
@@ -53,6 +53,9 @@ const UserInfo = () => {
         <SmallSideBar />
         <StyledContent style={{ marginTop: '15vh' }}>
           <Descriptions title="User Info">
+          <Descriptions.Item label="Img">
+            {userImg && <img src={userImg} alt="User" />}
+          </Descriptions.Item>
             <Descriptions.Item label="NickName">{nickName}</Descriptions.Item>
             <Descriptions.Item label="Telephone">{userPhoneNm}</Descriptions.Item>
             <Descriptions.Item label="Email">{email}</Descriptions.Item>
