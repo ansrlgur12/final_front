@@ -123,16 +123,17 @@ const Section3 = styled.div`
     }
 `;
 const CardContainer = styled.div`
-width: 25vw;
-height: 25vw;
+width: 21vw;
+height: 21vw;
 border-radius: 15px;
 display: flex;
 flex-direction: column-reverse;
 box-shadow: 1px 2px 5px gray;
 @media screen and (max-width: 768px) {
-    width: 25vw;
-    height: 25vw;
+    width: 27vw;
+    height: 27vw;
     margin-top: 1em;
+    
 }
 
 
@@ -174,7 +175,7 @@ const CampDescSection = styled.div`
     }
     @media screen and (max-width: 768px) {
       margin-bottom: .5em;
-      
+      line-height: 1;
     }
     
 `;
@@ -198,17 +199,20 @@ const MainSection3 = (props) => {
         //   }
           console.log(rsp.data);
           setCampData(rsp.data);
+
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                setMyLoc([latitude, longitude]);
+            },
+            (error) => {
+                console.error("Error getting current location:", error);
+            }
+        );
+
       }
       getCampCard();
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-            const { latitude, longitude } = position.coords;
-            setMyLoc([latitude, longitude]);
-        },
-        (error) => {
-            console.error("Error getting current location:", error);
-        }
-    );
+      
     },[])
 
     const calculateDistance = (camp) => {
