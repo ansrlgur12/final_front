@@ -10,17 +10,17 @@ import OrderInput from '../../../Commons/OrderInput';
 import SearchAddress from '../../../API/Address';
 import { useOrderContext } from '../../../context/OrderContext';
 import KakaoPay from './kakaoPay';
-
-
+import EllipsisText from '../../../Commons/ellipsis';
 
 
 const TableContainer = styled.div`
   background-color: #FFFFFF;
-  padding: 20px;
+  padding: 1.25rem;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-bottom: 5rem;
+
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
@@ -35,6 +35,7 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
+  font-size: 0.1rem;
 }
 
 tbody {
@@ -54,7 +55,17 @@ tbody {
 }
 
 
+@media screen and (max-width:768px) {
+    padding:0.8rem;
+   width: 84vw;
+   overflow-x: auto;
+  display:block;
+    .ant-table {
+      width: 100%;
+    display:flex;
 
+  font-size: 0.1rem;
+}}
 `;
 
 
@@ -64,7 +75,7 @@ const Container = styled.section`
 display: flex;
 box-sizing: border-box;
 padding-top: 70px;
-width: 70vw;
+width: 80vw;
 height: auto;
 margin: auto;
 h1 {
@@ -84,6 +95,11 @@ h1 {
     line-height: normal;
     padding: 0.6em 0.5em;
   }
+  @media screen and (max-width:768px) {
+  width:auto;
+ 
+
+}
 `;
 const Wrapper = styled.div`
   margin-top: 2rem;
@@ -261,17 +277,17 @@ const orderdata = {
 
   const columns = [
     {
-      title: '상품 이미지',
+      title: '상품',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
+      render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.id}`)}  src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
     {
       title: '상품명',
       dataIndex: 'productName',
       key: 'productName',
       render: (text, record) => (
-        <div onClick={() => nav(`/ProductDetailForm/${record.id}`)} style={{  cursor: 'pointer' }}>{text}</div>
+        <EllipsisText text={record.productName} maxLine={2} />
         ),
     },
     
