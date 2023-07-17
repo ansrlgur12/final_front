@@ -10,9 +10,11 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import Overlay from "./overlay";
 import animalCamp from "../../images/강아지발바닥.png";
 import markerImage from "../../images/캠핑마커.png";
+import "../../font.css";
 
 
 export const MainStyle = styled.div`
+  font-family: 'LINESeedKR-Bd' ;
     .App {
         font-family: sans-serif;
         position: relative;
@@ -28,7 +30,7 @@ export const MainStyle = styled.div`
         align-items: flex-end;
         flex-direction: column;
         margin-top: .2em;
-        padding-top: 11.5vh;
+        padding-top: 10vh;
     }
 
     
@@ -164,7 +166,7 @@ const MapMain = () => {
     <Header/>
     <MainStyle>
     <div className="App">
-      <div id="wrap" style={{width:'100vw', height: '89vh'}}>
+      <div id="wrap" style={{width:'100vw', height: '89.5vh'}}>
             <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>

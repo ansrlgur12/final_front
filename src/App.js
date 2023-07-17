@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import "./font.css";
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
@@ -44,6 +44,12 @@ import MyOji from './page/MyPage/section/myOji';
 import PayComplete from './page/Shop/order/PayComplete';
 import MobileCart from './page/MyPage/section/mobileCart';
 import MobileFavorite from './page/MyPage/section/mobileFavorite';
+import styled from '@emotion/styled';
+
+const AppFontStyle = styled.div`
+font-family: 'GongGothicMedium';
+`;
+
 function App() {
 
   ChannelService.boot({
@@ -57,6 +63,7 @@ function App() {
   });
 
   return (
+    <AppFontStyle>
     <div className="App">
       <UserStore>
         <MarkerStore>
@@ -113,6 +120,7 @@ function App() {
         </MarkerStore>
       </UserStore>
     </div>
+    </AppFontStyle>
   );
 }
 

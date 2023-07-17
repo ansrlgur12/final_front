@@ -6,6 +6,8 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import {getDistance} from "geolib";
 import AxiosApi from "../../API/TestAxios";
 import campingCar from "../../images/캠핑카.png"
+import "../../font.css";
+import styled from "@emotion/styled";
 
 const { kakao } = window;
 
@@ -181,8 +183,15 @@ const KakaoMap = (props) => {
   
 
   return(
+    <MapStyle>
     <div id="container" ref={container} />
+    </MapStyle>
   );
 }
 
 export default KakaoMap;
+
+const MapStyle = styled.div`
+  font-family: 'LINESeedKR-Bd' ;
+  line-height: 1;
+`;

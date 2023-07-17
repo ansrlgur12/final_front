@@ -10,6 +10,7 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import OjiKakaoMap from "./OjiKaKao";
 import OjiOverlay from "./ojiOverlay";
 import newMark from "../../images/종이펜.png"
+import "../../font.css";
 
 
 

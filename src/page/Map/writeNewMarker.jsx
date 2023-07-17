@@ -8,11 +8,12 @@ import AxiosApi from "../../API/TestAxios";
 import { storage } from '../../firebase/firebaseConfig';
 import { useNavigate } from "react-router";
 import { UserContext } from "../../API/UserInfo";
+import imageBar from "../../images/캠핑이미지바.jpg"
 
 const WriteContainer = styled.div`
     display: flex;
     margin-left: 5vw;
-    padding-top: 8vh;
+    padding-top: 6vh;
     margin-left: 10vw;
     position: relative;
     h2{
@@ -140,6 +141,13 @@ const Radio = styled.div`
   
 `;
 
+const ImageBar = styled.div`
+  padding-top: 11vh;
+  height: 30vh;
+  width: 100%;
+  background-color: #ccc;
+`;
+
 
 
 const WriteNewMarker = () => {
@@ -265,6 +273,7 @@ const WriteNewMarker = () => {
   return (
     <>
       <Header />
+      <ImageBar style={{backgroundImage: `url(${imageBar})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 60%'}}></ImageBar>
       <WriteContainer>
         
         <div className="left">
