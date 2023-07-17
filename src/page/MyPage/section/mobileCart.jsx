@@ -72,7 +72,8 @@ tbody {
   padding: 8px 8px;
 }
 .ant-table-thead > tr > th  {
-
+  color: #fff;
+    background: #2D6247; 
   padding: 8px 8px;
 }
 }

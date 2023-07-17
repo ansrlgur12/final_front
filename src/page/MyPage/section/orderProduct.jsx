@@ -43,6 +43,8 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
+  color: #fff;
+    background: #2D6247; 
 }
 
 tbody {
@@ -69,7 +71,6 @@ tbody {
   padding: 8px 8px;
 }
 .ant-table-thead > tr > th  {
-
   padding: 4px 4px;
 }
 }

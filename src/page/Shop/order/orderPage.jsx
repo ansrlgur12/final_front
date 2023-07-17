@@ -20,8 +20,8 @@ const TableContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-bottom: 5rem;
-  width: 64vw;
-  margin-left:18rem;
+  width: 58vw;
+  margin-left:22rem;
 
 
   .ant-checkbox-checked .ant-checkbox-inner {
@@ -38,7 +38,9 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
+  background-color: #2D6247;
   
+  color: #fff;
 }
 
 tbody {
@@ -61,20 +63,24 @@ tbody {
    overflow-x: auto;
   display:block;
   margin-left:0;
-
+ 
     .ant-table {
-      
+      margin-left: 0.4rem;
       width: 100%;
     display:flex;
   font-size: 0.1rem;
+  
 }
 .ant-table-tbody > tr > td {
-  padding: 12px 14px;
-  
+  padding: 12px 16px;
+ 
 }
 .ant-table-thead > tr > th  {
   white-space: nowrap;
-  padding: 8px 6px;
+  padding: 8px 12px;
+  background-color: #2D6247;
+
+  color: #fff;
 }
 }
 `;
@@ -86,7 +92,7 @@ const Container = styled.section`
 
 border-radius: 4px;
 border: none;
-   background: #2D6247; 
+  
 display: flex;
 box-sizing: border-box;
 padding-top: 70px;

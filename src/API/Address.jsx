@@ -72,16 +72,16 @@ const BtnWrapper = styled.div`
   button {
     width: 100px;
     border: 0;
-    margin-left: 340px;
+    margin-left: 1rem;
     color: #fff;
-    background: #ccc;
+    background: #2D6247; 
     padding: 0.5rem 0.8rem;
     border-radius: 0.4rem;
     cursor: pointer;
   }
 
   button:hover {
-    background: #2D6247;
+   opacity: 0.7;
   }
   @media screen and (max-width:768px) {
  button{

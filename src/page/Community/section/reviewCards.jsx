@@ -35,7 +35,8 @@ const WriteButton = styled(Link)`
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  white-space: nowrap;
 `;
 
 const ReviewCards = () => {
