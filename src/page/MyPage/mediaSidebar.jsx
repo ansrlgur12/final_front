@@ -9,10 +9,13 @@ const { Sider } = Layout;
 const SideBarContainer = styled.div`
 background-color: white;
     @media screen and (max-width: 768px) {
+      margin-top: 5.5rem;
       width: auto;
       height: 80vh;
       position: absolute;
       z-index: 1;
+      border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 `;
 const items = [

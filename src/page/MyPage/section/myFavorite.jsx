@@ -12,6 +12,8 @@ import { UserContext } from '../../../API/UserInfo';
 
 
 const TableContainer = styled.div`
+width: 70vw;
+overflow-x: auto;
 display: block;
 margin-top: 10vh;
   background-color: #FFFFFF;
@@ -185,7 +187,7 @@ useEffect(() => {
     <>
        
         
-          <TableContainer style={{ width: '80vw', overflowX: 'auto' }}>
+          <TableContainer >
            <h2> 찜목록</h2>
             <Table  rowSelection={rowSelection}
                     columns={columns}

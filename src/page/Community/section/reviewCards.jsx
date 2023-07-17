@@ -88,7 +88,7 @@ const ReviewCards = () => {
                 <img
                   src={review.img}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '30vh', objectFit: 'cover',paddingTop:'5rem' }}
                 />
               </Link>
             }
@@ -114,7 +114,7 @@ const ReviewCards = () => {
     <img
                   src={사고팔기header}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '270px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '32vh', objectFit: 'cover',paddingTop:'5rem' }}
                 />
     <SelectButton />
     <Layout>

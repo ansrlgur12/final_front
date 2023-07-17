@@ -120,7 +120,7 @@ const BuySellCards = () => {
     <img
                   src={사고팔기1header}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '270px', objectFit: 'cover',
+                  style={{ width: '100%', height: '32vh', objectFit: 'cover',paddingTop:'5rem'
                  }}
                 />
     <SelectButton />
