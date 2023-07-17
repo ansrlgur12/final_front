@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import itemp1 from "../images/itemp1.jpg";
 import itemp2 from "../images/itemp2.jpg";
 import itemp3 from "../images/itemp3.jpg";
+import "../font.css";
 
 const Section2 = styled.div`
     margin-top: 40px;
@@ -10,6 +11,10 @@ const Section2 = styled.div`
     display: flex;
     justify-content: center;
     
+    .itemBtn{
+        font-family: 'LINESeedKR-Bd';
+        width: 10vw;
+    }
     .container2{
         width: 90vw;
         padding: 0;
@@ -93,7 +98,6 @@ const Section2 = styled.div`
     }
 
     .itemBtn {
-        width: 100px;
         font-size: 1.2rem;
         margin: 10px 0 0 40px;
         transform: translateY(20px);
@@ -144,8 +148,8 @@ const Section2 = styled.div`
         opacity: 1;
     }
     .itemBtn {
-        width: 100px;
-        font-size: 1rem;
+        width: 15vw;
+        font-size: .8rem;
         margin: 1rem 0 0 1rem;
         transform: translateY(0px);
         opacity: 1;

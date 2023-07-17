@@ -4,14 +4,14 @@ import backImg1 from "../images/backgroundimg1.jpg";
 import backImg2 from "../images/backgroundimg2.jpg";
 import backImg3 from "../images/backgroundimg3.jpg";
 import {Swiper, SwiperSlide} from 'swiper/react';
-
+import "../font.css";
 import{ Navigation, Pagination } from "swiper";
 
 
 export const Section1 = styled.div`
     display: flex;
     justify-content: center;
-
+    font-family: "Nanum Myeongjo";
     .backImg {
         width: 100vw;
         height: 80vh;
@@ -29,7 +29,7 @@ export const Section1 = styled.div`
         left: 30vw;
         z-index: 1;
         font-size: 2rem;
-        color: #1111aa;
+        color: rgb(186, 210, 170);
         font-weight: bold;
         position: absolute;
         transform: translate(-50%, -50%);
@@ -52,8 +52,14 @@ export const Section1 = styled.div`
     .textLine{
         border: 1px solid #afafaf;
     }
+    .swiper-button-prev,
+    .swiper-button-next {
+    opacity: 0.5;
+    color: white !important;
+    }
     @media screen and (max-width: 768px) {
         .backImg {
+        padding-top: 10vh;
         width: 100vw;
         height: 50vh;
     }
@@ -68,7 +74,6 @@ export const Section1 = styled.div`
         margin-left: 10vw;
         z-index: 1;
         font-size: 1.3rem;
-        color: #1111aa;
         font-weight: bold;
         position: absolute;
         transform: translate(-50%, -50%);
@@ -102,7 +107,7 @@ const MainSection1 = () => {
         <Section1>
             <div className='backImg'>
                 <Swiper
-                loop = {true}
+                // loop = {true}
                 modules = {[Navigation, Pagination]}
                 spaceBetween={0}
                 slidesPerView={1}
@@ -116,12 +121,10 @@ const MainSection1 = () => {
                         <img src={backImg1} alt=""/>
                         <div className={`mainText ${showText && slideIndex === 0 ? 'show' : ''}`} >
                             <p className="textTitle">
-                                자연과 하나가 되십시오
+                                '자연과 하나가 되십시오'
                                 <br/>
                                 완벽한 여행을 위해 필요한 것이 있습니다.
-                                <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
@@ -131,9 +134,7 @@ const MainSection1 = () => {
                                 자연과 하나가 되십시오
                                 <br/>
                                 완벽한 여행을 위해 필요한 것이 있습니다.
-                                <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
@@ -143,9 +144,7 @@ const MainSection1 = () => {
                                 자연과 하나가 되십시오
                                 <br/>
                                 완벽한 여행을 위해 필요한 것이 있습니다.
-                                <div className="textLine"></div>
                             </p>
-                            <button className='mainBtn'>SHOP</button>
                         </div>
                     </SwiperSlide>
                 </Swiper>

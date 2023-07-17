@@ -4,9 +4,10 @@ import SideBarList from "./sideBarList";
 import { MarkerContext } from "../../context/MarkerInfo";
 import LocationSelect from "./locationSelect";
 import OjiSideBarList from "./ojiSideBarList";
+import "../../font.css";
 
 const SidebarStyle = styled.div`
-
+font-family: 'LINESeedKR-Bd' ;
 position: fixed;
 z-index: 1;
 right: -23vw;

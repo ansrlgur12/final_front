@@ -13,9 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from "../../API/UserInfo";
+import "../../font.css";
 
 
 const MapStyled = styled.div`
+    font-family: 'LINESeedKR-Bd' ;
     position: relative;
     z-index: 1;
     .wrap {

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import "../../font.css";
 
 const InfoStyled = styled.div`
     background-color: black;
@@ -9,6 +10,7 @@ const InfoStyled = styled.div`
     padding: 5px;
     text-align: center;
     line-height: 1;
+    padding-top: .5em;
  `;
 
 const InfoWindow = (props) => {

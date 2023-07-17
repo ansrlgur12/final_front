@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import CampCard from "./CampCard";
 import { MarkerContext } from "../context/MarkerInfo";
+import "../font.css";
 
 const Section3 = styled.div`
+    font-family: 'LINESeedKR-Bd';
     margin-top: 40px;
     align-items: center;
     display: flex;

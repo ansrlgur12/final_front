@@ -13,9 +13,11 @@ import { UserOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Commons/Modal";
+import "../font.css";
 
 const HeaderStyle = styled.div`
-    box-sizing: border-box;
+    font-family: 'GongGothicMedium';
+    box-sizing: border-box; 
     box-shadow: 1px 2px 5px #ccc;
     position: fixed;
     z-index: 10;
@@ -45,6 +47,7 @@ const HeaderStyle = styled.div`
     
     .navContainer{
         display: flex;
+        color: #454545;
     }
     li {
         list-style: none;
@@ -156,7 +159,7 @@ const Header = () =>{
     const nav = useNavigate();
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
     const context = useContext(MarkerContext);
-    const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev} = context;
+    const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
     const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, userEmail} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
@@ -213,6 +216,7 @@ const Header = () =>{
     
     const onClickNormalCamping = () => {
         setCurrentData("normal");
+        setOverlayOpen(false);
         setMarkerLat(37.50802)
         setMarkerLng(127.062835)
         setZoomLev(10)
@@ -220,6 +224,7 @@ const Header = () =>{
     }
 
     const onClickOjinojiCamping = () => {
+        setOverlayOpen(false);
         setCurrentData("ojinoji");
         nav("/ojinoji")
     }
