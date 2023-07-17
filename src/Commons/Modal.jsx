@@ -11,13 +11,13 @@ const ModalStyle = styled.div`
 }
 .modalBox{
   position: absolute;
-  top: calc(50vh - 100px); left: calc(50vw - 200px);
+  top: calc(50vh - 6.25rem); left: calc(50vw - 12.5rem);
   background-color: white;
   display: flex; justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  width: 400px;
+  width: 398px;
   height: 200px;
   z-index: 1000;
 }

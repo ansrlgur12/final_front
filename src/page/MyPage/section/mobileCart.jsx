@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import MobileFavorite from './mobileFavorite';
-
+import EllipsisText from '../../../Commons/ellipsis';
 
 
 
@@ -68,7 +68,13 @@ tbody {
 
   font-size: 0.1rem;
 }
+.ant-table-tbody > tr > td {
+  padding: 8px 8px;
+}
+.ant-table-thead > tr > th  {
 
+  padding: 8px 8px;
+}
 }
 `;
 
@@ -165,7 +171,14 @@ useEffect(() => {
       key: 'imageUrl',
       render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.id}`)}  src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
-  
+    {
+      title: '상품명',
+      dataIndex: 'productName',
+      key: 'productName',
+      render: (text, record) => (
+        <EllipsisText text={record.productName} maxLine={2} />
+        ),
+    },
     {
       title: '판매가',
       dataIndex: 'price',

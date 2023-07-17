@@ -116,18 +116,19 @@ export const SwiperStyle = styled.div`
   font-size: 0.5rem;
  } 
  .name{
-  width:14vw;
-  height:4vh;
+  width:12vw;
+  height:6vh;
   font-size: 0.8rem;
-  /* overflow: hidden; 
-  text-overflow: ellipsis;  */
-  /* white-space: nowrap;  */
+  
+ 
  }
  .price{
   font-size: 1rem;
   display: flex;
   justify-content: end;
+  align-items: flex-end;
   font-weight: bold;
+  
  }
  .ModalWrapper{
   position: fixed;
@@ -164,11 +165,24 @@ export const SwiperStyle = styled.div`
   background: rgba(0, 0, 0, 0.5);
   display: ${props => props.isOpen ? 'block' : 'none'};
 }
-
+.title{
+  width:15vw;
+  height: 12vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 
 
 @media screen and (max-width:768px) {
+  .title{
+  width:24vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
   .swiper {
     width: 86vw;
     height: 40vh;
@@ -185,17 +199,18 @@ export const SwiperStyle = styled.div`
     height: 12vh;
 }
 .brand{
-  font-size: 0.5rem;
+  font-size: 0.1rem;
  } 
  .name{
   width:20vw;
   height:6vh;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
  }
  .price{
   font-size: 1rem;
   display: flex;
   justify-content: end;
+  align-items: flex-end;
   font-weight: bold;
  }
 
@@ -234,6 +249,12 @@ export const SwiperStyle = styled.div`
   font-size: 1.1rem !important;
   font-weight: 600 !important;
   margin-bottom: 0.6rem;
+}
+.price{
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: end;
+  font-weight: bold;
 }
 }
 

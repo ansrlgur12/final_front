@@ -20,6 +20,9 @@ const TableContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-bottom: 5rem;
+  width: 64vw;
+  margin-left:18rem;
+
 
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
@@ -35,7 +38,7 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
-  font-size: 0.1rem;
+  
 }
 
 tbody {
@@ -49,33 +52,45 @@ tbody {
   align-items: center;
   justify-content: center;
 }
-.ant-table-tbody > tr.ant-table-row:hover > td {
-  
- 
-}
+
 
 
 @media screen and (max-width:768px) {
-    padding:0.8rem;
-   width: 84vw;
+    padding:0.4rem;
+   width: 86vw;
    overflow-x: auto;
   display:block;
+  margin-left:0;
+
     .ant-table {
+      
       width: 100%;
     display:flex;
-
   font-size: 0.1rem;
-}}
+}
+.ant-table-tbody > tr > td {
+  padding: 12px 14px;
+  
+}
+.ant-table-thead > tr > th  {
+  white-space: nowrap;
+  padding: 8px 6px;
+}
+}
 `;
 
 
 
 
 const Container = styled.section`
+
+border-radius: 4px;
+border: none;
+   background: #2D6247; 
 display: flex;
 box-sizing: border-box;
 padding-top: 70px;
-width: 80vw;
+width: 100vw;
 height: auto;
 margin: auto;
 h1 {
@@ -103,6 +118,10 @@ h1 {
 `;
 const Wrapper = styled.div`
   margin-top: 2rem;
+  @media screen and (max-width:768px) {
+ margin-top: 1rem;
+
+}
 `;
 
 const BtnWrapper = styled.div`
@@ -287,7 +306,7 @@ const orderdata = {
       dataIndex: 'productName',
       key: 'productName',
       render: (text, record) => (
-        <EllipsisText text={record.productName} maxLine={2} />
+        <EllipsisText text={record.productName} maxLine={1} />
         ),
     },
     
@@ -305,7 +324,7 @@ const orderdata = {
     {
       title: '배송비',
       dataIndex: 'delivery',
-      render: () => '무료',
+      render: () => <p style={{whiteSpace:'nowrap'}}> 무료</p>,
       
        
       },
@@ -328,7 +347,7 @@ const orderdata = {
         <Container>
         
        
-        <ContentContainer>
+        <ContentContainer >
        
         
           

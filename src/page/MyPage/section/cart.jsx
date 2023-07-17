@@ -24,6 +24,7 @@ export const LayoutContainer = styled.div`
 `;
 
 export const SidebarContainer = styled.div`
+margin-top:120px;
   flex: 0 0 200px;
   height: 100vh;
   background-color: #FFFFFF;

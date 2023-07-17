@@ -7,7 +7,7 @@ import { FavoriteContext } from '../../../context/FavoriteContext';
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
-
+import EllipsisText from '../../../Commons/ellipsis';
 
 
 
@@ -141,7 +141,14 @@ useEffect(() => {
       key: 'imageUrl',
       render: (text, record) => <img onClick={() => nav(`/ProductDetailForm/${record.productId}`)} src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
-  
+    {
+      title: '상품명',
+      dataIndex: 'productName',
+      key: 'productName',
+      render: (text, record) => (
+        <EllipsisText text={record.productName} maxLine={2} />
+        ),
+    },
     {
       title: '판매가',
       dataIndex: 'paymentAmount',

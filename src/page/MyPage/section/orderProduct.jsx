@@ -3,8 +3,7 @@ import { Table, Button } from 'antd';
 import styled from 'styled-components';
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { FavoriteContext } from '../../../context/FavoriteContext';
-import { CartContext } from '../../../context/CartContext';
+
 import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
@@ -16,6 +15,7 @@ import SmallSideBar from '../smallSidebar';
 
 
 const TableContainer = styled.div`
+width: 70vw;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 10px;
@@ -51,7 +51,28 @@ tbody {
 
 
 
+@media screen and (max-width:768px) {
+    padding:0.8rem;
+   width: 84vw;
+   overflow-x: auto;
+  display:block;
+  h2{
+    font-size: 1rem;
+  }
+    .ant-table {
+      width: 100%;
+    display:flex;
 
+  font-size: 0.1rem;
+}
+.ant-table-tbody > tr > td {
+  padding: 8px 8px;
+}
+.ant-table-thead > tr > th  {
+
+  padding: 4px 4px;
+}
+}
 
 
 `;
@@ -84,20 +105,6 @@ useEffect(() => {
 
 
 
-  // const handleRemoveFromFavorite = async (favoriteItemId) => {
-  //   try {
-  //     console.log(userEmail,favoriteItemId);
-  //     const response = await AxiosApi.favoriteDelete(favoriteItemId, userEmail);
-  //     if (response.status === 200) {
-  //       removeFromFavorite(favoriteItemId);
-  //       fetchFavoriteData();
-  //     } else {
-  //       console.log('삭제에 실패하였습니다.'); 
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   useEffect(() => {
     const newData = orderData.map((item) => {
       // 주문 항목이 있는 경우 첫 번째 항목만 사용
@@ -142,7 +149,7 @@ useEffect(() => {
       title: '상품 이미지',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
+      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
     {
       title: '상품명',

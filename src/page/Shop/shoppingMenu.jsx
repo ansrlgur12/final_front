@@ -80,7 +80,7 @@ export const GridStlye = styled.div`
   }
 `
 const Button = styled.div`
-     width: 6vw;
+     width: 100%;
     height: 100%;
     background: none;
     border: none;
