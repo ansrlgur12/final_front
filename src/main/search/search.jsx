@@ -149,7 +149,7 @@ const SearchPage = () => {
       <img
         src={검색1header}
         alt="대표이미지"
-        style={{ width: '100%', height: '150px', objectFit: 'cover' }}
+        style={{ width: '100%', height: '270px', objectFit: 'cover' }}
       />
       <SearchStyle>
         <div className="totalContainer">

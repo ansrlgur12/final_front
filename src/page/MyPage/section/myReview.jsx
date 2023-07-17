@@ -10,6 +10,7 @@ import Sider from 'antd/es/layout/Sider';
 import Sidebar from '../sidebar';
 import ReviewApi from '../../../API/ReviewAPI';
 import SmallSideBar from '../smallSidebar';
+import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -49,6 +50,7 @@ const Title = styled.h2`
 `;
 
 const MyReview = () => {
+  const token = Functions.getReviewsByMember;
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -56,9 +58,9 @@ const MyReview = () => {
     fetchPostsByMember(memberId);
   }, []);
 
-  const fetchPostsByMember = async (memberId) => {
+  const fetchPostsByMember = async (token) => {
     try {
-      const response = await ReviewApi.getReviewsByMember(memberId);
+      const response = await ReviewApi.getReviewsByMember(token);
       const data = response.data;
       setPosts(data);
     } catch (error) {

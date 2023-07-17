@@ -28,7 +28,7 @@ const ReviewApi = {
   },
 
   //리뷰 수정
-  updateReview: async (id, memberId, title, content, date, postType, viewCount, img) => {
+  updateReview: async (token, id, title, content, date, postType, viewCount, img) => {
     const reviewDto = {
       id: id,
       title: title,
@@ -38,18 +38,32 @@ const ReviewApi = {
       viewCount: viewCount,
       img: img
     };
-    return await axios.put(`${CAMO_DOMAIN}/review/${id}?memberId=${memberId}`, reviewDto);
-  },  
+
+    try {
+      return await axios.put(`${CAMO_DOMAIN}/review/${id}`, reviewDto, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
+  },
 
 // 리뷰 삭제
-deleteReview: async (memberId, reviewId) => {
-  const response = await axios.delete(`${CAMO_DOMAIN}/review/${reviewId}`, {
-    params: {
-      memberId: memberId
-    }
-  });
-  return response.data;
-},
+deleteReview : async(token, id)=> {
+  try {
+      return await axios.delete(`${CAMO_DOMAIN}/review/${id}`, {
+        headers: {
+        'Content-Type': 'application/json',
+       'Authorization': 'Bearer ' + token
+       }
+   });
+  } catch (error) {
+    throw error;
+   }
+  },
 
   //전체 리뷰 조회
   getAllReviews: async () => {
@@ -57,8 +71,17 @@ deleteReview: async (memberId, reviewId) => {
   },
   
   //특정 회원 리뷰 조회
-  getReviewsByMember: async (memberId) => {
-    return await axios.get(`${CAMO_DOMAIN}/review/member/${memberId}`);
+  getReviewsByMember: async (token) => {
+    try {
+      return await axios.get(`${CAMO_DOMAIN}/review`, {
+        headers: {
+        'Content-Type': 'application/json',
+       'Authorization': 'Bearer ' + token
+       }
+   });
+  } catch (error) {
+    throw error;
+   }
   },
 
   //특정 리뷰 조회
