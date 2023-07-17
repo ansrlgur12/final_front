@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { List, Button, Popconfirm, message, Modal, Input, Form } from 'antd';
 import CommentApi from '../../../API/CommnetAPI';
+import Functions from '../../../Functions';
 
 const CommentList = ({ reviewId }) => {
+  const token = Functions.getAccessToken();
   const [comments, setComments] = useState([]);
-  const memberId = 1;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingContent, setEditingContent] = useState('');
@@ -26,7 +27,7 @@ const CommentList = ({ reviewId }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await CommentApi.createComment(reviewId, memberId, content);
+      const response = await CommentApi.createComment(token, reviewId, content);
       const newComment = response.data;
       setComments([...comments, newComment]);
       setContent('');
@@ -37,7 +38,7 @@ const CommentList = ({ reviewId }) => {
 
   const handleDelete = async (commentId) => {
     try {
-      await CommentApi.deleteComment(commentId, memberId);
+      await CommentApi.deleteComment(token, commentId);
       setComments(comments.filter(comment => comment.id !== commentId));
       message.success('댓글이 삭제되었습니다.!');
     } catch (error) {
@@ -54,7 +55,7 @@ const CommentList = ({ reviewId }) => {
 
   const handleOk = async () => {
     try {
-      await CommentApi.updateComment(editingCommentId, memberId, editingContent);
+      await CommentApi.updateComment(token, editingCommentId, editingContent);
       setComments(comments.map(comment => comment.id === editingCommentId ? { ...comment, content: editingContent } : comment));
       message.success('댓글이 성공적으로 수정되었습니다.');
     } catch (error) {
@@ -92,7 +93,7 @@ const CommentList = ({ reviewId }) => {
         itemLayout="horizontal"
         renderItem={comment => (
           <List.Item
-            actions={comment.memberId === memberId ? [
+            actions={[
               <Button type="link" onClick={() => showModal(comment.id, comment.content)}>수정하기</Button>,
               <Popconfirm
                 title="정말 댓글을 삭제하시겠습니까?"
@@ -102,7 +103,7 @@ const CommentList = ({ reviewId }) => {
               >
                 <Button type="link">삭제하기</Button>
               </Popconfirm>,
-            ] : []}
+            ]}
           >
             <List.Item.Meta
               title={comment.memberId}

@@ -18,11 +18,11 @@ const MainPage = () => {
     const { isLogin } = context;
     const nav = useNavigate();
 
-    // useEffect( () => {
-    //     if(!isLogin) {
-    //         nav('/intro');
-    //     }
-    // }, [isLogin, nav]);
+    useEffect( () => {
+        if(!isLogin) {
+            nav('/intro');
+        }
+    }, [isLogin, nav]);
    
     return (
         <>

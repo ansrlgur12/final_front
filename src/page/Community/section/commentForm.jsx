@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom'; 
 import CommentApi from '../../../API/CommnetAPI';
+import Functions from '../../../Functions';
 
-const CommentForm = ({ reviewId }) => {
+const CommentForm = ({ reviewId } ) => {
+  const token = Functions.getAccessToken();
   const [content, setContent] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
-      const memberId = '1'; 
-      await CommentApi.createComment(reviewId, memberId, content);
+      // Log the values to the console
+      console.log('token:', token);
+      console.log('reviewId:', reviewId);
+      console.log('content:', content);
+
+      await CommentApi.createComment(token, reviewId, content);
       setContent('');
       setIsModalVisible(true);
     } catch (error) {
