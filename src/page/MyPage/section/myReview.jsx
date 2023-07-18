@@ -8,7 +8,9 @@ import camping from "../../../images/camping.png";
 import Header from '../../../main/header';
 import Sider from 'antd/es/layout/Sider';
 import Sidebar from '../sidebar';
-import axios from 'axios';
+import ReviewApi from '../../../API/ReviewAPI';
+import SmallSideBar from '../smallSidebar';
+import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -18,6 +20,7 @@ const StyledLayout = styled.div`
 `;
 
 const StyledContent = styled.div`
+  margin-top: 10vh;
   flex: 1;
   padding: 20px;
   margin: 20px;
@@ -47,16 +50,17 @@ const Title = styled.h2`
 `;
 
 const MyReview = () => {
+  const token = Functions.getReviewsByMember;
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const memberId = 1; // Your memberId constant
+    const memberId = 1;
     fetchPostsByMember(memberId);
   }, []);
 
-  const fetchPostsByMember = async (memberId) => {
+  const fetchPostsByMember = async (token) => {
     try {
-      const response = await axios.get(`http://localhost:8111/review/member/${memberId}`);
+      const response = await ReviewApi.getReviewsByMember(token);
       const data = response.data;
       setPosts(data);
     } catch (error) {
@@ -90,7 +94,8 @@ const MyReview = () => {
       <Header />
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
+        <SmallSideBar />
+        <StyledContent style={{marginTop : '15vh'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>

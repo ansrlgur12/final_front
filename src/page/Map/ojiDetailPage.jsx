@@ -48,6 +48,19 @@ const Container = styled.div`
     .hide{
         display: none;
     }
+    @media screen and (max-width: 768px) {
+        .closeBtn{
+        border-radius: 50px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        bottom: 51vh;
+        right: 85vw;
+        border: 0px;
+        background-color: rgba(146, 159, 139,0.8);
+        color: white;
+    }
+    }
 `;
 const DetailContainer = styled.div`
     z-index: 2;
@@ -77,7 +90,32 @@ const DetailContainer = styled.div`
 .hide {
     display: none;
 }   
+@media screen and (max-width: 768px) {
+    z-index: 2;
+    position: fixed;
+    right: -80vw;
+    bottom: 1vh;
+    .container{
+    width: 80vw;
+    height: 80vh;
+    overflow-y: scroll;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+    font-size: .8em;
+}
+.slideOut {
     
+    transform: translateX(0vw); /* 다시 제자리로 이동하여 펼쳐짐 */
+   
+  }
+
+.slideIn {
+    margin: 0;
+    padding: 0;
+    transform: translateX(-80vw); /* 오른쪽으로 이동하여 숨김 */
+}
+}
     
 `;
 const TitleBar = styled.div`
@@ -164,6 +202,14 @@ const Section = styled.div`
     width: 80%;
     margin-left: 1em;
     justify-self: baseline;
+    @media screen and (max-width: 768px) {
+            .selectDate{
+                position: absolute;
+                top: 5vh;
+                right: 4vh;
+                font-size: 1em;
+            }
+    }
     
     .selectDateSec{
         display: flex;
@@ -195,6 +241,13 @@ const Section = styled.div`
             height: 2vh;
             margin-left: 1rem;
         }
+        @media screen and (max-width: 768px) {
+            .umb{
+            width: 3vw;
+            height: 3vw;
+            margin-left: 1rem;
+        }
+    }
     
     }
     }
@@ -205,6 +258,16 @@ const Section = styled.div`
         border: none;
         color: royalblue;
         font-weight: bold;
+    }
+    @media screen and (max-width: 768px) {
+            .selectDate{
+                width: 15vw;
+            }
+            .wImage{
+                position: absolute;
+                top: 5vh;
+                right: 0vh;
+            }
     }
     .km{
         color: red;
@@ -243,8 +306,20 @@ const Section = styled.div`
             width: 6vw;
             height: 2rem;
         }
-    
+        
+        .umb{
+            width: 10vw;
+            height: 4vw;
+        }
     }
+    @media screen and (max-width: 768px) {
+        .weatherSection{
+            position: absolute;
+            top: 3vh;
+        }
+    }
+    
+
 `;
 
 const Navigiation = styled.div`
@@ -290,6 +365,16 @@ const Navigiation = styled.div`
         font-size: .8em;
         flex-wrap: wrap;
     }
+    @media screen and (max-width: 768px) {
+        .btn{
+            width: 12vw;
+            height: 12vw;
+        }
+        .img{
+        width: 8vw;
+        height: 8vw;
+    }
+    }
    
 `;
 const Information = styled.div`
@@ -319,6 +404,16 @@ const Information = styled.div`
         font-weight: 500;
         margin-right: 0;
     }
+    @media screen and (max-width: 768px) {
+        .campInfo{
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 10vw;
+        margin-right: .5em;
+        flex-basis: 20%;
+    }
+    }
 `;
 const ImageInfo = styled.div`
     padding-top: 3.5vh;
@@ -326,7 +421,7 @@ const ImageInfo = styled.div`
     display: flex;  
     width: 95%;
     height: auto;
-    overflow-x: scroll;
+    margin-bottom: 5vh;
     .campInfo{
         font-weight: bold;
         font-size: .85em;
@@ -334,6 +429,8 @@ const ImageInfo = styled.div`
         width: 5vw;
         margin-right: .5em;
         flex-basis: 15%;
+        position: absolute;
+        left: 2em;
     }
     .img{
         left: 2vw;
@@ -346,13 +443,30 @@ const ImageInfo = styled.div`
         flex-basis: 75%;
         font-weight: 500;
     }
+    @media screen and (max-width: 768px) {
+        .campInfo{
+            position: absolute;
+            left: 2em;
+        font-weight: bold;
+        font-size: .85em;
+        margin-left: .5em;
+        width: 10vw;
+        margin-right: .5em;
+        
+    }
+    .value{
+        font-size: .8em;
+        flex-basis: 70%;
+        font-weight: 500;
+    }
+    }
 `;
 const IconBox = styled.div`
     margin-top: 5vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 20vh;
+    height: auto;
     margin-bottom: 15vh;
 
     .iconBoxDesc{
@@ -572,7 +686,7 @@ const OjiDetailPage = (props) => {
                         <div className="campInfo">{campInfo.addr1}</div>
                         <div className="selectDateSec">
                             <input className="selectDate" type="date" min={minDate} max={maxDate} onChange={handleDateChange} value={selectedDate}/>
-                            {getWeatherImage()}
+                            <div className="wImage">{getWeatherImage()}</div>
                         </div>
                     </Section>
     
@@ -625,7 +739,7 @@ const OjiDetailPage = (props) => {
                     </Information>
                     <ImageInfo>
                         <FontAwesomeIcon icon={faLocationDot} size="lg" color="#9c9c9c" />
-                        <div className="campInfo img">이미지</div>
+                        <div className="campInfo">이미지</div>
                         <div className="value">
                             <OjiImageList />
                         </div>

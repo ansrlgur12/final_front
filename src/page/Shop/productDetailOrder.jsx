@@ -1,5 +1,5 @@
 
-import React, {useState,useContext} from "react";
+import React, {useState,useContext, useEffect} from "react";
 import OrderFormFooter from "./productFormFooter";
 import OrderFormHeader from "./orderFormHeader";
 import styled from "styled-components";
@@ -10,78 +10,8 @@ import { CartContext } from "../../context/CartContext";
 import Modal from "../../Commons/Modal";
 import  { UserContext } from "../../API/UserInfo";
 import AxiosApi from "../../API/TestAxios";
+import { ModalStyle } from "../../main/header";
 
-
-
-
-
-const ProductDetailOrder=({product})=> {
-    const [quantity, setQuantity] = useState(1);
-  const nav = useNavigate();
-  const { userEmail } = useContext(UserContext);
-  const { addToCart } = useContext(CartContext);
-
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-  const handleAddToCart = async () => {
-    try {
-      console.log(product.id, quantity, userEmail);
-      const response = await AxiosApi.addToCart(product.id, quantity, userEmail);
-      
-      if(response.status === 200) {
-        console.log('성공');
-        
-      
-      // Context에 아이템 추가
-      addToCart(product, quantity); 
-        closeModal(); 
-      } else {
-        console.log('오류'); 
-      }
-    } catch(error) {
-      console.error( error);
-    }
-  };
-
-  return (
-    <>
-   
-    <Container>
-      <OrderFormHeader product={product}/>
-      <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
-      <OrderFormFooter />
-      <OrderInfo  quantity={quantity} price={product.price}/>
-      
-     <ButtonWrapper>
-        
-        <button onClick={openModal}>ADD TO CART</button>
-       
-        <Modal isOpen={isOpen} onClose={closeModal}>
-       
-        <p>상품을 카트에 추가하시겠습니까?</p>
-         <div className="btnWrapper">
-        <button className="modalBtn"  onClick={handleAddToCart}>
-      예</button>
-        <button className="modalBtn" onClick={() => {  closeModal(); }}>아니오</button>  
-         
-        </div>
-      </Modal>
-        <button>BUY NOW</button>    
-        </ButtonWrapper>
-        
-      
-    </Container>
-   
-    </>
-  );
-}; export default ProductDetailOrder;
 
 const Container = styled.div`
   padding: 32px 24px;
@@ -118,7 +48,7 @@ const Container = styled.div`
  }
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
   button {
@@ -136,3 +66,136 @@ const ButtonWrapper = styled.div`
     }
   }
 `;
+
+const ProductDetailOrder=({product})=> {
+  const [quantity, setQuantity] = useState(1);
+const nav = useNavigate();
+const { userEmail } = useContext(UserContext);
+const { addToCart,setSelectedItems } = useContext(CartContext);
+const [isOpen, setIsOpen] = useState(false);
+const [addedCartItemId, setAddedCartItemId] = useState(null);
+
+const loginCheck = () => {
+  if (!userEmail) {
+      setIsOpen(true);
+  } else {
+      handleBuyNow();
+  }
+};
+
+
+const openModal = () => {
+  setIsOpen(true);
+};
+
+const closeModal = () => {
+  setIsOpen(false);
+};
+
+
+
+const handleAddToCart = async () => {
+  try {
+    console.log(product.id, quantity, userEmail);
+    const response = await AxiosApi.addToCart(product.id, quantity, userEmail);
+    
+    if(response.status === 200) {
+      console.log('성공');
+      console.log(response.data);
+      
+      // Context에 아이템 추가
+      addToCart(product, quantity); 
+      closeModal(); 
+       
+      // 추가된 상품의 cartItemId 저장
+      console.log(response.data);
+      setAddedCartItemId(response.data);
+      
+
+      // 아이템 정보를 반환
+      return {
+        cartItemId: response.data,
+        productId: product.id,
+        productName: product.productName,  // product 객체의 실제 속성에 따라 변경해야 함
+        imageUrl: product.imageUrl, // product 객체의 실제 속성에 따라 변경해야 함
+        price: product.price,       // product 객체의 실제 속성에 따라 변경해야 함
+        quantity: quantity,
+      };
+    } else {
+      console.log('오류'); 
+    }
+  } catch(error) {
+    console.error( error);
+  }
+};
+
+
+const handleBuyNow = async() =>{
+  const addedItem = await handleAddToCart();
+  if (addedItem) {
+    // 추가된 상품만 선택
+    const selectedItems = [{
+      key: addedItem.cartItemId,
+      id: addedItem.productId,
+      productName: addedItem.productName,
+      imageUrl: addedItem.imageUrl,
+      price: new Intl.NumberFormat('ko-KR').format(addedItem.price) + "원",
+      quantity: addedItem.quantity,
+    }];
+
+    // 변환된 데이터를 setSelectedItems 함수에 전달
+    setSelectedItems(selectedItems);
+    console.log(selectedItems);
+  }
+
+  nav("/orderPage");
+};
+
+
+
+  return (
+    <>
+   
+    <Container>
+      <OrderFormHeader product={product}/>
+      <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
+      <OrderFormFooter />
+      <OrderInfo  quantity={quantity} price={product.price}/>
+      
+     <ButtonWrapper>
+        
+        <button onClick={openModal}>ADD TO CART</button>
+       
+        <Modal isOpen={isOpen} onClose={closeModal}>
+       
+        <p>상품을 카트에 추가하시겠습니까?</p>
+         <div className="btnWrapper">
+        <button className="modalBtn"  onClick={handleAddToCart}>
+      예</button>
+        <button className="modalBtn" onClick={() => {  closeModal(); }}>아니오</button>  
+         
+        </div>
+      </Modal>
+        <button onClick={handleBuyNow}>BUY NOW</button>    
+        </ButtonWrapper>
+        
+      
+    </Container>
+    <ModalStyle>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <p>로그인 후 확인 가능합니다.</p>
+                <div className="btnWrapper">
+                    <button className="modalBtn" onClick={() => {
+                        closeModal();
+                        nav("/intro");
+                    }}>
+                        로그인
+                    </button>
+                </div>
+            </Modal>
+            </ModalStyle>
+   
+    </>
+  );
+}; export default ProductDetailOrder;
+

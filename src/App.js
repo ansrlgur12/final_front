@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import "./font.css";
 import MainPage from './main/mainPage';
 import ShopMain from './page/Shop/shopMain';
 import MapMain from './page/Map/mapMain';
@@ -12,7 +12,7 @@ import CartProvider from './context/CartContext';
 import MyPage from './page/MyPage/myPage';
 import UserInfo from './page/MyPage/section/userInfo';
 import Delete from './page/MyPage/section/delete';
-import OrderedProduct from './page/MyPage/section/orderProduct';
+import OrderList from './page/MyPage/section/orderProduct';
 import Cart from './page/MyPage/section/cart';
 import NewPassword from './page/MyPage/section/newPassword';
 import UserEdit from './page/MyPage/section/userEdit';
@@ -33,15 +33,22 @@ import UserStore from './API/UserInfo';
 import FavoriteProvider from './context/FavoriteContext';
 import WriteReviewPage from './page/Community/section/writeReviewPage';
 import ModifiedReview from './page/Community/section/modifiedReview';
-import Danal from './page/Shop/test/danal';
+import Danal from './page/Shop/order/danal';
 import ImageTest from './page/Map/ImageTest';
-import OrderPage from './page/Shop/test/orderPage';
+import OrderPage from './page/Shop/order/orderPage';
 import { OrderProvider } from './context/OrderContext';
-import KakaoPay from './page/Shop/test/kakaoPay';
+import KakaoPay from './page/Shop/order/kakaoPay';
 import Search from './main/search/search';
 import MyCamp from './page/MyPage/section/myCamp';
 import MyOji from './page/MyPage/section/myOji';
+import PayComplete from './page/Shop/order/PayComplete';
+import MobileCart from './page/MyPage/section/mobileCart';
+import MobileFavorite from './page/MyPage/section/mobileFavorite';
+import styled from '@emotion/styled';
 
+const AppFontStyle = styled.div`
+font-family: 'GongGothicMedium';
+`;
 
 function App() {
 
@@ -56,6 +63,7 @@ function App() {
   });
 
   return (
+    <AppFontStyle>
     <div className="App">
       <UserStore>
         <MarkerStore>
@@ -85,7 +93,7 @@ function App() {
                 <Route path='/userInfo' element={<UserInfo />} />
                 <Route path="/UserInfo" element={<UserInfo />} />
                 <Route path="/Delete" element={<Delete />} />
-                <Route path="/OrderedProduct" element={<OrderedProduct />} />
+                <Route path="/OrderList" element={<OrderList />} />
                 <Route path="/Cart" element={<Cart />} />
                 <Route path="/NewPassword" element={<NewPassword />} />
                 <Route path="/UserEdit" element={<UserEdit />} />
@@ -98,8 +106,11 @@ function App() {
                 <Route path='/danal' element={<Danal />} />
                 <Route path='/imageTest' element={<ImageTest />} />
                 <Route path='/kakaoPay' element={<KakaoPay />} />
+                <Route path='/payComplete' element={<PayComplete />} />
 
                 <Route path='/orderpage' element={<OrderPage />} />
+                <Route path='/mobileCart' element={<MobileCart />} />
+                <Route path='/mobileFavorite' element={<MobileFavorite />} />
            
               </Routes>
             </Router>
@@ -109,6 +120,7 @@ function App() {
         </MarkerStore>
       </UserStore>
     </div>
+    </AppFontStyle>
   );
 }
 

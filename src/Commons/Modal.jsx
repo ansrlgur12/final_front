@@ -7,17 +7,19 @@ const ModalStyle = styled.div`
   position: fixed;
   top:0; left: 0; bottom: 0; right: 0;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
 }
 .modalBox{
   position: absolute;
-  top: calc(50vh - 100px); left: calc(50vw - 200px);
+  top: calc(50vh - 6.25rem); left: calc(50vw - 12.5rem);
   background-color: white;
   display: flex; justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  width: 400px;
+  width: 398px;
   height: 200px;
+  z-index: 1000;
 }
  
 `;

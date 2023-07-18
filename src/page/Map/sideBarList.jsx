@@ -101,13 +101,17 @@ const ListStyle = styled.div`
     background-color: rgb(45, 98, 71);
     color: white;
 }
+
+@media screen and (max-width: 768px) {
+      
+    }
 `;
 
 const SideBarList = (props) => {
     const context = useContext(MarkerContext);
     const {searchValue, change, dho, sigungu} = props;
-    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy} = context;
-    const [currentPage, setCurrentPage] = useState(1);
+    const {setMarkerLat, setMarkerLng, setZoomLev, setChange, currentData, setOverlayOpen, setLocation, selectedSortBy, setCloseSideBar} = context;
+    const [currentPage, setCurrentPage] = useState(0);
     const [campListData, setCampListData] = useState([]);
     const pageSize = 4;
     
@@ -124,10 +128,13 @@ const SideBarList = (props) => {
             getAnimalList();
         } else if(currentData === 'normal') {
             const getCampList = async() => {
-                const rsp = await AxiosApi.getCampData(dho, sigungu);
+                // const rsp = await AxiosApi.getCampData(dho, sigungu);
+                // setCampListData(rsp.data);
+                // setCurrentPage(1);
+                // console.log(rsp.data)
+                const rsp = await AxiosApi.getSidebarList(dho, sigungu, currentPage, pageSize, selectedSortBy);
+                console.log(rsp.data);
                 setCampListData(rsp.data);
-                setCurrentPage(1);
-                console.log(rsp.data)
             }
             getCampList();
         } else if(currentData === "ojinoji") {
@@ -139,7 +146,7 @@ const SideBarList = (props) => {
             getOjiList();
         }
 
-    },[currentData, dho, sigungu])
+    },[currentData, dho, sigungu, currentPage, selectedSortBy])
 
     useEffect(()=>{
         if(change === 1) {
@@ -164,6 +171,7 @@ const SideBarList = (props) => {
         setZoomLev(1);
         setLocation([x, y]);
         setOverlayOpen(true);
+        setCloseSideBar(true);
     }
     
     const sortCamps = (camps) => {
@@ -187,12 +195,13 @@ const SideBarList = (props) => {
       // 정렬된 캠핑장 목록
       const sortedCamps = sortCamps(campListData);
 
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const displayedCamps = sortedCamps.slice(startIndex, endIndex);
+    // const startIndex = (currentPage - 1) * pageSize;
+    // const endIndex = startIndex + pageSize;
+    // const displayedCamps = sortedCamps.slice(startIndex, endIndex);
 
-    const totalCamps = campListData.length;
-    const totalPages = Math.ceil(totalCamps / pageSize);
+    // const totalCamps = campListData.length;
+    // const totalPages = Math.ceil(totalCamps / pageSize);
+    const totalPages = 3507/ 4;
     
         // 현재 페이지를 중심으로 앞/뒤로 표시할 페이지 버튼의 개수
     const maxPageButtons = 5;
@@ -211,7 +220,7 @@ const SideBarList = (props) => {
         }
     }
     const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
+        setCurrentPage(pageNumber - 1);
       };
 
     const splitAddress = (address) => {
@@ -224,7 +233,7 @@ const SideBarList = (props) => {
 
     return (
         <ListStyle>
-          {displayedCamps && displayedCamps.map((campListData) => {
+          {campListData && campListData.map((campListData) => {
             const { province, city, town } = splitAddress(campListData.addr1);
     
             return (
@@ -252,7 +261,7 @@ const SideBarList = (props) => {
                 {[...Array(endPage - startPage + 1)].map((_, index) => {
                     const pageNumber = startPage + index;
                     return (
-                        <button className={pageNumber === currentPage ? "numBtn active" : "numBtn"} key={pageNumber} onClick={() => handlePageChange(pageNumber)}>{pageNumber}</button>
+                        <button className={pageNumber === currentPage + 1 ? "numBtn active" : "numBtn"} key={pageNumber} onClick={() => handlePageChange(pageNumber)}>{pageNumber}</button>
                     );
                 })}
                 {endPage < totalPages && (<button className="arrowBtn" onClick={() => handlePageChange(endPage + 1)}>{">"}</button>)}

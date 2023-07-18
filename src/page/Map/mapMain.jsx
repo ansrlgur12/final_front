@@ -10,9 +10,11 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import Overlay from "./overlay";
 import animalCamp from "../../images/강아지발바닥.png";
 import markerImage from "../../images/캠핑마커.png";
+import "../../font.css";
 
 
 export const MainStyle = styled.div`
+  font-family: 'LINESeedKR-Bd' ;
     .App {
         font-family: sans-serif;
         position: relative;
@@ -28,7 +30,9 @@ export const MainStyle = styled.div`
         align-items: flex-end;
         flex-direction: column;
         margin-top: .2em;
+        padding-top: 10vh;
     }
+
     
 
     .img{
@@ -80,15 +84,46 @@ export const MainStyle = styled.div`
       justify-content: center;
       margin-bottom: 1em;
     }
+
+    @media screen and (max-width: 768px) {
+      .selectBtn {
+        top: 80vh;
+        left: 1vw;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1vh 2vh;
+      }
+      .btnSection {
+        margin : 1vw;
+      }
+      .img {
+        width: 4vh;
+        height: 4vh;
+      }
+      #wrap{
+        padding-top: 12.5vh;
+      }
+    }
+
+    @media screen and (max-width: 414px){
+      #wrap{
+        padding-top: 9.5vh;
+      }
+    }
+
+    @media screen and (max-width: 375px){
+      #wrap{
+        padding-top: 12.5vh;
+      }
+      
+    }
   `;
 
 const MapMain = () => {
   const context = useContext(MarkerContext);
-  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue} = context;
+  const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, xValue, yValue, location} = context;
   const nav = useNavigate();
   const [markerPositions, setMarkerPositions] = useState([]);
-  const [mapLocations, setMapLocations] = useState([]);
-  const [animalLocations, setAnimalLocations] = useState([]);
   const [marker, setMarker] = useState();
 
 
@@ -118,13 +153,11 @@ const MapMain = () => {
 
   const setNormalMapInfo = () => {
     setCurrentData("normal");
-    setMarkerPositions(mapLocations)
     setMarker(markerImage);
   }
 
   const setAnimalMapInfo = () => {
     setCurrentData("animal");
-    setMarkerPositions(animalLocations);
     setMarker(animalCamp);
   }
 
@@ -133,7 +166,7 @@ const MapMain = () => {
     <Header/>
     <MainStyle>
     <div className="App">
-      <div id="wrap" style={{width:'100vw', height: '89vh'}}>
+      <div id="wrap" style={{width:'100vw', height: '89.5vh'}}>
             <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>

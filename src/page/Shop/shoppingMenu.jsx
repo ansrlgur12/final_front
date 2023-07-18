@@ -17,20 +17,20 @@ export const GridStlye = styled.div`
      .grid-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px; 
-    width:800px;
+    gap: 0.6rem; 
+    width:40vw;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 0.6rem;
     border-radius: 2px;
-    margin-top: 100px;
-    margin-bottom:50px;
+    margin-top: 6rem;
+    margin-bottom:3rem;
   }
   
   .grid-item {
     border-radius: 4px;
     box-shadow: 1px 1px 1px #ccc;
     border: 1px solid #ccc;
-    height: 100px;
+    height: 11.5vh;
     text-align: center;
     color: white;
     display: flex;
@@ -46,12 +46,41 @@ export const GridStlye = styled.div`
 
 
   .itemName{
-    margin-top: 20px;
+    margin-top: 1.3rem;
 
+  }
+  @media screen and (max-width:768px) {
+    .grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem; 
+    width:86vw;
+    border: 1px solid #ccc;
+    padding: 0.6rem;
+    border-radius: 2px;
+    margin-top: 6rem;
+    margin-bottom:3rem;
+  }
+  
+  .grid-item {
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px #ccc;
+    border: 1px solid #ccc;
+    height: 9vh;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .itemName{
+  font-size: 0.5rem;
+  margin-top: 0.6rem;
+  }
   }
 `
 const Button = styled.div`
-     width: 150px;
+     width: 100%;
     height: 100%;
     background: none;
     border: none;
@@ -62,8 +91,13 @@ const Button = styled.div`
     align-items: center;
     justify-content: center;
     color:#2D6247;
+@media screen and (max-width:768px) {
+  width: 14vw;
 
+  
+}
 `;
+
 const ShopCategory = ({ onCategoryChange,setLoading}) => {
   const [selectedItem, setSelectedItem] = useState(null);
  

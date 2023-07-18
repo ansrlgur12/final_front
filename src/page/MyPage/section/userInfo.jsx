@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Descriptions } from 'antd';
 import styled from 'styled-components';
 import Header from '../../../main/header';
 import Sidebar from '../sidebar';
-import { UserContext } from '../../../API/UserInfo';
+import SmallSideBar from '../smallSidebar';
+import AxiosApi from '../../../API/TestAxios';
+import Functions from '../../../Functions';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -19,19 +21,44 @@ const StyledContent = styled.div`
 `;
 
 const UserInfo = () => {
-  const context = useContext(UserContext);
-  const { nickName, userName, userPhoneNm, userEmail, userAddr } = context;
+  const token = Functions.getAccessToken();
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await AxiosApi.userInfo(token);
+      const { data } = response;
+      console.log(data);
+      setUserInfo(data); // 회원 정보 업데이트
+    } catch (error) {
+  
+    }
+  };
+
+  if (!userInfo) {
+    return null; 
+  }
+
+  const { nickName, userPhoneNm, email, userAddr, userImg } = userInfo;
+
   return (
     <>
       <Header />
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
+        <SmallSideBar />
+        <StyledContent style={{ marginTop: '15vh' }}>
           <Descriptions title="User Info">
-            <Descriptions.Item label="UserName">{userName}</Descriptions.Item>
+          <Descriptions.Item label="Img">
+            {userImg && <img src={userImg} alt="User" />}
+          </Descriptions.Item>
             <Descriptions.Item label="NickName">{nickName}</Descriptions.Item>
             <Descriptions.Item label="Telephone">{userPhoneNm}</Descriptions.Item>
-            <Descriptions.Item label="Email">{userEmail}</Descriptions.Item>
+            <Descriptions.Item label="Email">{email}</Descriptions.Item>
             <Descriptions.Item label="Address">
               {userAddr}
             </Descriptions.Item>

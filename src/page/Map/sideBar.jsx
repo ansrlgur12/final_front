@@ -4,12 +4,13 @@ import SideBarList from "./sideBarList";
 import { MarkerContext } from "../../context/MarkerInfo";
 import LocationSelect from "./locationSelect";
 import OjiSideBarList from "./ojiSideBarList";
+import "../../font.css";
 
 const SidebarStyle = styled.div`
-
+font-family: 'LINESeedKR-Bd' ;
 position: fixed;
 z-index: 1;
-right: 1.5vw;
+right: -23vw;
 
 .container {
     width: 23vw;
@@ -20,14 +21,16 @@ right: 1.5vw;
   }
 
 .slideOut {
-    transform: translateX(110%); /* 오른쪽으로 이동하여 숨김 */
+    transform: translateX(0%); /* 오른쪽으로 이동하여 숨김 */
   }
 
 .slideIn {
-    transform: translateX(0%); /* 다시 제자리로 이동하여 펼쳐짐 */
+    transform: translateX(-110%); /* 다시 제자리로 이동하여 펼쳐짐 */
 }
     
 .hideBtn{
+    font-size: 1em;
+    font-weight: bold;
     z-index: 3;
     border-radius: 50px;
     width: 60px;
@@ -104,13 +107,53 @@ right: 1.5vw;
     color: orangered;
     font-weight: bold;
 }
+@media screen and (max-width: 768px) {
+    position: fixed;
+    z-index: 1;
+    right: -75vw;
+    bottom: 10vh;
+
+    .container {
+    width: 75vw;
+    height: 75vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+    .slideOut {
+    transform: translateX(0%); /* 오른쪽으로 이동하여 숨김 */
+  }
+
+    .slideIn {
+    transform: translateX(-102%); /* 다시 제자리로 이동하여 펼쳐짐 */
+    }
+
+    .hideBtn{
+    z-index: 3;
+    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    bottom: 45vh;
+    right: 76vw;
+    border: 0px;
+    background-color: rgba(146, 159, 139,0.8);
+    color: white;
+    }
+    .searchBar{
+    height: 45%;
+    width: 70%;
+    outline: none;
+    }
+}
 `;
 
 const Sidebar = () => {
     const context = useContext(MarkerContext);
-    const {change, setChange, selectedSortBy, setSelectedSortBy, currentData} = context;
+    const {change, setChange, selectedSortBy, setSelectedSortBy, currentData, closeSideBar, setCloseSideBar} = context;
 
-    const [closeMenu, setCloseMenu] = useState(false);
+    // const [closeMenu, setCloseMenu] = useState(true);
     const [searchValue, setSearchValue] = useState("");
     const [dho, setDho] = useState('ALL');
     const [sigungu, setSigungu] = useState('시.군.구');
@@ -135,7 +178,7 @@ const Sidebar = () => {
 
 
     const hideMenuBar = () => {
-        setCloseMenu(!closeMenu);
+        setCloseSideBar(!closeSideBar);
     }
 
     const searchCamp = (e) => {
@@ -156,7 +199,7 @@ const Sidebar = () => {
 
     return(
         <SidebarStyle>
-             <div className={`container ${closeMenu ? "slideOut" : "slideIn"}`}>
+             <div className={`container ${closeSideBar ? "slideOut" : "slideIn"}`}>
                 <div className="titleBar">
                     <input className="searchBar" type="text" placeholder="캠핑장 이름을 검색하세요" onChange={searchCamp}/>
                     <button className="searchBtn" onClick={clickSearchCamp}>검색</button>
@@ -178,7 +221,7 @@ const Sidebar = () => {
                     <SideBarList searchValue={searchValue} change={change} dho={dho} sigungu={sigungu} />
                     }
                 </div>
-                <button className="hideBtn" onClick={hideMenuBar}>{closeMenu ? "펼치기" : "숨기기"}</button>
+                <button className="hideBtn" onClick={hideMenuBar}>{closeSideBar ? "<<" : ">>"}</button>
             </div>
         </SidebarStyle>
     )

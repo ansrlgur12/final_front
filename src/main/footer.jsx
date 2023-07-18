@@ -28,7 +28,9 @@ const FooterStyle = styled.div`
         color: #000;
         font-size: 20px;
     }
-
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 `;
 
 const Footer = () => {

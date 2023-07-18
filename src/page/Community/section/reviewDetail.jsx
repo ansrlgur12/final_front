@@ -9,6 +9,7 @@ import CommentList from './commentList';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../../../main/header';
 import LikesApi from '../../../API/LikesAPI';
+import Functions from '../../../Functions';
 
 const { Content } = Layout;
 
@@ -67,11 +68,11 @@ const ReviewButton = styled.button`
 `;
 
 const ReviewDetail = () => {
+  const token = Functions.getAccessToken();
   const [review, setReview] = useState(null);
   const [liked, setLiked] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { id } = useParams();
-  const memberId = 1;
 
   useEffect(() => {
     const fetchReview = async () => {
@@ -90,7 +91,7 @@ const ReviewDetail = () => {
   const handleLikeReview = async () => {
     try {
       if (!liked) {
-        await LikesApi.likeReview(memberId, id);
+        await LikesApi.likeReview(id);
         setLiked(true);
       }
     } catch (error) {
@@ -100,7 +101,7 @@ const ReviewDetail = () => {
 
   const handleDeleteReview = async () => {
     try {
-      await ReviewApi.deleteReview(memberId, review?.id);
+      await ReviewApi.deleteReview(token, id);
       setShowDeleteModal(true);
     } catch (error) {
       console.log(error);
@@ -144,7 +145,6 @@ const ReviewDetail = () => {
               </ReviewActions>
             </ReviewMeta>
             <CommentList reviewId={review?.id} />
-            <CommentForm reviewId={review?.id} />
 
             <Modal
               title="리뷰 삭제"

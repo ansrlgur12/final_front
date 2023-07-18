@@ -18,19 +18,37 @@ const AxiosApi = {
         return await axios.get(domain+ "/product")
     },
     
-    // 로그인
+
+
+
+
+// 로그인
     memberLogin: async (inputEmail, inputPwd) => {
         const loginData = {
             email: inputEmail,
             password: inputPwd
         };
-        return await axios.post(domain + "/intro/login", loginData);
+        return await axios.post(domain + "/auth/login", loginData);
     },
 
     productDetail : async(id) =>{
         return await axios.get(domain+ `/productDetail/${id}`)
     
     },
+
+//회원 가입
+memberReg : async(nickName, email, password, agreed) => {
+    const member = {
+        nickName : nickName,
+        email : email,
+        password : password,
+        agreed : agreed
+    };
+    return await axios.post(domain + "/auth/signup", member);
+
+},
+
+
 // 캠핑데이터 오버레이 띄우기
     getOverlayInfo : async(xValue, yValue) => {
         return await axios.get(domain + `/camp/overlay/${xValue}/${yValue}`)
@@ -46,17 +64,7 @@ const AxiosApi = {
         return await axios.get(domain + `/check?join=${email}`);
     },
 
-    // 회원 가입
-    memberReg : async(nickName, email, password, agreed) => {
-        const member = {
-            nickName : nickName,
-            email : email,
-            password : password,
-            agreed : agreed
-        };
-        return await axios.post(domain + "/intro/signup", member);
 
-    },
 // 일반 캠핑장 검색
     searchCampData : async(searchValue, currentData) => {
         return await axios.get(domain + `/camp/searchData/${searchValue}/${currentData}`)
@@ -81,29 +89,74 @@ const AxiosApi = {
                 nickName : nickName
             }
         }
-        return await axios.get(domain + '/intro', check);
+        return await axios.get(domain + "/api/v1/intro/nickName", check);
     },
+    // 회원 정보 조회
+    userInfo : async(token)=> {
+         try {
+             return await axios.get(domain + "/api/v1/userinfo", {
+               headers: {
+               'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+              }
+          });
+         } catch (error) {
+           throw error;
+          }
+         },
+
+    // 회원 탈퇴
+    userDelete : async(token)=> {
+        try {
+            return await axios.delete(domain + "/api/v1/deleteUser", {
+              headers: {
+              'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token
+             }
+         });
+        } catch (error) {
+          throw error;
+         }
+        },
 
     // 회원 정보 수정
-    userInfo : async(id, chgNick, chgEmail, chgPhone, chgImg)=> {
+    userUpdate : async(token, chgAddr, chgPhone, chgImg)=> {
         const info = {
-            id : id,
-            newNick : chgNick,
-            email : chgEmail,
-            newPhone : chgPhone,
-            newImg : chgImg
+            userAddr : chgAddr,
+            userPhoneNm : chgPhone,
+            userImg : chgImg
         };
-        return await axios.post(domain + "/UserEdit", info);
-    },
+      
+        try {
+          return await axios.put(domain + "/api/v1/updateUserInfo", info, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          });
+        } catch (error) {
+          throw error;
+        }
+      },
 
     // 비밀번호 변경
-    newPassword : async(userEmail, pwdChange) => {
-        const newP = {
-            email : userEmail,
-            newPwd : pwdChange
+    updateUserPwd: async (token, password) => {
+        const newPwd = {
+          password: password
         };
-        return await axios.post(domain + "/NewPassword", newP);
-    },
+      
+        try {
+          return await axios.put(domain + "/api/v1/changePwd", newPwd, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          });
+        } catch (error) {
+          throw error;
+        }
+      },
+      
 
 // 각 캠핑장 부대시설, 강아지출입 등 정보 가져오기
     getAbleIcon : async(contentId) => {
@@ -129,7 +182,12 @@ const AxiosApi = {
 
     // 장바구니 삭제
     deleteItem : async(cartItemId, email) => {
-        return await axios.post (domain + `/cart/deleteItem/${cartItemId}`, {email : email,})
+        const item = {
+            cartItemId : Array.isArray(cartItemId) ? cartItemId : [cartItemId],
+        email : email,
+
+        }
+        return await axios.post (domain + `/cart/deleteItem/`,item)
     },
 
     // 장바구니 수량 수정
@@ -221,7 +279,7 @@ viewCampMarker : async(markerLat, markerLng) => {
         const conEmail = {
             emailOverlap : checkEmail
         };
-        return await axios.post(domain + `/intro`, conEmail)
+        return await axios.post(domain + `/api/v1/intro/email`, conEmail)
     },
 
 campLike : async(contentId, id) => {
@@ -273,6 +331,16 @@ verifyPayment : async(imp_uid) =>{
     getCampList : async(lt, sigungu) => {
 
         return await axios.get(domain + `/mainsection3/${lt}/${sigungu}`)
+    },
+    getOrderList : async(email) => {
+        return await axios.post(domain + `/order/orders`, {
+            email: email,
+            })
+
+    },
+
+    getSidebarList : async(dho, sigungu, page, size, sortBy) => {
+        return await axios.get(domain + `/camp/sideBarList/${dho}/${sigungu}/${page}/${size}/${sortBy}`)
     },
   
 };

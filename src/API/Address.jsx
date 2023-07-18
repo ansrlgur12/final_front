@@ -34,7 +34,7 @@ const SearchAddress = ({handleAddress}) => {
       display: "block",
       position: "absolute",
       top: "-10%",
-      width: "450px",
+      width: "398px",
       height: "450px",
       padding: "7px",
       zIndex: 100, 
@@ -72,15 +72,22 @@ const BtnWrapper = styled.div`
   button {
     width: 100px;
     border: 0;
-    margin-left: 2rem;
+    margin-left: 1rem;
     color: #fff;
-    background: #ccc;
+    background: #2D6247; 
     padding: 0.5rem 0.8rem;
     border-radius: 0.4rem;
     cursor: pointer;
   }
 
   button:hover {
-    background: #2D6247; 
+   opacity: 0.7;
   }
+  @media screen and (max-width:768px) {
+ button{
+  width: 30vw;
+  padding: 0.4rem 0.2rem;
+  margin-left: 8rem;
+ }
+}
 `;

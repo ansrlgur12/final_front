@@ -2,14 +2,16 @@ import React from 'react';
 import { UserOutlined, SettingOutlined, HeartOutlined, CompassOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 
 const { Sider } = Layout;
 
-const StyledContent = styled(Sider)`
-
+const SideBarContainer = styled.div`
+background-color: white;
+    @media screen and (max-width: 768px) {
+     display: none;
+    }
 `;
-
 const items = [
   {
     key: 'sub1',
@@ -24,7 +26,7 @@ const items = [
       {
         key: 'sub1-2',
         label: '내가 주문한 상품',
-        to: '/OrderedProduct'
+        to: '/OrderList'
       },
       {
         key: 'sub1-3',
@@ -102,7 +104,16 @@ const Sidebar = () => {
   const defaultOpenKeys = items.map((item) => item.key);
 
   return (
-    <Sider width={300}>
+    <>
+    <SideBarContainer>
+    <Sider width={300} style={{
+      marginTop : "10.5vh", 
+      backgroundColor : 'white',
+      '@media screen and (max-width: 768px)' : {
+        display : 'none'
+      }
+
+      }}>
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
@@ -123,6 +134,8 @@ const Sidebar = () => {
         ))}
       </Menu>
     </Sider>
+    </SideBarContainer>
+    </>
   );
 };
 

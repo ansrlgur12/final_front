@@ -24,7 +24,8 @@ const InputContainer = styled.div`
   color: #ccc;
 
   input {
-    width: 70%;
+    margin-right:20rem;
+    width: 40%;
     height: auto;
     line-height: normal;
     padding: 0.6em 0.5em;
@@ -41,4 +42,19 @@ const InputContainer = styled.div`
   input:focus {
     border: 2px solid #ccc;
   }
+  @media screen and (max-width:768px) {
+    font-size: 1rem;
+   
+   
+  input{
+    width: 40vw;
+    height: 1rem;
+    margin-right: 1.5rem;
+  }
+  label{
+    white-space: nowrap;
+    width: 14vw;
+    height: 6vh;
+  }
+}
 `;

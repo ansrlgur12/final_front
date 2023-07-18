@@ -12,6 +12,7 @@ import axios from 'axios';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import { MarkerContext } from '../../../context/MarkerInfo';
+import SmallSideBar from '../smallSidebar';
 
 const { Meta } = Card;
 
@@ -20,6 +21,7 @@ const StyledLayout = styled.div`
 `;
 
 const StyledContent = styled.div`
+margin-top: 10vh;
   flex: 1;
   padding: 20px;
   margin: 20px;
@@ -107,7 +109,8 @@ const MyOji = () => {
       <Header />
       <StyledLayout>
         <Sidebar />
-        <StyledContent>
+        <SmallSideBar />
+        <StyledContent style={{marginTop : '15vh'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>

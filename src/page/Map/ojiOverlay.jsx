@@ -13,9 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import OjiDetailPage from "./ojiDetailPage";
+import "../../font.css";
 
 
 const MapStyled = styled.div`
+    font-family: 'LINESeedKR-Bd' ;
     position: relative;
     z-index: 1;
     .wrap {
@@ -127,6 +129,19 @@ const MapStyled = styled.div`
     }
     .num{
       margin-left: .5em;
+    }
+    @media screen and (max-width: 768px) {
+      .wrap {
+      display: none;
+      border-radius: 15px;
+      position: absolute;
+      right: 20vw;
+      bottom: 49vh;
+      margin-left: -144px;
+    }
+    .openOverlay {
+      display: flex;
+    }
     }
  `;
 

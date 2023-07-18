@@ -7,10 +7,10 @@ import styled from "styled-components";
 
 const ButtonStyle = styled.div`
   .large-button {
-    width: 200px;
-    height: 50px;
-    font-size: 18px;
-    margin-right: 30px;
+    width: 11.5vw;
+    height: 5.8vh;
+    font-size: 1.1rem;
+    margin-right: 1.875rem;
     background: #2D6247;
     color: #FFFFFF;
     border-radius: 8px;
@@ -28,6 +28,15 @@ const ButtonStyle = styled.div`
     align-items: center;
     margin-top: 50px;
   }
+  @media screen and (max-width:768px) {
+    .large-button {
+    width: 30vw;
+    height: 5.8vh;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
+}
+
 `;
 
 

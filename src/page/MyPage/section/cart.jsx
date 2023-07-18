@@ -8,29 +8,37 @@ import QuantityInput from '../../Shop/quantityInput';
 import MyFavorite from './myFavorite';
 import DeleteButton from '../../../Commons/Buttons/deleteButton';
 import { useNavigate } from 'react-router-dom';
-import Payment from '../../Shop/test/danal';
 import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
+import SmallSideBar from '../smallSidebar';
+import MobileCart from './mobileCart';
 
 
 
-const LayoutContainer = styled.div` 
+
+export const LayoutContainer = styled.div` 
   display: flex;
+  /* padding-top: 100px; */
+
 
 `;
 
 export const SidebarContainer = styled.div`
+margin-top:120px;
   flex: 0 0 200px;
-  margin-top:1.2rem ;
   height: 100vh;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+  @media screen and (max-width: 768px) {
+      display: none;
+    }
 `;
 
 export const ContentContainer = styled.div`
+  margin-top: 100px;
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -39,15 +47,17 @@ export const ContentContainer = styled.div`
 `;
 
 const TableContainer = styled.div`
+width:70vw;
   background-color: #FFFFFF;
-  padding: 20px;
+  padding: 1.25rem;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  /* text-align: center; */
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
 }
+
 button.ant-btn{
   background-color: #2D6247; 
    &:hover {
@@ -57,6 +67,8 @@ button.ant-btn{
 }
 .ant-table-thead > tr > th  {
   text-align: center;
+  color: #fff;
+    background: #2D6247; 
 }
 
 tbody {
@@ -70,24 +82,24 @@ tbody {
   align-items: center;
   justify-content: center;
 }
-.ant-table-tbody > tr.ant-table-row:hover > td {
-  
- 
+.mobileCart{
+  display: none;
 }
 
-
-
+@media screen and (max-width:768px) {
+display: none;
+}
 `;
 
 const TotalPayment = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 `;
 
 const TotalAmount = styled.div`
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: bold;
 `;
 
@@ -98,10 +110,11 @@ const TotalAmount = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { setCart,removeFromCart,setQuantity: setQuantityInContext,selectedItems,setSelectedItems } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { userEmail } = useContext(UserContext);
+
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
@@ -131,7 +144,6 @@ const setQuantity = async (key, quantity) => {
     }
   }
 };
-  
 useEffect(() => {
   const newData = cartData.map((item) => ({
       key: item.cartItemId, 
@@ -168,7 +180,7 @@ useEffect(() => {
       title: '상품 이미지',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '200px', height: '200px', border:'1px solid #ccc', borderRadius:'8px'}} />
+      render: (text, record) => <img src={record.imageUrl} alt={record.imageUrl} style={{ width: '11.5vw', height: 'auto', border:'1px solid #ccc', borderRadius:'8px'}} />
     },
     {
       title: '상품명',
@@ -236,17 +248,21 @@ useEffect(() => {
 
   return (
     <>
+    
       <Header />
       <LayoutContainer>
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
+        <SmallSideBar />
         <ContentContainer>
           <TableContainer>
           <h2> 장바구니</h2>
-            <Table  rowSelection={rowSelection}
+            <Table className="cart-table" rowSelection={rowSelection}
                     columns={columns}
-                    dataSource={data} />
+                    dataSource={data}
+                    tableLayout="fixed"
+                    />
             <TotalPayment>
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
@@ -256,7 +272,9 @@ useEffect(() => {
                 </Button>
             </TotalPayment>
           </TableContainer>
+          <MobileCart/>
           <MyFavorite fetchCartData={fetchCartData}/>
+         
         </ContentContainer>
         
         

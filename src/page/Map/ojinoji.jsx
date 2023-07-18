@@ -10,6 +10,7 @@ import { MarkerContext } from "../../context/MarkerInfo";
 import OjiKakaoMap from "./OjiKaKao";
 import OjiOverlay from "./ojiOverlay";
 import newMark from "../../images/종이펜.png"
+import "../../font.css";
 
 
 
@@ -60,7 +61,6 @@ const OjiNojiMapMain = () => {
                 </div>
                 </div>
             </div>
-            <button onClick={()=>nav("/imageTest")}>이미지테스트</button>
         </MainStyle>
         </>
     );

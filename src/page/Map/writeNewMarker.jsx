@@ -8,11 +8,12 @@ import AxiosApi from "../../API/TestAxios";
 import { storage } from '../../firebase/firebaseConfig';
 import { useNavigate } from "react-router";
 import { UserContext } from "../../API/UserInfo";
+import imageBar from "../../images/캠핑이미지바.jpg"
 
 const WriteContainer = styled.div`
     display: flex;
     margin-left: 5vw;
-    margin-top: 3vh;
+    padding-top: 6vh;
     margin-left: 10vw;
     position: relative;
     h2{
@@ -22,7 +23,7 @@ const WriteContainer = styled.div`
         padding-top: 5vh;
         position: absolute;
         right: 2vw;
-        padding-bottom: 5vh;
+        padding-bottom: 10vh;
     }
     .lastSubmit{
         width: 8vw;
@@ -85,6 +86,28 @@ const WriteContainer = styled.div`
     color: red;
     font-weight: bold;
   }
+  .App{
+    width: 40vw;
+    height: 40vw;
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction : column;
+    .selectBar{
+        height: 2.5em;
+        width: 15vw;
+    }
+    .diff{
+      width: 10vw;
+    }
+    .App{
+      width: 80vw;
+      height: 60vw;
+    }
+    .lastSubmit{
+      width: 15vw;
+      margin-right: .5em;
+    }
+    }
 
 `;
   
@@ -104,6 +127,11 @@ const Option = styled.div`
  margin: 1vw;
  display: flex;
  align-items: center;
+ @media screen and (max-width: 768px) {
+    .selectLc{
+        margin-right: 2vw;
+    }
+    }
 
 `;
 
@@ -111,6 +139,13 @@ const Radio = styled.div`
   margin: 1vw;
 
   
+`;
+
+const ImageBar = styled.div`
+  padding-top: 11vh;
+  height: 30vh;
+  width: 100%;
+  background-color: #ccc;
 `;
 
 
@@ -238,6 +273,7 @@ const WriteNewMarker = () => {
   return (
     <>
       <Header />
+      <ImageBar style={{backgroundImage: `url(${imageBar})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 60%'}}></ImageBar>
       <WriteContainer>
         
         <div className="left">
@@ -284,7 +320,7 @@ const WriteNewMarker = () => {
             <div className="map">
           <h2>위치 설정</h2>
           <div className="App">
-            <div id="wrap" style={{ width: "40vw", height: "40vw" }}>
+            <div id="wrap" style={{ width: "100%", height: "100%" }}>
               <SmallKakaoMap />
               <p className="notice">※ 취소하려면 마커를 한번 더 클릭해 주세요</p>
             </div>

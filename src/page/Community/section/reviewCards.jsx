@@ -35,7 +35,8 @@ const WriteButton = styled(Link)`
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  white-space: nowrap;
 `;
 
 const ReviewCards = () => {
@@ -78,7 +79,7 @@ const ReviewCards = () => {
         return null; // postType이 1이 아닌 경우, 리뷰 카드를 렌더링하지 않음
       }
 
-      const memberProfileImg = review.member ? review.member.profileImg : '';
+      const memberProfileImg = review.member ? review.member.userImg : '';
 
       return (
         <Col span={6} key={index}>
@@ -88,7 +89,7 @@ const ReviewCards = () => {
                 <img
                   src={review.img}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '30vh', objectFit: 'cover',paddingTop:'5rem' }}
                 />
               </Link>
             }
@@ -114,7 +115,7 @@ const ReviewCards = () => {
     <img
                   src={사고팔기header}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '270px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '32vh', objectFit: 'cover',paddingTop:'5rem' }}
                 />
     <SelectButton />
     <Layout>

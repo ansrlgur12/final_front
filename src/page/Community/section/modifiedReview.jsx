@@ -6,6 +6,7 @@ import { Button, Modal, Layout, Input, Select } from 'antd';
 import styled, { createGlobalStyle } from 'styled-components';
 import ReviewApi from '../../../API/ReviewAPI';
 import Header from '../../../main/header';
+import Functions from '../../../Functions';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -23,6 +24,7 @@ const ReviewContainer = styled.div`
 `;
 
 const ModifiedReview = () => {
+  const token = Functions.getAccessToken();
   const { id } = useParams();
   const [data, setData] = useState('');
   const [title, setTitle] = useState('');
@@ -48,16 +50,16 @@ const ModifiedReview = () => {
 
   const handleSubmit = async () => {
     try {
-      const memberId = 1;
       const content = data;
       const date = new Date().toISOString();
-      await ReviewApi.updateReview(id, memberId, title, content, date, postType);
+      await ReviewApi.updateReview(token, id, title, content, date, postType); // added token as the first argument
       setModalVisible(true);
     } catch (error) {
       console.log(error);
       setError('리뷰 수정에 실패하였습니다.');
     }
   };
+
 
   const closeModal = () => {
     setModalVisible(false);
