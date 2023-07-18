@@ -22,13 +22,13 @@ const CommentApi = {
   },
 
   // 댓글 수정
-  updateComment: async (token, commentId, content) => {
+  updateComment: async (token, reviewId, content) => {
     const comment = {
       content: content
     };
 
     try {
-      return await axios.put(`${COMMENT_API_URL}/${commentId}`, comment, {
+      return await axios.put(`${COMMENT_API_URL}/${reviewId}`, comment, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token
@@ -59,7 +59,7 @@ const CommentApi = {
   },
 
   // 특정 회원의 댓글 조회
-  getCommentsByMember: async (token, member) => {
+  getCommentsByMember: async (token) => {
     try {
       return await axios.get(COMMENT_API_URL + "/member", {
         headers: {
