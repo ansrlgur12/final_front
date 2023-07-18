@@ -155,7 +155,7 @@ const WriteNewMarker = () => {
   const context = useContext(MarkerContext);
   const idContext = useContext(UserContext);
   const {id} = idContext;
-  const { isLatlng } = context;
+  const { isLatlng, setIsSubmit, isSubmit } = context;
   const [selectedRadios, setSelectedRadios] = useState([]); // 선택된 라디오 버튼의 상태를 저장할 배열
   const [dho, setDho] = useState('ALL');
   const [sigungu, setSigungu] = useState('시.군.구');
@@ -200,6 +200,7 @@ const WriteNewMarker = () => {
   useEffect(() => {
     setMapY(isLatlng.Ma);
     setMapX(isLatlng.La);
+    setIsSubmit(false);
   }, [isLatlng, selectedRadios]);
 
   function handleRadioChange(option) {
@@ -234,6 +235,7 @@ const WriteNewMarker = () => {
     console.log(spotDesc);
     console.log(addr1);
     console.log(selectedUrlsString);
+    setIsSubmit(true);
     submit();
     nav("/ojinoji")
   }

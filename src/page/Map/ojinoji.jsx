@@ -16,7 +16,7 @@ import "../../font.css";
 
 const OjiNojiMapMain = () => {
     const context = useContext(MarkerContext);
-    const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy} = context;
+    const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, isSubmit} = context;
     const [markerPositions, setMarkerPositions] = useState([]);
     const [marker, setMarker] = useState();
     const [mapLocations, setMapLocations] = useState([]);
@@ -38,7 +38,7 @@ const OjiNojiMapMain = () => {
             console.log(markerPositions);
         } 
         loading();
-    },[])
+    },[isSubmit])
 
     const closeOverlay = () => {
         setOverlayOpen(false)

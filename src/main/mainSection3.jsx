@@ -127,6 +127,7 @@ const Section3 = styled.div`
     font-weight: 600 !important;
     margin-bottom: 10px;
     }
+}
 `;
 const CardContainer = styled.div`
 width: 20vw;
