@@ -14,6 +14,9 @@ import { UserContext } from '../../../API/UserInfo';
 import { MarkerContext } from '../../../context/MarkerInfo';
 import SmallSideBar from '../smallSidebar';
 import { Margin } from '@mui/icons-material';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const { Meta } = Card;
 
@@ -118,13 +121,18 @@ const MyCamp = () => {
     <>
       <Header />
       <StyledLayout>
+        <SidebarContainer>
         <Sidebar />
+        </SidebarContainer>
         <SmallSideBar />
-        <StyledContent style={{marginTop : '15vh', height : 'auto'}}>
+        <ImageFlexBox>
+          <MyPageImageBar type = {"camp"}/>
+        <StyledContent style={{marginTop : '5vh', height : 'auto'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
         </StyledContent>
+        </ImageFlexBox>
       </StyledLayout>
     </>
   );

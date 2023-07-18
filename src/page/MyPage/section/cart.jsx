@@ -24,7 +24,7 @@ export const LayoutContainer = styled.div`
 `;
 
 export const SidebarContainer = styled.div`
-margin-top:120px;
+  margin-top:120px;
   flex: 0 0 200px;
   height: 100vh;
   background-color: #FFFFFF;
@@ -101,6 +101,24 @@ const TotalPayment = styled.div`
 const TotalAmount = styled.div`
   font-size: 1rem;
   font-weight: bold;
+`;
+
+// export const MyPageImageBar = styled.div`
+//   width: 76vw;
+//   height: 10vh;
+//   padding-top: 10vh;
+//   background-color: #d64040;
+//   margin: auto;
+//   @media screen and (max-width: 768px) {
+//     width: 85%;
+//     }
+// `;
+
+export const ImageFlexBox = styled.div`
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 
