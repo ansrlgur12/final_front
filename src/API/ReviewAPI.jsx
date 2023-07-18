@@ -66,8 +66,17 @@ deleteReview : async(token, id)=> {
   },
 
   //전체 리뷰 조회
-  getAllReviews: async () => {
-    return await axios.get(`${CAMO_DOMAIN}/review`);
+  getAllReviews: async (token) => {
+    try {
+      return await axios.get(`${CAMO_DOMAIN}/review`, {
+        headers: {
+        'Content-Type': 'application/json',
+       'Authorization': 'Bearer ' + token
+       }
+   });
+  } catch (error) {
+    throw error;
+   }
   },
   
   //특정 회원 리뷰 조회
@@ -84,17 +93,25 @@ deleteReview : async(token, id)=> {
    }
   },
 
+    //번호별 리뷰 가져오기
+    getReviewById: async (token, id) => {
+      try {
+        return await axios.get(`${CAMO_DOMAIN}/review/${id}`, {
+          headers: {
+          'Content-Type': 'application/json',
+         'Authorization': 'Bearer ' + token
+         }
+     });
+    } catch (error) {
+      throw error;
+     }
+    },
+
   //특정 리뷰 조회
   getReviewsByPostType: async (postType) => {
     return await axios.get(`${CAMO_DOMAIN}/review/postType/${postType}`);
   },
   
-  //번호별 리뷰 가져오기
-  getReviewById: async (id) => {
-    return await axios.get(`${CAMO_DOMAIN}/review/${id}`);
-  },
-
-
 //리뷰 검색
 searchReviews: async (keyword) => {
   return await axios.get(`${CAMO_DOMAIN}/review/search/${keyword}`);

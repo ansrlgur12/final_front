@@ -50,15 +50,14 @@ const Title = styled.h2`
 `;
 
 const MyReview = () => {
-  const token = Functions.getReviewsByMember;
+  const token = Functions.getAccessToken();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const memberId = 1;
-    fetchPostsByMember(memberId);
+    fetchPostsByMember(token);
   }, []);
 
-  const fetchPostsByMember = async (token) => {
+  const fetchPostsByMember = async () => {
     try {
       const response = await ReviewApi.getReviewsByMember(token);
       const data = response.data;
