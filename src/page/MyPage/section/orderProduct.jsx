@@ -11,6 +11,8 @@ import Header from '../../../main/header';
 import Sidebar from '../sidebar';
 import { LayoutContainer,SidebarContainer,ContentContainer } from './cart';
 import SmallSideBar from '../smallSidebar';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
 
 
 
