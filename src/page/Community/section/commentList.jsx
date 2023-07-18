@@ -55,7 +55,7 @@ const CommentList = ({ reviewId }) => {
 
   const handleOk = async () => {
     try {
-      await CommentApi.updateComment(token, editingCommentId, editingContent);
+      await CommentApi.updateComment(token, reviewId, editingContent);
       setComments(comments.map(comment => comment.id === editingCommentId ? { ...comment, content: editingContent } : comment));
       message.success('댓글이 성공적으로 수정되었습니다.');
     } catch (error) {
@@ -63,7 +63,7 @@ const CommentList = ({ reviewId }) => {
       message.error('댓글 수정이 실패하였습니다.');
     }
     setIsModalVisible(false);
-  };
+  };  
 
   const handleCancel = () => {
     setIsModalVisible(false);

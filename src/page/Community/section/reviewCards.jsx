@@ -8,6 +8,7 @@ import ReviewApi from '../../../API/ReviewAPI';
 import LikesApi from '../../../API/LikesAPI';
 import { SelectButton } from '../community';
 import Header from '../../../main/header';
+import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -40,6 +41,7 @@ const PaginationWrapper = styled.div`
 `;
 
 const ReviewCards = () => {
+  const token = Functions.getAccessToken();
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
 
@@ -61,7 +63,7 @@ const ReviewCards = () => {
 
         let likesCountData = {};
         for (let review of reviewData) {
-          const likesResponse = await LikesApi.countReviewLikes(review.id);
+          const likesResponse = await LikesApi.countReviewLikes(review.id, token);
           likesCountData[review.id] = likesResponse.data;
         }
         setLikesCount(likesCountData);

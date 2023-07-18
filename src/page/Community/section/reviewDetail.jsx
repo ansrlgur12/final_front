@@ -72,12 +72,12 @@ const ReviewDetail = () => {
   const [review, setReview] = useState(null);
   const [liked, setLiked] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { id } = useParams();
+  const { reviewId } = useParams();
 
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await ReviewApi.getReviewById(id);
+        const response = await ReviewApi.getReviewById(reviewId);
         const reviewData = response.data;
         setReview(reviewData);
       } catch (error) {
@@ -86,12 +86,12 @@ const ReviewDetail = () => {
     };
 
     fetchReview();
-  }, [id]);
+  }, [reviewId]);
 
   const handleLikeReview = async () => {
     try {
       if (!liked) {
-        await LikesApi.likeReview(id);
+        await LikesApi.likeReview(token, reviewId);
         setLiked(true);
       }
     } catch (error) {
@@ -101,7 +101,7 @@ const ReviewDetail = () => {
 
   const handleDeleteReview = async () => {
     try {
-      await ReviewApi.deleteReview(token, id);
+      await ReviewApi.deleteReview(token, reviewId);
       setShowDeleteModal(true);
     } catch (error) {
       console.log(error);
@@ -132,7 +132,7 @@ const ReviewDetail = () => {
                   <HeartOutlined />
                   좋아요
                 </ReviewButton>
-                <Link to={`/modifiedReview/${id}`}>
+                <Link to={`/modifiedReview/${reviewId}`}>
                   <ReviewButton>
                     <EditOutlined />
                     수정하기

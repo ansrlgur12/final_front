@@ -12,7 +12,7 @@ const CommentForm = ({ reviewId } ) => {
 
   const handleSubmit = async () => {
     try {
-      // Log the values to the console
+
       console.log('token:', token);
       console.log('reviewId:', reviewId);
       console.log('content:', content);
