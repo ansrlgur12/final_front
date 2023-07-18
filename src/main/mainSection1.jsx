@@ -35,13 +35,34 @@ export const Section1 = styled.div`
         transform: translate(-50%, -50%);
         opacity: 0; /* 초기에 텍스트를 숨김 */
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
-        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+        transition: opacity 0.2s ease, top 0.2s ease-in; /* 애니메이션 효과 설정 */
     }
+    .mainText2 {
+        bottom: 0;
+        left: 40vw;
+        z-index: 1;
+        font-size: 2rem;
+        color: rgb(186, 210, 170);
+        font-weight: bold;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        opacity: 0; /* 초기에 텍스트를 숨김 */
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
+        transition: opacity 0.2s ease, top 0.2s ease-in; /* 애니메이션 효과 설정 */
+    }
+    
     .text2, .text3{
         color: white;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
     }
-    .mainText.show {
+    .text2{
+        color: rgb(255, 254, 179);
+    }
+    .text3{
+        color: #c8c8c8;
+        text-shadow: 2px 2px 5px rgba(121, 121, 121, 0.5);
+    }
+    .show {
         opacity: 1; /* 텍스트를 나타냄 */
         top: calc(50% - 10px); /* 위로 10px 이동 */
     }
@@ -86,12 +107,18 @@ export const Section1 = styled.div`
         opacity: 0; /* 초기에 텍스트를 숨김 */
         transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
     }
+    .mainText2{
+        font-size: 1.3rem;
+    }
+    .show {
+        opacity: 1; /* 텍스트를 나타냄 */
+        top: calc(50% - 10px); /* 위로 10px 이동 */
+    }
     }
 `;
 
 const MainSection1 = () => {
     const [showText, setShowText] = useState(false);
-    const [slideIndex, setSlideIndex] = useState(0);
 
     useEffect(()=> {
         const timer = setTimeout(() => {
@@ -100,20 +127,20 @@ const MainSection1 = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const slideChange = (Swiper) => {
+    const slideChange = () => {
         setShowText(false);
-        setSlideIndex(Swiper.activeIndex);
     };
 
     const slideChangeEnd = () => {
         setShowText(true);
     }
+    
 
     return (
         <Section1>
             <div className='backImg'>
                 <Swiper
-                // loop = {true}
+                loop = {true}
                 modules = {[Navigation, Pagination]}
                 spaceBetween={0}
                 slidesPerView={1}
@@ -125,7 +152,7 @@ const MainSection1 = () => {
                 >
                     <SwiperSlide>
                         <img src={backImg1} alt=""/>
-                        <div className={`mainText ${showText && slideIndex === 0 ? 'show' : ''}`} >
+                        <div className={`mainText ${showText ? 'show' : ''}`} >
                             <p className="textTitle">
                                 '자연과 하나가 되십시오'
                                 <br/>
@@ -135,25 +162,23 @@ const MainSection1 = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={backImg2} alt=""/>
-                        <div className={`mainText ${showText && slideIndex === 1 ? 'show' : ''}`} >
+                        <div className={`mainText2 ${showText ? 'show' : ''}`} >
                             <p className="textTitle text2">
                                 도시의 소음과 시간의 구속을 벗어나,
                                 <br/>
                                 자연과 조화로운 휴식과 자유를 선사하는
                                 <br/>
                                 특별한 여정을 떠나보세요.
-                                <div className="textLine"></div>
                             </p>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={backImg3} alt=""/>
-                        <div className={`mainText ${showText && slideIndex === 2 ? 'show' : ''}`} >
+                        <div className={`mainText ${showText ? 'show' : ''}`} >
                             <p className="textTitle text3">
                                 자연 속에서 불을 지피고 별을 바라보며, 
                                 <br/>
                                 내 안에 잠든 평화를 깨워보아요.
-                                <div className="textLine"></div>
                             </p>
                         </div>
                     </SwiperSlide>
