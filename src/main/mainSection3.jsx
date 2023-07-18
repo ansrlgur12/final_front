@@ -115,18 +115,22 @@ const Section3 = styled.div`
     .swiper-button-next {
     background-color: #56966b;
     opacity: 0.5;
-    padding: 10px 3px;
+    padding: 15px 3px;
     border-radius: 20px;
     color: white !important;
-
     
 
     }
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px;
     }
 `;
 const CardContainer = styled.div`
-width: 21vw;
-height: 21vw;
+width: 20vw;
+height: 20vw;
 border-radius: 15px;
 display: flex;
 flex-direction: column-reverse;
@@ -146,9 +150,8 @@ border-bottom-right-radius: 15px;
 width: 100%;
 height: 30%;
 background-color: rgba(34, 34, 34, 0.8);
-
-
 `;
+
 const Title = styled.h2`
     color: white;
     margin: .4em .4em .2em .4em;
@@ -201,7 +204,6 @@ const MainSection3 = (props) => {
         //   }
           console.log(rsp.data);
           setCampData(rsp.data);
-
           navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;

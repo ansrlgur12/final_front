@@ -11,6 +11,7 @@ const StyledContent = styled(Content)`
   margin-top: 9.5vh;
   padding: 24px;
   background-color: #FFFFFF;
+  margin-top: 14vh;
 `;
 
 const CardWrapper = styled(Card)`
