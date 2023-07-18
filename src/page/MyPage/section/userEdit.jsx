@@ -10,22 +10,18 @@ import Modal from '../../../util/modal';
 import SmallSideBar from '../smallSidebar';
 import Functions from '../../../Functions';
 import { storage } from '../../../firebase/firebaseConfig';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const LayoutContainer = styled.div`
   display: flex;
 `;
 
-const SidebarContainer = styled.div`
-  flex: 0 0 200px;
-  height: 10vh;
-  background-color: #FFFFFF;
-  @media screen and (max-width: 768px) {
-      display: none;
-    }
-`;
-
 const ContentContainer = styled.div`
-  margin-top: 10vh;
+width: 70vw;
+margin: auto;
+  margin-top: 5vh;
   flex: 1;
   padding: 50px;
   display: flex;
@@ -132,6 +128,8 @@ const UserEdit = () => {
           <Sidebar />
         </SidebarContainer>
         <SmallSideBar />
+        <ImageFlexBox>
+          <MyPageImageBar type = {"info"}/>
         <ContentContainer>
           <StyledCheckbox>나의 정보 수정하기</StyledCheckbox>
 
@@ -172,6 +170,7 @@ const UserEdit = () => {
             </Form.Item>
           </StyledUserEdit>
         </ContentContainer>
+        </ImageFlexBox>
       </LayoutContainer>
       <Modal open={modalOpen} confirm={closeModal} justConfirm={true} header="오류">
         {modalText}

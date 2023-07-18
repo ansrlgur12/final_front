@@ -6,22 +6,27 @@ import SmallSideBar from '../smallSidebar';
 import AxiosApi from '../../../API/TestAxios';
 import Functions from '../../../Functions';
 import { useNavigate } from 'react-router-dom';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const LayoutContainer = styled.div`
   display: flex;
 `;
 
-const SidebarContainer = styled.div`
-  flex: 0 0 200px;
-  height: 10vh;
-  background-color: #FFFFFF;
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
+// const SidebarContainer = styled.div`
+//   flex: 0 0 200px;
+//   height: 10vh;
+//   background-color: #FFFFFF;
+//   @media screen and (max-width: 768px) {
+//     display: none;
+//   }
+// `;
 
 const ContentContainer = styled.div`
-  margin-top: 10vh;
+  width: 70vw;
+  margin: auto;
+  margin-top: 5vh;
   flex: 1;
   padding: 20px;
   display: flex;
@@ -90,6 +95,8 @@ function Delete() {
           <Sidebar />
         </SidebarContainer>
         <SmallSideBar />
+        <ImageFlexBox>
+        <MyPageImageBar type = {"info"} />
         <ContentContainer>
           <h4>정말 탈퇴 하시겠습니까?</h4>
           <NoticeList>
@@ -102,6 +109,7 @@ function Delete() {
             </ConfirmButton>
           </div>
         </ContentContainer>
+        </ImageFlexBox>
       </LayoutContainer>
       {showModal && (
         <ModalContainer>

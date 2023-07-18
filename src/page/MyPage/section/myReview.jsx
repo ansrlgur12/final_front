@@ -11,6 +11,9 @@ import Sidebar from '../sidebar';
 import ReviewApi from '../../../API/ReviewAPI';
 import SmallSideBar from '../smallSidebar';
 import Functions from '../../../Functions';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -93,13 +96,18 @@ const MyReview = () => {
     <>
       <Header />
       <StyledLayout>
+        <SidebarContainer>
         <Sidebar />
+        </SidebarContainer>
         <SmallSideBar />
-        <StyledContent style={{marginTop : '15vh'}}>
+        <ImageFlexBox>
+        <MyPageImageBar type = {"active"} />
+        <StyledContent style={{marginTop : '5vh'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
         </StyledContent>
+        </ImageFlexBox>
       </StyledLayout>
     </>
   );

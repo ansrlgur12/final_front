@@ -173,7 +173,7 @@ const Header = () =>{
         if (!userEmail) {
             setIsOpen(true);
         } else {
-            nav("/mypage");
+            nav("/userInfo");
         }
     };
       
