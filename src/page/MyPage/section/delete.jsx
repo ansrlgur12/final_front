@@ -76,15 +76,15 @@ function Delete() {
   const handleDeleteMember = async () => {
     try {
       await AxiosApi.userDelete(token);
-      setShowModal(true); // Show modal after successful deletion
+      setShowModal(true); 
     } catch (error) {
-      // Handle error
+
     }
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/intro'); // Navigate to intro page after closing the modal
+    navigate('/intro'); 
   };
 
   return (

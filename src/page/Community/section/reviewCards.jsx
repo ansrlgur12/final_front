@@ -75,7 +75,7 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const token = Functions.getAccessToken();
-  const { email, setEmail, nickName, setNickName, userImg, SetUserImg } = useContext(UserContext);
+  const { nickName, userImg } = useContext(UserContext);
 
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});

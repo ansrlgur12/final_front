@@ -17,16 +17,16 @@ const UserStore = (props) => {
 
     useEffect(() => {
         const token = Functions.getAccessToken();
-        const domain = "http://localhost:8111";
+        const CAMO_DOMAIN = "http://localhost:8111";
       
-        axios.get(domain + "/api/v1/userinfo", {
+        axios.get(CAMO_DOMAIN + "/api/v1/userinfo", {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
           }
         })
         .then(response => {
-            console.log("response data: ", response.data); // 여기서 response data 전체를 출력합니다.
+            console.log("response data: ", response.data); 
       
             setEmail(response.data.email);
             setNickName(response.data.nickName);
