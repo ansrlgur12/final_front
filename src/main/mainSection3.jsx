@@ -62,7 +62,7 @@ const Section3 = styled.div`
     }
     .sBottom{
         background-color: #f3f3f3;
-        height: 40vh;
+        height: auto;
         margin-top: 0;
         padding: 1em;
     }
@@ -107,7 +107,7 @@ const Section3 = styled.div`
     @media screen and (max-width: 768px) {
         .sBottom{
         background-color: #f3f3f3;
-        height: 20vh;
+        height: auto;
         margin-top: 0;
         padding: 1em 0;
     }
@@ -137,8 +137,8 @@ display: flex;
 flex-direction: column-reverse;
 box-shadow: 1px 2px 5px gray;
 @media screen and (max-width: 768px) {
-    width: 27vw;
-    height: 27vw;
+    width: 25vw;
+    height: 25vw;
     margin-top: 1em;
     
 }

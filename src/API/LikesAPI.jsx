@@ -51,6 +51,11 @@ const LikesApi = {
     return await axios.post(`${CAMO_DOMAIN}/likes/camp/${campId}/member/${memberId}`);
   },
 
+  // 특정 캠핑장 좋아요 JWT
+  likeCampJwt: async (campId) => {
+    return await axios.post(`${CAMO_DOMAIN}/likes/camp/${campId}`);
+  },
+
   // 특정 캠핑장 좋아요 취소
   unlikeCamp: async (memberId, campId) => {
     return await axios.delete(`${CAMO_DOMAIN}/likes/camp/${campId}/member/${memberId}`);
@@ -58,6 +63,11 @@ const LikesApi = {
 
   // 특정 캠핑장 좋어요 갯수 조회
   countCampLikes: async (campId) => {
+    return await axios.get(`${CAMO_DOMAIN}/likes/camp/${campId}`);
+  },
+
+  // 특정 캠핑장 좋어요 갯수 조회 jwt
+  countCampLikesJwt: async (campId) => {
     return await axios.get(`${CAMO_DOMAIN}/likes/camp/${campId}`);
   },
 

@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from "../../API/UserInfo";
+import LikesApi from "../../API/LikesAPI";
 import "../../font.css";
 
 
@@ -182,7 +183,7 @@ const Overlay = (props) => {
               setDataId(rsp.data[0].id);
               setCampInfo(rsp.data);
               setContentId(rsp.data[0]);
-              const rsp2 = await AxiosApi.viewCampLike(dataId);
+              const rsp2 = await LikesApi.countCampLikesJwt(dataId);
               const rsp3 = await AxiosApi.checkLike(dataId, userId);
               const rsp4 = await AxiosApi.commentCount(dataId);
               setCommentCount(rsp4.data);
@@ -201,7 +202,7 @@ const Overlay = (props) => {
   },[location,count,likeClicked,clickedFacltNm,detailOpen, id])
 
   const likeBtnClick = async() => {
-    await AxiosApi.campLike(contentId.id, id);
+    await LikesApi.likeCampJwt(contentId.id);
   }
 
   const likeBtnUnClick = async() => {
