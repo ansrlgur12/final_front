@@ -180,11 +180,11 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {nickName, setUserEmail, setPassword, setIsLogin, setNickName, setUserName, setUserPhoneNm, setUserAddr, setUserImage, setId} = context;
+    const {setIsLogin} = context;
 
     // 아이디, 패스워드 입력
-    const[inputEmail, setInputEmail] = useState("");
-    const[inputPwd, setInputPwd] = useState("");
+    const[email, setEmail] = useState("");
+    const[password, setPassword] = useState("");
 
     // 오류메세지
     const[idMessage, setIdMessage] = useState("");
@@ -209,18 +209,10 @@ const Login = () => {
 
     const onClickLogin = async() => {
         // 로그인을 위해 Axios 호출
-        const response = await AxiosApi.memberLogin(inputEmail, inputPwd);
+        const response = await AxiosApi.memberLogin(email, password);
         if(response.data) {
             console.log("로그인");
             setLoginFinishOpen(true);
-            setUserEmail(inputEmail);
-            setPassword(inputPwd);
-            setNickName(response.data.nickName);
-            setUserName(response.data.userName);
-            setUserPhoneNm(response.data.userPhoneNm);
-            setUserAddr(response.data.userAddr);
-            setUserImage(response.data.userImg);
-            setId(response.data.id);
             setIsLogin(true);
 
             localStorage.setItem('accessToken', response.data.accessToken);
@@ -237,7 +229,7 @@ const Login = () => {
         // 5 ~ 20자리의 영문자, 숫자, 언더스코어로 이루어진 문자열 체크
         const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
         const emailCurrent = e.target.value;
-        setInputEmail(emailCurrent);
+        setEmail(emailCurrent);
         if(!regexEmail.test(emailCurrent)){
             setIdMessage("5자리 이상 20자리 미만으로 입력해주세요");
             setIsEmail(false);
@@ -250,7 +242,7 @@ const Login = () => {
     const onChangePw = (e) => {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/
         const passwordCurrent = e.target.value;
-        setInputPwd(passwordCurrent);
+        setPassword(passwordCurrent);
         if (!passwordRegex.test(passwordCurrent)) {
             setIsPw(false)
         } else {

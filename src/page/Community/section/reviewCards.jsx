@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../../API/UserInfo';
 import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination, message } from 'antd';
 import { Link } from 'react-router-dom';
@@ -74,6 +75,8 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const token = Functions.getAccessToken();
+  const { email, setEmail, nickName, setNickName, userImg, SetUserImg } = useContext(UserContext);
+
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
 
@@ -107,13 +110,13 @@ const ReviewCards = () => {
     fetchReviews();
   }, []);
 
+
+
   const renderReviewCards = () => {
     return reviews.map((review, index) => {
       if (review.postType !== 1) {
         return null; // postType이 1이 아닌 경우, 리뷰 카드를 렌더링하지 않음
       }
-
-      const memberProfileImg = review.member ? review.member.userImg : '';
 
       return (
         <Col xs={12} md={6}  key={index}>
@@ -133,8 +136,9 @@ const ReviewCards = () => {
             ]}
           >
             <Meta
-              avatar={<Avatar src={memberProfileImg} />}
+              avatar={<Avatar src={userImg} />}
               title={review.title}
+              description={`작성자: ${nickName}`} 
             />
             <p>캠핑 정보</p>
           </ReviewContent>

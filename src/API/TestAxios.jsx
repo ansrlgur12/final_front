@@ -23,10 +23,10 @@ const AxiosApi = {
 
 
 // 로그인
-    memberLogin: async (inputEmail, inputPwd) => {
+    memberLogin: async (email, password) => {
         const loginData = {
-            email: inputEmail,
-            password: inputPwd
+            email: email,
+            password: password
         };
         return await axios.post(domain + "/auth/login", loginData);
     },
@@ -120,11 +120,11 @@ memberReg : async(nickName, email, password, agreed) => {
         },
 
     // 회원 정보 수정
-    userUpdate : async(token, chgAddr, chgPhone, chgImg)=> {
+    userUpdate : async(token, userAddr, userPhoneNm, userImg)=> {
         const info = {
-            userAddr : chgAddr,
-            userPhoneNm : chgPhone,
-            userImg : chgImg
+            userAddr : userAddr,
+            userPhoneNm : userPhoneNm,
+            userImg : userImg
         };
       
         try {

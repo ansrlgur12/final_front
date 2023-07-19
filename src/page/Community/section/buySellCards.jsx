@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../../API/UserInfo';
 import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination, message } from 'antd';
 import { Link } from 'react-router-dom';
@@ -86,6 +87,7 @@ const BuySellCards = () => {
   const token = Functions.getAccessToken();
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
+  const { nickName, userImg } = useContext(UserContext);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -97,7 +99,7 @@ const BuySellCards = () => {
 
         let likesCountData = {};
         for (let review of reviewData) {
-          const likesResponse = await LikesApi.countReviewLikes(review.id);
+          const likesResponse = await LikesApi.countReviewLikes(review.id, token);
           likesCountData[review.id] = likesResponse.data;
         }
         setLikesCount(likesCountData);
@@ -140,8 +142,9 @@ const BuySellCards = () => {
             ]}
           >
             <Meta
-              avatar={<Avatar src={memberProfileImg} />}
+              avatar={<Avatar src={userImg} />}
               title={review.title}
+              description={`작성자: ${nickName}`} 
             />
             {postTypeText}
           </ReviewContent>
