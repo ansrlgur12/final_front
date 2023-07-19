@@ -12,12 +12,35 @@ import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
+const ResponsiveContent = styled(Content)`
+  padding: 7.5rem;
+  position: relative;
+  background-color: #FFFFFF;
 
+  @media (max-width: 768px) {
+    padding: 0;
+    padding-top: 10rem;
+  }
+`;
+const ResponsiveImage = styled.img`
+  width: 100%;
+  height: 23vh;
+  object-fit: cover;
+ 
+
+  @media (max-width: 768px) {
+    height: 10vh;
+  }
+`;
 const ReviewContent = styled(Card)`
   width: 300px;
   margin: 0 auto;
   margin-bottom: 40px;
   border: 1px solid #DDDDDD;
+  @media screen and (max-width:768px) {
+    width:42vw;
+    height: 33vh;
+  }
 `;
 
 const WriteButton = styled(Link)`
@@ -31,6 +54,15 @@ const WriteButton = styled(Link)`
   padding: 10px 15px;
   border-radius: 4px;
   text-decoration: none;
+  @media screen and (max-width:768px) {
+    top: 7rem;
+  right: 1rem;
+    font-size: 0.625rem;
+    width:20vw;
+    white-space: nowrap;
+    padding: 0.4rem 0.6rem;
+    
+  }
 `;
 
 const PaginationWrapper = styled.div`
@@ -84,14 +116,14 @@ const ReviewCards = () => {
       const memberProfileImg = review.member ? review.member.userImg : '';
 
       return (
-        <Col span={6} key={index}>
+        <Col xs={12} md={6}  key={index}>
           <ReviewContent
             cover={
               <Link to={`/reviewDetail/${review.id}`}>
-                <img
+                <ResponsiveImage
                   src={review.img}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '30vh', objectFit: 'cover',paddingTop:'5rem' }}
+                  
                 />
               </Link>
             }
@@ -117,19 +149,19 @@ const ReviewCards = () => {
     <img
                   src={사고팔기header}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '32vh', objectFit: 'cover',paddingTop:'5rem' }}
+                  style={{ width: '100%', height: '32vh', objectFit: 'cover',paddingTop:'5rem'}}
                 />
     <SelectButton />
     <Layout>
-      <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
-        <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
+      < ResponsiveContent >
+        <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '2px'}} /></WriteButton>
         <Row gutter={[10, 15]}>
           {reviews.length > 0 ? renderReviewCards() : <p>리뷰가 없습니다.</p>}
         </Row>
         <PaginationWrapper>
           <Pagination defaultCurrent={1} total={15} />
         </PaginationWrapper>
-      </Content>
+      </ ResponsiveContent>
     </Layout>
     </>
   );

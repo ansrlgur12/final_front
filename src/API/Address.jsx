@@ -80,9 +80,7 @@ const BtnWrapper = styled.div`
     cursor: pointer;
   }
 
-  button:hover {
-   opacity: 0.7;
-  }
+
   @media screen and (max-width:768px) {
  button{
   width: 30vw;

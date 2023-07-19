@@ -25,8 +25,8 @@ export const SwiperStyle = styled.div`
 .swiper {
     width: 48.2vw;
     height: 46.5vh;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding:3rem 1rem;
+    
     border:none;
 
   }

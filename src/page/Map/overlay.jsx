@@ -25,7 +25,7 @@ const MapStyled = styled.div`
       border-radius: 15px;
       position: absolute;
       right: 45vw;
-      bottom: 49vh;
+      bottom: 55vh;
       margin-left: -144px;
     }
     .openOverlay {
@@ -149,7 +149,7 @@ const MapStyled = styled.div`
       border-radius: 15px;
       position: absolute;
       right: 10vw;
-      bottom: 49vh;
+      bottom: 55vh;
       margin-left: -144px;
     }
     .openOverlay {
