@@ -7,6 +7,9 @@ import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import SmallSideBar from '../smallSidebar';
 import Functions from '../../../Functions';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const MyComments = () => {
   const token = Functions.getAccessToken();
@@ -30,8 +33,12 @@ const MyComments = () => {
     <>
       <Header />
       <Layout>
+        <SidebarContainer>
         <Sidebar />
+        </SidebarContainer>
         <SmallSideBar />
+        <ImageFlexBox>
+          <MyPageImageBar type = {"active"}/>
         <div style={{ padding: '24px' }}>
           {comments.map((comment) => (
             <Card
@@ -52,6 +59,7 @@ const MyComments = () => {
             </Card>
           ))}
         </div>
+        </ImageFlexBox>
       </Layout>
     </>
   );

@@ -48,25 +48,31 @@ const SearchStyle = styled.div`
 
   .searchInput {
     margin-top: 20px;
-    width: 500px;
+    width: 28.7vw;
     font-size: 1.5rem;
-    padding: 10px;
+    padding: 0.625rem;
     border-radius: 8px;
     border: 1px solid #ddd;
+    @media screen and (max-width:768px) {
+      width:65vw;
+    }
   }
 
   .searchResult {
     margin-top: 20px;
-    width: 500px;
+    width: 28.7vw;
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
+    @media screen and (max-width:768px) {
+      width:80vw;
+    }
   }
 
   .list {
-    padding: 10px;
+    padding: 0.625rem;
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 46.5vh;
   }
 
   .list p {

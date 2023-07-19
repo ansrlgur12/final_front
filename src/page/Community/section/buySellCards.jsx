@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../../API/UserInfo';
 import { HeartOutlined, EyeFilled, EditOutlined } from '@ant-design/icons';
 import { Avatar, Card, Row, Col, Layout, Pagination, message } from 'antd';
 import { Link } from 'react-router-dom';
@@ -14,11 +15,36 @@ import Functions from '../../../Functions';
 const { Meta } = Card;
 const { Content } = Layout;
 
+const ResponsiveContent = styled(Content)`
+  padding: 7.5rem;
+  position: relative;
+  background-color: #FFFFFF;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    padding-top: 10rem;
+  }
+`;
+
+const ResponsiveImage = styled.img`
+  width: 100%;
+  height: 23vh;
+  object-fit: cover;
+ 
+
+  @media (max-width: 768px) {
+    height: 10vh;
+  }
+`;
 const ReviewContent = styled(Card)`
   width: 300px;
   margin: 0 auto;
   margin-bottom: 40px;
   border: 1px solid #DDDDDD;
+  @media screen and (max-width:768px) {
+    width:42vw;
+    height: 33vh;
+  }
 `;
 
 const WriteButton = styled(Link)`
@@ -32,6 +58,15 @@ const WriteButton = styled(Link)`
   padding: 10px 15px;
   border-radius: 4px;
   text-decoration: none;
+  @media screen and (max-width:768px) {
+    top: 7rem;
+  right: 1rem;
+    font-size: 0.625rem;
+    width:20vw;
+    white-space: nowrap;
+    padding: 0.4rem 0.6rem;
+    
+  }
 `;
 
 const heart = () => {
@@ -52,6 +87,7 @@ const BuySellCards = () => {
   const token = Functions.getAccessToken();
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
+  const { nickName, userImg } = useContext(UserContext);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -63,7 +99,7 @@ const BuySellCards = () => {
 
         let likesCountData = {};
         for (let review of reviewData) {
-          const likesResponse = await LikesApi.countReviewLikes(review.id);
+          const likesResponse = await LikesApi.countReviewLikes(review.id, token);
           likesCountData[review.id] = likesResponse.data;
         }
         setLikesCount(likesCountData);
@@ -89,14 +125,14 @@ const BuySellCards = () => {
       const memberProfileImg = review.member ? review.member.profileImg : '';
 
       return (
-        <Col span={6} key={index}>
+        <Col xs={12} md={6}  key={index}>
           <ReviewContent
             cover={
               <Link to={`/reviewDetail/${review.id}`}>
-                <img
+               <ResponsiveImage
                   src={review.img}
                   alt="대표이미지"
-                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  
                 />
               </Link>
             }
@@ -106,8 +142,9 @@ const BuySellCards = () => {
             ]}
           >
             <Meta
-              avatar={<Avatar src={memberProfileImg} />}
+              avatar={<Avatar src={userImg} />}
               title={review.title}
+              description={`작성자: ${nickName}`} 
             />
             {postTypeText}
           </ReviewContent>
@@ -127,7 +164,7 @@ const BuySellCards = () => {
                 />
     <SelectButton />
     <Layout>
-      <Content style={{ padding: '120px', position: 'relative', backgroundColor: '#FFFFFF' }}>
+      <ResponsiveContent >
         <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '5px' }} /></WriteButton>
         <Row gutter={[10, 15]}>
           {reviews.length > 0 ? renderReviewCards() : <p>리뷰가 없습니다.</p>}
@@ -135,7 +172,7 @@ const BuySellCards = () => {
         <PaginationWrapper>
           <Pagination defaultCurrent={1} total={15} />
         </PaginationWrapper>
-      </Content>
+      </ResponsiveContent>
     </Layout>
     </>
   );

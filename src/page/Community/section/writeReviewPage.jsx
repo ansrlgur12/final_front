@@ -138,33 +138,35 @@ const WriteReviewPage = () => {
           </Select>
           <input type="file" accept="image/*" onChange={handleFileChange} />
           <CKEditor
-            editor={ClassicEditor}
-            data="<p>Hello from CKEditor 5!</p>"
-            config={{
-              toolbar: [
-                'heading',
-                '|',
-                'bold',
-                'italic',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-                'uploadImage' // 이미지 업로드 버튼 추가
-              ],
-              ckfinder: {
-                uploadUrl: 'https://example.com/upload',
-              },
-            }}
-            onReady={(editor) => {
-              console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              console.log({ event, editor, data });
-              setData(data);
-            }}
-          />
+  editor={ClassicEditor}
+  data="글을 작성해주세요!"
+  config={{
+    toolbar: [
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'link',
+      'bulletedList',
+      'numberedList',
+      'blockQuote',
+      'uploadImage' // 이미지 업로드 버튼 추가
+    ],
+    ckfinder: {
+      uploadUrl: 'https://example.com/upload',
+    },
+  }}
+  onReady={(editor) => {
+    console.log('Editor is ready to use!', editor);
+  }}
+  onChange={(event, editor) => {
+    let data = editor.getData();
+    data = data.replace(/<\/?p>/g, ''); // Add this line
+    console.log({ event, editor, data });
+    setData(data);
+  }}
+/>
+
         
           <Modal visible={modalVisible} onCancel={closeModal} footer={null}>
             <h3>작성 완료</h3>

@@ -13,6 +13,9 @@ import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import { MarkerContext } from '../../../context/MarkerInfo';
 import SmallSideBar from '../smallSidebar';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const { Meta } = Card;
 
@@ -108,13 +111,18 @@ const MyOji = () => {
     <>
       <Header />
       <StyledLayout>
+        <SidebarContainer>
         <Sidebar />
+        </SidebarContainer>
         <SmallSideBar />
-        <StyledContent style={{marginTop : '15vh'}}>
+        <ImageFlexBox>
+          <MyPageImageBar type = {"camp"}/>
+        <StyledContent style={{marginTop : '5vh'}}>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
         </StyledContent>
+        </ImageFlexBox>
       </StyledLayout>
     </>
   );

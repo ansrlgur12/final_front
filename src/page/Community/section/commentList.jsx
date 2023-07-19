@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../../API/UserInfo';
 import { List, Button, Popconfirm, message, Modal, Input, Form } from 'antd';
 import CommentApi from '../../../API/CommnetAPI';
 import Functions from '../../../Functions';
 
 const CommentList = ({ reviewId }) => {
   const token = Functions.getAccessToken();
+  const { nickName } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -106,7 +108,7 @@ const CommentList = ({ reviewId }) => {
             ]}
           >
             <List.Item.Meta
-              title={comment.memberId}
+              title={nickName}
               description={comment.content}
             />
           </List.Item>

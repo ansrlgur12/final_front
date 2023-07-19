@@ -45,7 +45,7 @@ const Section2 = styled.div`
     }
 
     .item:hover .itemtext,
-    .item:hover .itemBtn {
+    .item:hover .desc {
         transform: translateY(-20px);
         opacity: 1;
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -93,6 +93,15 @@ const Section2 = styled.div`
         transform: translateY(20px);
         opacity: 0;
         text-shadow: 2px 2px 5px #ccc; /* 테두리 색과 크기 설정 */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .desc{
+        color: white;
+        font-size: 1.2rem;
+        margin-top: 1em;
+        margin-left: 40px;
+        transform: translateY(20px);
+        opacity: 0;
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
@@ -146,6 +155,13 @@ const Section2 = styled.div`
         transform: translateY(0px);
         opacity: 1;
     }
+    .desc{
+        font-size: .8rem;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        transform: translateY(0px);
+        opacity: 1;
+    }
     .itemBtn {
         width: 15vw;
         font-size: .8rem;
@@ -155,7 +171,7 @@ const Section2 = styled.div`
     }
 
     .item:hover .itemtext,
-    .item:hover .itemBtn {
+    .item:hover .desc {
         transform: translateY(0px);
     }
     }
@@ -168,15 +184,15 @@ const MainSection2 = () => {
             <div className="container2">
                 <div className="item item1" onClick={() => nav('/newMark')}>
                     <div className="itemtext">무료로 이용할 수 있는<br /> 캠핑장을 공유해주세요!</div>
-                    <button className="itemBtn">이동하기</button>
+                    <div className="desc">오지·노지 등록하기</div>
                 </div>
                 <div className="item item2" onClick={() => nav('/shopMain')}>
                     <div className="itemtext">인기 제품을 만나러 가요!</div>
-                    <button className="itemBtn">shop</button>
+                    <div className="desc">쇼핑</div>
                 </div>
                 <div className="item item3" onClick={() => nav('/community')}>
                     <div className="itemtext">캠퍼들 사이에 소문난 캠핑장을 확인해 보세요!</div>
-                    <button className="itemBtn">이동하기</button>
+                    <div className="desc">캠핑정보 게시판</div>
                 </div>
             </div>
         </Section2>

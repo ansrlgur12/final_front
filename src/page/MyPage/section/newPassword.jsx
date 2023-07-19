@@ -8,13 +8,19 @@ import { useNavigate } from 'react-router-dom';
 import AxiosApi from '../../../API/TestAxios';
 import SmallSideBar from '../smallSidebar';
 import Functions from '../../../Functions';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const LayoutContainer = styled.div`
   display: flex;
 `;
 
 const ContentContainer = styled.div`
-  margin-top: 10vh;
+width: 50vw;
+margin-left: auto;
+margin-right: auto;
+  margin-top: 5vh;
   height: 150px;
   flex: 1;
   padding: 150px;
@@ -26,6 +32,7 @@ const ContentContainer = styled.div`
 
 const StyledForm = styled.div`
   max-width: 800px;
+  
 `;
 
 const StyledFormItem = styled.div`
@@ -114,8 +121,12 @@ const NewPassword = () => {
     <>
       <Header />
       <LayoutContainer>
+        <SidebarContainer>
         <Sidebar />
+        </SidebarContainer>
         <SmallSideBar />
+        <ImageFlexBox>
+            <MyPageImageBar type = {"info"} />
         <ContentContainer>
           <StyledForm>
             <StyledFormItem>
@@ -155,6 +166,7 @@ const NewPassword = () => {
             </StyledFormItem>
           </StyledForm>
         </ContentContainer>
+        </ImageFlexBox>
       </LayoutContainer>
       <Modal open={modalOpen} confirm={closeModal} justConfirm={true} header="오류">
         {modalText}

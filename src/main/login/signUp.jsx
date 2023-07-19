@@ -267,10 +267,12 @@ const SignUpPage = () => {
         if(checkEmail === checkEmail2){
             if(agreed){
                 const memberReg = await AxiosApi.memberReg(nickName, email, password, agreed);
-                console.log(memberReg.data);
-                if(memberReg.data === true) {
+                console.log('Response:', memberReg.data);
+                if(memberReg.data.email && memberReg.data.nickName) { 
+                    console.log("Inside condition: member is registered");
                     setFinishModal(true);
                 } else { 
+                    console.log("Inside condition: member is not registered");
                     setModalOpen(true);
                     setModelText('인증번호 or 이메일을 확인하세요.');
                 }
@@ -285,6 +287,8 @@ const SignUpPage = () => {
             return;
         }
     };
+    
+    
 
     const goBack = () => {
         setGoBackPage(true);

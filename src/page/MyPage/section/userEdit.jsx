@@ -10,22 +10,18 @@ import Modal from '../../../util/modal';
 import SmallSideBar from '../smallSidebar';
 import Functions from '../../../Functions';
 import { storage } from '../../../firebase/firebaseConfig';
+import MyPageImageBar from './myPageImage';
+import { ImageFlexBox } from './cart';
+import { SidebarContainer } from './cart';
 
 const LayoutContainer = styled.div`
   display: flex;
 `;
 
-const SidebarContainer = styled.div`
-  flex: 0 0 200px;
-  height: 10vh;
-  background-color: #FFFFFF;
-  @media screen and (max-width: 768px) {
-      display: none;
-    }
-`;
-
 const ContentContainer = styled.div`
-  margin-top: 10vh;
+width: 70vw;
+margin: auto;
+  margin-top: 5vh;
   flex: 1;
   padding: 50px;
   display: flex;
@@ -79,9 +75,9 @@ const UserEdit = () => {
   const { id } = context;
 
   // 전송 데이터
-  const [chgAddr, setAddr] = useState('');
-  const [chgPhone, setChgPhone] = useState('');
-  const [chgImg, setChgImg] = useState('');
+  const [userAddr, setAddr] = useState('');
+  const [userPhoneNm, setUserPhoneNm] = useState('');
+  const [userImg, setUserImg] = useState('');
 
   // 팝업
   const [modalOpen, setModalOpen] = useState(false);
@@ -98,7 +94,7 @@ const UserEdit = () => {
   };
 
   const changePhone = (e) => {
-    setChgPhone(e.target.value);
+    setUserPhoneNm(e.target.value);
   };
 
   const uploadImage = async (file) => {
@@ -107,7 +103,7 @@ const UserEdit = () => {
       const fileRef = storageRef.child(file.name);
       await fileRef.put(file);
       const downloadUrl = await fileRef.getDownloadURL();
-      setChgImg(downloadUrl);
+      setUserImg(downloadUrl);
     } catch (error) {
       console.log(error);
       throw new Error('이미지 업로드에 실패하였습니다.');
@@ -115,7 +111,7 @@ const UserEdit = () => {
   };
 
   const subUserInfo = async () => {
-    const infoUpdate = await AxiosApi.userUpdate(token, chgAddr, chgPhone, chgImg);
+    const infoUpdate = await AxiosApi.userUpdate(token, userAddr, userPhoneNm, userImg);
     if (!infoUpdate.data === true) {
       setModalText('입력 사항을 다시 확인해 주세요.');
       setModalOpen(true);
@@ -132,6 +128,8 @@ const UserEdit = () => {
           <Sidebar />
         </SidebarContainer>
         <SmallSideBar />
+        <ImageFlexBox>
+          <MyPageImageBar type = {"info"}/>
         <ContentContainer>
           <StyledCheckbox>나의 정보 수정하기</StyledCheckbox>
 
@@ -172,6 +170,7 @@ const UserEdit = () => {
             </Form.Item>
           </StyledUserEdit>
         </ContentContainer>
+        </ImageFlexBox>
       </LayoutContainer>
       <Modal open={modalOpen} confirm={closeModal} justConfirm={true} header="오류">
         {modalText}
