@@ -6,18 +6,19 @@ import { Layout, Card, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import SmallSideBar from '../smallSidebar';
+import Functions from '../../../Functions';
 import MyPageImageBar from './myPageImage';
 import { ImageFlexBox } from './cart';
 import { SidebarContainer } from './cart';
 
 const MyComments = () => {
+  const token = Functions.getAccessToken();
   const [comments, setComments] = useState([]);
-  const userId = 1;
 
   useEffect(() => {
     const fetchMyComments = async () => {
       try {
-        const response = await CommentApi.getCommentsByMember(userId);
+        const response = await CommentApi.getCommentsByMember(token);
         const myCommentsData = response.data;
         setComments(myCommentsData);
       } catch (error) {

@@ -133,8 +133,8 @@ const WriteReviewPage = () => {
             onChange={(value) => setPostType(value)}
             placeholder="카테고리를 선택해주세요."
           >
-            <Option value="1">유료캠핑장</Option>
-            <Option value="2">오지캠핑장</Option>
+            <Option value="1">캠핑 정보</Option>
+            <Option value="2">사고 팔기</Option>
           </Select>
           <input type="file" accept="image/*" onChange={handleFileChange} />
           <CKEditor

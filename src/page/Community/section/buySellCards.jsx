@@ -9,6 +9,7 @@ import ReviewApi from '../../../API/ReviewAPI';
 import LikesApi from '../../../API/LikesAPI';
 import Header from '../../../main/header';
 import { SelectButton } from '../community';
+import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -82,13 +83,14 @@ const PaginationWrapper = styled.div`
 `;
 
 const BuySellCards = () => {
+  const token = Functions.getAccessToken();
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await ReviewApi.getAllReviews();
+        const response = await ReviewApi.getAllReviews(token);
         console.log(response.data);
         const reviewData = response.data;
         setReviews(reviewData);
@@ -115,7 +117,7 @@ const BuySellCards = () => {
 
       let postTypeText = null;
       if (review.postType === 1) {
-        postTypeText = <p>유료캠핑장</p>;
+        postTypeText = <p>사고 팔기</p>;
       }
 
       const memberProfileImg = review.member ? review.member.profileImg : '';

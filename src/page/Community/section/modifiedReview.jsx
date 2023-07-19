@@ -35,7 +35,7 @@ const ModifiedReview = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await ReviewApi.getReviewById(id);
+        const response = await ReviewApi.getReviewById(token, id);
         const reviewData = response.data;
         setData(reviewData.content);
         setTitle(reviewData.title);
@@ -46,13 +46,13 @@ const ModifiedReview = () => {
     };
 
     fetchReview();
-  }, [id]);
+  }, [token, id]);
 
   const handleSubmit = async () => {
     try {
       const content = data;
       const date = new Date().toISOString();
-      await ReviewApi.updateReview(token, id, title, content, date, postType); // added token as the first argument
+      await ReviewApi.updateReview(token, id, title, content, date, postType);
       setModalVisible(true);
     } catch (error) {
       console.log(error);

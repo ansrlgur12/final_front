@@ -4,31 +4,31 @@ export const CAMO_DOMAIN = "http://localhost:8111";
 
 const LikesApi = {
    // 특정 리뷰 좋아요(JWT적용)
-    likeReview: async (token, reviewId) => {
-      try {
-        return await axios.post(`${CAMO_DOMAIN}/likes/review/${reviewId}`, {
-          headers: {
+  likeReview: async (token, reviewId) => {
+    try {
+      return await axios.post(`${CAMO_DOMAIN}/likes/review/${reviewId}`, null, {
+        headers: {
           'Content-Type': 'application/json',
-         'Authorization': 'Bearer ' + token
-         }
-     });
+          'Authorization': 'Bearer ' + token
+        }
+      });
     } catch (error) {
       throw error;
-     }
-    },
+    }
+  },
 
   // 특정 리뷰 좋아요 갯수 조회(JWT조회)
   countReviewLikes: async (reviewId, token) => {
     try {
       return await axios.get(`${CAMO_DOMAIN}/likes/review/${reviewId}`, {
         headers: {
-        'Content-Type': 'application/json',
-       'Authorization': 'Bearer ' + token
-       }
-   });
-  } catch (error) {
-    throw error;
-   }
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   },
 
   // 특정 제품 좋아요

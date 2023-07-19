@@ -88,11 +88,11 @@ const ReviewCards = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await ReviewApi.getAllReviews();
+        const response = await ReviewApi.getAllReviews(token);
         console.log(response.data);
         const reviewData = response.data;
         setReviews(reviewData);
-
+  
         let likesCountData = {};
         for (let review of reviewData) {
           const likesResponse = await LikesApi.countReviewLikes(review.id, token);
@@ -103,7 +103,7 @@ const ReviewCards = () => {
         console.log(error);
       }
     };
-
+  
     fetchReviews();
   }, []);
 
@@ -136,7 +136,7 @@ const ReviewCards = () => {
               avatar={<Avatar src={memberProfileImg} />}
               title={review.title}
             />
-            <p>유료캠핑장</p>
+            <p>캠핑 정보</p>
           </ReviewContent>
         </Col>
       );
