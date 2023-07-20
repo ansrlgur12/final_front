@@ -169,7 +169,7 @@ const Header = () =>{
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [isOpen, setIsOpen] = useState(false);
-
+    const [isLogoutModal, setIsLogoutModal] = useState(false);
    
     const handleMyPageClick = () => {
         if (!token) {
@@ -190,6 +190,17 @@ const Header = () =>{
     const closeModal = () => {
         setIsOpen(false);
     };
+    const logOut = () => {
+      
+        setIsLogoutModal(true);
+      };
+    const closeLogoutModal = () => {
+       
+        setIsLogoutModal(false);
+        // 실제 로그아웃 동작 수행
+        localStorage.clear();
+        nav("/intro");
+      };
 
     useEffect(()=>{
 
@@ -230,10 +241,7 @@ const Header = () =>{
         nav("/ojinoji")
     }
 
-    const logOut = () => {
-        localStorage.clear();
-        nav("/intro");
-    }
+ 
     
     // 성능최적화. nav바에 적용
     // 전역관리
@@ -298,6 +306,17 @@ const Header = () =>{
                     </button>
                 </div>
             </Modal>
+            <Modal
+        isOpen={isLogoutModal}
+        onClose={closeLogoutModal}
+    >
+      <p>로그아웃이 완료되었습니다.</p>
+      <div className="btnWrapper">
+       <button className="modalBtn"  onClick={() => {  closeLogoutModal(); }}>예</button>
+       
+        
+       </div>
+    </Modal>
             </ModalStyle>
         </>
     );
