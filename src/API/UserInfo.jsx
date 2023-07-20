@@ -10,7 +10,7 @@ const UserStore = (props) => {
     const[nickName, setNickName] = useState("");
     const[isLogin, setIsLogin] = useState(false);
     const[url, setUrl] = useState("");
-    const[userImg, SetUserImg] = useState("");
+    const[userImg, setUserImg] = useState("");
     const[token, setToken] = useState("");
     const[userAddr, setUserAddr] = useState("");
     const[userPhoneNm, setUserPhoneNm] = useState("");
@@ -30,7 +30,8 @@ const UserStore = (props) => {
       
             setEmail(response.data.email);
             setNickName(response.data.nickName);
-            SetUserImg(response.data.userImg);
+            setUserImg(response.data.userImg);
+            setToken(response.data.token);            
         })
         .catch(error => {
             console.log(error);
@@ -40,7 +41,7 @@ const UserStore = (props) => {
 
     return(
         <UserContext.Provider value={{email, setEmail, password, setPassword, nickName, setNickName,
-                                        isLogin, setIsLogin, url, setUrl, userImg, SetUserImg, token, setToken}}>
+                                        isLogin, setIsLogin, url, setUrl, userImg, setUserImg, token, setToken}}>
             {props.children}
         </UserContext.Provider>
     );
