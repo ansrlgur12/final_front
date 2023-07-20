@@ -262,12 +262,12 @@ const Header = () =>{
                     <div className="headerRight">
                         <SearchBox />
                         <UserOutlined onClick={handleMyPageClick}/>
-                        {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
                         </Badge>
                         </IconButton>
+                        <div className="logOut" onClick={logOut}>로그아웃</div>
                     </div>
                     <div className="hamburgerBtn" onClick={onClickHamburger}><FontAwesomeIcon icon={faBars} size="2xl" color="green"/></div>
                 </div>
@@ -280,6 +280,7 @@ const Header = () =>{
                         <ShoppingCartRounded />
                         </Badge>
                         </IconButton>
+                        <div className="logOut" onClick={logOut}>로그아웃</div>
                     </div>
                     <li className="menu1" onClick={onClickNormalCamping}>유료캠핑장</li>
                     <li className="menu2" onClick={onClickOjinojiCamping}>오지·노지</li>

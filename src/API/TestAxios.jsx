@@ -297,8 +297,8 @@ viewCampLike : async(contentId) => {
     return await axios.get(domain + `/likes/camp/${contentId}`);
 },
 
-checkLike : async(contentId, id) => {
-    return await axios.get(domain + `/likes/checkLike/${contentId}/${id}`);
+checkLike : async(contentId) => {
+    return await axios.get(domain + `/likes/checkLike/${contentId}`);
 },
 
 commentCount : async(campId) => {
