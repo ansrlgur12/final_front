@@ -15,6 +15,7 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from "../../API/UserInfo";
 import LikesApi from "../../API/LikesAPI";
 import "../../font.css";
+import Functions from "../../Functions";
 
 
 const MapStyled = styled.div`
@@ -160,6 +161,7 @@ const MapStyled = styled.div`
  `;
 
 const Overlay = (props) => {
+  const token = Functions.getAccessToken();
   const context = useContext(MarkerContext);
   const idContext = useContext(UserContext);
   const {location, setContentId, contentId, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount} = context;
@@ -176,15 +178,14 @@ const Overlay = (props) => {
   useEffect(()=>{
       const loading = async() => {
         const getOverlay = async() => {
-          const userId = id;
           const rsp = await AxiosApi.getOverlayInfo(location[0], location[1]);
           if(rsp.status === 200) {
             if (rsp.data && rsp.data.length > 0) {
               setDataId(rsp.data[0].id);
               setCampInfo(rsp.data);
               setContentId(rsp.data[0]);
-              const rsp2 = await LikesApi.countCampLikesJwt(dataId);
-              const rsp3 = await AxiosApi.checkLike(dataId);
+              const rsp2 = await LikesApi.countCampLikesJwt(token, dataId);
+              const rsp3 = await AxiosApi.checkLike(token, dataId);
               const rsp4 = await AxiosApi.commentCount(dataId);
               setCommentCount(rsp4.data);
               setCount(rsp2.data);
@@ -199,14 +200,14 @@ const Overlay = (props) => {
         getOverlay();
       }
       loading();
-  },[location,count,likeClicked,clickedFacltNm,detailOpen, id])
+  },[location,count,likeClicked,clickedFacltNm,detailOpen])
 
   const likeBtnClick = async() => {
-    await LikesApi.likeCampJwt(contentId.id);
+    await LikesApi.likeCampJwt(token, contentId.id);
   }
 
   const likeBtnUnClick = async() => {
-    await AxiosApi.campUnLike(contentId.id, id);
+    await AxiosApi.campUnLike(token, contentId.id);
   }
 
   const viewCount = async(clickedFacltNm) => {

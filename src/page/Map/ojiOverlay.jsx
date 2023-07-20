@@ -147,14 +147,13 @@ const MapStyled = styled.div`
 
 const OjiOverlay = (props) => {
   const context = useContext(MarkerContext);
-  const {location, setContentId, currentData} = context;
+  const {location, setContentId, ojiLikeClicked, ojiSetLickClicked} = context;
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
   const [clickedFacltNm, setClickedFacltNm] = useState("");
 
   // 좋아요 서버구현 전까지 쓸 useState
-  const [likeClicked, setLickClicked]= useState(false);
 
   
 
@@ -186,7 +185,7 @@ const OjiOverlay = (props) => {
   }
 
   const handleAddToFavorite = () => {
-    setLickClicked(!likeClicked)
+    ojiSetLickClicked(!ojiLikeClicked)
   }
 
     return (
@@ -214,8 +213,8 @@ const OjiOverlay = (props) => {
             </div>
           </div>
           <div className="bottomLine">
-                {likeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
-                <div className="icon">0</div>
+                {ojiLikeClicked ?  <FavoriteButton onClick={handleAddToFavorite}/> : <FavoriteButtonBorder onClick={handleAddToFavorite} />}
+                <div className="icon">{ojiLikeClicked ? 1 : 0}</div>
                 <VisibilityButton />
                 <div className="icon">{campInfo.viewCount}</div> 
                 <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
