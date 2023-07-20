@@ -256,7 +256,7 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {setIsLogin,setEmail} = context;
+    const {setIsLogin,setEmail,setUserImg,userImg} = context;
 
     // 아이디, 패스워드 입력
     const[email, setEmail2] = useState("");

@@ -42,7 +42,7 @@ const nav = useNavigate();
         </ButtonWrapper>
         </GridStlye>
         </Container>
-        <Footer/>
+       
         </>
     );
 }; export default PayComplete;

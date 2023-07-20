@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../API/UserInfo";
 import { MarkerContext } from "../context/MarkerInfo";
 import { IconButton, Badge } from "@mui/material";
-import { ShoppingCartRounded } from "@mui/icons-material";
+import { ShoppingCartRounded,AccountCircleRounded,SearchRounded } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
 import SearchBox from "./search/searchBox";
 import { UserOutlined } from '@ant-design/icons';
@@ -162,7 +162,7 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
-    const {setEmail, setPassword, setIsLogin, IsLogin, userImage, id, email} = userInfo;
+    const { userImg} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
@@ -220,7 +220,7 @@ const Header = () =>{
     };
 
     const profileImg = {
-        backgroundImage : `url(${userImage})`,
+        backgroundImage : `url(${userImg})`,
         backgroundSize : 'contain',
         backgroundRepeat : 'no-repeat'
     }
@@ -264,7 +264,11 @@ const Header = () =>{
                     </div>
                     <div className="headerRight">
                         <SearchBox />
-                        <UserOutlined onClick={handleMyPageClick}/>
+                       
+                            <IconButton aria-label="account" onClick={handleMyPageClick}>
+                            <AccountCircleRounded/>
+                        </IconButton>
+                      
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
@@ -277,7 +281,9 @@ const Header = () =>{
                 <div className={hamburgerClicked ? "hamburgerShow" : "hamburgerHide"}>
                     <div className="hamburgerMenu">
                         <SearchBox />
-                        <UserOutlined onClick={handleMyPageClick}/>
+                        <IconButton aria-label="account" onClick={handleMyPageClick}>
+                            <AccountCircleRounded/>
+                        </IconButton>
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />

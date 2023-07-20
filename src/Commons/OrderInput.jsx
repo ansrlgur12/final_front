@@ -19,13 +19,13 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 1rem;
- 
+ white-space: nowrap;
   font-weight: 600;
   color: #ccc;
 
   input {
-    margin-right:20rem;
-    width: 40%;
+   margin-left: 1rem;
+    width: 20vw;
     height: auto;
     line-height: normal;
     padding: 0.6em 0.5em;

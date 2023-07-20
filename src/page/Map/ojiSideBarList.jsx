@@ -135,6 +135,7 @@ const OjiSideBarList = (props) => {
             searchCamp();
         }
     },[change, searchValue, currentData, selectedSortBy])
+    
 
 
     const onClickData = (x, y) => {
@@ -163,12 +164,16 @@ const OjiSideBarList = (props) => {
         }
       };
     
+      const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+      };
+
       // 정렬된 캠핑장 목록
       const sortedCamps = sortCamps(campListData);
 
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const displayedCamps = sortedCamps.slice(startIndex, endIndex);
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, sortedCamps.length);
+      const displayedCamps = sortedCamps.slice(startIndex, endIndex);
 
     const totalCamps = campListData.length;
     const totalPages = Math.ceil(totalCamps / pageSize);
@@ -189,9 +194,7 @@ const OjiSideBarList = (props) => {
         startPage = Math.max(endPage - maxPageButtons + 1, 1);
         }
     }
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-      };
+   
 
     const splitAddress = (address) => {
         const addressParts = address.split(' ');

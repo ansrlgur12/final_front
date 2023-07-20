@@ -3,6 +3,15 @@ import { UserContext } from '../../../API/UserInfo';
 import { List, Button, Popconfirm, message, Modal, Input, Form } from 'antd';
 import CommentApi from '../../../API/CommnetAPI';
 import Functions from '../../../Functions';
+import styled from 'styled-components';
+
+const ResponsiveButton = styled(Button)`
+   @media screen and (max-width:768px) {
+    width:10vw;
+    font-size: 0.4rem;
+   }
+`;
+
 
 const CommentList = ({ reviewId }) => {
   const token = Functions.getAccessToken();
@@ -96,14 +105,14 @@ const CommentList = ({ reviewId }) => {
         renderItem={comment => (
           <List.Item
             actions={[
-              <Button type="link" onClick={() => showModal(comment.id, comment.content)}>수정하기</Button>,
+              <ResponsiveButton type="link" onClick={() => showModal(comment.id, comment.content)}>수정하기</ResponsiveButton>,
               <Popconfirm
                 title="정말 댓글을 삭제하시겠습니까?"
                 onConfirm={() => handleDelete(comment.id)}
                 okText="Yes"
                 cancelText="No"
               >
-                <Button type="link">삭제하기</Button>
+                <ResponsiveButton type="link">삭제하기</ResponsiveButton>
               </Popconfirm>,
             ]}
           >

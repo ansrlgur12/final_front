@@ -110,6 +110,7 @@ const MapStyled = styled.div`
       align-items: center;
     }
     .detailBtn{
+      cursor: pointer;
       position: absolute;
       right: .2em;
       margin-right: .5em;
@@ -163,9 +164,7 @@ const MapStyled = styled.div`
 const Overlay = (props) => {
   const token = Functions.getAccessToken();
   const context = useContext(MarkerContext);
-  const idContext = useContext(UserContext);
-  const {location, setContentId, contentId, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount} = context;
-  const {id} = idContext;
+  const {location, setContentId, contentId, count, setCount, likeClicked, setLikeClicked, commentCount, setCommentCount, overlayOpen} = context;
   const {open, close} = props
   const [campInfo, setCampInfo] = useState("");
   const [detailOpen, setDetailOpen] = useState("");
@@ -200,7 +199,7 @@ const Overlay = (props) => {
         getOverlay();
       }
       loading();
-  },[location,count,likeClicked,clickedFacltNm,detailOpen])
+  },[dataId, setLikeClicked, location,count,likeClicked,clickedFacltNm,detailOpen, overlayOpen])
 
   const likeBtnClick = async() => {
     await LikesApi.likeCampJwt(token, contentId.id);

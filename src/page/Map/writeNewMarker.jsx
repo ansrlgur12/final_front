@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../../API/UserInfo";
 import imageBar from "../../images/캠핑이미지바.jpg"
 import Functions from "../../Functions";
+import Modal from "../../util/modal";
 
 const WriteContainer = styled.div`
     display: flex;
@@ -36,6 +37,7 @@ const WriteContainer = styled.div`
         border: .5px solid rgb(117, 117, 117);
         background-color: #d8d8d8;
     }
+
     .sub{
         background-color: rgb(45, 98, 71);
         color: white;
@@ -95,7 +97,7 @@ const WriteContainer = styled.div`
     flex-direction : column;
     .selectBar{
         height: 2.5em;
-        width: 15vw;
+        width: 20vw;
     }
     .diff{
       width: 10vw;
@@ -105,7 +107,7 @@ const WriteContainer = styled.div`
       height: 60vw;
     }
     .lastSubmit{
-      width: 15vw;
+      width: 20vw;
       margin-right: .5em;
     }
     }
@@ -169,6 +171,7 @@ const WriteNewMarker = () => {
   const selectedRadiosString = selectedRadios.join(', ');
   const selectedUrlsString = downloadUrls.join(', ');
   const addr1 = `${dho} ${sigungu}`;
+  const[modalOpen, setModalOpen] = useState(false);
 
   const handleDhoChange = (event) => {
     setDho(event.target.value);
@@ -236,19 +239,24 @@ const WriteNewMarker = () => {
     console.log(addr1);
     console.log(selectedUrlsString);
     setIsSubmit(true);
-    submit();
-    nav("/ojinoji")
+    setModalOpen(true);
   }
   const submit = async() => {
+    setModalOpen(false);
     const rsp = await AxiosApi.onojiCampData(token, mapX, mapY, selectedRadiosString, dho, sigungu, spotNm, spotDiff, spotDesc, addr1, selectedUrlsString);
     console.log(rsp)
     if(rsp.request.status === 200){
         console.log("정상등록되었습니다.")
+        nav("/ojinoji")
     }
     else{
         console.log("등록 실패")
     }
   }
+  
+  const closeModal = () => {
+    setModalOpen(false);
+}
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -348,11 +356,16 @@ const WriteNewMarker = () => {
             </div>
         </div>
         <div className="buttonBox">
-            <button className="lastSubmit sub" onClick={onClickSubmit}>등록</button>
+          {(mapX && mapY && selectedRadiosString && dho && sigungu && spotNm && spotDiff && spotDesc && addr1 && selectedUrlsString) ?
+            <button className="lastSubmit sub" onClick={onClickSubmit}>등록</button> :
+            <button className="lastSubmit">등록</button>
+        }
+            
             <button className="lastSubmit" onClick={()=>nav(-1)}>취소</button>
         </div>
         </div>
       </WriteContainer>
+      <Modal open={modalOpen} close={closeModal} confirm={submit} type={true} header = {"등록"}>마커 등록을 신청하시겠습니까?</Modal>
     </>
   );
 };
