@@ -30,10 +30,7 @@ const MainPage = () => {
             <MainPageStyle>
                 <Header/>
                 <MainSection1/>
-                {/* <MainSection3/> */}
                 <MainSection2/>
-                
-                <Footer />
             </MainPageStyle>
 
         </>
