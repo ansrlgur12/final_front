@@ -6,7 +6,6 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [cartData, setCartData] = useState([]);
     let cartItemId = 0;  // 각 항목에 할당할 고유한 cartItemId
   
     const addToCart = (product, quantity) => {

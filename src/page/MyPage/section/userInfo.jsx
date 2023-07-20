@@ -79,11 +79,11 @@ const InformationBox = styled.div`
           margin-right: 1em;
         }
         .userInfo{
-          font-size: .8em;
+          font-size: .5em;
           color: #2d6247;
         }
         .desc{
-          font-size: .8em;
+          font-size: .5em;
           margin-right: 1em;
           font-weight: bold;
           color:  #5e5e5e;;

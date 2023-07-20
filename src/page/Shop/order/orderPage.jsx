@@ -22,8 +22,11 @@ const TableContainer = styled.div`
   margin-bottom: 5rem;
   width: 58vw;
   margin-left:22rem;
-
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ 
   .ant-checkbox-checked .ant-checkbox-inner {
   background-color:#2D6247;
   border-color: #2D6247; 
@@ -89,7 +92,7 @@ tbody {
 
 
 const Container = styled.section`
-
+overflow-x: auto;
 border-radius: 4px;
 border: none;
   

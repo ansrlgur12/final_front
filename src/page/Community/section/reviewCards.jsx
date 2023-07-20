@@ -13,6 +13,15 @@ import Functions from '../../../Functions';
 
 const { Meta } = Card;
 const { Content } = Layout;
+
+const ResponsiveMeta = styled(Meta)`
+  
+  
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size:0.1rem;
+  }
+`
 const ResponsiveContent = styled(Content)`
   padding: 7.5rem;
   position: relative;
@@ -40,7 +49,7 @@ const ReviewContent = styled(Card)`
   border: 1px solid #DDDDDD;
   @media screen and (max-width:768px) {
     width:42vw;
-    height: 33vh;
+    height: 31vh;
   }
 `;
 
@@ -135,12 +144,12 @@ const ReviewCards = () => {
               <span onClick={view}><EyeFilled /> {review.viewCount || 0}</span>,
             ]}
           >
-            <Meta
+            <ResponsiveMeta
               avatar={<Avatar src={userImg} />}
               title={review.title}
               description={`작성자: ${nickName}`} 
             />
-            <p>캠핑 정보</p>
+            
           </ReviewContent>
         </Col>
       );
