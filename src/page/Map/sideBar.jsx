@@ -111,7 +111,7 @@ right: -23vw;
     position: fixed;
     z-index: 1;
     right: -75vw;
-    bottom: 10vh;
+    bottom: 7vh;
 
     .container {
     width: 75vw;
@@ -135,7 +135,7 @@ right: -23vw;
     width: 60px;
     height: 60px;
     position: absolute;
-    bottom: 45vh;
+    bottom: 40vh;
     right: 76vw;
     border: 0px;
     background-color: rgba(146, 159, 139,0.8);
