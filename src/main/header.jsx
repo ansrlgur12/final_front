@@ -231,9 +231,10 @@ const Header = () =>{
     }
 
     const logOut = () => {
-        setUserEmail(""); 
-        setPassword(""); 
-        setIsLogin(false); 
+        // setUserEmail(""); 
+        // setPassword(""); 
+        // setIsLogin(false);
+        localStorage.clear(); 
         nav("/intro");
     }
     
