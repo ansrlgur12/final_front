@@ -130,7 +130,7 @@ const HeaderStyle = styled.div`
         list-style: none;
         margin: 20px;
         font-size: 1em;
-        color: green;
+        color: #2D6247;
         font-weight: bold;
         margin-top: 0;
     }
@@ -163,7 +163,7 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
-    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, email} = userInfo;
+    const {setEmail, setPassword, setIsLogin, IsLogin, userImage, id, email} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
@@ -231,9 +231,7 @@ const Header = () =>{
     }
 
     const logOut = () => {
-        setUserEmail(""); 
-        setPassword(""); 
-        setIsLogin(false); 
+        localStorage.clear();
         nav("/intro");
     }
     

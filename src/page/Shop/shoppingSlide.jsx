@@ -105,11 +105,17 @@ export const SwiperStyle = styled.div`
   
 
 }
+.swiper-button-prev{
+  margin-left: 0.4rem;
+}
+.swiper-button-next {
+  margin-right:0.2rem;
+}
 .swiper-button-prev:after,
 .swiper-button-next:after {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
 }
   
  .brand{
@@ -248,7 +254,7 @@ export const SwiperStyle = styled.div`
 .swiper-button-next:after {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
 }
 .price{
   font-size: 0.8rem;
@@ -312,7 +318,7 @@ const SliderContainer = ({ selectedCategory}) => {
 
      const IconButtons = ({productId,product}) =>{
       const { addToCart } = useCart(); // CartContext를 사용해서 addToCart 함수를 가져옴
-      const { userEmail } = useContext(UserContext);
+      const { email } = useContext(UserContext);
       const { addToFavorite,isProductInFavorite} = useFavorite(); // FavoriteContext를 사용해서 addToFavorite 함수를 가져옴
       const [tooltipCart, setTooltipCart] = useState('장바구니 담기');
       const [tooltipFavorite, setTooltipFavorite] = useState('찜하기')
@@ -324,8 +330,8 @@ const SliderContainer = ({ selectedCategory}) => {
 
     const handleAddToCart = async () => {
       try {
-        console.log(product.id, userEmail);
-        const response = await AxiosApi.addToCart(product.id, 1, userEmail);
+        console.log(product.id, email);
+        const response = await AxiosApi.addToCart(product.id, 1, email);
         
         if(response.status === 200) {
           console.log('성공');
@@ -352,8 +358,8 @@ const SliderContainer = ({ selectedCategory}) => {
       }
     
       try {
-        console.log(product.id, userEmail);
-        const response = await AxiosApi.addToFavorite(product.id,userEmail);
+        console.log(product.id, email);
+        const response = await AxiosApi.addToFavorite(product.id,email);
     
         if(response.status === 200) {
           console.log('성공');
