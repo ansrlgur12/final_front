@@ -5,7 +5,8 @@ import { useContext } from "react";
 import { MarkerContext } from "../../context/MarkerInfo";
 import VisibilityButton from "../../Commons/visibility";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faFlag, faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faComment, faFlag } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import AxiosApi from "../../API/TestAxios";
 import ShareButton from "../../Commons/shareButton";
@@ -490,7 +491,7 @@ const IconBox = styled.div`
 const OjiDetailPage = (props) => {
     const {open, close, campInfo} = props
     const context = useContext(MarkerContext);
-    const {myLoc, location} = context;
+    const {myLoc, location, ojiLikeClicked} = context;
     const [minTem, setMinTem] = useState("");
     const [maxTem, setMaxTem] = useState("");
     const [pop, setPop] = useState("");
@@ -671,7 +672,7 @@ const OjiDetailPage = (props) => {
                     <LickCommentShare>
                         <LikeCommentArea>
                             <FontAwesomeIcon icon={faHeart} size="lg" color="red"/>
-                            <Number>0</Number>
+                            <Number>{ojiLikeClicked ? 1 : 0}</Number>
                             <FontAwesomeIcon icon={faComment} size="lg" color="green"/>
                             <Number>0</Number>
                         </LikeCommentArea>

@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import logoImg from "../images/CAMO로고.png"
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { UserContext } from "../API/UserInfo";
 import { MarkerContext } from "../context/MarkerInfo";
 import { IconButton, Badge } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
-import { UserContext } from "../API/UserInfo";
 import SearchBox from "./search/searchBox";
 import { UserOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Commons/Modal";
+import Functions from "../Functions";
 import "../font.css";
+
 
 const HeaderStyle = styled.div`
     font-family: 'GongGothicMedium';
@@ -156,6 +157,7 @@ export const ModalStyle = styled.div`
 
 const Header = () =>{
     
+    const token = Functions.getAccessToken();
     const nav = useNavigate();
     const { cart } = useContext(CartContext); // CartContext를 사용하여 cart를 가져옵니다
     const context = useContext(MarkerContext);
@@ -170,7 +172,7 @@ const Header = () =>{
 
    
     const handleMyPageClick = () => {
-        if (!email) {
+        if (!token) {
             setIsOpen(true);
         } else {
             nav("/userInfo");
@@ -178,7 +180,7 @@ const Header = () =>{
     };
       
     const handleCartClick = () => {
-        if (!email) {
+        if (!token) {
             setIsOpen(true);
         } else {
             nav("/cart");
@@ -260,12 +262,12 @@ const Header = () =>{
                     <div className="headerRight">
                         <SearchBox />
                         <UserOutlined onClick={handleMyPageClick}/>
-                        {/* <div className="logOut" onClick={logOut}>로그아웃</div> */}
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
                         </Badge>
                         </IconButton>
+                        <div className="logOut" onClick={logOut}>로그아웃</div>
                     </div>
                     <div className="hamburgerBtn" onClick={onClickHamburger}><FontAwesomeIcon icon={faBars} size="2xl" color="green"/></div>
                 </div>
@@ -278,6 +280,7 @@ const Header = () =>{
                         <ShoppingCartRounded />
                         </Badge>
                         </IconButton>
+                        <div className="logOut" onClick={logOut}>로그아웃</div>
                     </div>
                     <li className="menu1" onClick={onClickNormalCamping}>유료캠핑장</li>
                     <li className="menu2" onClick={onClickOjinojiCamping}>오지·노지</li>

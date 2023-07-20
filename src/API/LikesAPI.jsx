@@ -52,8 +52,17 @@ const LikesApi = {
   },
 
   // 특정 캠핑장 좋아요 JWT
-  likeCampJwt: async (campId) => {
-    return await axios.post(`${CAMO_DOMAIN}/likes/camp/${campId}`);
+  likeCampJwt: async (token, campId) => {
+    try{
+      return await axios.post(`${CAMO_DOMAIN}/likes/camp/${campId}`, null , {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   },
 
   // 특정 캠핑장 좋아요 취소
@@ -67,11 +76,18 @@ const LikesApi = {
   },
 
   // 특정 캠핑장 좋어요 갯수 조회 jwt
-  countCampLikesJwt: async (campId) => {
-    return await axios.get(`${CAMO_DOMAIN}/likes/camp/${campId}`);
+  countCampLikesJwt: async (token, campId) => {
+    try{
+      return await axios.get(`${CAMO_DOMAIN}/likes/camp/${campId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+    }catch(error){
+      throw error;
+    }
   },
-
-
 
   // 특정 리뷰 좋아요 취소
   unlikeReview: async (memberId, reviewId) => {
