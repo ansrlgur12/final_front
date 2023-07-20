@@ -198,7 +198,7 @@ const MainSection1 = () => {
                 onSlideChangeTransitionEnd={slideChangeEnd}
                 autoplay={{
                     delay: 3000, // 3초마다 슬라이드 변경
-                    disableOnInteraction: false // 사용자의 상호작용이 있어도 자동 슬라이드 유지
+                    disableOnInteraction: true // 사용자의 상호작용이 있어도 자동 슬라이드 유지
                 }}
                 >
                     <SwiperSlide>

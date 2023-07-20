@@ -97,7 +97,7 @@ const LoginStyle = styled.div`
         background-position: center;
         object-fit: contain;
         border-radius: 8px;
-        cursor: pointer;
+
     }
     .google {
         margin: 10px;
@@ -107,7 +107,7 @@ const LoginStyle = styled.div`
         background-size: cover;
         background-position: center;
         object-fit: contain;
-        cursor: pointer;
+
     }
     .naver {
         margin: 10px;
@@ -117,7 +117,10 @@ const LoginStyle = styled.div`
         background-size: cover;
         background-position: center;
         object-fit: contain;
-        cursor: pointer;
+
+    }
+    .snslog{
+        opacity: 0;
     }
 `;
 
@@ -274,9 +277,9 @@ const Login = () => {
                         <div className="other2" onClick={signBtnClick}>회원가입</div>
                     </div>
                     <div className="snsLogin">
-                        <div className="kakao" style={kakaoLogo}><KakaoLogin/></div>
-                        <div className="naver" style={naverLogo}></div>
-                        <div className="google" style={googleLogo}></div>
+                        <div className="snslog kakao" style={kakaoLogo}></div>
+                        <div className="snslog naver" style={naverLogo}></div>
+                        <div className="snslog google" style={googleLogo}></div>
                     </div>
                 </div>
                 <SignUpStyle className={showSign ? "showSign" : "cutSign"}>
