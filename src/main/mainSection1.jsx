@@ -71,9 +71,10 @@ export const Section1 = styled.div`
     }
     .text2{
         color: rgb(255, 254, 179);
+        text-shadow: 2px 2px 5px rgba(121, 121, 121, 0.5);
     }
     .text3{
-        color: #9e8569;
+        color: rgb(214, 183, 146);
         text-shadow: 2px 2px 5px rgba(121, 121, 121, 0.5);
     }
     .show {
@@ -114,7 +115,7 @@ export const Section1 = styled.div`
             object-position: center;
         }
         .mainText {
-            margin-left: 3vw;
+            margin-left: 7vw;
             margin-top: 7vh;
             z-index: 1;
             font-size: 1.1rem;
@@ -125,10 +126,11 @@ export const Section1 = styled.div`
             transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
         } 
         .mainText2 {
-            margin-left: 10vw;
+            margin-left: 20vw;
             margin-top: 5vh;
             z-index: 1;
-            font-size: 1.1rem;
+            width: 90vw;
+            font-size: 0.9rem;
             color: rgb(186, 210, 170);
             font-weight: bold;
             position: absolute;
@@ -138,11 +140,11 @@ export const Section1 = styled.div`
             transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
         }
         .mainText3 {
-            margin-left: 1vw;
-            margin-top: 5vh;
+            width: 80vw;
+            margin-left: 15vw;
+            margin-top: 7vh;
             z-index: 1;
-            font-size: 1.1rem;
-            color: rgb(210, 213, 158);
+            font-size: 0.9rem;
             font-weight: bold;
             position: absolute;
             transform: translate(-50%, -50%);
