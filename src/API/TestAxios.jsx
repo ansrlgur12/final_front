@@ -200,9 +200,8 @@ memberReg : async(nickName, email, password, agreed) => {
         return await axios.post (domain + `/cart/updateItem/${cartItemId}`, item)
     },
     // 오지캠핑 데이터 db에 저장
-    onojiCampData : async(memberId, mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
+    onojiCampData : async(token, mapX, mapY, sbrsCl, doNm, sigunguNm, facltNm, diff, intro, addr1, url) => {
         const data = {
-            memberId : memberId.toString(),
             addr1 : addr1,
             mapX : mapX,
             mapY : mapY,
@@ -214,7 +213,16 @@ memberReg : async(nickName, email, password, agreed) => {
             intro : intro,
             url : url
         };
-        return await axios.post(domain + '/oji/newMark', data)
+        try{
+            return await axios.post(domain + '/oji/newMark', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                  }
+            });
+        }catch(error) {
+            throw error;
+        }
     },
   // 찜하기
   addToFavorite : async(productId,email) => {
@@ -325,12 +333,32 @@ commentCount : async(campId) => {
     return await axios.get(domain + `/campcomment/checkCount/${campId}`)
 },
 
-memberLikedCamp : async(memberId) => {
-    return await axios.get(domain + `/likes/memberLikedCamp/${memberId}`)
+memberLikedCamp : async(token) => {
+    try{
+        return await axios.get(domain + `/likes/memberLikedCamp`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              }
+        });
+    }catch(error){
+        throw error;
+    }
+    
 },
 
-memberMarkedCamp : async(memberId) => {
-    return await axios.get(domain + `/oji/memberMarkedCamp/${memberId}`)
+memberMarkedCamp : async(token) => {
+    try{
+        return await axios.get(domain + `/oji/memberMarkedCamp`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              }
+        });
+    }catch(error){
+        throw error;
+    }
+    
 },
   // 주문 생성
   createOrder : async(email,productId,quantity) => {

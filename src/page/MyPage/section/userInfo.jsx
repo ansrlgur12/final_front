@@ -38,6 +38,13 @@ const StyledContent = styled.div`
     font-size: 2em;
     margin-bottom: 2em;
   }
+  @media screen and (max-width: 768px) {
+    .title{
+    color: rgb(74, 74, 74);
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+} 
 `;
 
 const InformationBox = styled.div`
@@ -61,6 +68,27 @@ const InformationBox = styled.div`
   }
   .userInfo{
     color: #2d6247;
+  }
+  @media screen and (max-width: 768px) {
+        .img{
+          width: 17vw;
+          height: 17vw;
+          padding: .3em;
+        }
+        .left{
+          margin-right: 1em;
+        }
+        .userInfo{
+          font-size: .8em;
+          color: #2d6247;
+        }
+        .desc{
+          font-size: .8em;
+          margin-right: 1em;
+          font-weight: bold;
+          color:  #5e5e5e;;
+          width: 20vw;
+        }
   }
 `;
 
