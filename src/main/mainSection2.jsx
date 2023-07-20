@@ -5,6 +5,7 @@ import itemp2 from "../images/itemp2.jpg";
 import itemp3 from "../images/itemp3.jpg";
 import { useNavigate } from "react-router-dom";
 import "../font.css";
+import MainSection3 from "./mainSection3";
 
 const Section2 = styled.div`
     margin-top: 40px;
@@ -84,6 +85,7 @@ const Section2 = styled.div`
         display: flex;
         justify-content: center;
         flex-direction: column;
+        margin-bottom: 5vh;
     }
 
     .itemtext {
@@ -190,6 +192,7 @@ const MainSection2 = () => {
                     <div className="itemtext">인기 제품을 만나러 가요!</div>
                     <div className="desc">쇼핑</div>
                 </div>
+                <MainSection3 />
                 <div className="item item3" onClick={() => nav('/community')}>
                     <div className="itemtext">캠퍼들 사이에 소문난 캠핑장을 확인해 보세요!</div>
                     <div className="desc">캠핑정보 게시판</div>
