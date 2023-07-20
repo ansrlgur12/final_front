@@ -29,11 +29,18 @@ margin: auto;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5vh;
+  @media screen and (max-width: 768px) {
+    width: 50vw;
+  }
 `;
 
 const StyledCheckbox = styled(Checkbox)`
   width: 300px;
   margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    width: 50vw;
+  }
 `;
 
 const StyledUserEdit = styled(Form)`
@@ -71,8 +78,6 @@ const normFile = (e) => {
 
 const UserEdit = () => {
   const token = Functions.getAccessToken();
-  const context = useContext(UserContext);
-  const { id } = context;
 
   // 전송 데이터
   const [userAddr, setAddr] = useState('');

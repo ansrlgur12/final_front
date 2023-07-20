@@ -28,16 +28,26 @@ margin-right: auto;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  @media screen and (max-width: 768px) {
+    width: 70vw;
+    padding: 30px;
+    padding-top: 50px;
+  }
 `;
 
 const StyledForm = styled.div`
-  max-width: 800px;
+  width: 800px;
+  @media screen and (max-width: 768px) {
+    width: 40vw;
+  }
   
 `;
 
 const StyledFormItem = styled.div`
   margin-bottom: 50px;
-
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
   .message {
     font-size: 0.8rem;
   }
@@ -50,6 +60,18 @@ const StyledFormItem = styled.div`
   .error {
     color: red;
   }
+  @media screen and (max-width: 768px) {
+    font-size: .8em;
+    width: 100%;
+    .message {
+    font-size: 0.7rem;
+  }
+  .checkNick {
+    font-size: 0.7rem;
+  }
+    
+  }
+  
 `;
 
 const NewPassword = () => {
