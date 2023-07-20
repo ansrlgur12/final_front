@@ -16,10 +16,8 @@ import "../../font.css";
 
 const OjiNojiMapMain = () => {
     const context = useContext(MarkerContext);
-    const {overlayOpen, setOverlayOpen, setCurrentData, currentData, setSelectedSortBy, isSubmit} = context;
+    const {overlayOpen, setOverlayOpen, setCurrentData, isSubmit} = context;
     const [markerPositions, setMarkerPositions] = useState([]);
-    const [marker, setMarker] = useState();
-    const [mapLocations, setMapLocations] = useState([]);
     const nav = useNavigate();
 
     useEffect(()=>{
@@ -64,10 +62,5 @@ const OjiNojiMapMain = () => {
         </MainStyle>
         </>
     );
-
-    //<div className="btnSection" onClick={setNormalMapInfo}>
-//     <img className="img" src={markerImage} alt="" />
-//     <p>전체 캠핑장</p>
-//   </div>
 }
 export default OjiNojiMapMain;
