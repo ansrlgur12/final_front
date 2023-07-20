@@ -15,7 +15,6 @@ import Modal from "../Commons/Modal";
 import Functions from "../Functions";
 import "../font.css";
 
-
 const HeaderStyle = styled.div`
     font-family: 'GongGothicMedium';
     box-sizing: border-box; 
