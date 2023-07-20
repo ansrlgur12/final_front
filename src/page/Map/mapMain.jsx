@@ -166,7 +166,7 @@ const MapMain = () => {
     <Header/>
     <MainStyle>
     <div className="App">
-      <div id="wrap" style={{width:'100vw', height: '89.5vh'}}>
+      <div id="wrap" style={{width:'100vw', height: '89vh'}}>
             <KakaoMap markerPositions={markerPositions} campLocMarkerImg={marker}/>
             <Sidebar />
             <Overlay open={overlayOpen} close={closeOverlay}/>

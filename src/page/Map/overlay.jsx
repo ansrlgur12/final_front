@@ -184,7 +184,7 @@ const Overlay = (props) => {
               setCampInfo(rsp.data);
               setContentId(rsp.data[0]);
               const rsp2 = await LikesApi.countCampLikesJwt(dataId);
-              const rsp3 = await AxiosApi.checkLike(dataId, userId);
+              const rsp3 = await AxiosApi.checkLike(dataId);
               const rsp4 = await AxiosApi.commentCount(dataId);
               setCommentCount(rsp4.data);
               setCount(rsp2.data);
