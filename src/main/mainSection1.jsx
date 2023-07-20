@@ -7,16 +7,17 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import "../font.css";
 import{ Navigation, Pagination } from "swiper";
 
-
 export const Section1 = styled.div`
     display: flex;
     justify-content: center;
     font-family: "Nanum Myeongjo";
+
     .backImg {
         width: 100vw;
-        height: 90vh;
+        height: 50vh;
         overflow: hidden;
         position: relative;
+        display: flex;
     }
     img {
         width: 100vw;
@@ -34,12 +35,11 @@ export const Section1 = styled.div`
         position: absolute;
         transform: translate(-50%, -50%);
         opacity: 0; /* 초기에 텍스트를 숨김 */
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
-        transition: opacity 0.2s ease, top 0.2s ease-in; /* 애니메이션 효과 설정 */
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6); /* 테두리 색과 크기 설정 */
+        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
     }
     .mainText2 {
-        bottom: 0;
-        left: 40vw;
+        left: 30vw;
         z-index: 1;
         font-size: 2rem;
         color: rgb(186, 210, 170);
@@ -48,7 +48,20 @@ export const Section1 = styled.div`
         transform: translate(-50%, -50%);
         opacity: 0; /* 초기에 텍스트를 숨김 */
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
-        transition: opacity 0.2s ease, top 0.2s ease-in; /* 애니메이션 효과 설정 */
+        transition: opacity 0.6s ease, top 0.6s ease-in-out; /* 애니메이션 효과 설정 */
+    }
+    .mainText3 {
+        top: 50%;
+        left: 30vw;
+        z-index: 1;
+        font-size: 2rem;
+        color: rgb(186, 210, 170);
+        font-weight: bold;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        opacity: 0; /* 초기에 텍스트를 숨김 */
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6); /* 테두리 색과 크기 설정 */
+        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
     }
     
     .text2, .text3{
@@ -59,7 +72,7 @@ export const Section1 = styled.div`
         color: rgb(255, 254, 179);
     }
     .text3{
-        color: #c8c8c8;
+        color: #9e8569;
         text-shadow: 2px 2px 5px rgba(121, 121, 121, 0.5);
     }
     .show {
@@ -81,39 +94,73 @@ export const Section1 = styled.div`
     }
     .swiper-button-prev,
     .swiper-button-next {
-    opacity: 0.5;
-    color: white !important;
+        opacity: 0.5;
+        color: white !important;
+        display: none;
     }
+
     @media screen and (max-width: 768px) {
         .backImg {
-        padding-top: 10vh;
-        width: 100vw;
-        height: 50vh;
-    }
-    img {
-        width: 100%;
-        height: 50vh;
-        object-fit: cover;
-        object-position: center;
-    }
-    .mainText {
-        top: 50%;
-        margin-left: 10vw;
-        z-index: 1;
-        font-size: 1.3rem;
-        font-weight: bold;
-        position: absolute;
-        transform: translate(-50%, -50%);
-        opacity: 0; /* 초기에 텍스트를 숨김 */
-        transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
-    }
-    .mainText2{
-        font-size: 1.3rem;
-    }
-    .show {
-        opacity: 1; /* 텍스트를 나타냄 */
-        top: calc(50% - 10px); /* 위로 10px 이동 */
-    }
+            /* padding-top: 10vh; */
+            width: 100vw;
+            height: 30vh;
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: 50vh;
+            object-fit: cover;
+            object-position: center;
+        }
+        .mainText {
+            margin-left: 5vw;
+            margin-top: 5vh;
+            z-index: 1;
+            font-size: 1.3rem;
+            font-weight: bold;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            opacity: 0; /* 초기에 텍스트를 숨김 */
+            transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+        } 
+        .mainText2 {
+            margin-left: 5vw;
+            margin-top: 5vh;
+            z-index: 1;
+            font-size: 1.3rem;
+            color: rgb(186, 210, 170);
+            font-weight: bold;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            opacity: 0; /* 초기에 텍스트를 숨김 */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 테두리 색과 크기 설정 */
+            transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+        }
+        .mainText3 {
+            margin-left: 5vw;
+            margin-top: 5vh;
+            z-index: 1;
+            font-size: 1.3rem;
+            color: rgb(210, 213, 158);
+            font-weight: bold;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            opacity: 0; /* 초기에 텍스트를 숨김 */
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6); /* 테두리 색과 크기 설정 */
+            transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
+        }
+        .show {
+            opacity: 1; /* 텍스트를 나타냄 */
+            top: calc(50% - 10px); /* 위로 10px 이동 */
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+            opacity: 0.5;
+            color: white !important;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
     }
 `;
 
@@ -149,6 +196,10 @@ const MainSection1 = () => {
                 scrollbar={{ draggable: true}}
                 onSlideChange={slideChange}
                 onSlideChangeTransitionEnd={slideChangeEnd}
+                autoplay={{
+                    delay: 3000, // 3초마다 슬라이드 변경
+                    disableOnInteraction: false // 사용자의 상호작용이 있어도 자동 슬라이드 유지
+                }}
                 >
                     <SwiperSlide>
                         <img src={backImg1} alt=""/>
@@ -174,7 +225,7 @@ const MainSection1 = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={backImg3} alt=""/>
-                        <div className={`mainText ${showText ? 'show' : ''}`} >
+                        <div className={`mainText3 ${showText ? 'show' : ''}`} >
                             <p className="textTitle text3">
                                 자연 속에서 불을 지피고 별을 바라보며, 
                                 <br/>
@@ -190,77 +241,3 @@ const MainSection1 = () => {
 
 export default MainSection1;
 
-
-
-
-
-
-
-
-// 임시로 빼두었던 코드
-/*
-const [ImgIndex, setImgIndex] = useState(0);
-    const [opacity, setOpacity] = useState(1);
-
-    // 배경 화면 변경
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            // 다음 배경 화면 인덱스로 변경
-            setOpacity(0); // 페이드 아웃 효과를 위해 투명도를 0으로 설정
-
-            setTimeout(() => {
-                setImgIndex(prevIndex => (prevIndex + 1) % 3);
-            }, 1000); // 1초 후에 이미지 인덱스 변경
-
-            setTimeout(() => {
-                setOpacity(1); // 페이드 인 효과를 위해 투명도를 1로 설정
-            }, 1100); // 1.1초 후에 투명도를 1로 변경하여 페이드 인 효과 적용
-        }, 5000); // 5초마다 변경 (1000ms = 1초)
-
-        return () => clearTimeout(timer);
-    }, [ImgIndex]);
-
-    const backImgs1 = {
-        backgroundImage: `url(${backImg1})`,
-        backgroundSize : 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        opacity: ImgIndex === 0 ? opacity : 0, // 현재 인덱스에 해당하는 이미지에만 투명도 적용
-        transition: 'opacity 1s ease-in-out' // 페이드 인/아웃 애니메이션 효과 적용
-    };
-    const backImgs2 = {
-        backgroundImage: `url(${backImg2})`,
-        backgroundSize : 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        opacity: ImgIndex === 1 ? opacity : 0, // 현재 인덱스에 해당하는 이미지에만 투명도 적용
-        transition: 'opacity 1s ease-in-out' // 페이드 인/아웃 애니메이션 효과 적용
-    };
-    const backImgs3 = {
-        backgroundImage: `url(${backImg3})`,
-        backgroundSize : 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        opacity: ImgIndex === 2 ? opacity : 0, // 현재 인덱스에 해당하는 이미지에만 투명도 적용
-        transition: 'opacity 1s ease-in-out' // 페이드 인/아웃 애니메이션 효과 적용
-    };
-                    <SwiperSlide>{ImgIndex === 0 && <img src={backImgs1} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 1 && <img src={backImgs2} alt="" className='backImgs'/>}</SwiperSlide>
-                    <SwiperSlide>{ImgIndex === 2 && <img src={backImgs3} alt="" className='backImgs'/>}</SwiperSlide>
-
-    */

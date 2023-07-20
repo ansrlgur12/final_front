@@ -161,7 +161,7 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
-    const {setEmail, setPassword, setIsLogin, IsLogin, userImg, id, email} = userInfo;
+    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, userEmail} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
@@ -170,15 +170,15 @@ const Header = () =>{
 
    
     const handleMyPageClick = () => {
-        if (!email) {
-            nav("/userInfo");
+        if (!userEmail) {
+            setIsOpen(true);
         } else {
             nav("/userInfo");
         }
     };
       
     const handleCartClick = () => {
-        if (!email) {
+        if (!userEmail) {
             setIsOpen(true);
         } else {
             nav("/cart");
@@ -208,10 +208,9 @@ const Header = () =>{
     };
 
     const profileImg = {
-        backgroundImage : `url(${userImg})`,
+        backgroundImage : `url(${userImage})`,
         backgroundSize : 'contain',
         backgroundRepeat : 'no-repeat'
-        
     }
     
     const onClickNormalCamping = () => {
@@ -230,7 +229,7 @@ const Header = () =>{
     }
 
     const logOut = () => {
-        setEmail(""); 
+        setUserEmail(""); 
         setPassword(""); 
         setIsLogin(false); 
         nav("/intro");
