@@ -40,7 +40,7 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-md-4">
                         <h3>About Us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec nulla eu nisi mattis maximus. Mauris ac faucibus metus. Integer euismod velit non lacus faucibus iaculis.</p>
+                        <p>문기혁 정승현 정인식 권영진</p>
                     </div>
                     <div className="col-md-4">
                         <h3>Contact Us</h3>
