@@ -16,7 +16,8 @@ const Section3 = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
+
     .swipe-slide{
         height: 100%;
     }
@@ -65,25 +66,30 @@ const Section3 = styled.div`
         height: auto;
         margin-top: 0;
         padding: 1em;
+        border-radius: 15px;
+        box-shadow: 1px 2px 5px gray;
+
     }
     .sortBy{
-    font-size: .7rem;
-    margin: 5px 3px 0px 5px;
-    cursor: pointer;
-    font-weight: bold;
-    height: auto;
-        list-style: none;
-        border: 2px solid #56966b;;
+        width: 5vw;
+        font-size: .9rem;
+        margin: 5px 3px 12px 0px;
+        cursor: pointer;
+        font-weight: bold;
+        height: auto;
+        box-shadow: 1px 2px 5px gray;
         border-radius: 10px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        padding: 6px;
+        padding: 4px;
         /* margin: 5px; */
         background-color: #f3f3f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
 
     }
     .selected{
-        font-size: .9rem;
+        font-size: 1.2rem;
         font-weight: bold;
         color: rgb(20, 108, 49);
         border-bottom: none;
@@ -105,6 +111,8 @@ const Section3 = styled.div`
     margin-bottom: 10px;
     }
     @media screen and (max-width: 768px) {
+        margin-top: 2vh;
+        margin-bottom: 1vh;
         .sBottom{
         background-color: #f3f3f3;
         height: auto;
@@ -118,14 +126,20 @@ const Section3 = styled.div`
     padding: 15px 3px;
     border-radius: 20px;
     color: white !important;
-    
-
+    height: 3vh;
+    width: 2vh;
     }
     .swiper-button-prev:after,
     .swiper-button-next:after {
     font-size: 1.1rem !important;
     font-weight: 600 !important;
     margin-bottom: 10px;
+    }
+
+    .sortBy{
+        width: 15vw;
+        font-size: .7em;
+        height: 4vw;
     }
 }
 `;
@@ -139,7 +153,7 @@ box-shadow: 1px 2px 5px gray;
 @media screen and (max-width: 768px) {
     width: 25vw;
     height: 25vw;
-    margin-top: 1em;
+    /* margin-top: .5em; */
     
 }
 
@@ -149,8 +163,9 @@ const CardDesc = styled.div`
 border-bottom-left-radius: 15px;
 border-bottom-right-radius: 15px;
 width: 100%;
-height: 30%;
+height: 32%;
 background-color: rgba(34, 34, 34, 0.8);
+
 `;
 
 const Title = styled.h2`
@@ -167,7 +182,8 @@ const CampDesc = styled.div`
     justify-content: space-between;
     @media screen and (max-width: 768px) {
       font-size: .4em;
-      margin: 0 .5em 1.5em .5em;
+      margin: 0 .5em 0em .5em;
+      
     }
 `;
 const CampDescSection = styled.div`
@@ -181,7 +197,22 @@ const CampDescSection = styled.div`
     }
     @media screen and (max-width: 768px) {
       margin-bottom: .5em;
-      line-height: 1;
+      line-height: .7;
+    }
+    
+`;
+const CampDescSection2 = styled.div`
+    color: white;
+    margin: .5em;
+    padding-bottom: 1em;
+    font-size: 1.2em;
+    .num{
+        margin-left: .5em;
+        
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: .5em;
+      line-height: .1;
     }
     
 `;
@@ -276,13 +307,11 @@ const MainSection3 = (props) => {
     return(
         <Section3>
             <div className="select">
-                <div className="sTop">
                     <div className="topNav">
                         <div className={`sortBy ${selectedSortBy === '이름순' ? 'selected' : ''}`} onClick={() => handleSortByClick('이름순')}>이름순</div>
                         <div className={`sortBy ${selectedSortBy === '등록순' ? 'selected' : ''}`} onClick={() => handleSortByClick('등록순')}>최신순</div>
                         <div className={`sortBy ${selectedSortBy === '인기순' ? 'selected' : ''}`} onClick={() => handleSortByClick('인기순')}>추천순</div>
                     </div>
-                </div>
                 <div className="sBottom">
                         <Swiper
                             // loop={true}
@@ -301,7 +330,7 @@ const MainSection3 = (props) => {
                                     <Title>{camp.facltNm.length > 8 ? camp.facltNm.substring(0, 8) + "..." : camp.facltNm}</Title>
                                     <CampDesc>
                                         <CampDescSection>{calculateDistance(camp)}</CampDescSection>
-                                        <CampDescSection><FontAwesomeIcon icon={faHeart} size="lg" color="red"/><span className='num'>{camp.likes}</span></CampDescSection>
+                                        <CampDescSection2><FontAwesomeIcon icon={faHeart} size="lg" color="red"/><span className='num'>{camp.likes}</span></CampDescSection2>
                                     </CampDesc>
                                 </CardDesc>
                             </CardContainer>
