@@ -17,6 +17,8 @@ import { Margin } from '@mui/icons-material';
 import MyPageImageBar from './myPageImage';
 import { ImageFlexBox } from './cart';
 import { SidebarContainer } from './cart';
+import Functions from '../../../Functions';
+import noImage from '../../../images/CAMOLOGO.png'
 
 const { Meta } = Card;
 
@@ -33,8 +35,20 @@ const StyledContent = styled.div`
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  .title{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 768px) {
+      .title{
+        font-size: 1em;
+      }
+    }
+
 `;
 
 const MyPostsWrapper = styled.div`
@@ -67,6 +81,7 @@ const Title = styled.h2`
 `;
 
 const MyCamp = () => {
+  const token = Functions.getAccessToken();
   const [posts, setPosts] = useState([]);
   const idContext = useContext(UserContext);
   const context = useContext(MarkerContext);
@@ -79,9 +94,9 @@ const MyCamp = () => {
     fetchPostsByMember(memberId);
   }, [id]);
 
-  const fetchPostsByMember = async (memberId) => {
+  const fetchPostsByMember = async () => {
     try {
-      const response = await AxiosApi.memberLikedCamp(memberId);
+      const response = await AxiosApi.memberLikedCamp(token);
       const data = response.data;
       setPosts(data);
     } catch (error) {
@@ -106,12 +121,12 @@ const MyCamp = () => {
               <img
                 onClick={()=>onClickImage(post.mapX, post.mapY)}
                 alt="대표이미지"
-                src={post.firstImageUrl}
+                src={`${post.firstImageUrl ? post.firstImageUrl : noImage}`}
                 style={{ width: '100%', height: '20vw', objectFit: 'cover' }}
               />
           }
         >
-          <Meta avatar={<Avatar src={profile} />} title={post.facltNm}/>
+          <Meta  title={post.facltNm}/>
         </PostContent>
       </Col>
     ));
@@ -128,6 +143,7 @@ const MyCamp = () => {
         <ImageFlexBox>
           <MyPageImageBar type = {"camp"}/>
         <StyledContent style={{marginTop : '5vh', height : 'auto'}}>
+          <div className="title">좋아요 누른 캠핑장</div>
           <MyPostsWrapper>
             <Row gutter={[50, 15]}>{renderPosts()}</Row>
           </MyPostsWrapper>
