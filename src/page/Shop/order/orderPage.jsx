@@ -164,8 +164,7 @@ const OrderPage = () => {
   const [payMethodId, setPayMethodId] = useState(0); 
 
 
-// 상태 정의
-const [cartData, setCartData] = useState([]);
+
 
 
 

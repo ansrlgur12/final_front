@@ -12,7 +12,7 @@ import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import SmallSideBar from '../smallSidebar';
 import MobileCart from './mobileCart';
-
+import Modal from '../../../Commons/Modal';
 
 
 
@@ -85,7 +85,17 @@ tbody {
 .mobileCart{
   display: none;
 }
-
+.modalBtn{
+    width:6vw;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2D6247;
+  padding:0.6rem;
+  cursor: pointer;
+  }
+  .modalBtn:hover{
+    opacity: 0.7;
+  }
 @media screen and (max-width:768px) {
 display: none;
 }
@@ -128,14 +138,23 @@ export const ImageFlexBox = styled.div`
 const Cart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems,selectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const { email } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
 
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
+
+const openModal = () => {
+  setIsOpen(true);
+};
+
+const closeModal = () => {
+  setIsOpen(false);
+};
 
 // 서버로부터 데이터를 받아오는 함수
 const fetchCartData= async()=> {
@@ -285,10 +304,27 @@ useEffect(() => {
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
               </TotalAmount>
-              <Button type="primary" onClick={()=>nav("/orderpage")}>
-                 결제하기
-                </Button>
+              {selectedItems.length > 0 ? (
+        <Button type="primary" onClick={() => nav("/orderpage")}>
+          결제하기
+        </Button>
+      ) : (
+        <Button type="primary" onClick={() => setIsOpen(true)}>
+          결제하기
+        </Button>
+      )}
+      
             </TotalPayment>
+            
+            <Modal isOpen={isOpen} onClose={closeModal}>
+       
+       <p>구매할 상품을 선택하세요.</p>
+        <div className="btnWrapper">
+       <button className="modalBtn"  onClick={() => {  closeModal(); }}>닫기</button>
+       
+        
+       </div>
+     </Modal>
           </TableContainer>
           <MobileCart/>
           <MyFavorite fetchCartData={fetchCartData}/>

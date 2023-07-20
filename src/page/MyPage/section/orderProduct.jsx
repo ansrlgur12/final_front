@@ -78,6 +78,7 @@ tbody {
   padding: 8px 8px;
 }
 .ant-table-thead > tr > th  {
+  white-space: nowrap;
   padding: 4px 4px;
 }
 .modalBtn{

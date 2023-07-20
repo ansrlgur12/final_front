@@ -257,10 +257,10 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {setIsLogin} = context;
+    const {setIsLogin,setEmail} = context;
 
     // 아이디, 패스워드 입력
-    const[email, setEmail] = useState("");
+    const[email, setEmail2] = useState("");
     const[password, setPassword] = useState("");
 
     // 오류메세지
@@ -291,6 +291,7 @@ const Login = () => {
             console.log("로그인");
             setLoginFinishOpen(true);
             setIsLogin(true);
+            setEmail(email);
 
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -307,7 +308,7 @@ const Login = () => {
         // 5 ~ 20자리의 영문자, 숫자, 언더스코어로 이루어진 문자열 체크
         const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
         const emailCurrent = e.target.value;
-        setEmail(emailCurrent);
+        setEmail2(emailCurrent);
         if(!regexEmail.test(emailCurrent)){
             setIdMessage("5자리 이상 20자리 미만으로 입력해주세요");
             setIsEmail(false);
