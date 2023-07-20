@@ -22,6 +22,10 @@ position: relative;
         justify-content: right;
     }
     .submitBtn{
+        color: #fff;
+        background-color: #2D6247;
+        cursor: pointer;
+        border-radius:8px;
         margin: .5em;
     }
     .comments{
@@ -40,6 +44,10 @@ position: relative;
         margin-left: 2vw;
     }
     .writeBtn{
+        color: #fff;
+        background-color: #2D6247;
+        border-radius:8px;
+        cursor: pointer;
         width: 5vw;
         height: 5vh;
         position: absolute;

@@ -110,6 +110,7 @@ const MapStyled = styled.div`
       align-items: center;
     }
     .detailBtn{
+      cursor: pointer;
       position: absolute;
       right: .2em;
       margin-right: .5em;
