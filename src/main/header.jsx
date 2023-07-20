@@ -189,19 +189,19 @@ const Header = () =>{
     const closeModal = () => {
         setIsOpen(false);
     };
+
     const logOut = () => {
-      
         setIsLogoutModal(true);
-      };
+    };
+
     const closeLogoutModal = () => {
-       
         setIsLogoutModal(false);
         // 실제 로그아웃 동작 수행
         localStorage.clear();
         nav("/intro");
-      };
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
 
     },[hamburgerClicked])
 
@@ -239,8 +239,6 @@ const Header = () =>{
         setCurrentData("ojinoji");
         nav("/ojinoji")
     }
-
- 
     
     // 성능최적화. nav바에 적용
     // 전역관리

@@ -5,7 +5,8 @@ import backImg2 from "../images/backgroundimg2.jpg";
 import backImg3 from "../images/backgroundimg3.jpg";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import "../font.css";
-import{ Navigation, Pagination } from "swiper";
+import{ Navigation, Pagination, Autoplay } from "swiper";
+import 'swiper/css/autoplay'
 
 export const Section1 = styled.div`
     display: flex;
@@ -187,8 +188,9 @@ const MainSection1 = () => {
         <Section1>
             <div className='backImg'>
                 <Swiper
+                direction="horizontal" // 가로 방향 슬라이드 (기본값)
                 loop = {true}
-                modules = {[Navigation, Pagination]}
+                modules = {[Navigation, Pagination, Autoplay]}
                 spaceBetween={0}
                 slidesPerView={1}
                 navigation
@@ -197,8 +199,8 @@ const MainSection1 = () => {
                 onSlideChange={slideChange}
                 onSlideChangeTransitionEnd={slideChangeEnd}
                 autoplay={{
-                    delay: 3000, // 3초마다 슬라이드 변경
-                    disableOnInteraction: true // 사용자의 상호작용이 있어도 자동 슬라이드 유지
+                    delay: 5000, // 3초마다 슬라이드 변경
+                    disableOnInteraction: false, // 사용자 클릭 등 변경 시 자동 슬라이드 정지 여부 true : 멈춤
                 }}
                 >
                     <SwiperSlide>
