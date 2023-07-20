@@ -287,18 +287,38 @@ campLike : async(contentId, id) => {
     return await axios.post(domain + `/likes/camp/${contentId}/member/${id}`);
 },
 
-campUnLike : async(contentId, id) => {
+//jwt 좋아요취소
+campUnLike : async(token, contentId) => {
+    try{
+        return await axios.delete(domain + `/likes/camp/${contentId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              }
+        });
+    }catch(error) {
+        throw error;
+    }
     
-    return await axios.delete(domain + `/likes/camp/${contentId}/member/${id}`);
 },
 
 viewCampLike : async(contentId) => {
 
     return await axios.get(domain + `/likes/camp/${contentId}`);
 },
-
-checkLike : async(contentId, id) => {
-    return await axios.get(domain + `/likes/checkLike/${contentId}/${id}`);
+// jwt 확인
+checkLike : async(token, contentId) => {
+    try{
+        return await axios.get(domain + `/likes/checkLike/${contentId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              }
+        });
+    }catch(error){
+        throw error;
+    }
+    
 },
 
 commentCount : async(campId) => {

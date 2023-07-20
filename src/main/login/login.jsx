@@ -122,6 +122,80 @@ const LoginStyle = styled.div`
     .snslog{
         opacity: 0;
     }
+    @media screen and (max-width: 768px) {
+        .container {
+           width: 70vw;
+        }
+        .loginInput {
+        width: 65vw;
+        padding: 10px;
+        margin: 10px auto;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        }
+        .loginButton {
+            width: 69vw;
+            height: 2.2rem;
+            padding: 0px;
+            margin: 4px;
+            background-color: #4caf50;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        .loginButton:hover {
+            background-color: #45a049;
+            color: #f2f2f2;
+        }
+        .notLoginButton{
+            cursor: pointer;
+            width: 69vw;
+            height: 2.2rem;
+            padding: 0px;
+            margin: 4px;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            color: red;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        .kakao {
+        margin: 10px;
+        width: 46px;
+        height: 46px;
+        background-size: cover;
+        background-position: left;
+        object-fit: contain;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .google {
+        margin: 10px;
+        width: 46px;
+        height: 46px;
+        border-radius: 8px;
+        background-size: cover;
+        background-position: left;
+        object-fit: contain;
+        cursor: pointer;
+    }
+    .naver {
+        margin: 10px;
+        width: 46px;
+        height: 46px;
+        border-radius: 8px;
+        background-size: cover;
+        background-position: 15% 50%;
+        object-fit: contain;
+        cursor: pointer;
+    }
+    }
 `;
 
 const SignUpStyle = styled.div`
@@ -220,7 +294,8 @@ const Login = () => {
 
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
-            
+            localStorage.setItem('email', email);
+
         } 
         else {
             console.log("로그인 에러");

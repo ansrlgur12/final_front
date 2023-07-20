@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import introLogo from "../images/CAMO로고3.png"
 import VideoBackground from "./introBack";
 import Login from "./login/login";
+import "../font.css";
 
 
 const IntroStyle = styled.div`
@@ -41,6 +42,7 @@ const IntroStyle = styled.div`
         margin: 20px 0 20px 0;
     }
     .loginBtn{
+        font-family: 'GongGothicMedium';
         width: 80px;
         height: 40px;
         font-size: 1.2rem;
@@ -53,11 +55,65 @@ const IntroStyle = styled.div`
         padding: 0;
         color: #ccc
     }
+    .p1{
+        font-family: 'SBAggroB';
+    }
     .p2 {
         font-size: 1.2rem;
     }
     p{
         margin: 8px;
+    }
+        @media screen and (max-width: 768px) {
+        .introLogoBox {
+            width: 140px;
+            height: 140px;
+        }
+        .introContainer {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20vh; // height와 합쳐서 100vh이면 한 화면 모두 차지, 넘으면 스크롤 발생
+            height: 76vh;
+            width: 100vw;
+            background: linear-gradient(to right, black, transparent);
+        }
+        .introContainer2{
+            padding-left: 10vw;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .introContainer2.show{
+            opacity: 1;
+        }
+        .introBody{
+
+        }
+        .camoBody {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f9f9f9;
+            margin: 20px 0 20px 0;
+        }
+        .loginBtn{
+            
+            width: 80px;
+            height: 40px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            padding: 0;
+            cursor: pointer;
+        }
+        .loginBtn:hover{
+            background-color: #2D6247;
+            padding: 0;
+            color: #ccc
+        }
+        .p2 {
+            font-size: 1rem;
+        }
+        p{
+            margin: 8px;
+        }
     }
 `;
 
