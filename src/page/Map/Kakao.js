@@ -183,15 +183,8 @@ const KakaoMap = (props) => {
   
 
   return(
-    <MapStyle>
     <div id="container" ref={container} />
-    </MapStyle>
   );
 }
 
 export default KakaoMap;
-
-const MapStyle = styled.div`
-  font-family: 'LINESeedKR-Bd' ;
-  line-height: 1;
-`;

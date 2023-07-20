@@ -101,19 +101,19 @@ export const MainStyle = styled.div`
         height: 4vh;
       }
       #wrap{
-        padding-top: 12.5vh;
+        padding-top: 11.5vh;
       }
     }
-
+/* 
     @media screen and (max-width: 414px){
       #wrap{
         padding-top: 9.5vh;
       }
-    }
+    } */
 
     @media screen and (max-width: 375px){
       #wrap{
-        padding-top: 12.5vh;
+        padding-top: 11.5vh;
       }
       
     }
