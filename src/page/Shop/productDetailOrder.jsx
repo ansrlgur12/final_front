@@ -70,13 +70,13 @@ export const ButtonWrapper = styled.div`
 const ProductDetailOrder=({product})=> {
   const [quantity, setQuantity] = useState(1);
 const nav = useNavigate();
-const { userEmail } = useContext(UserContext);
+const { email } = useContext(UserContext);
 const { addToCart,setSelectedItems } = useContext(CartContext);
 const [isOpen, setIsOpen] = useState(false);
 const [addedCartItemId, setAddedCartItemId] = useState(null);
 
 const loginCheck = () => {
-  if (!userEmail) {
+  if (!email) {
       setIsOpen(true);
   } else {
       handleBuyNow();
@@ -96,8 +96,8 @@ const closeModal = () => {
 
 const handleAddToCart = async () => {
   try {
-    console.log(product.id, quantity, userEmail);
-    const response = await AxiosApi.addToCart(product.id, quantity, userEmail);
+    console.log(product.id, quantity, email);
+    const response = await AxiosApi.addToCart(product.id, quantity, email);
     
     if(response.status === 200) {
       console.log('성공');

@@ -72,11 +72,6 @@ const items = [
         label: '내가 쓴 게시글',
         to: '/MyReview'
       },
-      {
-        key: 'sub3-3',
-        label: '찜한 상품(x)',
-        to: '/MyFavorite'
-      },
     ],
   },
   {

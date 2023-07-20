@@ -31,7 +31,8 @@ const UserStore = (props) => {
             setEmail(response.data.email);
             setNickName(response.data.nickName);
             setUserImg(response.data.userImg);
-            setToken(response.data.token);            
+            setToken(response.data.token);   
+            console.log(email);         
         })
         .catch(error => {
             console.log(error);

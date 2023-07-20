@@ -15,7 +15,6 @@ import Modal from "../Commons/Modal";
 import Functions from "../Functions";
 import "../font.css";
 
-
 const HeaderStyle = styled.div`
     font-family: 'GongGothicMedium';
     box-sizing: border-box; 
@@ -130,7 +129,7 @@ const HeaderStyle = styled.div`
         list-style: none;
         margin: 20px;
         font-size: 1em;
-        color: green;
+        color: #2D6247;
         font-weight: bold;
         margin-top: 0;
     }
@@ -163,13 +162,13 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
-    const {setUserEmail, setPassword, setIsLogin, IsLogin, userImage, id, email} = userInfo;
+    const {setEmail, setPassword, setIsLogin, IsLogin, userImage, id, email} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [isOpen, setIsOpen] = useState(false);
-
+    const [isLogoutModal, setIsLogoutModal] = useState(false);
    
     const handleMyPageClick = () => {
         if (!token) {
@@ -191,7 +190,18 @@ const Header = () =>{
         setIsOpen(false);
     };
 
-    useEffect(()=>{
+    const logOut = () => {
+        setIsLogoutModal(true);
+    };
+
+    const closeLogoutModal = () => {
+        setIsLogoutModal(false);
+        // 실제 로그아웃 동작 수행
+        localStorage.clear();
+        nav("/intro");
+    };
+
+    useEffect(() => {
 
     },[hamburgerClicked])
 
@@ -228,14 +238,6 @@ const Header = () =>{
         setOverlayOpen(false);
         setCurrentData("ojinoji");
         nav("/ojinoji")
-    }
-
-    const logOut = () => {
-        // setUserEmail(""); 
-        // setPassword(""); 
-        // setIsLogin(false);
-        localStorage.clear(); 
-        nav("/intro");
     }
     
     // 성능최적화. nav바에 적용
@@ -301,6 +303,17 @@ const Header = () =>{
                     </button>
                 </div>
             </Modal>
+            <Modal
+        isOpen={isLogoutModal}
+        onClose={closeLogoutModal}
+    >
+      <p>로그아웃이 완료되었습니다.</p>
+      <div className="btnWrapper">
+       <button className="modalBtn"  onClick={() => {  closeLogoutModal(); }}>예</button>
+       
+        
+       </div>
+    </Modal>
             </ModalStyle>
         </>
     );

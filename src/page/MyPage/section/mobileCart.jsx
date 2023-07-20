@@ -9,7 +9,7 @@ import AxiosApi from '../../../API/TestAxios';
 import { UserContext } from '../../../API/UserInfo';
 import MobileFavorite from './mobileFavorite';
 import EllipsisText from '../../../Commons/ellipsis';
-
+import Modal from '../../../Commons/Modal';
 
 
 
@@ -52,10 +52,15 @@ tbody {
   justify-content: center;
   
 }
-.ant-table-tbody > tr.ant-table-row:hover > td {
+.modalBtn{
+    width:20vw;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2D6247;
+  padding:0.6rem;
+  cursor: pointer;
+  }
   
- 
-}
 
 @media screen and (max-width:768px) {
     padding:0.8rem;
@@ -98,18 +103,27 @@ const TotalAmount = styled.div`
 const MobileCart = () => { 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(0); //현재 선택된 항목들의 총합계 금액
-  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
+  const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems,selectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
-  const { userEmail } = useContext(UserContext);
+  const { email } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
  
 
 // 상태 정의
 const [cartData, setCartData] = useState([]);
 
+const openModal = () => {
+  setIsOpen(true);
+};
+
+const closeModal = () => {
+  setIsOpen(false);
+};
+
 // 서버로부터 데이터를 받아오는 함수
 const fetchCartData= async()=> {
-    const response = await AxiosApi.cartList(userEmail);
+    const response = await AxiosApi.cartList(email);
     if (response.status === 200) {
         setCartData(response.data);
         setCart(response.data);
@@ -126,7 +140,7 @@ const setQuantity = async (key, quantity) => {
   setQuantityInContext(key, quantity);
 
   if (window.location.pathname === '/cart') {
-    const response = await AxiosApi.updateItem(key, quantity, userEmail);
+    const response = await AxiosApi.updateItem(key, quantity, email);
     if (response.status !== 200) {
       console.error('Failed to update item quantity');
     } else {
@@ -149,8 +163,8 @@ useEffect(() => {
 
 const handleRemoveFromCart = async (cartItemId) => {
   try {
-    console.log(userEmail,cartItemId);
-    const response = await AxiosApi.deleteItem(cartItemId, userEmail);
+    console.log(email,cartItemId);
+    const response = await AxiosApi.deleteItem(cartItemId, email);
     if (response.status === 200) {
       removeFromCart(cartItemId);
       fetchCartData(); // 장바구니 데이터를 다시 가져옵니다.
@@ -247,10 +261,25 @@ useEffect(() => {
               <TotalAmount>
                 총 합계 금액: {totalPaymentAmount.toLocaleString()}원
               </TotalAmount>
-              <Button type="primary" onClick={()=>nav("/orderpage")}>
-                 결제하기
-                </Button>
+              {selectedItems.length > 0 ? (
+        <Button type="primary" onClick={() => nav("/orderpage")}>
+          결제하기
+        </Button>
+      ) : (
+        <Button type="primary" onClick={() => setIsOpen(true)}>
+          결제하기
+        </Button>
+      )}
             </TotalPayment>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+       
+       <p>구매할 상품을 선택하세요.</p>
+        <div className="btnWrapper">
+       <button className="modalBtn"  onClick={() => {  closeModal(); }}>닫기</button>
+       
+        
+       </div>
+     </Modal>
             </TableContainer>
             <MobileFavorite fetchCartData={fetchCartData} />
 

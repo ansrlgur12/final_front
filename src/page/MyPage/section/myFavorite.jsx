@@ -75,14 +75,14 @@ const MyFavorite = ({fetchCartData}) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
   const { removeFromFavorite,setFavorite } = useContext(FavoriteContext); // cartContext사용
   const [data, setData] = useState([]);
-  const { userEmail } = useContext(UserContext);
+  const { email } = useContext(UserContext);
   const nav = useNavigate();
   // 상태 정의
 const [favoriteData, setFavoriteData] = useState([]);
 
 // 서버로부터 데이터를 받아오는 함수
 const fetchFavoriteData = async() =>{
-    const response = await AxiosApi.favoriteList(userEmail);
+    const response = await AxiosApi.favoriteList(email);
     if (response.status === 200) {
         setFavoriteData(response.data);
         setFavorite(response.data);
@@ -95,8 +95,8 @@ useEffect(() => {
 
   const handleMoveToCart = async(favoriteItemId) => {
     try {
-      console.log(userEmail,favoriteItemId);
-      const response = await AxiosApi.favoriteMoveToCart(favoriteItemId, userEmail);
+      console.log(email,favoriteItemId);
+      const response = await AxiosApi.favoriteMoveToCart(favoriteItemId, email);
       if (response.status === 200) {
         removeFromFavorite(favoriteItemId);
         fetchFavoriteData();
@@ -111,8 +111,8 @@ useEffect(() => {
 
   const handleRemoveFromFavorite = async (favoriteItemId) => {
     try {
-      console.log(userEmail,favoriteItemId);
-      const response = await AxiosApi.favoriteDelete(favoriteItemId, userEmail);
+      console.log(email,favoriteItemId);
+      const response = await AxiosApi.favoriteDelete(favoriteItemId, email);
       if (response.status === 200) {
         removeFromFavorite(favoriteItemId);
         fetchFavoriteData();
