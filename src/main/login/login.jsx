@@ -257,7 +257,7 @@ const Login = () => {
 
     // Context API에 값을 저장
     const context = useContext(UserContext);
-    const {setIsLogin,setEmail} = context;
+    const {setIsLogin,setEmail,setUserImg,userImg} = context;
 
     // 아이디, 패스워드 입력
     const[email, setEmail2] = useState("");
@@ -291,11 +291,11 @@ const Login = () => {
             console.log("로그인");
             setLoginFinishOpen(true);
             setIsLogin(true);
-            setEmail(email);
-
+            setEmail(email);    
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
             localStorage.setItem('email', email);
+            console.log(response.data);
 
         } 
         else {
