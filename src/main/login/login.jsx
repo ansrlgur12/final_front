@@ -117,7 +117,6 @@ const LoginStyle = styled.div`
         background-size: cover;
         background-position: center;
         object-fit: contain;
-
     }
     .snslog{
         opacity: 0;
@@ -211,19 +210,22 @@ const Login = () => {
     };
 
     const onClickLogin = async() => {
-        // 로그인을 위해 Axios 호출
-        const response = await AxiosApi.memberLogin(email, password);
-        if(response.data) {
-            console.log("로그인");
-            setLoginFinishOpen(true);
-            setIsLogin(true);
-
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            
-        } 
-        else {
-            console.log("로그인 에러");
+        try {
+            // 로그인을 위해 Axios 호출
+            const response = await AxiosApi.memberLogin(email, password);
+            if(response.data) {
+                console.log("로그인");
+                console.log(response.data);
+                setLoginFinishOpen(true);
+                setIsLogin(true);
+                localStorage.setItem('accessToken', response.data.accessToken);
+                localStorage.setItem('refreshToken', response.data.refreshToken);  
+            } 
+            else {
+                console.log("로그인 에러");
+                setModalOpen(true);
+            }
+        } catch(error){
             setModalOpen(true);
         }
     };
