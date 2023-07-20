@@ -101,7 +101,7 @@ const MobileCart = () => {
   const { setCart,removeFromCart,setQuantity: setQuantityInContext,setSelectedItems } = useContext(CartContext); // cartContext사용
   const [data, setData] = useState([]);
   const nav = useNavigate();
-  const { userEmail } = useContext(UserContext);
+  const { email } = useContext(UserContext);
  
 
 // 상태 정의
@@ -109,7 +109,7 @@ const [cartData, setCartData] = useState([]);
 
 // 서버로부터 데이터를 받아오는 함수
 const fetchCartData= async()=> {
-    const response = await AxiosApi.cartList(userEmail);
+    const response = await AxiosApi.cartList(email);
     if (response.status === 200) {
         setCartData(response.data);
         setCart(response.data);
@@ -126,7 +126,7 @@ const setQuantity = async (key, quantity) => {
   setQuantityInContext(key, quantity);
 
   if (window.location.pathname === '/cart') {
-    const response = await AxiosApi.updateItem(key, quantity, userEmail);
+    const response = await AxiosApi.updateItem(key, quantity, email);
     if (response.status !== 200) {
       console.error('Failed to update item quantity');
     } else {
@@ -149,8 +149,8 @@ useEffect(() => {
 
 const handleRemoveFromCart = async (cartItemId) => {
   try {
-    console.log(userEmail,cartItemId);
-    const response = await AxiosApi.deleteItem(cartItemId, userEmail);
+    console.log(email,cartItemId);
+    const response = await AxiosApi.deleteItem(cartItemId, email);
     if (response.status === 200) {
       removeFromCart(cartItemId);
       fetchCartData(); // 장바구니 데이터를 다시 가져옵니다.

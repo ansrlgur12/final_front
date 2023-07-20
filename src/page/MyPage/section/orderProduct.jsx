@@ -11,9 +11,7 @@ import Header from '../../../main/header';
 import Sidebar from '../sidebar';
 import { LayoutContainer,SidebarContainer,ContentContainer } from './cart';
 import SmallSideBar from '../smallSidebar';
-import MyPageImageBar from './myPageImage';
-import { ImageFlexBox } from './cart';
-
+import Modal from '../../../Commons/Modal';
 
 
 const TableContainer = styled.div`
@@ -52,7 +50,14 @@ button.ant-btn{
 tbody {
   text-align: center;
 }
-
+.modalBtn{
+    width:6vw;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2D6247;
+  padding:0.6rem;
+  cursor: pointer;
+  }
 
 
 @media screen and (max-width:768px) {
@@ -75,6 +80,10 @@ tbody {
 .ant-table-thead > tr > th  {
   padding: 4px 4px;
 }
+.modalBtn{
+    width:20vw;
+  
+  }
 }
 
 
@@ -90,13 +99,24 @@ const OrderList = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); //현재 선택된 행의 key를 저장
  
   const [data, setData] = useState([]);
-  const { userEmail } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const { email } = useContext(UserContext);
   const nav = useNavigate();
   // 상태 정의
 const [orderData, setOrderData] = useState([]); 
 
+
+const openModal = () => {
+  setIsOpen(true);
+};
+
+const closeModal = () => {
+  setIsOpen(false);
+};
+
+
 const fetchOrderData = async () => {
-  const response = await AxiosApi.getOrderList(userEmail);
+  const response = await AxiosApi.getOrderList(email);
   if (response.status === 200) {
     console.log(response.data);
     setOrderData(response.data);
@@ -165,12 +185,12 @@ useEffect(() => {
       key: 'paymentAmount',
     },
     {
-      title: '취소하기',
+      title: '교환/반품',
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => ( // 이 함수가 IconButton을 반환
       <IconButton aria-label="delete" >
-        <Delete/>
+        <Delete onClick={openModal}/>
       </IconButton>
     )
     },
@@ -206,6 +226,17 @@ useEffect(() => {
                     columns={columns}
                     dataSource={data} />
                
+
+
+               <Modal isOpen={isOpen} onClose={closeModal}>
+       
+       <p>페이지 우측 하단 채널톡에 문의하세요!</p>
+        <div className="btnWrapper">
+       <button className="modalBtn"  onClick={() => {  closeModal(); }}>닫기</button>
+       
+        
+       </div>
+     </Modal>
           </TableContainer>
           </ContentContainer>
           </LayoutContainer>
