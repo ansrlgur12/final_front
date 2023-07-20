@@ -114,10 +114,10 @@ export const Section1 = styled.div`
             object-position: center;
         }
         .mainText {
-            margin-left: 5vw;
-            margin-top: 5vh;
+            margin-left: 3vw;
+            margin-top: 7vh;
             z-index: 1;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
             position: absolute;
             transform: translate(-50%, -50%);
@@ -125,10 +125,10 @@ export const Section1 = styled.div`
             transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
         } 
         .mainText2 {
-            margin-left: 5vw;
+            margin-left: 10vw;
             margin-top: 5vh;
             z-index: 1;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: rgb(186, 210, 170);
             font-weight: bold;
             position: absolute;
@@ -138,16 +138,16 @@ export const Section1 = styled.div`
             transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
         }
         .mainText3 {
-            margin-left: 5vw;
+            margin-left: 1vw;
             margin-top: 5vh;
             z-index: 1;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: rgb(210, 213, 158);
             font-weight: bold;
             position: absolute;
             transform: translate(-50%, -50%);
             opacity: 0; /* 초기에 텍스트를 숨김 */
-            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6); /* 테두리 색과 크기 설정 */
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); /* 테두리 색과 크기 설정 */
             transition: opacity 0.6s ease, top 0.6s ease-in; /* 애니메이션 효과 설정 */
         }
         .show {
