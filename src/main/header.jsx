@@ -266,13 +266,11 @@ const Header = () =>{
                     </div>
                     <div className="headerRight">
                         <SearchBox />
-                        {userImg ? (
-                          <div className="userImg" style={profileImg}></div>
-                        ) : (
+                       
                             <IconButton aria-label="account" onClick={handleMyPageClick}>
                             <AccountCircleRounded/>
                         </IconButton>
-                        )}
+                      
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
                         <ShoppingCartRounded />
