@@ -5,14 +5,16 @@ export const CAMO_DOMAIN = "http://localhost:8111";
 const ReviewApi = {
 
   //리뷰 생성
-  createReview: async (token, title, content, date, postType, viewCount, img) => {
+  createReview: async (token, title, content, date, postType, viewCount, img, userImg, nickName) => {
     const review = {
       title: title,
       content: content,
       date: date,
       postType: postType,
       viewCount: viewCount,
-      img: img
+      img: img,
+      userImg: userImg,
+      nickName: nickName
     };
 
     try {
@@ -28,7 +30,7 @@ const ReviewApi = {
   },
 
   //리뷰 수정
-  updateReview: async (token, id, title, content, date, postType, viewCount, img) => {
+  updateReview: async (token, id, title, content, date, postType, viewCount, img, userImg, nickName) => {
     const reviewDto = {
       id: id,
       title: title,
@@ -36,7 +38,9 @@ const ReviewApi = {
       date: date,
       postType: postType,
       viewCount: viewCount,
-      img: img
+      img: img,
+      userImg: userImg,
+      nickName: nickName
     };
 
     try {

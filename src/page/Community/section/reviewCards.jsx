@@ -42,16 +42,26 @@ const ResponsiveImage = styled.img`
     height: 10vh;
   }
 `;
+
 const ReviewContent = styled(Card)`
   width: 300px;
   margin: 0 auto;
   margin-bottom: 40px;
   border: 1px solid #DDDDDD;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  // 기본 상태에서의 그림자 효과
+  transition: box-shadow 0.3s ease, transform 0.3s ease;  // 그림자와 변환 효과에 대한 전환 효과 적용
+  
+  &:hover {
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);  // 마우스 호버 상태에서의 그림자 효과
+    transform: translateY(-10px);  // 마우스 호버 상태에서 카드를 약간 위로 이동
+  }
+
   @media screen and (max-width:768px) {
     width:42vw;
     height: 31vh;
   }
 `;
+
 
 const WriteButton = styled(Link)`
   position: absolute;
@@ -84,10 +94,9 @@ const PaginationWrapper = styled.div`
 
 const ReviewCards = () => {
   const token = Functions.getAccessToken();
-  const { nickName, userImg } = useContext(UserContext);
-
   const [reviews, setReviews] = useState([]);
   const [likesCount, setLikesCount] = useState({});
+  const { nickName, userImg } = useContext(UserContext);
 
   const heart = () => {
     message.success('좋아요 갯수가 현재 리뷰에 몇개가 있는지 알수있는 아이콘입니다.');
@@ -101,9 +110,9 @@ const ReviewCards = () => {
     const fetchReviews = async () => {
       try {
         const response = await ReviewApi.getAllReviews(token);
-        console.log(response.data);
         const reviewData = response.data;
         setReviews(reviewData);
+        console.log(reviewData);
   
         let likesCountData = {};
         for (let review of reviewData) {
@@ -117,7 +126,7 @@ const ReviewCards = () => {
     };
   
     fetchReviews();
-  }, []);
+  }, [token]);
 
 
 
@@ -126,7 +135,7 @@ const ReviewCards = () => {
       if (review.postType !== 1) {
         return null; // postType이 1이 아닌 경우, 리뷰 카드를 렌더링하지 않음
       }
-
+      
       return (
         <Col xs={12} md={6}  key={index}>
           <ReviewContent
@@ -145,9 +154,9 @@ const ReviewCards = () => {
             ]}
           >
             <ResponsiveMeta
-              avatar={<Avatar src={userImg} />}
+              avatar={<Avatar src={review.userImg} />}
               title={review.title}
-              description={`작성자: ${nickName}`} 
+              description={`작성자: ${review.nickName}`} 
             />
             
           </ReviewContent>
@@ -167,7 +176,7 @@ const ReviewCards = () => {
     <SelectButton />
     <Layout>
       < ResponsiveContent >
-        <WriteButton to="/writeReviewPage">작성하기<EditOutlined style={{ marginLeft: '2px'}} /></WriteButton>
+        <WriteButton to="/writeReviewPage" style={{backgroundColor: '#2D6247', color: 'white', borderColor: 'white'}}>작성하기<EditOutlined style={{ marginLeft: '2px'}} /></WriteButton>
         <Row gutter={[10, 15]}>
           {reviews.length > 0 ? renderReviewCards() : <p>리뷰가 없습니다.</p>}
         </Row>
