@@ -10,6 +10,8 @@ import AxiosApi from "../../API/TestAxios";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../util/modal";
 import { UserContext } from "../../API/UserInfo";
+import { Link } from 'react-router-dom';
+import FindAccount from "./findAccount";
 
 const LoginStyle = styled.div`
     box-sizing: border-box;
@@ -212,23 +214,25 @@ const SignUpStyle = styled.div`
         right: -100%;
     }
 `;
-// const SignUpStyle = styled.div`
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
+const AccountStyle = styled.div`
+    position: absolute;
+    top: 46%;
+    right: -100%;
+    transform: translateY(-50%);
+    /* transition: right 0.6s ease-in-out; */
 
-//     &.showSign {
-//         display: inline-block;
-//     }
+    &.showAccount {
+        right: 5%;
+    }
 
-//     &.cutSign{
-//         display: none;
-//     }
-// `;
+    &.cutAccount{
+        right: -100%;
+    }
+`;
 
 const Login = () => {
     const [showSign, setShowSign] = useState(false);
+    const [showAccount, setShowAccount] = useState(false);
     const nav = useNavigate();
     const logo = {
         backgroundImage : `url(${introLogo})`,
@@ -274,13 +278,17 @@ const Login = () => {
     const[modalOpen, setModalOpen] = useState(false);
     const[loginFinishOpen, setLoginFinishOpen] = useState(false);
 
-  
+
     const closeModal = () => {
         setModalOpen(false);
     }
 
     const signBtnClick = () => {
         setShowSign(true);
+    };
+
+    const accountBtn = () => {
+        setShowAccount(true);
     };
 
     const onClickLogin = async() => {
@@ -319,7 +327,7 @@ const Login = () => {
             setIsEmail(true);
         }
     };
-    
+
     const onChangePw = (e) => {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/
         const passwordCurrent = e.target.value;
@@ -344,14 +352,14 @@ const Login = () => {
                         <input type="password" onChange={onChangePw} placeholder="비밀번호" className="loginInput" onKeyPress={onKeyPress}/>
                     </div>
                     <div>
-                        {(isEmail && isPw) ? 
+                        {(isEmail && isPw) ?
                         <div className="loginButton" onClick={onClickLogin}>로그인</div> :
                         <div className="notLoginButton">로그인</div> }
                     </div>
                     <Modal open={modalOpen} confirm={closeModal} justConfirm = {true} header = {"오류"}>계정을 다시 확인해 주세요.</Modal>
                     <Modal open={loginFinishOpen} confirm={()=>nav("/")} justConfirm = {true} header={"환영합니다."}>로그인에 성공했습니다.</Modal>
                     <div className="other">
-                        <div className="other1">계정찾기</div>
+                        <div className="other1" onClick={accountBtn}>계정찾기</div>
                         <div className="other2" onClick={signBtnClick}>회원가입</div>
                     </div>
                     <div className="snsLogin">
@@ -363,6 +371,9 @@ const Login = () => {
                 <SignUpStyle className={showSign ? "showSign" : "cutSign"}>
                     {showSign && <SignUpPage />}
                 </SignUpStyle>
+                <AccountStyle className={showAccount ? "showAccount" : "cutAccount"}>
+                    {showAccount && <FindAccount />}
+                </AccountStyle>
         </LoginStyle>
     );
 }
