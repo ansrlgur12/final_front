@@ -48,6 +48,17 @@ memberReg : async(nickName, email, password, agreed) => {
 
 },
 
+//임시 비밀번호 전송 (여기부터 시작)
+newPassEmail : async(email) => {
+        try {
+          return await axios.get(domain + `/auth/password/${email}`, {
+
+          });
+        } catch (error) {
+          throw error;
+        }
+      },
+
 
 // 캠핑데이터 오버레이 띄우기
     getOverlayInfo : async(xValue, yValue) => {

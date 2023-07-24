@@ -95,7 +95,7 @@ const MyReview = () => {
             <Link to={`/reviewDetail/${post.id}`}>
               <img
                 alt="대표이미지"
-                src={camping}
+                src={post.img}
                 style={{ width: '100%', height: '200px', objectFit: 'cover' }}
               />
             </Link>
