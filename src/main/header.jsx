@@ -14,6 +14,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Commons/Modal";
 import Functions from "../Functions";
 import "../font.css";
+import AxiosApi from "../API/TestAxios";
 
 const HeaderStyle = styled.div`
     font-family: 'GongGothicMedium';
@@ -162,13 +163,27 @@ const Header = () =>{
     const context = useContext(MarkerContext);
     const {setCurrentData, setMarkerLat, setMarkerLng, setZoomLev, setOverlayOpen} = context;
     const userInfo = useContext(UserContext);
-    const { userImg} = userInfo;
     const itemsCount = cart.reduce((accum, item) => accum + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [hamburgerClicked, setHamburgerClicked] = useState(false);
     //const {setUserEmail, setPassword, setIsLogin, IsLogin} = userInfo;
     //const itemsCount = cart.reduce((count, item) => count + item.quantity, 0); // 장바구니에 있는 모든 항목의 개수를 계산합니다
     const [isOpen, setIsOpen] = useState(false);
     const [isLogoutModal, setIsLogoutModal] = useState(false);
+    const [userImg, setUserImg] = useState('');
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+          try {
+            const response = await AxiosApi.userInfoMe(token);
+            console.log(response)
+            setUserImg(response.data.userImg);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        getUserInfo();
+    }, [token]); 
    
     const handleMyPageClick = () => {
         if (!token) {
@@ -265,9 +280,21 @@ const Header = () =>{
                     <div className="headerRight">
                         <SearchBox />
                        
-                            <IconButton aria-label="account" onClick={handleMyPageClick}>
-                            <AccountCircleRounded/>
-                        </IconButton>
+                        <IconButton 
+                            aria-label="account" 
+                              onClick={handleMyPageClick} 
+                                         style={{
+                                       backgroundImage: `url(${userImg})`,
+                             backgroundSize: 'cover',
+                                         backgroundRepeat: 'no-repeat',
+                             backgroundPosition: 'center',
+                                width: '30px',  // 이 값을 변경하여 아이콘 크기 조절
+                                height: '30px', // 이 값을 변경하여 아이콘 크기 조절
+                            borderRadius: '50%',  // 아이콘 모서리를 둥글게 만듭니다.
+    }}
+/>
+
+
                       
                         <IconButton aria-label="cart" onClick={handleCartClick} >
                         <Badge badgeContent={itemsCount} color="success" >
