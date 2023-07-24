@@ -97,7 +97,7 @@ const ReviewButton = styled.button`
 const ReviewDetail = () => {
   const token = Functions.getAccessToken();
   const [review, setReview] = useState(null);
-  const [liked, setLiked] = useState(null);
+  const [liked, setLiked] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { id } = useParams();
 

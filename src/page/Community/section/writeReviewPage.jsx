@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Button, Modal, Layout, Input, Select } from 'antd';
@@ -8,6 +8,7 @@ import Header from '../../../main/header';
 import { Link } from 'react-router-dom';
 import { storage } from '../../../firebase/firebaseConfig';
 import Functions from '../../../Functions';
+import AxiosApi from '../../../API/TestAxios';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -74,15 +75,35 @@ const WriteReviewPage = () => {
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState(null);
+  const [userImg, setUserImg] = useState('');
+  const [nickName, setNickName] = useState('');
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const response = await AxiosApi.userInfoMe(token);
+        console.log(response)
+        setUserImg(response.data.userImg);
+        setNickName(response.data.nickName);
+      } catch (error) {
+        console.log(error);
+      
+    }
+  };
+
+  getUserInfo();
+}, [token]); 
+  
 
   const handleSubmit = async () => {
     try {
+      
       const content = data;
       const date = new Date().toISOString();
       const viewCount = 0;
       const img = image ? await uploadImage(image) : null;
-
-      await ReviewApi.createReview(token, title, content, date, postType, viewCount, img);
+      
+      await ReviewApi.createReview(token, title, content, date, postType, viewCount, img, userImg, nickName);
 
       setModalVisible(true);
     } catch (error) {
@@ -161,7 +182,7 @@ const WriteReviewPage = () => {
   }}
   onChange={(event, editor) => {
     let data = editor.getData();
-    data = data.replace(/<\/?p>/g, ''); // Add this line
+    data = data.replace(/<\/?p>/g, ''); 
     console.log({ event, editor, data });
     setData(data);
   }}
@@ -174,7 +195,7 @@ const WriteReviewPage = () => {
             <Link to="/community">확인</Link>
           </Modal>
         </ReviewContainer>
-        <Button onClick={handleSubmit}>작성하기</Button>
+        <Button onClick={handleSubmit} style={{backgroundColor: '#2D6247', color: 'white', borderColor: 'white'}}>작성하기</Button>
       </Content>
     </Layout>
   );

@@ -91,6 +91,21 @@ memberReg : async(nickName, email, password, agreed) => {
         }
         return await axios.get(domain + "/api/v1/intro/nickName", check);
     },
+
+    // 사용자 ID를 이용해서 회원 정보를 조회 
+    userInfoMe : async(token)=> {
+        try {
+            return await axios.get(domain + "/api/v1/intro/me", {
+              headers: {
+              'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token
+             }
+         });
+        } catch (error) {
+          throw error;
+         }
+        },
+
     // 회원 정보 조회
     userInfo : async(token)=> {
          try {
