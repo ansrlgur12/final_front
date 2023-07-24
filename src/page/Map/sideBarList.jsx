@@ -122,7 +122,7 @@ const SideBarList = (props) => {
             const getAnimalList = async() => {
                 const rsp = await AxiosApi.getAnimalCampData(dho, sigungu);
                 setCampListData(rsp.data);
-                setCurrentPage(0);
+                setCurrentPage(1);
                 console.log(rsp.data)
             }
             getAnimalList();
@@ -152,7 +152,7 @@ const SideBarList = (props) => {
         if(change === 1) {
             console.log(searchValue)
             const searchCamp = async() => {
-                const rsp = await AxiosApi.searchCampData(searchValue, currentData);
+                const rsp = await AxiosApi.searchCampData(searchValue, currentData, currentPage, pageSize);
                 setCampListData(rsp.data);
                 console.log(rsp.data);
                 setCurrentPage(0);
